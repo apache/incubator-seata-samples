@@ -14,11 +14,11 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.dubbo.impl;
+package com.alibaba.fescar.samples.dubbo.service.impl;
 
 import com.alibaba.fescar.core.context.RootContext;
 import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
-import com.alibaba.fescar.samples.dubbo.StorageService;
+import com.alibaba.fescar.samples.dubbo.service.StorageService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,18 +58,4 @@ public class StorageServiceImpl implements StorageService {
 
     }
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            new String[] {"dubbo-storage-service.xml"});
-        context.getBean("service");
-        JdbcTemplate jdbcTemplate = (JdbcTemplate)context.getBean("jdbcTemplate");
-        jdbcTemplate.update("delete from storage_tbl where commodity_code = 'C00321'");
-        jdbcTemplate.update("insert into storage_tbl(commodity_code, count) values ('C00321', 100)");
-        new ApplicationKeeper(context).keep();
-    }
 }

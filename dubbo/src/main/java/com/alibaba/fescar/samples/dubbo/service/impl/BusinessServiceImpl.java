@@ -14,13 +14,13 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.dubbo.impl;
+package com.alibaba.fescar.samples.dubbo.service.impl;
 
 import com.alibaba.fescar.core.context.RootContext;
 import com.alibaba.fescar.spring.annotation.GlobalTransactional;
-import com.alibaba.fescar.samples.dubbo.BusinessService;
-import com.alibaba.fescar.samples.dubbo.OrderService;
-import com.alibaba.fescar.samples.dubbo.StorageService;
+import com.alibaba.fescar.samples.dubbo.service.BusinessService;
+import com.alibaba.fescar.samples.dubbo.service.OrderService;
+import com.alibaba.fescar.samples.dubbo.service.StorageService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,15 +67,4 @@ public class BusinessServiceImpl implements BusinessService {
         this.orderService = orderService;
     }
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            new String[] {"dubbo-business.xml"});
-        final BusinessService business = (BusinessService)context.getBean("business");
-        business.purchase("U100001", "C00321", 2);
-    }
 }

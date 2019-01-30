@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.dubbo;
+package com.alibaba.fescar.samples.dubbo.service;
 
 /**
  * The interface Storage service.
