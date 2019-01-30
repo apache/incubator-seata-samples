@@ -17,7 +17,7 @@
 package com.alibaba.fescar.samples.springboot.web;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.alibaba.fescar.samples.springboot.dubbo.AssetService;
+import com.alibaba.fescar.samples.springboot.service.AssetService;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
