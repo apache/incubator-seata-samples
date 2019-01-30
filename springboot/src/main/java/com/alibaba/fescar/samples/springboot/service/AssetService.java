@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.springboot.dubbo;
+package com.alibaba.fescar.samples.springboot.service;
 
 public interface AssetService {
 

@@ -35,7 +35,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDubboConfiguration
 @EnableTransactionManagement
-@ComponentScan({ "com.alibaba.fescar.demo" })
 public class FescarSpringbootApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FescarSpringbootApp.class);
 

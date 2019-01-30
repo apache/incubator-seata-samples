@@ -38,7 +38,7 @@ public class AssignServiceImpl implements AssignService {
 	private AssignRepository assignRepository;
 
 	@Reference(check = false)
-    private com.alibaba.fescar.samples.springboot.dubbo.AssetService AssetService;
+    private com.alibaba.fescar.samples.springboot.service.AssetService AssetService;
 
 	@Override
 	@Transactional
