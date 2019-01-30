@@ -14,17 +14,17 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.tm.dubbo.impl;
+package com.alibaba.fescar.samples.dubbo.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.alibaba.fescar.core.context.RootContext;
-import com.alibaba.fescar.samples.common.ApplicationKeeper;
-import com.alibaba.fescar.tm.dubbo.AccountService;
-import com.alibaba.fescar.tm.dubbo.Order;
-import com.alibaba.fescar.tm.dubbo.OrderService;
+import com.alibaba.fescar.samples.dubbo.AccountService;
+import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
+import com.alibaba.fescar.samples.dubbo.Order;
+import com.alibaba.fescar.samples.dubbo.OrderService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -14,18 +14,19 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.tm.dubbo;
+package com.alibaba.fescar.samples.dubbo;
 
 /**
- * The interface Account service.
+ * The interface Business service.
  */
-public interface AccountService {
+public interface BusinessService {
 
     /**
-     * 余额扣款
+     * 用户订购商品
      *
-     * @param userId 用户ID
-     * @param money  扣款金额
+     * @param userId        用户ID
+     * @param commodityCode 商品编号
+     * @param orderCount    订购数量
      */
-    void debit(String userId, int money);
+    void purchase(String userId, String commodityCode, int orderCount);
 }

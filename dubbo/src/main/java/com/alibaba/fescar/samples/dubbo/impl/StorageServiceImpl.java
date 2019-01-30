@@ -14,11 +14,11 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.tm.dubbo.impl;
+package com.alibaba.fescar.samples.dubbo.impl;
 
 import com.alibaba.fescar.core.context.RootContext;
-import com.alibaba.fescar.samples.common.ApplicationKeeper;
-import com.alibaba.fescar.tm.dubbo.StorageService;
+import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
+import com.alibaba.fescar.samples.dubbo.StorageService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

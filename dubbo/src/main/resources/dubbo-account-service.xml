@@ -61,9 +61,9 @@
     <!--support nacos-->
     <!-- <dubbo:registry address="nacos://127.0.0.1:8848"/> -->
     <dubbo:protocol name="dubbo" port="20881" />
-    <dubbo:service interface="com.alibaba.fescar.tm.dubbo.AccountService" ref="service" timeout="10000"/>
+    <dubbo:service interface="com.alibaba.fescar.samples.dubbo.AccountService" ref="service" timeout="10000"/>
 
-    <bean id="service" class="com.alibaba.fescar.tm.dubbo.impl.AccountServiceImpl">
+    <bean id="service" class="com.alibaba.fescar.samples.dubbo.impl.AccountServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 

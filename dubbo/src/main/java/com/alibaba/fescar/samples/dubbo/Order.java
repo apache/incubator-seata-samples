@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.tm.dubbo;
+package com.alibaba.fescar.samples.dubbo;
 
 import java.io.Serializable;
 

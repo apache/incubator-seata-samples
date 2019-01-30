@@ -60,11 +60,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
