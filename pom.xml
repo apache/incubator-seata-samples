@@ -53,6 +53,7 @@
         <testng.version>6.4</testng.version>
         <fescar.version>0.1.3</fescar.version>
         <spring.version>5.1.3.RELEASE</spring.version>
+        <curator.version>4.1.0</curator.version>
     </properties>
     <modules>
         <module>dubbo</module>
@@ -194,6 +195,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
             </dependency>
         </dependencies>
 
