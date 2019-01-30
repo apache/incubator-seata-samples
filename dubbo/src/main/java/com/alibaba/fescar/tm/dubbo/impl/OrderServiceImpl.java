@@ -21,7 +21,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.alibaba.fescar.core.context.RootContext;
-import com.alibaba.fescar.test.common.ApplicationKeeper;
+import com.alibaba.fescar.samples.common.ApplicationKeeper;
 import com.alibaba.fescar.tm.dubbo.AccountService;
 import com.alibaba.fescar.tm.dubbo.Order;
 import com.alibaba.fescar.tm.dubbo.OrderService;
