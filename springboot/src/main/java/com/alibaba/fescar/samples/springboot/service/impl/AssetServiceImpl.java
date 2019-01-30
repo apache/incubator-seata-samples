@@ -14,13 +14,13 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.springboot.dubbo.impl;
+package com.alibaba.fescar.samples.springboot.service.impl;
 
 import java.math.BigDecimal;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fescar.core.context.RootContext;
-import com.alibaba.fescar.samples.springboot.dubbo.AssetService;
+import com.alibaba.fescar.samples.springboot.service.AssetService;
 import com.alibaba.fescar.samples.springboot.sys.domain.Asset;
 import com.alibaba.fescar.samples.springboot.sys.repository.AssetRepository;
 
