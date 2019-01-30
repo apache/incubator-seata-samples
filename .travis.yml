@@ -1,0 +1,11 @@
+language: java
+sudo: false
+
+jdk:
+  - openjdk11
+  - openjdk8
+
+install: true
+
+script:
+  - mvn clean install
