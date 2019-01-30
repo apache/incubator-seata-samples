@@ -65,11 +65,11 @@
     <!--support nacos-->
     <!-- <dubbo:registry address="nacos://127.0.0.1:8848"/> -->
     <dubbo:protocol name="dubbo" port="20883"/>
-    <dubbo:service interface="com.alibaba.fescar.tm.dubbo.OrderService" ref="service" timeout="10000"/>
+    <dubbo:service interface="com.alibaba.fescar.samples.dubbo.OrderService" ref="service" timeout="10000"/>
 
-    <dubbo:reference id="accountService" check="false" interface="com.alibaba.fescar.tm.dubbo.AccountService"/>
+    <dubbo:reference id="accountService" check="false" interface="com.alibaba.fescar.samples.dubbo.AccountService"/>
 
-    <bean id="service" class="com.alibaba.fescar.tm.dubbo.impl.OrderServiceImpl">
+    <bean id="service" class="com.alibaba.fescar.samples.dubbo.impl.OrderServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
         <property name="accountService" ref="accountService"/>
     </bean>

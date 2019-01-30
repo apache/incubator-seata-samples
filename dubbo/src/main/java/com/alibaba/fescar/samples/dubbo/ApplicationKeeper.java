@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.common;
+package com.alibaba.fescar.samples.dubbo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
