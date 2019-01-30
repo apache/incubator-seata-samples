@@ -1,7 +1,15 @@
-# fescar-samples
+# Fescar Samples
 
-Samples for fescar (incubating)
+Samples for fescar (incubating). This project contains several sub-projects, each of which is an example of integration with other projects.
+                                
+[![Build Status](https://travis-ci.org/fescar-group/fescar-samples.svg?branch=master)](https://travis-ci.org/fescar-group/fescar-samples) 
+![license](https://img.shields.io/github/license/fescar-group/fescar-samples.svg)
 
-This repository contains a number of projects to illustrate various usages of fescar from basic to advanced, check README in each individual sub projects.
+## Related repository
 
-Pls. cross reference to [fescar](https://github.com/alibaba/fescar) for the details.
+* [fescar](https://github.com/alibaba/fescar) - The fescar core project
+
+## Sub-projects
+
+* [dubbo](https://github.com/fescar-group/fescar-samples/tree/master/dubbo) - Integration example of [Fescar](https://github.com/alibaba/fescar) and [Apache Dubbo](https://github.com/apache/incubator-dubbo)
+* [springboot](https://github.com/fescar-group/fescar-samples/tree/master/springboot) - Integration example of [Fescar](https://github.com/alibaba/fescar) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
