@@ -14,17 +14,17 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.dubbo.impl;
+package com.alibaba.fescar.samples.dubbo.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.alibaba.fescar.core.context.RootContext;
-import com.alibaba.fescar.samples.dubbo.AccountService;
+import com.alibaba.fescar.samples.dubbo.service.AccountService;
 import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
 import com.alibaba.fescar.samples.dubbo.Order;
-import com.alibaba.fescar.samples.dubbo.OrderService;
+import com.alibaba.fescar.samples.dubbo.service.OrderService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,15 +112,4 @@ public class OrderServiceImpl implements OrderService {
         return 200 * orderCount;
     }
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"dubbo-order-service.xml"});
-        context.getBean("service");
-        new ApplicationKeeper(context).keep();
-    }
 }

@@ -14,18 +14,21 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.dubbo;
+package com.alibaba.fescar.samples.dubbo.service;
+
+import com.alibaba.fescar.samples.dubbo.Order;
 
 /**
- * The interface Account service.
+ * The interface Order service.
  */
-public interface AccountService {
-
+public interface OrderService {
     /**
-     * 余额扣款
+     * 创建订单
      *
-     * @param userId 用户ID
-     * @param money  扣款金额
+     * @param userId        用户ID
+     * @param commodityCode 商品编号
+     * @param orderCount    订购数量
+     * @return 生成的订单 order
      */
-    void debit(String userId, int money);
+    Order create(String userId, String commodityCode, int orderCount);
 }

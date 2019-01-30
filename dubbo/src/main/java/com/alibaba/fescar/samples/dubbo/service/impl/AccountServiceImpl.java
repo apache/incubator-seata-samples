@@ -14,10 +14,10 @@
  *  limitations under the License.
  */
 
-package com.alibaba.fescar.samples.dubbo.impl;
+package com.alibaba.fescar.samples.dubbo.service.impl;
 
 import com.alibaba.fescar.core.context.RootContext;
-import com.alibaba.fescar.samples.dubbo.AccountService;
+import com.alibaba.fescar.samples.dubbo.service.AccountService;
 import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
 
 import org.slf4j.Logger;
@@ -53,20 +53,5 @@ public class AccountServiceImpl implements AccountService {
 
         jdbcTemplate.update("update account_tbl set money = money - ? where user_id = ?", new Object[] {money, userId});
         LOGGER.info("Account Service End ... ");
-    }
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"dubbo-account-service.xml"});
-        context.getBean("service");
-        JdbcTemplate jdbcTemplate = (JdbcTemplate) context.getBean("jdbcTemplate");
-        jdbcTemplate.update("delete from account_tbl where user_id = 'U100001'");
-        jdbcTemplate.update("insert into account_tbl(user_id, money) values ('U100001', 999)");
-
-        new ApplicationKeeper(context).keep();
     }
 }

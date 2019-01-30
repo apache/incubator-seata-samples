@@ -66,7 +66,6 @@
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
-				<version>1.2.49</version>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba</groupId>
@@ -103,6 +102,14 @@
 				<artifactId>fescar-dubbo</artifactId>
 				<version>${fescar.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-framework</artifactId>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-recipes</artifactId>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -115,10 +122,6 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
 		</dependency>
 
 		<!-- logback -->
@@ -170,6 +173,10 @@
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>dubbo</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
