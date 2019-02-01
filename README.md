@@ -1,3 +1,5 @@
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/fescar.png"  height="330" width="100">
+
 # Fescar Samples
 
 Samples for fescar (incubating). This project contains several sub-projects, each of which is an example of integration with other projects.
