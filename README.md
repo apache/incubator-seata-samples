@@ -1,4 +1,4 @@
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/fescar.png"  height="330" width="100">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/fescar.png"  height="330" width="300">
 
 # Fescar Samples
 
