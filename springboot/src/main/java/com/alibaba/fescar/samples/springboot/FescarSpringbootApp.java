@@ -25,12 +25,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * @Description
+ * The type Fescar springboot app.
+ *
  * @author 张国豪
+ * @Description
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDubboConfiguration
@@ -38,7 +39,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class FescarSpringbootApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FescarSpringbootApp.class);
 
-	public static void main(String[] args) {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
+    public static void main(String[] args) {
 		LOGGER.debug("springboot project with fescar starting...");
 		ConfigurableApplicationContext context = new SpringApplication(FescarSpringbootApp.class).run(args);
 

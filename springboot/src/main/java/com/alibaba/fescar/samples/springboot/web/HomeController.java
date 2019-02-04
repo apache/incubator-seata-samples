@@ -23,15 +23,26 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * The type Home controller.
+ */
 @Controller
 @RequestMapping
 public class HomeController {
 	@Reference(check = false)
 	private AssetService helloService;
 
+	/**
+	 * The Port.
+	 */
 	@Value("${server.port}")
 	String port;
 
+	/**
+	 * Home string.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(value = "/home")
 	public String home() {
 		System.out.println("redirect to home page!");

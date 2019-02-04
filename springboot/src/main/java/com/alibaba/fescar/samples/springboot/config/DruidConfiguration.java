@@ -31,6 +31,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+/**
+ * The type Druid configuration.
+ */
 @Configuration
 public class DruidConfiguration {
 
@@ -40,6 +43,11 @@ public class DruidConfiguration {
 	@Value("${spring.datasource.druid.password}")
 	private String druidPassword;
 
+	/**
+	 * Druid data source druid data source.
+	 *
+	 * @return the druid data source
+	 */
 	@Bean(destroyMethod = "close", initMethod = "init")
 	@ConfigurationProperties(prefix = "spring.datasource")
 	public DruidDataSource druidDataSource() {
@@ -47,6 +55,12 @@ public class DruidConfiguration {
 		return druidDataSource;
 	}
 
+	/**
+	 * Data source data source.
+	 *
+	 * @param druidDataSource the druid data source
+	 * @return the data source
+	 */
 	@ConfigurationProperties(prefix = "spring.datasource")
 	@Primary
 	@Bean("dataSource")
@@ -57,13 +71,13 @@ public class DruidConfiguration {
 
 	/**
 	 * 注册一个StatViewServlet
-	 * 
-	 * @return
+	 *
+	 * @return servlet registration bean
 	 */
 	@Bean
 	public ServletRegistrationBean<StatViewServlet> druidStatViewServlet() {
 		ServletRegistrationBean<StatViewServlet> servletRegistrationBean = new ServletRegistrationBean<StatViewServlet>(
-				new StatViewServlet(), "/druid/*");
+			new StatViewServlet(), "/druid/*");
 
 		servletRegistrationBean.addInitParameter("loginUsername", druidUser);
 		servletRegistrationBean.addInitParameter("loginPassword", druidPassword);
@@ -73,14 +87,14 @@ public class DruidConfiguration {
 
 	/**
 	 * 注册一个：filterRegistrationBean
-	 * 
-	 * @return
+	 *
+	 * @return filter registration bean
 	 */
 	@Bean
 	public FilterRegistrationBean<WebStatFilter> druidStatFilter() {
 
 		FilterRegistrationBean<WebStatFilter> filterRegistrationBean = new FilterRegistrationBean<WebStatFilter>(
-				new WebStatFilter());
+			new WebStatFilter());
 
 		// 添加过滤规则.
 		filterRegistrationBean.addUrlPatterns("/*");

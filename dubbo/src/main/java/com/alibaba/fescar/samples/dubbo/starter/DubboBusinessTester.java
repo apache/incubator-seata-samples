@@ -20,6 +20,9 @@ import com.alibaba.fescar.samples.dubbo.service.BusinessService;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * The type Dubbo business tester.
+ */
 public class DubboBusinessTester {
     /**
      * The entry point of application.

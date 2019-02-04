@@ -21,9 +21,14 @@ import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/**
+ * The type Dubbo account service starter.
+ */
 public class DubboAccountServiceStarter {
     /**
      * 2. Account service is ready . A buyer register an account: U100001 on my e-commerce platform
+     *
+     * @param args the input arguments
      */
     public static void main(String[] args) {
         ClassPathXmlApplicationContext accountContext = new ClassPathXmlApplicationContext(new String[]{"spring/dubbo-account-service.xml"});

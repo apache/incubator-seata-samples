@@ -29,7 +29,6 @@ import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the t_asset_assign database table.
- * 
  */
 @Entity
 @Table(name = "t_asset_assign")
@@ -63,66 +62,146 @@ public class AssetAssign implements Serializable {
 	@Column(name = "update_user")
 	private String updateUser;
 
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets asset id.
+	 *
+	 * @return the asset id
+	 */
 	public String getAssetId() {
 		return assetId;
 	}
 
+	/**
+	 * Sets asset id.
+	 *
+	 * @param assetId the asset id
+	 */
 	public void setAssetId(String assetId) {
 		this.assetId = assetId;
 	}
 
+	/**
+	 * Gets create time.
+	 *
+	 * @return the create time
+	 */
 	public Date getCreateTime() {
 		return createTime;
 	}
 
+	/**
+	 * Sets create time.
+	 *
+	 * @param createTime the create time
+	 */
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
+	/**
+	 * Gets create user.
+	 *
+	 * @return the create user
+	 */
 	public String getCreateUser() {
 		return createUser;
 	}
 
+	/**
+	 * Sets create user.
+	 *
+	 * @param createUser the create user
+	 */
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
 	}
 
+	/**
+	 * Gets desc.
+	 *
+	 * @return the desc
+	 */
 	public String getDesc() {
 		return desc;
 	}
 
+	/**
+	 * Sets desc.
+	 *
+	 * @param desc the desc
+	 */
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
 
+	/**
+	 * Gets status.
+	 *
+	 * @return the status
+	 */
 	public String getStatus() {
 		return status;
 	}
 
+	/**
+	 * Sets status.
+	 *
+	 * @param status the status
+	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
+	/**
+	 * Gets update time.
+	 *
+	 * @return the update time
+	 */
 	public Date getUpdateTime() {
 		return updateTime;
 	}
 
+	/**
+	 * Sets update time.
+	 *
+	 * @param updateTime the update time
+	 */
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
+	/**
+	 * Gets update user.
+	 *
+	 * @return the update user
+	 */
 	public String getUpdateUser() {
 		return updateUser;
 	}
 
+	/**
+	 * Sets update user.
+	 *
+	 * @param updateUser the update user
+	 */
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
