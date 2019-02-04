@@ -21,9 +21,14 @@ import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/**
+ * The type Dubbo storage service starter.
+ */
 public class DubboStorageServiceStarter {
     /**
      * 1. Storage service is ready . A seller add 100 storage to a sku: C00321
+     *
+     * @param args the input arguments
      */
     public static void main(String[] args) {
         ClassPathXmlApplicationContext storageContext = new ClassPathXmlApplicationContext(

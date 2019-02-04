@@ -22,6 +22,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * The interface Asset repository.
+ */
 @Repository
 public interface AssetRepository extends PagingAndSortingRepository<Asset, String>, JpaSpecificationExecutor<Asset> {
 }

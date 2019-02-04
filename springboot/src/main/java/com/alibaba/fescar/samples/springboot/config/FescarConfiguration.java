@@ -22,6 +22,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * The type Fescar configuration.
+ */
 @Configuration
 public class FescarConfiguration {
 
@@ -30,8 +33,8 @@ public class FescarConfiguration {
 
 	/**
 	 * 注册一个StatViewServlet
-	 * 
-	 * @return
+	 *
+	 * @return global transaction scanner
 	 */
 	@Bean
 	public GlobalTransactionScanner globalTransactionScanner() {

@@ -30,6 +30,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Assign service.
+ */
 @Service
 public class AssignServiceImpl implements AssignService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssignServiceImpl.class);
@@ -38,7 +41,7 @@ public class AssignServiceImpl implements AssignService {
 	private AssignRepository assignRepository;
 
 	@Reference(check = false)
-    private com.alibaba.fescar.samples.springboot.service.AssetService AssetService;
+	private com.alibaba.fescar.samples.springboot.service.AssetService AssetService;
 
 	@Override
 	@Transactional

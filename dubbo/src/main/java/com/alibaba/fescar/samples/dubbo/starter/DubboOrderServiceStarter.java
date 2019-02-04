@@ -20,7 +20,15 @@ import com.alibaba.fescar.samples.dubbo.ApplicationKeeper;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * The type Dubbo order service starter.
+ */
 public class DubboOrderServiceStarter {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         /**
          *  3. Order service is ready . Waiting for buyers to order

@@ -16,7 +16,15 @@
 
 package com.alibaba.fescar.samples.springboot.service;
 
+/**
+ * The interface Asset service.
+ */
 public interface AssetService {
 
-	public int increase();
+    /**
+     * Increase int.
+     *
+     * @return the int
+     */
+    public int increase();
 }

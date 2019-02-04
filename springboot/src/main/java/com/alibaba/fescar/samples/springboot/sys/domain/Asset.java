@@ -27,7 +27,6 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the t_asset database table.
- * 
  */
 @Entity
 @Table(name = "t_asset")
@@ -43,26 +42,56 @@ public class Asset implements Serializable {
 	@Column(name = "voucher_code")
 	private String voucherCode;
 
+	/**
+	 * Gets id.
+	 *
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * Sets id.
+	 *
+	 * @param id the id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * Gets amount.
+	 *
+	 * @return the amount
+	 */
 	public BigDecimal getAmount() {
 		return amount;
 	}
 
+	/**
+	 * Sets amount.
+	 *
+	 * @param amount the amount
+	 */
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * Gets voucher code.
+	 *
+	 * @return the voucher code
+	 */
 	public String getVoucherCode() {
 		return voucherCode;
 	}
 
+	/**
+	 * Sets voucher code.
+	 *
+	 * @param voucherCode the voucher code
+	 */
 	public void setVoucherCode(String voucherCode) {
 		this.voucherCode = voucherCode;
 	}

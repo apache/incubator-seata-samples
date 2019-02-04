@@ -18,6 +18,15 @@ package com.alibaba.fescar.samples.springboot.service;
 
 import com.alibaba.fescar.samples.springboot.sys.domain.AssetAssign;
 
+/**
+ * The interface Assign service.
+ */
 public interface AssignService {
-	AssetAssign increaseAmount(String id);
+    /**
+     * Increase amount asset assign.
+     *
+     * @param id the id
+     * @return the asset assign
+     */
+    AssetAssign increaseAmount(String id);
 }
