@@ -2,14 +2,14 @@
 
 # Fescar Samples
 
-Samples for fescar (incubating). This project contains several sub-projects, each of which is an example of integration with other projects.
+Samples for Fescar. This project contains several sub-projects, each of which is an example of integration with other projects.
                                 
 [![Build Status](https://travis-ci.org/fescar-group/fescar-samples.svg?branch=master)](https://travis-ci.org/fescar-group/fescar-samples) 
 ![license](https://img.shields.io/github/license/fescar-group/fescar-samples.svg)
 
 ## Related repository
 
-* [fescar](https://github.com/alibaba/fescar) - The fescar core project
+* [Fescar](https://github.com/alibaba/fescar) - The Fescar core project
 
 ## Sub-projects
 
