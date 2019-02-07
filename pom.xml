@@ -44,7 +44,6 @@
         <logback-classic.version>1.1.6</logback-classic.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-pool2.version>2.4.2</commons-pool2.version>
-        <commons-pool.version>1.6</commons-pool.version>
         <cglib.version>3.1</cglib.version>
         <aopalliance.version>1.0</aopalliance.version>
         <zkclient.version>0.10</zkclient.version>
@@ -205,7 +204,6 @@
                 <version>${curator.version}</version>
             </dependency>
         </dependencies>
-
     </dependencyManagement>
 
     <build>
