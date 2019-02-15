@@ -21,7 +21,7 @@
 
 ### 业务结构图
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/fescar-1.png"  height="200" width="426">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/fescar-1.png"  height="300" width="600">
 
 
 #### StorageService
@@ -138,38 +138,38 @@ CREATE TABLE `account_tbl` (
 
 
 ```xml
-           <properties>
-               <fescar.version>0.2.0</fescar.version>
-               <dubbo.version>2.6.5</dubbo.version>
-               <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
-            </properties>
+        <properties>
+            <fescar.version>0.2.0</fescar.version>
+            <dubbo.version>2.6.5</dubbo.version>
+            <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
+         </properties>
         
-            <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-spring</artifactId>
-                <version>${fescar.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-dubbo</artifactId>
-                <version>${fescar.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>dubbo</artifactId>
-                        <groupId>org.apache.dubbo</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>${dubbo.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dubbo-registry-nacos</artifactId>
-                <version>${dubbo.registry.nacos.version}</version>
-            </dependency>
+         <dependency>
+             <groupId>com.alibaba.fescar</groupId>
+             <artifactId>fescar-spring</artifactId>
+             <version>${fescar.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>com.alibaba.fescar</groupId>
+             <artifactId>fescar-dubbo</artifactId>
+             <version>${fescar.version}</version>
+             <exclusions>
+                 <exclusion>
+                     <artifactId>dubbo</artifactId>
+                     <groupId>org.apache.dubbo</groupId>
+                 </exclusion>
+             </exclusions>
+         </dependency>
+         <dependency>
+             <groupId>com.alibaba</groupId>
+             <artifactId>dubbo</artifactId>
+             <version>${dubbo.version}</version>
+         </dependency>
+         <dependency>
+             <groupId>com.alibaba</groupId>
+             <artifactId>dubbo-registry-nacos</artifactId>
+             <version>${dubbo.registry.nacos.version}</version>
+         </dependency>
 ```
 **说明:** 由于当前apache-dubbo与dubbo-registry-nacos 存在兼容性问题，需要排除fescar-dubbo 中的apache.dubbo依赖手动引入alibaba-dubbo，
 后续apache-dubbo(2.7.1+)将兼容dubbo-registry-nacos。
@@ -273,10 +273,10 @@ sh nacos-config.sh localhost
 
 ```  
 
-脚本执行最后输出 "init nacos config finished, please start fescar-server." 说明推送配置成功，若想进一步确认可登陆Nacos 控制台 配置列表 筛选
+脚本执行最后输出 "**init nacos config finished, please start fescar-server.**" 说明推送配置成功，若想进一步确认可登陆Nacos 控制台 配置列表 筛选
 Group=FESCAR_GROUP 的配置项
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="200" width="426">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="300" width="750">
 
 ##### 修改 Fescar-server 服务注册方式为 nacos
 
@@ -329,7 +329,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 运行成功后可在 Nacos 控制台看到 服务名=serverAddr 服务注册列表:
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="700">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="750">
 
 ### Step 7 启动微服务并测试
 
@@ -339,7 +339,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 启动完成可在Nacos 控制台服务列表 看到启动完成的三个provider
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="700">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="750">
 
 
 ##### 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
