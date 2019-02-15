@@ -182,7 +182,7 @@ CREATE TABLE `account_tbl` (
 [dubbo-storage-service.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-storage-service.xml)
 ）配置以下配置：
 
-##### 配置Fescar 代理数据源
+- 配置Fescar 代理数据源
 
 ```xml
     <bean id="accountDataSourceProxy" class="com.alibaba.fescar.rm.datasource.DataSourceProxy">
@@ -196,7 +196,7 @@ CREATE TABLE `account_tbl` (
 
 此处需要使用com.alibaba.fescar.rm.datasource.DataSourceProxy 包装Druid数据源作为直接业务数据源。DataSourceProxy用于业务sql的拦截解析并与TC交互协调事务状态。
 
-##### 配置Dubbo 注册中心
+- 配置Dubbo 注册中心
 
 ```xml
     <dubbo:registry address="nacos://${nacos-server-ip}:8848"/>
