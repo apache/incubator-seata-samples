@@ -202,7 +202,7 @@ CREATE TABLE `account_tbl` (
     <dubbo:registry address="nacos://${nacos-server-ip}:8848"/>
 ```
 
-##### 配置Fescar GlobalTransactionScanner
+- 配置Fescar GlobalTransactionScanner
 
 ```xml
     <bean class="com.alibaba.fescar.spring.annotation.GlobalTransactionScanner">
@@ -216,15 +216,15 @@ CREATE TABLE `account_tbl` (
 #### Step 5 事务发起方配置
 
 在[dubbo-business.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-business.xml)配置以下配置：
-##### 配置Dubbo 注册中心
+- 配置Dubbo 注册中心
 
 同 Step 4
 
-##### 配置Fescar GlobalTransactionScanner
+- 配置Fescar GlobalTransactionScanner
 
 同 Step 4
 
-##### 在事务发起方service方法上添加@GlobalTransactional注解
+- 在事务发起方service方法上添加@GlobalTransactional注解
 
 ```java
 @GlobalTransactional(timeoutMills = 300000, name = "dubbo-demo-tx")
@@ -233,9 +233,9 @@ timeoutMills为事务的总体超时时间默认60s，name 为事务方法签名
 
 #### Step 6 启动 Nacos-Server
 
-##### 下载Nacos-Server 最新[release](https://github.com/alibaba/nacos/releases) 包并解压
+- 下载Nacos-Server 最新[release](https://github.com/alibaba/nacos/releases) 包并解压
 
-##### 运行Nacos-server
+- 运行Nacos-server
 
 Linux/Unix/Mac
 
@@ -256,9 +256,9 @@ cmd startup.cmd -m standalone
 
 #### Step 7 启动 Fescar-Server
 
-##### 下载Fescar-Server 最新[release](https://github.com/alibaba/fescar/releases) 包并解压
+- 下载Fescar-Server 最新[release](https://github.com/alibaba/fescar/releases) 包并解压
 
-##### 初始化Fescar 配置
+- 初始化Fescar 配置
 
 进入到Fescar-Server 解压目录 conf文件夹下，确认[nacos-config.txt](https://github.com/alibaba/fescar/blob/develop/server/src/main/resources/nacos-config.txt)的配置值（一般不需要修改），确认完成后运行[nacos-config.sh](https://github.com/alibaba/fescar/blob/develop/server/src/main/resources/nacos-config.sh)脚本初始化配置。
 
@@ -278,7 +278,7 @@ Group=FESCAR_GROUP 的配置项
 
 <img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="300" width="750">
 
-##### 修改 Fescar-server 服务注册方式为 nacos
+- 修改 Fescar-server 服务注册方式为 nacos
 
 进入到Fescar-Server 解压目录 conf文件夹下 [registry.conf](https://github.com/alibaba/fescar/blob/develop/server/src/main/resources/registry.conf) 修改 type="nacos" 并配置Nacos的相关属性。
 
@@ -305,7 +305,7 @@ nacos.cluster: 注册服务的集群名称
 file.name: type = "file" classpath下配置文件名
 
 
-##### 运行Fescar-server
+- 运行Fescar-server
 
 Linux/Unix/Mac
 
@@ -333,16 +333,16 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 ### Step 7 启动微服务并测试
 
-##### 启动[DubboAccountServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboAccountServiceStarter.java)
-##### 启动[DubboOrderServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboOrderServiceStarter.java)
-##### 启动[DubboStorageServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboStorageServiceStarter.java)
+- 启动[DubboAccountServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboAccountServiceStarter.java)
+- 启动[DubboOrderServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboOrderServiceStarter.java)
+- 启动[DubboStorageServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboStorageServiceStarter.java)
 
 启动完成可在Nacos 控制台服务列表 看到启动完成的三个provider
 
 <img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="750">
 
 
-##### 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
+- 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
 
 **注意:** 在标注@GlobalTransactional 注解方法内部显示的抛出异常才会进行事务的回滚。整个Dubbo 服务调用链路只需要在事务最开始发起方的service方法标注注解即可。
 
