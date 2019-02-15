@@ -27,7 +27,7 @@
     <artifactId>fescar-samples-nacos</artifactId>
     <name>fescar-samples-nacos ${project.version}</name>
     <properties>
-        <fescar.version>0.2.0-SNAPSHOT</fescar.version>
+        <fescar.version>0.2.0</fescar.version>
     </properties>
 
     <dependencies>
