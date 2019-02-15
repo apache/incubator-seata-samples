@@ -7,6 +7,7 @@
 
 [Fescar](https://github.com/alibaba/fescar) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。
 
+
 下面将通过一个简单的微服务架构的例子说明如何使用Fescar、Dubbo和Nacos来保证业务数据的一致性。
 
 
@@ -59,15 +60,78 @@ public interface AccountService {
 
 ### Fescar、Dubbo和Nacos 集成
 
+
 #### Step 1 初始化MySql数据库（InnoDB 存储引擎）
 
 在 [resources/jdbc.properties](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接串。
+
+```properties
+jdbc.account.url=jdbc:mysql://xxxx/xxxx
+jdbc.account.username=xxxx
+jdbc.account.password=xxxx
+jdbc.account.driver=com.mysql.jdbc.Driver
+# storage db config
+jdbc.storage.url=jdbc:mysql://xxxx/xxxx
+jdbc.storage.username=xxxx
+jdbc.storage.password=xxxx
+jdbc.storage.driver=com.mysql.jdbc.Driver
+# order db config
+jdbc.order.url=jdbc:mysql://xxxx/xxxx
+jdbc.order.username=xxxx
+jdbc.order.password=xxxx
+jdbc.order.driver=com.mysql.jdbc.Driver
+```
 
 #### Step 2 创建 undo_log（用于Fescar AT 模式）表和相关业务表   
 
 
 相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行dubbo_biz.sql中的建表脚本，在每个数据库执行undo_log.sql脚本。
 
+```sql
+CREATE TABLE `undo_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `branch_id` bigint(20) NOT NULL,
+  `xid` varchar(100) NOT NULL,
+  `rollback_info` longblob NOT NULL,
+  `log_status` int(11) NOT NULL,
+  `log_created` datetime NOT NULL,
+  `log_modified` datetime NOT NULL,
+  `ext` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_unionkey` (`xid`,`branch_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+```
+
+```sql
+DROP TABLE IF EXISTS `storage_tbl`;
+CREATE TABLE `storage_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `commodity_code` varchar(255) DEFAULT NULL,
+  `count` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`commodity_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `order_tbl`;
+CREATE TABLE `order_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `commodity_code` varchar(255) DEFAULT NULL,
+  `count` int(11) DEFAULT 0,
+  `money` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `account_tbl`;
+CREATE TABLE `account_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `money` int(11) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
 **说明:** 需要保证每个物理库都包含undo_log表，此处可使用一个物理库来表示上述三个微服务对应的逻辑库。
 
 #### Step 3 引入Fescar、Dubbo和Nacos 相关Pom依赖
@@ -212,7 +276,8 @@ sh nacos-config.sh localhost
 脚本执行最后输出 "init nacos config finished, please start fescar-server." 说明推送配置成功，若想进一步确认可登陆Nacos 控制台 配置列表 筛选
 Group=FESCAR_GROUP 的配置项
 
-//todo 图片
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="200" width="426">
+
 ##### 修改 Fescar-server 服务注册方式为 nacos
 
 进入到Fescar-Server 解压目录 conf文件夹下 [registry.conf](https://github.com/alibaba/fescar/blob/develop/server/src/main/resources/registry.conf) 修改 type="nacos" 并配置Nacos的相关属性。
@@ -264,7 +329,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 运行成功后可在 Nacos 控制台看到 服务名=serverAddr 服务注册列表:
 
-/todo 图片
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="200" width="426">
 
 ### Step 7 启动微服务并测试
 
@@ -274,7 +339,8 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 启动完成可在Nacos 控制台服务列表 看到启动完成的三个provider
 
-//todo
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="200" width="426">
+
 
 ##### 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
 
