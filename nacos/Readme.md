@@ -3,7 +3,7 @@
 本文将介绍在微服务架构下如何使用Fescar、Dubbo和Nacos来解决业务上的数据一致性问题。   
   
 
-随着业务的快速发展，应用单体架构暴露出代码可维护性差，容错率低，测试难度大，敏捷交付能力差等诸多问题，微服务应运而生。微服务的诞生一方面解决了上述问题，但是另一方面却引入新的问题，其中主要问题之一就是如何解决微服务间的一致性。
+随着业务的快速发展，应用单体架构暴露出代码可维护性差，容错率低，测试难度大，敏捷交付能力差等诸多问题，微服务应运而生。微服务的诞生一方面解决了上述问题，但是另一方面却引入新的问题，其中主要问题之一就是如何保证微服务间的一致性。
 
 [Fescar](https://github.com/alibaba/fescar) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。
 
@@ -63,7 +63,7 @@ public interface AccountService {
 
 #### Step 1 初始化MySql数据库（InnoDB 存储引擎）
 
-在 [resources/jdbc.properties](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接串。
+在 [resources/jdbc.properties](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接信息。
 
 ```properties
 jdbc.account.url=jdbc:mysql://xxxx/xxxx
@@ -85,7 +85,7 @@ jdbc.order.driver=com.mysql.jdbc.Driver
 #### Step 2 创建 undo_log（用于Fescar AT 模式）表和相关业务表   
 
 
-相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行dubbo_biz.sql中的建表脚本，在每个数据库执行undo_log.sql脚本。
+相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行dubbo_biz.sql中的建表脚本，在每个数据库执行undo_log.sql建表脚本。
 
 ```sql
 CREATE TABLE `undo_log` (
@@ -171,7 +171,7 @@ CREATE TABLE `account_tbl` (
              <version>${dubbo.registry.nacos.version}</version>
          </dependency>
 ```
-**说明:** 由于当前apache-dubbo与dubbo-registry-nacos 存在兼容性问题，需要排除fescar-dubbo 中的apache.dubbo依赖手动引入alibaba-dubbo，
+**说明:** 由于当前apache-dubbo与dubbo-registry-nacos 存在兼容性问题，需要排除fescar-dubbo 中的apache.dubbo依赖并手动引入alibaba-dubbo，
 后续apache-dubbo(2.7.1+)将兼容dubbo-registry-nacos。
 
 
@@ -180,7 +180,7 @@ CREATE TABLE `account_tbl` (
 分别在三个微服务Spring配置文件（[dubbo-account-service.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-account-service.xml)、
 [dubbo-order-service](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-order-service.xml)和
 [dubbo-storage-service.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-storage-service.xml)
-）配置以下配置：
+）进行如下配置：
 
 - 配置Fescar 代理数据源
 
@@ -194,7 +194,7 @@ CREATE TABLE `account_tbl` (
     </bean>
 ```
 
-此处需要使用com.alibaba.fescar.rm.datasource.DataSourceProxy 包装Druid数据源作为直接业务数据源。DataSourceProxy用于业务sql的拦截解析并与TC交互协调事务状态。
+此处需要使用com.alibaba.fescar.rm.datasource.DataSourceProxy 包装Druid数据源作为直接业务数据源。DataSourceProxy用于业务sql的拦截解析并与TC交互协调事务操作状态。
 
 - 配置Dubbo 注册中心
 
@@ -210,8 +210,8 @@ CREATE TABLE `account_tbl` (
         <constructor-arg value="my_test_tx_group"/>
     </bean>
 ```
-此处构造方法的第一个参数为业务自定义applicationId，若在单机部署多微服务需要保证applicationId 唯一。构造方法的第二个参数
-为Fescar事务服务逻辑分组，此分组通过配置中心配置项service.vgroup_mapping.my_test_tx_group 映射到相应的fescar-server 集群名称，然后再根据集群名称.grouplist获取到可用服务列表。
+此处构造方法的第一个参数为业务自定义applicationId，若在单机部署多微服务需要保证applicationId 唯一。   
+构造方法的第二个参数为Fescar事务服务逻辑分组，此分组通过配置中心配置项service.vgroup_mapping.my_test_tx_group 映射到相应的fescar-server 集群名称，然后再根据集群名称.grouplist获取到可用服务列表。
 
 #### Step 5 事务发起方配置
 
@@ -242,7 +242,6 @@ Linux/Unix/Mac
 ```bash
 sh startup.sh -m standalone
 ```
-
 Windows
 
 ```bash
@@ -273,10 +272,9 @@ sh nacos-config.sh localhost
 
 ```  
 
-脚本执行最后输出 "**init nacos config finished, please start fescar-server.**" 说明推送配置成功，若想进一步确认可登陆Nacos 控制台 配置列表 筛选
-Group=FESCAR_GROUP 的配置项
+脚本执行最后输出 "**init nacos config finished, please start fescar-server.**" 说明推送配置成功。若想进一步确认可登陆Nacos 控制台 配置列表 筛选Group=FESCAR_GROUP 的配置项。
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="300" width="750">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="300" width="800">
 
 - 修改 Fescar-server 服务注册方式为 nacos
 
@@ -329,7 +327,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 运行成功后可在 Nacos 控制台看到 服务名=serverAddr 服务注册列表:
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="750">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="800">
 
 ### Step 7 启动微服务并测试
 
@@ -339,7 +337,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 启动完成可在Nacos 控制台服务列表 看到启动完成的三个provider
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="750">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="800">
 
 
 - 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
