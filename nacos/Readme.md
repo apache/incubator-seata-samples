@@ -329,7 +329,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 运行成功后可在 Nacos 控制台看到 服务名=serverAddr 服务注册列表:
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="200" width="426">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="500">
 
 ### Step 7 启动微服务并测试
 
@@ -339,7 +339,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 启动完成可在Nacos 控制台服务列表 看到启动完成的三个provider
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="200" width="426">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="500">
 
 
 ##### 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
@@ -347,7 +347,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 **注意:** 在标注@GlobalTransactional 注解方法内部显示的抛出异常才会进行事务的回滚。整个Dubbo 服务调用链路只需要在事务最开始发起方的service方法标注注解即可。
 
 
-##相关链接:
+## 相关链接:
 
 本文sample地址: https://github.com/fescar-group/fescar-samples/tree/master/nacos   
 Fescar: https://github.com/alibaba/fescar   
