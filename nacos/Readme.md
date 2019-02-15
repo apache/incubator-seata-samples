@@ -329,7 +329,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 运行成功后可在 Nacos 控制台看到 服务名=serverAddr 服务注册列表:
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="500">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="700">
 
 ### Step 7 启动微服务并测试
 
@@ -339,7 +339,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 启动完成可在Nacos 控制台服务列表 看到启动完成的三个provider
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="500">
+<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="700">
 
 
 ##### 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
