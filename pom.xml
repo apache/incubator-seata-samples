@@ -58,6 +58,7 @@
     <modules>
         <module>dubbo</module>
         <module>springboot</module>
+        <module>nacos</module>
     </modules>
     <dependencyManagement>
         <dependencies>
