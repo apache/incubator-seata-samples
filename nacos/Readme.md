@@ -332,7 +332,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 ### Step 7 启动微服务并测试
 
 - 修改业务客户端发现注册方式为 nacos   
-同Step 7 中[修改 Fescar-server 服务注册方式为 nacos]() 步骤
+同Step 7 中[修改 Fescar-server 服务注册方式为 nacos] 步骤
 - 启动 [DubboAccountServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboAccountServiceStarter.java)
 - 启动 [DubboOrderServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboOrderServiceStarter.java)
 - 启动 [DubboStorageServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboStorageServiceStarter.java)
