@@ -28,6 +28,8 @@
     <name>fescar-samples-nacos ${project.version}</name>
     <properties>
         <fescar.version>0.2.0</fescar.version>
+        <dubbo.version>2.6.5</dubbo.version>
+        <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
     </properties>
 
     <dependencies>
@@ -50,19 +52,20 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
-            <version>2.6.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.101tec</groupId>
-            <artifactId>zkclient</artifactId>
+            <version>${dubbo.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo-registry-nacos</artifactId>
+            <version>${dubbo.registry.nacos.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.spring</groupId>
             <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
