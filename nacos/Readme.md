@@ -342,7 +342,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 <img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="800">
 
 
-- 启动[DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
+- 启动 [DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/com/alibaba/fescar/samples/nacos/starter/DubboBusinessTester.java) 进行测试
 
 **注意:** 在标注 @GlobalTransactional 注解方法内部显示的抛出异常才会进行事务的回滚。整个 Dubbo 服务调用链路只需要在事务最开始发起方的 service 方法标注注解即可。
 
