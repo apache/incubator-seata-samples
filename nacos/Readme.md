@@ -298,11 +298,11 @@ registry {
 }
 
 ```
-type: 可配置为nacos和file，配置为file时无服务注册功能。
-nacos.serverAddr: Nacos-Sever 服务地址(不含端口号)
-nacos.namespace: Nacos 注册和配置隔离namespace
-nacos.cluster: 注册服务的集群名称
-file.name: type = "file" classpath下配置文件名
+type: 可配置为nacos和file，配置为file时无服务注册功能   
+nacos.serverAddr: Nacos-Sever 服务地址(不含端口号)   
+nacos.namespace: Nacos 注册和配置隔离namespace   
+nacos.cluster: 注册服务的集群名称   
+file.name: type = "file" classpath下配置文件名   
 
 
 - 运行Fescar-server
@@ -320,9 +320,9 @@ cmd fescar-server.bat $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选
 
 ```
 
-$LISTEN_PORT : Fescar-Server 服务端口   
-$PATH_FOR_PERSISTENT_DATA : 事务操作记录文件存储路径(已存在路径)
-$IP(可选参数): 用于多IP环境下指定Fescar-Server 注册服务的IP   
+$LISTEN_PORT : Fescar-Server 服务端口      
+$PATH_FOR_PERSISTENT_DATA : 事务操作记录文件存储路径(已存在路径)   
+$IP(可选参数): 用于多IP环境下指定Fescar-Server 注册服务的IP      
 
 eg:
 sh fescar-server.sh 8091 /home/admin/fescar/data/
