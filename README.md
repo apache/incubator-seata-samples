@@ -15,3 +15,4 @@ Samples for Fescar. This project contains several sub-projects, each of which is
 
 * [dubbo](https://github.com/fescar-group/fescar-samples/tree/master/dubbo) - Integration example of [Fescar](https://github.com/alibaba/fescar) and [Apache Dubbo](https://github.com/apache/incubator-dubbo)
 * [springboot](https://github.com/fescar-group/fescar-samples/tree/master/springboot) - Integration example of [Fescar](https://github.com/alibaba/fescar) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
+* [nacos](https://github.com/fescar-group/fescar-samples/tree/master/nacos) - Integration example of [Fescar](https://github.com/alibaba/fescar) [Apache Dubbo](https://github.com/apache/incubator-dubbo) and [Alibaba Nacos](https://github.com/alibaba/nacos/) 
