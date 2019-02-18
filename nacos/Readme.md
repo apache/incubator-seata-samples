@@ -233,12 +233,12 @@ timeoutMills 为事务的总体超时时间默认60s，name 为事务方法签�
 
 - 运行 Nacos-server
 
-Linux/Unix/Mac
+**Linux/Unix/Mac**
 
 ```bash
 sh startup.sh -m standalone
 ```
-Windows
+**Windows**
 
 ```bash
 cmd startup.cmd -m standalone
@@ -301,13 +301,13 @@ file.name: type = "file" classpath 下配置文件名
 
 - 运行 Fescar-server
 
-Linux/Unix/Mac
+**Linux/Unix/Mac**
 
 ```bash
 sh fescar-server.sh $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选)
 ```
 
-Windows
+**Windows**
 
 ```bash
 cmd fescar-server.bat $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选)
