@@ -292,11 +292,11 @@ registry {
 }
 
 ```
-type: 可配置为 nacos 和 file，配置为 file 时无服务注册功能   
-nacos.serverAddr: Nacos-Sever 服务地址(不含端口号)   
-nacos.namespace: Nacos 注册和配置隔离 namespace   
-nacos.cluster: 注册服务的集群名称   
-file.name: type = "file" classpath 下配置文件名   
+**type**: 可配置为 nacos 和 file，配置为 file 时无服务注册功能   
+**nacos**.serverAddr: Nacos-Sever 服务地址(不含端口号)   
+**nacos.namespace**: Nacos 注册和配置隔离 namespace   
+**nacos.cluster**: 注册服务的集群名称   
+**file.name**: type = "file" classpath 下配置文件名   
 
 
 - 运行 Fescar-server
