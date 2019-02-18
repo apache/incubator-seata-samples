@@ -5,7 +5,7 @@
 
 随着业务的快速发展，应用单体架构暴露出代码可维护性差，容错率低，测试难度大，敏捷交付能力差等诸多问题，微服务应运而生。微服务的诞生一方面解决了上述问题，但是另一方面却引入新的问题，其中主要问题之一就是如何保证微服务间的业务数据一致性。
 
-本文将通过一个简单的微服务架构的例子，说明如何step by step的使用 Fescar、Dubbo 和 Nacos 来保证业务数据的一致性。从 Fescar 0.2.0+ 开始支持Nacos 注册和配置服务中心。
+本文将通过一个简单的微服务架构的例子，说明业务如何step by step的使用 Fescar、Dubbo 和 Nacos 来保证业务数据的一致性。从 Fescar 0.2.0+ 开始支持Nacos 注册配置服务中心。本文所述的例子 Dubbo 和 Fescar 注册配置服务中心均使用 Nacos。
 
 
 ## 业务案例
@@ -58,7 +58,7 @@ public interface AccountService {
 ### Fescar、Dubbo和Nacos 集成
 
 
-#### Step 1 初始化 MySQL 数据库（InnoDB 存储引擎）
+#### Step 1 初始化 MySQL 数据库（需要InnoDB 存储引擎）
 
 在 [resources/jdbc.properties](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接信息。
 
@@ -82,7 +82,7 @@ jdbc.order.driver=com.mysql.jdbc.Driver
 #### Step 2 创建 undo_log（用于Fescar AT 模式）表和相关业务表   
 
 
-相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/dubbo_biz.sql) 中的建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/undo_log.sql) 建表脚本。
+相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/dubbo_biz.sql) 中的业务建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/undo_log.sql) 建表脚本。
 
 ```sql
 CREATE TABLE `undo_log` (
@@ -129,47 +129,46 @@ CREATE TABLE `account_tbl` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-**说明:** 需要保证每个物理库都包含 undo_log 表，此处可使用一个物理库来表示上述三个微服务对应的逻辑库。
+**说明:** 需要保证每个物理库都包含 undo_log 表，此处可使用一个物理库来表示上述三个微服务对应的独立逻辑库。
 
 #### Step 3 引入 Fescar、Dubbo 和 Nacos 相关 POM 依赖
 
 
 ```xml
-        <properties>
-            <fescar.version>0.2.0</fescar.version>
-            <dubbo.version>2.6.5</dubbo.version>
-            <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
-         </properties>
+      <properties>
+          <fescar.version>0.2.0</fescar.version>
+          <dubbo.version>2.6.5</dubbo.version>
+          <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
+       </properties>
         
-         <dependency>
-             <groupId>com.alibaba.fescar</groupId>
-             <artifactId>fescar-spring</artifactId>
-             <version>${fescar.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>com.alibaba.fescar</groupId>
-             <artifactId>fescar-dubbo</artifactId>
-             <version>${fescar.version}</version>
-             <exclusions>
-                 <exclusion>
-                     <artifactId>dubbo</artifactId>
-                     <groupId>org.apache.dubbo</groupId>
-                 </exclusion>
-             </exclusions>
-         </dependency>
-         <dependency>
-             <groupId>com.alibaba</groupId>
-             <artifactId>dubbo</artifactId>
-             <version>${dubbo.version}</version>
-         </dependency>
-         <dependency>
-             <groupId>com.alibaba</groupId>
-             <artifactId>dubbo-registry-nacos</artifactId>
-             <version>${dubbo.registry.nacos.version}</version>
-         </dependency>
+       <dependency>
+           <groupId>com.alibaba.fescar</groupId>
+           <artifactId>fescar-spring</artifactId>
+           <version>${fescar.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>com.alibaba.fescar</groupId>
+           <artifactId>fescar-dubbo</artifactId>
+           <version>${fescar.version}</version>
+           <exclusions>
+               <exclusion>
+                   <artifactId>dubbo</artifactId>
+                   <groupId>org.apache.dubbo</groupId>
+               </exclusion>
+           </exclusions>
+       </dependency>
+       <dependency>
+           <groupId>com.alibaba</groupId>
+           <artifactId>dubbo</artifactId>
+           <version>${dubbo.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>com.alibaba</groupId>
+           <artifactId>dubbo-registry-nacos</artifactId>
+           <version>${dubbo.registry.nacos.version}</version>
+       </dependency>
 ```
-**说明:** 由于当前 apache-dubbo与dubbo-registry-nacos 存在兼容性问题，需要排除 fescar-dubbo 中的 apache.dubbo 依赖并手动引入 alibaba-dubbo，
-后续 apache-dubbo(2.7.1+) 将兼容 dubbo-registry-nacos。
+**说明:** 由于当前 apache-dubbo 与 dubbo-registry-nacos jar存在兼容性问题，需要排除 fescar-dubbo 中的 apache.dubbo 依赖并手动引入 alibaba-dubbo，后续 apache-dubbo(2.7.1+) 将兼容 dubbo-registry-nacos。
 
 
 #### Step 4 微服务 Provider Spring配置
@@ -191,7 +190,7 @@ CREATE TABLE `account_tbl` (
     </bean>
 ```
 
-此处需要使用 com.alibaba.fescar.rm.datasource.DataSourceProxy 包装 Druid 数据源作为直接业务数据源。DataSourceProxy 用于业务 sql 的拦截解析并与 TC 交互协调事务操作状态。
+此处需要使用 com.alibaba.fescar.rm.datasource.DataSourceProxy 包装 Druid 数据源作为直接业务数据源，DataSourceProxy 用于业务 sql 的拦截解析并与 TC 交互协调事务操作状态。
 
 - 配置 Dubbo 注册中心
 
