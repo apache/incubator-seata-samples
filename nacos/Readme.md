@@ -260,7 +260,7 @@ cmd startup.cmd -m standalone
 ```bash
 sh nacos-config.sh $Nacos-Server-IP
 ```
-eg:
+**eg**:
 
 ```bash
 
@@ -293,7 +293,7 @@ registry {
 
 ```
 **type**: 可配置为 nacos 和 file，配置为 file 时无服务注册功能   
-**nacos**.serverAddr: Nacos-Sever 服务地址(不含端口号)   
+**nacos.serverAddr**: Nacos-Sever 服务地址(不含端口号)   
 **nacos.namespace**: Nacos 注册和配置隔离 namespace   
 **nacos.cluster**: 注册服务的集群名称   
 **file.name**: type = "file" classpath 下配置文件名   
@@ -314,11 +314,11 @@ cmd fescar-server.bat $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选
 
 ```
 
-$LISTEN_PORT : Fescar-Server 服务端口      
-$PATH_FOR_PERSISTENT_DATA : 事务操作记录文件存储路径(已存在路径)   
-$IP(可选参数): 用于多 IP 环境下指定 Fescar-Server 注册服务的IP      
+**$LISTEN_PORT**: Fescar-Server 服务端口      
+**$PATH_FOR_PERSISTENT_DATA**: 事务操作记录文件存储路径(已存在路径)   
+**$IP(可选参数)**: 用于多 IP 环境下指定 Fescar-Server 注册服务的IP      
 
-eg:
+**eg**:
 sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 运行成功后可在 Nacos 控制台看到 服务名 =serverAddr 服务注册列表:
