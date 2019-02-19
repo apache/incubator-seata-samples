@@ -325,7 +325,7 @@ sh fescar-server.sh 8091 /home/admin/fescar/data/
 
 <img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="800">
 
-### Step 7 启动微服务并测试
+#### Step 8 启动微服务并测试
 
 - 修改业务客户端发现注册方式为 nacos   
 同Step 7 中[修改 Fescar-server 服务注册方式为 nacos] 步骤
