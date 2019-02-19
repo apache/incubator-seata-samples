@@ -27,7 +27,7 @@
     <artifactId>fescar-samples-nacos</artifactId>
     <name>fescar-samples-nacos ${project.version}</name>
     <properties>
-        <fescar.version>0.2.0</fescar.version>
+        <fescar.version>0.2.1</fescar.version>
         <dubbo.version>2.6.5</dubbo.version>
         <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
     </properties>
@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-dubbo</artifactId>
+            <artifactId>fescar-dubbo-alibaba</artifactId>
             <version>${fescar.version}</version>
             <exclusions>
                 <exclusion>
