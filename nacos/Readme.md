@@ -5,7 +5,7 @@
 
 随着业务的快速发展，应用单体架构暴露出代码可维护性差，容错率低，测试难度大，敏捷交付能力差等诸多问题，微服务应运而生。微服务的诞生一方面解决了上述问题，但是另一方面却引入新的问题，其中主要问题之一就是如何保证微服务间的业务数据一致性。
 
-本文将通过一个简单的微服务架构的例子，说明业务如何step by step的使用 Fescar、Dubbo 和 Nacos 来保证业务数据的一致性。本文所述的例子中 Dubbo 和 Fescar 注册配置服务中心均使用 Nacos。Fescar 0.2.0+ 开始支持 Nacos 注册配置服务中心。
+本文将通过一个简单的微服务架构的例子，说明业务如何step by step的使用 Fescar、Dubbo 和 Nacos 来保证业务数据的一致性。本文所述的例子中 Dubbo 和 Fescar 注册配置服务中心均使用 Nacos。Fescar 0.2.1+ 开始支持 Nacos 注册配置服务中心。
 
 
 ## 业务案例
@@ -136,8 +136,8 @@ CREATE TABLE `account_tbl` (
 
 ```xml
       <properties>
-          <fescar.version>0.2.0</fescar.version>
-          <dubbo.version>2.6.5</dubbo.version>
+          <fescar.version>0.2.1</fescar.version>
+          <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
           <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
        </properties>
         
@@ -148,7 +148,7 @@ CREATE TABLE `account_tbl` (
        </dependency>
        <dependency>
            <groupId>com.alibaba.fescar</groupId>
-           <artifactId>fescar-dubbo</artifactId>
+           <artifactId>fescar-dubbo-alibaba</artifactId>
            <version>${fescar.version}</version>
            <exclusions>
                <exclusion>
@@ -160,7 +160,7 @@ CREATE TABLE `account_tbl` (
        <dependency>
            <groupId>com.alibaba</groupId>
            <artifactId>dubbo</artifactId>
-           <version>${dubbo.version}</version>
+           <version>${dubbo.alibaba.version}</version>
        </dependency>
        <dependency>
            <groupId>com.alibaba</groupId>
@@ -168,7 +168,7 @@ CREATE TABLE `account_tbl` (
            <version>${dubbo.registry.nacos.version}</version>
        </dependency>
 ```
-**说明:** 由于当前 apache-dubbo 与 dubbo-registry-nacos jar存在兼容性问题，需要排除 fescar-dubbo 中的 apache.dubbo 依赖并手动引入 alibaba-dubbo，后续 apache-dubbo(2.7.1+) 将兼容 dubbo-registry-nacos。
+**说明:** 由于当前 apache-dubbo 与 dubbo-registry-nacos jar存在兼容性问题，需要排除 fescar-dubbo 中的 apache.dubbo 依赖并手动引入 alibaba-dubbo，后续 apache-dubbo(2.7.1+) 将兼容 dubbo-registry-nacos。在Fescar 中 fescar-dubbo jar 支持 apache.dubbo，fescar-dubbo-alibaba jar 支持 alibaba-dubbo。
 
 
 #### Step 4 微服务 Provider Spring配置
