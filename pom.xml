@@ -59,6 +59,7 @@
         <module>dubbo</module>
         <module>springboot</module>
         <module>nacos</module>
+        <module>springboot-dubbo-fescar</module>
     </modules>
     <dependencyManagement>
         <dependencies>
