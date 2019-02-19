@@ -32,11 +32,6 @@
         <module>samples-order</module>
         <module>samples-storage</module>
         <module>samples-dubbo-business-call</module>
-        <module>samples-account</module>
-        <module>samples-common</module>
-        <module>samples-dubbo-business-call</module>
-        <module>samples-order</module>
-        <module>samples-storage</module>
     </modules>
 
     <properties>
