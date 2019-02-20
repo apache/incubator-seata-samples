@@ -12,9 +12,9 @@ spring:
         force: true
     datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://123.123.123:3060/your_schema?useSSL=false
-        username: your_username
-        password: yout_password
+        url: jdbc:mysql://localhost:3306/fescar?useSSL=false&serverTimezone=UTC
+        username: root
+        password: root
         poolPingConnectionsNotUsedFor: 60000
         removeAbandoned: true
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000

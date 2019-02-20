@@ -31,7 +31,7 @@ CREATE TABLE `t_asset`  (
   `amount` decimal(12, 0) NOT NULL COMMENT '',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB;
-
+INSERT INTO `t_asset` VALUES ('DF001', 'e2d1c4512d554db9ae4a5f30cbc2e4b1', '1');
 -- ----------------------------
 -- Table structure for undo_log
 -- ----------------------------
