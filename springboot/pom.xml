@@ -163,10 +163,6 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>*</artifactId>
 				</exclusion>
-				<exclusion>
-					<artifactId>dubbo</artifactId>
-					<groupId>com.alibaba</groupId>
-				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
