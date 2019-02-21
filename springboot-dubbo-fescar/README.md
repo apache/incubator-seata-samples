@@ -21,8 +21,6 @@ Fescar全称为：Fast Easy Commit And Rollback，是阿里巴巴公司基于TXC
 三、核心技术栈
 
 * SpringBoot 2.0.8.RELEASE（2.0以后第一个GA版本）
-* SpringCloud Finchley.SR2
-* SpringCloudOpenFeigin
 * Durid 1.1.10（阿里巴巴开源高性能数据源连接池）
 * Mybatis 3.4.6（Mybatis-3）
 * Dubbo 2.6.5（阿里巴巴开源高性能RPC框架）
