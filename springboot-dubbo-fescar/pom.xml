@@ -20,7 +20,7 @@
     <parent>
         <groupId>com.alibaba.fescar</groupId>
         <artifactId>fescar-samples</artifactId>
-        <version>0.1.4-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>springboot-dubbo-fescar</artifactId>
