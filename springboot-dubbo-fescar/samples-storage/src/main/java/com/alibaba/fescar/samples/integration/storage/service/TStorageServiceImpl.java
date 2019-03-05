@@ -24,6 +24,7 @@ public class TStorageServiceImpl extends ServiceImpl<TStorageMapper, TStorage> i
         int storage = baseMapper.decreaseStorage(commodityDTO.getCommodityCode(), commodityDTO.getCount());
         ObjectResponse<Object> response = new ObjectResponse<>();
         if (storage > 0){
+            response.setStatus(RspStatusEnum.SUCCESS.getCode());
             response.setMessage(RspStatusEnum.SUCCESS.getMessage());
             return response;
         }
