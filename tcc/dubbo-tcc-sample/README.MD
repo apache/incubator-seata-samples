@@ -49,7 +49,7 @@ public interface TccActionTwo {
 
 #### step 1 启动 Fesacr Server
 
-运行 [FescarServerStarter](https://github.com/fescar-group/fescar-samples/blob/master/tcc/local-tcc-sample/src/test/java/com/alibaba/fescar/samples/tcc/FescarServerStarter.java) ，启动 Fescar Server；
+运行 [FescarServerStarter](https://github.com/fescar-group/fescar-samples/blob/master/tcc/dubbo-tcc-sample/src/test/java/com/alibaba/fescar/samples/tcc/FescarServerStarter.java) ，启动 Fescar Server；
 
 
 #### step 2 启动 dubbo 服务
