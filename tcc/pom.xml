@@ -28,8 +28,8 @@
     <name>fescar-samples-tcc ${project.version}</name>
     <modules>
         <module>dubbo-tcc-sample</module>
-        <!-- <module>samples-tcc-sofarpc</module> -->
         <module>local-tcc-sample</module>
+        <module>sofarpc-tcc-sample</module>
     </modules>
 
     <properties>

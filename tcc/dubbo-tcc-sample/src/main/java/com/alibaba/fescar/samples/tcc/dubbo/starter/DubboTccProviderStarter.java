@@ -21,10 +21,6 @@ import java.util.Map;
 //@ImportResource("classpath:spring/*.xml")
 public class DubboTccProviderStarter {
 
-    static AbstractApplicationContext applicationContext = null;
-
-    static TccTransactionService tccTransactionService = null;
-
     private static TestingServer server;
 
     public static void main(String[] args) throws Exception {

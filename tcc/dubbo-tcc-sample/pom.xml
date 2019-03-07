@@ -45,13 +45,6 @@
 
     <dependencies>
 
-        <!-- dubbo  -->
-        <!--<dependency>-->
-            <!--<groupId>io.dubbo.springboot</groupId>-->
-            <!--<artifactId>spring-boot-starter-dubbo</artifactId>-->
-            <!--<version>${dubbo.springboot.starter.version}</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
@@ -64,11 +57,6 @@
             </exclusions>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.apache.curator</groupId>-->
-            <!--<artifactId>curator-client</artifactId>-->
-            <!--<version>${curator.version}</version>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>org.apache.curator</groupId>
@@ -97,50 +85,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-common</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-config</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-core</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-rm-datasource</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-tm</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-spring</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-dubbo</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.fescar</groupId>-->
-            <!--<artifactId>fescar-server</artifactId>-->
-            <!--<version>${fescar.version}</version>-->
-        <!--</dependency>-->
-
 
         <!-- spring jar -->
         <dependency>
