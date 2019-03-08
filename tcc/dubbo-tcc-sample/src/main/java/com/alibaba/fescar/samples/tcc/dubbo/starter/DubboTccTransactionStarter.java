@@ -17,8 +17,6 @@ import java.util.Map;
  *
  * @author zhangsen
  */
-//@SpringBootApplication
-//@ImportResource("classpath:spring/*.xml")
 public class DubboTccTransactionStarter {
 
     static AbstractApplicationContext applicationContext = null;

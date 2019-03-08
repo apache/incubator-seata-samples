@@ -5,6 +5,8 @@ import com.alibaba.fescar.samples.tcc.dubbo.action.TccActionOne;
 import com.alibaba.fescar.samples.tcc.dubbo.action.TccActionTwo;
 import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +29,10 @@ public class TccTransactionService {
         if(!result){
             throw new RuntimeException("TccActionOne failed.");
         }
-        result = tccActionTwo.prepare(null, "two");
+        List list = new ArrayList();
+        list.add("c1");
+        list.add("c2");
+        result = tccActionTwo.prepare(null, "two", list);
         if(!result){
             throw new RuntimeException("TccActionTwo failed.");
         }
@@ -41,7 +46,10 @@ public class TccTransactionService {
         if(!result){
             throw new RuntimeException("TccActionOne failed.");
         }
-        result = tccActionTwo.prepare(null, "two");
+        List list = new ArrayList();
+        list.add("c1");
+        list.add("c2");
+        result = tccActionTwo.prepare(null, "two", list);
         if(!result){
             throw new RuntimeException("TccActionTwo failed.");
         }

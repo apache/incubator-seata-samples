@@ -11,24 +11,24 @@ public class TccActionOneImpl implements TccActionOne {
 
     @Override
     public boolean prepare(BusinessActionContext actionContext, int a) {
-        String txId = actionContext.getTxId();
-        System.out.println("TccActionOne prepare, txId:" + txId);
+        String xid = actionContext.getXid();
+        System.out.println("TccActionOne prepare, xid:" + xid +  ", a:" + a);
         return true;
     }
 
     @Override
     public boolean commit(BusinessActionContext actionContext) {
-        String txId = actionContext.getTxId();
-        System.out.println("TccActionOne commit, txId:" + txId);
-        ResultHolder.setActionOneResult(txId, "T");
+        String xid = actionContext.getXid();
+        System.out.println("TccActionOne commit, xid:" + xid + ", a:" + actionContext.getActionContext("a"));
+        ResultHolder.setActionOneResult(xid, "T");
         return true;
     }
 
     @Override
     public boolean rollback(BusinessActionContext actionContext) {
-        String txId = actionContext.getTxId();
-        System.out.println("TccActionOne rollback, txId:" + txId);
-        ResultHolder.setActionOneResult(txId, "R");
+        String xid = actionContext.getXid();
+        System.out.println("TccActionOne rollback, xid:" + xid + ", a:" + actionContext.getActionContext("a"));
+        ResultHolder.setActionOneResult(xid, "R");
         return true;
     }
 }
