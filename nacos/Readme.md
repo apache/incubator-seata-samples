@@ -85,6 +85,7 @@ jdbc.order.driver=com.mysql.jdbc.Driver
 相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/dubbo_biz.sql) 中的业务建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/undo_log.sql) 建表脚本。
 
 ```sql
+-- 注意此处0.3.0+ 增加唯一索引 ux_undo_log
 CREATE TABLE `undo_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `branch_id` bigint(20) NOT NULL,
@@ -95,7 +96,7 @@ CREATE TABLE `undo_log` (
   `log_modified` datetime NOT NULL,
   `ext` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_unionkey` (`xid`,`branch_id`)
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 
