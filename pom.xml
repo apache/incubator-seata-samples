@@ -60,6 +60,8 @@
         <module>springboot</module>
         <module>nacos</module>
         <module>springboot-dubbo-fescar</module>
+        <module>tcc</module>
+
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -107,6 +109,12 @@
                 <groupId>com.alibaba.fescar</groupId>
                 <artifactId>fescar-dubbo</artifactId>
                 <version>${fescar.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.dubbo</groupId>
+                        <artifactId>dubbp</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
