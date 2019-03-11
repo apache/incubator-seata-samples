@@ -69,6 +69,7 @@ INSERT INTO `t_storage` VALUES ('1', 'C201901140001', '水杯', '1000');
 
 -- ----------------------------
 -- Table structure for undo_log
+-- 注意此处0.3.0+ 增加唯一索引 ux_undo_log
 -- ----------------------------
 DROP TABLE IF EXISTS `undo_log`;
 CREATE TABLE `undo_log` (
@@ -81,7 +82,7 @@ CREATE TABLE `undo_log` (
   `log_modified` datetime NOT NULL,
   `ext` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_unionkey` (`xid`,`branch_id`)
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
