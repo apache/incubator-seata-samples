@@ -33,7 +33,7 @@
     </modules>
 
     <properties>
-        <fescar.version>0.5.0-SNAPSHOT</fescar.version>
+        <fescar.version>0.4.0-SNAPSHOT</fescar.version>
         <spring.version>5.0.8.RELEASE</spring.version>
     </properties>
 
