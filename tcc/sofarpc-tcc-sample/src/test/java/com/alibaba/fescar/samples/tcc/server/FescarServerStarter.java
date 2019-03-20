@@ -13,14 +13,31 @@ import java.io.IOException;
  */
 public class FescarServerStarter {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws IOException the io exception
+     */
     public static void main(String[] args) throws IOException {
         new FescarServer().init();
     }
 
+    /**
+     * The type Fescar server.
+     */
     public static class FescarServer {
 
+        /**
+         * The Server.
+         */
         Server server = null;
 
+        /**
+         * Init.
+         *
+         * @throws IOException the io exception
+         */
         public void init() throws IOException {
             server = new Server();
             String dataPath = new StringBuilder()

@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
 /**
+ * The type Sofa rpc tcc provider application.
  *
  * @author zhangsen
  */
@@ -16,6 +17,12 @@ public class SofaRpcTccProviderApplication {
 
     private static TestingServer server;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         //mock zk server
         mockZKServer();

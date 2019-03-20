@@ -25,6 +25,11 @@ import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The type Business service.
+ *
+ * @author jimin.jm @alibaba-inc.com
+ */
 public class BusinessServiceImpl implements BusinessService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessService.class);

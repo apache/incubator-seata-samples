@@ -5,6 +5,8 @@ import com.alibaba.fescar.samples.tcc.dubbo.action.ResultHolder;
 import com.alibaba.fescar.samples.tcc.dubbo.action.TccActionOne;
 
 /**
+ * The type Tcc action one.
+ *
  * @author zhangsen
  */
 public class TccActionOneImpl implements TccActionOne {

@@ -7,6 +7,8 @@ import com.alibaba.fescar.samples.tcc.dubbo.action.TccActionTwo;
 import java.util.List;
 
 /**
+ * The type Tcc action two.
+ *
  * @author zhangsen
  */
 public class TccActionTwoImpl implements TccActionTwo {

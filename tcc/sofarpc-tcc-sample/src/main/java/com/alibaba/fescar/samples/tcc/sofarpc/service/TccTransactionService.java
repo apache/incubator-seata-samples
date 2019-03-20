@@ -8,6 +8,8 @@ import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import java.util.Map;
 
 /**
+ * The type Tcc transaction service.
+ *
  * @author zhangsen
  */
 public class TccTransactionService {
@@ -18,7 +20,8 @@ public class TccTransactionService {
 
     /**
      * 发起分布式事务
-     * @return
+     *
+     * @return string string
      */
     @GlobalTransactional
     public String doTransactionCommit(){
@@ -34,6 +37,12 @@ public class TccTransactionService {
         return RootContext.getXID();
     }
 
+    /**
+     * Do transaction rollback string.
+     *
+     * @param map the map
+     * @return the string
+     */
     @GlobalTransactional
     public String doTransactionRollback(Map map){
         //第一个TCC 事务参与者
@@ -49,10 +58,20 @@ public class TccTransactionService {
         throw new RuntimeException("transacton rollback");
     }
 
+    /**
+     * Sets tcc action one.
+     *
+     * @param tccActionOne the tcc action one
+     */
     public void setTccActionOne(TccActionOne tccActionOne) {
         this.tccActionOne = tccActionOne;
     }
 
+    /**
+     * Sets tcc action two.
+     *
+     * @param tccActionTwo the tcc action two
+     */
     public void setTccActionTwo(TccActionTwo tccActionTwo) {
         this.tccActionTwo = tccActionTwo;
     }

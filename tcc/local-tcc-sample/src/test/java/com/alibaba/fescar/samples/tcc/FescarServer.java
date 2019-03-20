@@ -12,8 +12,16 @@ import java.io.IOException;
  */
 public class FescarServer {
 
+    /**
+     * The Server.
+     */
     Server server = null;
 
+    /**
+     * Init.
+     *
+     * @throws IOException the io exception
+     */
     public void init() throws IOException {
         server = new Server();
         String dataPath = new StringBuilder()

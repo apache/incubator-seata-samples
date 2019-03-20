@@ -14,19 +14,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The type Local tcc transaction starter.
  *
  * @author zhangsen
  */
 public class LocalTccTransactionStarter {
 
+    /**
+     * The Application context.
+     */
     static AbstractApplicationContext applicationContext = null;
 
+    /**
+     * The Tcc transaction service.
+     */
     static TccTransactionService tccTransactionService = null;
 
+    /**
+     * The Tcc action one.
+     */
     static TccActionOneImpl tccActionOne = null;
 
+    /**
+     * The Tcc action two.
+     */
     static TccActionTwoImpl tccActionTwo = null;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws InterruptedException the interrupted exception
+     */
     public static void main(String[] args) throws InterruptedException {
         applicationContext = new ClassPathXmlApplicationContext(new String[] {"spring/fescar-tcc.xml"});
 
@@ -58,7 +77,7 @@ public class LocalTccTransactionStarter {
     }
 
     private static void transactionRollbackDemo() throws InterruptedException {
-        Map map = new HashMap();
+        Map map = new HashMap(16);
         try{
             tccTransactionService.doTransactionRollback(map);
             Assert.isTrue(false, "分布式事务未回滚");
