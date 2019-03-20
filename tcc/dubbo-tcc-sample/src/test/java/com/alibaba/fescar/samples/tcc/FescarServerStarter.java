@@ -10,6 +10,12 @@ import java.io.IOException;
  */
 public class FescarServerStarter {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws IOException the io exception
+     */
     public static void main(String[] args) throws IOException {
         new FescarServer().init();
     }

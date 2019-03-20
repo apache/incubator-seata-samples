@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The type Sofa rpc tcc transaction application.
  *
  * @author zhangsen
  */
@@ -21,8 +22,17 @@ import java.util.Map;
 @ImportResource("classpath:spring/*.xml")
 public class SofaRPCTccTransactionApplication {
 
+    /**
+     * The Tcc transaction service.
+     */
     static TccTransactionService tccTransactionService = null;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
 
         ApplicationContext applicationContext = SpringApplication.run(SofaRPCTccTransactionApplication.class, args);
@@ -47,7 +57,7 @@ public class SofaRPCTccTransactionApplication {
     }
 
     private static void transactionRollbackDemo() throws InterruptedException {
-        Map map = new HashMap();
+        Map map = new HashMap(16);
         try{
             tccTransactionService.doTransactionRollback(map);
             Assert.isTrue(false, "分布式事务未回滚");

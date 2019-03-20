@@ -33,7 +33,7 @@
     </modules>
 
     <properties>
-        <fescar.version>0.4.0-SNAPSHOT</fescar.version>
+        <fescar.version>0.4.0</fescar.version>
         <spring.version>5.0.8.RELEASE</spring.version>
     </properties>
 
@@ -44,7 +44,6 @@
                 <artifactId>fescar-dubbo-alibaba</artifactId>
                 <version>${fescar.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -53,35 +52,17 @@
                 <groupId>com.alibaba.fescar</groupId>
                 <artifactId>fescar-common</artifactId>
                 <version>${fescar.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.fescar</groupId>
                 <artifactId>fescar-config</artifactId>
                 <version>${fescar.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>
                 <groupId>com.alibaba.fescar</groupId>
                 <artifactId>fescar-core</artifactId>
                 <version>${fescar.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.fescar</groupId>

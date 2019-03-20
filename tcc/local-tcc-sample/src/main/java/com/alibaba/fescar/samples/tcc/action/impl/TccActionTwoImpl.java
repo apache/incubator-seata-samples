@@ -5,6 +5,8 @@ import com.alibaba.fescar.samples.tcc.action.ResultHolder;
 import com.alibaba.fescar.samples.tcc.action.TccActionTwo;
 
 /**
+ * The type Tcc action two.
+ *
  * @author zhangsen
  */
 public class TccActionTwoImpl implements TccActionTwo {

@@ -41,7 +41,7 @@ public class AssignServiceImpl implements AssignService {
 	private AssignRepository assignRepository;
 
 	@Reference(check = false)
-	private com.alibaba.fescar.samples.springboot.service.AssetService AssetService;
+	private com.alibaba.fescar.samples.springboot.service.AssetService assetService;
 
 	@Override
 	@Transactional
@@ -53,7 +53,7 @@ public class AssignServiceImpl implements AssignService {
 		assignRepository.save(assetAssign);
 
 		// remote call asset service
-		AssetService.increase();
+		assetService.increase();
 		return assetAssign;
 	}
 

@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * The type Dubbo tcc provider starter.
  *
  * @author zhangsen
  */
@@ -21,6 +22,12 @@ public class DubboTccProviderStarter {
 
     private static TestingServer server;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         //mock zk server
         mockZKServer();
