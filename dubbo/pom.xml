@@ -29,10 +29,6 @@
     <dependencies>
         <dependency>
             <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-tm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.fescar</groupId>
             <artifactId>fescar-spring</artifactId>
         </dependency>
         <dependency>
