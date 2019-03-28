@@ -5,9 +5,6 @@ import com.alibaba.fescar.samples.tcc.transfer.action.FirstTccAction;
 import com.alibaba.fescar.samples.tcc.transfer.action.SecondTccAction;
 import com.alibaba.fescar.samples.tcc.transfer.activity.TransferService;
 import com.alibaba.fescar.spring.annotation.GlobalTransactional;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * 转账服务实现
@@ -31,7 +28,7 @@ public class TransferServiceImpl implements TransferService {
     @GlobalTransactional
     public boolean transfer(final String from, final String to, final double amount) {
         //扣钱参与者，一阶段执行
-        boolean ret = firstTccAction.prepare_minus(null, from, amount);
+        boolean ret = firstTccAction.prepareMinus(null, from, amount);
 
         if(!ret){
             //扣钱参与者，一阶段失败; 回滚本地事务和分布式事务
@@ -39,7 +36,7 @@ public class TransferServiceImpl implements TransferService {
         }
 
         //加钱参与者，一阶段执行
-        ret = secondTccAction.prepare_add(null, to, amount);
+        ret = secondTccAction.prepareAdd(null, to, amount);
 
         if(!ret){
             throw new RuntimeException("账号:["+to+"] 预收款失败");

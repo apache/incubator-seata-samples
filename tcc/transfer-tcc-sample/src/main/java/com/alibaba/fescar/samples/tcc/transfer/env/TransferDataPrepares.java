@@ -40,16 +40,16 @@ public class TransferDataPrepares {
     /**
      * 初始化账户数据
      * @param dataSource
-     * @param account_no
+     * @param accountNo
      * @param amount
      */
-    protected void prepareData(DataSource dataSource, String account_no, double amount) throws SQLException {
+    protected void prepareData(DataSource dataSource, String accountNo, double amount) throws SQLException {
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
             String sql = "insert into account(account_no, amount, freezed_amount) values(?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, account_no);
+            ps.setString(1, accountNo);
             ps.setDouble(2, amount);
             ps.setDouble(3, 0);
             ps.executeUpdate();
