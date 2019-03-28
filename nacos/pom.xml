@@ -27,7 +27,7 @@
     <artifactId>fescar-samples-nacos</artifactId>
     <name>fescar-samples-nacos ${project.version}</name>
     <properties>
-        <fescar.version>0.3.0</fescar.version>
+        <fescar.version>0.4.0</fescar.version>
         <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
         <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
     </properties>
@@ -75,6 +75,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
