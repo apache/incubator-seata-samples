@@ -19,9 +19,9 @@ public interface SecondTccAction {
      * @param amount
      */
     @TwoPhaseBusinessAction(name = "secondTccAction", commitMethod = "commit", rollbackMethod = "rollback")
-    public boolean prepare_add(BusinessActionContext businessActionContext,
-                               @BusinessActionContextParameter(paramName = "accountNo") String accountNo,
-                               @BusinessActionContextParameter(paramName = "amount") double amount);
+    public boolean prepareAdd(BusinessActionContext businessActionContext,
+                              @BusinessActionContextParameter(paramName = "accountNo") String accountNo,
+                              @BusinessActionContextParameter(paramName = "amount") double amount);
 
     /**
      * 二阶段提交

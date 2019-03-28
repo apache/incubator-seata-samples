@@ -34,7 +34,7 @@ public class FirstTccActionImpl implements FirstTccAction {
      * @return
      */
     @Override
-    public boolean prepare_minus(BusinessActionContext businessActionContext, final String accountNo, final double amount) {
+    public boolean prepareMinus(BusinessActionContext businessActionContext, final String accountNo, final double amount) {
         //分布式事务ID
         final String xid = businessActionContext.getXid();
 
@@ -55,7 +55,7 @@ public class FirstTccActionImpl implements FirstTccAction {
                     double freezedAmount = account.getFreezedAmount() + amount;
                     account.setFreezedAmount(freezedAmount);
                     fromAccountDAO.updateFreezedAmount(account);
-                    System.out.println(String.format("prepare_minus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(String.format("prepareMinus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
                     return true;
                 } catch (Throwable t) {
                     t.printStackTrace();
@@ -131,7 +131,7 @@ public class FirstTccActionImpl implements FirstTccAction {
                     //释放冻结金额
                     account.setFreezedAmount(account.getFreezedAmount()  - amount);
                     fromAccountDAO.updateFreezedAmount(account);
-                    System.out.println(String.format("Undo prepare_minus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(String.format("Undo prepareMinus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
                     return true;
                 }catch (Throwable t){
                     t.printStackTrace();

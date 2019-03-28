@@ -31,7 +31,7 @@ public class SecondTccActionImpl implements SecondTccAction {
      * @return
      */
     @Override
-    public boolean prepare_add(final BusinessActionContext businessActionContext, final String accountNo, final double amount) {
+    public boolean prepareAdd(final BusinessActionContext businessActionContext, final String accountNo, final double amount) {
         //分布式事务ID
         final String xid = businessActionContext.getXid();
 
@@ -43,14 +43,14 @@ public class SecondTccActionImpl implements SecondTccAction {
                     //校验账户
                     Account account = toAccountDAO.getAccountForUpdate(accountNo);
                     if(account == null){
-                        System.out.println("prepare_add: 账户["+accountNo+"]不存在, txId:" + businessActionContext.getXid());
+                        System.out.println("prepareAdd: 账户["+accountNo+"]不存在, txId:" + businessActionContext.getXid());
                         return false;
                     }
                     //待转入资金作为 不可用金额
                     double freezedAmount = account.getFreezedAmount() + amount;
                     account.setFreezedAmount(freezedAmount);
                     toAccountDAO.updateFreezedAmount(account);
-                    System.out.println(String.format("prepare_add account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(String.format("prepareAdd account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
                     return true;
                 } catch (Throwable t) {
                     t.printStackTrace();
@@ -126,7 +126,7 @@ public class SecondTccActionImpl implements SecondTccAction {
                     account.setFreezedAmount(account.getFreezedAmount()  - amount);
                     toAccountDAO.updateFreezedAmount(account);
 
-                    System.out.println(String.format("Undo prepare_add account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(String.format("Undo prepareAdd account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
                     return true;
                 }catch (Throwable t){
                     t.printStackTrace();
