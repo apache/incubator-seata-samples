@@ -279,7 +279,7 @@ sh nacos-config.sh localhost
 
 ```properties
 registry {
-  # file nacos
+  # file 、nacos 、eureka、redis、zk
   type = "nacos"
 
   nacos {
@@ -287,10 +287,49 @@ registry {
     namespace = "public"
     cluster = "default"
   }
+  eureka {
+    serviceUrl = "http://localhost:1001/eureka"
+    application = "default"
+    weight = "1"
+  }
+  redis {
+    serverAddr = "localhost:6379"
+    db = "0"
+  }
+  zk {
+    cluster = "default"
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
   file {
     name = "file.conf"
   }
 }
+
+config {
+  # file、nacos 、apollo、zk
+  type = "nacos"
+
+  nacos {
+    serverAddr = "localhost"
+    namespace = "public"
+    cluster = "default"
+  }
+  apollo {
+    app.id = "fescar-server"
+    apollo.meta = "http://192.168.1.204:8801"
+  }
+  zk {
+    serverAddr = "127.0.0.1:2181"
+    session.timeout = 6000
+    connect.timeout = 2000
+  }
+  file {
+    name = "file.conf"
+  }
+}
+
 
 ```
 **type**: 可配置为 nacos 和 file，配置为 file 时无服务注册功能   
