@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fescar分布式事务演示</title>
+<script type="text/javascript" src="vue.js"></script>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div>
+			<span>当前余额: </span><input v-model="account_money" disabled="disabled">
+		</div>
+		<div>
+			<span>剩余库存: </span><input v-model="storage_count" disabled="disabled">
+		</div>
+		<div>
+			<button @click="buyit(false)">购买并成功</button>
+		</div>
+		<div>
+			<button @click="buyit(true)">购买但失败</button>
+		</div>
+		<div>
+			<button @click="dataReload">刷新</button>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var _app = new Vue({
+	el : "#app",
+	data : {
+		account_money : 0,
+		storage_count : 0
+	},
+	methods : {
+		dataReload : function() {
+			$.ajax({
+				url : "api/info",
+				success : function(re) {
+					if (re && re.ok) {
+						_app.account_money = re.data.account.money;
+						_app.storage_count = re.data.storage.count;
+					}
+				}
+			});
+		},
+		buyit : function(dofail) {
+			$.ajax({
+				url : "api/purchase?userId=U100001&commodityCode=C00321&orderCount=1&dofail=" + dofail,
+				success : function(re) {
+					if (re && re.ok) {
+						alert("真的是购买成功");
+					}
+					else {
+						alert("真的是购买失败");
+					}
+					_app.dataReload();
+				}
+			});
+		}
+	}
+});
+_app.dataReload();
+</script>
+</html>
