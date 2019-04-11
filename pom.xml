@@ -61,7 +61,7 @@
         <module>nacos</module>
         <module>springboot-dubbo-fescar</module>
         <module>tcc</module>
-
+        <module>springcloud-jpa-seata</module>
     </modules>
     <dependencyManagement>
         <dependencies>
