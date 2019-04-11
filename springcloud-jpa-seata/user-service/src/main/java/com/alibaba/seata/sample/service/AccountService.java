@@ -20,13 +20,15 @@ public class AccountService {
     @Autowired
     private AccountDAO accountDAO;
 
-    @Transactional
+    private static final String ERROR_USER_ID= "1002";
+
+    @Transactional(rollbackFor = Exception.class)
     public void debit(String userId, BigDecimal num){
         Account account = accountDAO.findByUserId(userId);
         account.setMoney(account.getMoney().subtract(num));
         accountDAO.save(account);
 
-        if (userId.equals("1002")){
+        if (ERROR_USER_ID.equals(userId)){
             throw new RuntimeException("account branch exception");
         }
     }
