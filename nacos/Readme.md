@@ -137,7 +137,7 @@ CREATE TABLE `account_tbl` (
 
 ```xml
       <properties>
-          <fescar.version>0.4.0</fescar.version>
+          <fescar.version>0.4.2</fescar.version>
           <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
           <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
        </properties>
