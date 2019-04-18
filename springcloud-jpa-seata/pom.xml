@@ -3,19 +3,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.alibaba.fescar</groupId>
-        <artifactId>fescar-samples</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
-
+    <groupId>io.seata</groupId>
     <artifactId>springcloud-jpa-seata</artifactId>
-    <groupId>com.alibaba.fescar</groupId>
+    <version>1.0.0-SNAPSHOT</version>
     <name>seata-sample</name>
     <description>Demo project for Seata</description>
     <packaging>pom</packaging>
 
 	<properties>
+        <seata.version>0.4.2</seata.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<spring-cloud.version></spring-cloud.version>

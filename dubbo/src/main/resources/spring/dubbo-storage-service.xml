@@ -46,7 +46,7 @@
         <property name="filters" value="mergeStat" />
     </bean>
 
-    <bean id="storageDataSourceProxy" class="com.alibaba.fescar.rm.datasource.DataSourceProxy">
+    <bean id="storageDataSourceProxy" class="io.seata.rm.datasource.DataSourceProxy">
         <constructor-arg ref="storageDataSource" />
     </bean>
 
@@ -61,13 +61,13 @@
     <!--support nacos-->
     <!-- <dubbo:registry address="nacos://127.0.0.1:8848"/> -->
     <dubbo:protocol name="dubbo" port="20882" />
-    <dubbo:service interface="com.alibaba.fescar.samples.dubbo.service.StorageService" ref="service" timeout="10000"/>
+    <dubbo:service interface="io.seata.samples.dubbo.service.StorageService" ref="service" timeout="10000"/>
 
-    <bean id="service" class="com.alibaba.fescar.samples.dubbo.service.impl.StorageServiceImpl">
+    <bean id="service" class="io.seata.samples.dubbo.service.impl.StorageServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
 
-    <bean class="com.alibaba.fescar.spring.annotation.GlobalTransactionScanner">
+    <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
         <constructor-arg value="dubbo-demo-storage-service"/>
         <constructor-arg value="my_test_tx_group"/>
     </bean>

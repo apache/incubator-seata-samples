@@ -18,22 +18,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.alibaba.fescar</groupId>
-        <artifactId>fescar-samples</artifactId>
+        <groupId>io.seata</groupId>
+        <artifactId>seata-samples</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>fescar-samples-dubbo</artifactId>
+    <artifactId>seata-samples-dubbo</artifactId>
     <packaging>jar</packaging>
-    <name>fescar-samples-dubbo ${project.version}</name>
+    <name>seata-samples-dubbo ${project.version}</name>
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-spring</artifactId>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-dubbo</artifactId>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-dubbo</artifactId>
         </dependency>
         <dependency>
             <groupId>com.101tec</groupId>

@@ -1,12 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-      <groupId>com.alibaba.fescar</groupId>
-      <artifactId>fescar-samples</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>nutzboot-dubbo-fescar</artifactId>
-  <packaging>pom</packaging>
+  
+<groupId>io.seata</groupId>
+<artifactId>nutzboot-dubbo-seata</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+
+<packaging>pom</packaging>
   <modules>
   	<module>nutzboot-dubbo-fescar-common</module>
   	<module>nutzboot-dubbo-fescar-web</module>
@@ -15,8 +14,10 @@
   	<module>nutzboot-dubbo-fescar-storage</module>
   </modules>
   <properties>
-    <nutzboot.version>2.3.3.v20190329</nutzboot.version>
-    <slf4j.version>1.7.25</slf4j.version>
+	  	<seata.version>0.4.2</seata.version>
+    	<nutzboot.version>2.3.3.v20190329</nutzboot.version>
+    	<slf4j.version>1.7.25</slf4j.version>
+	    <netty4.version>4.1.24.Final</netty4.version>
   </properties>
 
   <dependencies>
@@ -53,11 +54,12 @@
 		<dependency>
 			<groupId>com.alibaba.fescar</groupId>
 			<artifactId>fescar-dubbo-alibaba</artifactId>
-			<version>${fescar.version}</version>
+			<version>${seata.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
+			<version>${netty4.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
