@@ -32,6 +32,7 @@
         <module>local-tcc-sample</module>
         <module>sofarpc-tcc-sample</module>
         <module>transfer-tcc-sample</module>
+        <module>springboot-tcc-sample</module>
     </modules>
 
     <properties>
