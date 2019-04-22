@@ -54,6 +54,6 @@
     </bean>
 
     <!-- 转入账户 DAO -->
-    <bean id = "toAccountDAO" class = "com.alibaba.fescar.samples.tcc.transfer.dao.impl.AccountDAOImpl" parent="toDsSqlMapClientDAO" />
+    <bean id = "toAccountDAO" class = "io.seata.samples.tcc.transfer.dao.impl.AccountDAOImpl" parent="toDsSqlMapClientDAO" />
 
 </beans>

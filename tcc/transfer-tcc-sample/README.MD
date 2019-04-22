@@ -1,14 +1,14 @@
-# Fescar TCC 模式 demo 工程
+# Seata TCC 模式 demo 工程
 
 
-[Fescar](https://github.com/alibaba/fescar) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。   
+[Seata](https://github.com/seata/seata) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。   
 
 
 ## demo 说明
 
-基于 Fescar TCC模式，以转账场景为例，演示分布式事务的提交和回滚；
+基于 Seata TCC模式，以转账场景为例，演示分布式事务的提交和回滚；
 
-本demo中一个分布式事务内会有2个TCC事务参与者，分别是: [FirstTccAction](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample//src/main/java/com/alibaba/fescar/samples/tcc/transfer/action/FirstTccAction.java) 和 [SecondTccAction](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/main/java/com/alibaba/fescar/samples/tcc/transfer/action/SecondTccAction.java) ；
+本demo中一个分布式事务内会有2个TCC事务参与者，分别是: [FirstTccAction](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample//src/main/java/io/seata/samples/tcc/transfer/action/FirstTccAction.java) 和 [SecondTccAction](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/main/java/io/seata/samples/tcc/transfer/action/SecondTccAction.java) ；
 
 FirstTccAction 实现了转账服务中的扣款TCC服务，SecondTccAction 实现了转账服务中的存款TCC服务；
 
@@ -56,17 +56,17 @@ public interface SecondTccAction {
 
 #### step 1 启动 Fesacr Server
 
-运行 [FescarServerStarter](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/test/java/com/alibaba/fescar/samples/tcc/FescarServerStarter.java) ，启动 Fescar Server；
+运行 [SeataServerStarter](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/test/java/io/seata/samples/tcc/SeataServerStarter.java) ，启动 Seata Server；
 
 
 #### step 2 启动 dubbo 服务
 
-运行 [TransferProviderStarter](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/main/java/com/alibaba/fescar/samples/tcc/transfer/starter/TransferProviderStarter.java)
+运行 [TransferProviderStarter](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/main/java/io/seata/samples/tcc/transfer/starter/TransferProviderStarter.java)
 
 本应用发布TCC dubbo服务；
 
 #### step 2 启动 TCC 转账 Demo
 
-运行 [TransferApplication](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/main/java/com/alibaba/fescar/samples/tcc/transfer/starter/TransferApplication.java) , 启动 demo工程；
+运行 [TransferApplication](https://github.com/fescar-group/fescar-samples/blob/master/tcc/transfer-tcc-sample/src/main/java/io/seata/samples/tcc/transfer/starter/TransferApplication.java) , 启动 demo工程；
 
 本应用订阅TCC dubbo服务，发起方分布式事务，调用TCC dubbo参与者，完成转账；内含转账事务提交（doTransferSuccess）场景和转账事务回滚（doTransferFailed）场景的演示；

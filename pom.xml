@@ -18,12 +18,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.alibaba.fescar</groupId>
-    <artifactId>fescar-samples</artifactId>
+    <groupId>io.seata</groupId>
+    <artifactId>seata-samples</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
-    <name>fescar-samples ${project.version}</name>
+    <name>seata-samples ${project.version}</name>
     <properties>
+        <seata.version>0.5.0</seata.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -50,7 +52,6 @@
         <dubbo.registry.nacos>0.0.2</dubbo.registry.nacos>
         <spring-context-support.version>1.0.2</spring-context-support.version>
         <testng.version>6.4</testng.version>
-        <fescar.version>0.4.0</fescar.version>
         <spring.version>5.1.3.RELEASE</spring.version>
         <mysql-connector.version>5.1.31</mysql-connector.version>
         <curator.version>4.1.0</curator.version>
@@ -59,21 +60,22 @@
         <module>dubbo</module>
         <module>springboot</module>
         <module>nacos</module>
-        <module>springboot-dubbo-fescar</module>
+        <module>springboot-dubbo-seata</module>
         <module>tcc</module>
         <module>springcloud-jpa-seata</module>
+        <module>nutzboot-dubbo-fescar</module>
     </modules>
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-spring</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring</artifactId>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-dubbo</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-dubbo</artifactId>
+                <version>${seata.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.dubbo</groupId>
@@ -180,6 +182,33 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>mvnrepository</id>
+            <name>mvnrepository</name>
+            <url>http://www.mvnrepository.com/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <name>sonatype</name>
+            <url>http://oss.sonatype.org/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

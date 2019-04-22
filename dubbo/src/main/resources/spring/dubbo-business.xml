@@ -28,15 +28,15 @@
     <!--support nacos-->
     <!-- <dubbo:registry address="nacos://127.0.0.1:8848"/> -->
 
-    <dubbo:reference id="orderService" check="false" interface="com.alibaba.fescar.samples.dubbo.service.OrderService"/>
-    <dubbo:reference id="storageService" check="false" interface="com.alibaba.fescar.samples.dubbo.service.StorageService"/>
+    <dubbo:reference id="orderService" check="false" interface="io.seata.samples.dubbo.service.OrderService"/>
+    <dubbo:reference id="storageService" check="false" interface="io.seata.samples.dubbo.service.StorageService"/>
 
-    <bean id="business" class="com.alibaba.fescar.samples.dubbo.service.impl.BusinessServiceImpl">
+    <bean id="business" class="io.seata.samples.dubbo.service.impl.BusinessServiceImpl">
         <property name="orderService" ref="orderService"/>
         <property name="storageService" ref="storageService"/>
     </bean>
 
-    <bean class="com.alibaba.fescar.spring.annotation.GlobalTransactionScanner">
+    <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
         <constructor-arg value="dubbo-demo-app"/>
         <constructor-arg value="my_test_tx_group"/>
     </bean>

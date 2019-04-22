@@ -1,6 +1,6 @@
 # dubbo
 
-How to use Fescar to ensure consistency between Dubbo Microservices ？  
+How to use Seata to ensure consistency between Dubbo Microservices ？  
 
 Please see the blog:   
 Engligh: http://dubbo.apache.org/en-us/blog/dubbo-fescar.html   

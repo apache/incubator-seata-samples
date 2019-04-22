@@ -19,29 +19,38 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>fescar-samples</artifactId>
-        <groupId>com.alibaba.fescar</groupId>
+        <groupId>io.seata</groupId>
+        <artifactId>seata-samples</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>fescar-samples-nacos</artifactId>
-    <name>fescar-samples-nacos ${project.version}</name>
+    <artifactId>seata-samples-nacos</artifactId>
+    <name>seata-samples-nacos ${project.version}</name>
     <properties>
-        <fescar.version>0.4.0</fescar.version>
         <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
         <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-spring</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring</artifactId>
+            <version>${seata.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-dubbo-alibaba</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-config-nacos</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-discovery-nacos</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-dubbo-alibaba</artifactId>
+            <version>${seata.version}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>dubbo</artifactId>
