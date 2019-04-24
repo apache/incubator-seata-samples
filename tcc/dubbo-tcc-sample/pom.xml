@@ -51,12 +51,6 @@
             </exclusions>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-recipes</artifactId>
-        </dependency>
-
         <!-- 内嵌 zk server -->
         <dependency>
             <groupId>org.apache.curator</groupId>
