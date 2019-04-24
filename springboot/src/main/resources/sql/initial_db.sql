@@ -31,9 +31,10 @@ CREATE TABLE `t_asset`  (
   `amount` decimal(12, 0) NOT NULL COMMENT '',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB;
-
+INSERT INTO `t_asset` VALUES ('DF001', 'e2d1c4512d554db9ae4a5f30cbc2e4b1', '1');
 -- ----------------------------
 -- Table structure for undo_log
+-- 注意此处0.3.0+ 增加唯一索引 ux_undo_log
 -- ----------------------------
 CREATE TABLE `undo_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -45,7 +46,7 @@ CREATE TABLE `undo_log` (
   `log_modified` datetime NOT NULL,
   `ext` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_unionkey` (`xid`,`branch_id`)
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159;
 
 -- ----------------------------
