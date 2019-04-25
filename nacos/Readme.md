@@ -18,7 +18,7 @@
 
 ### 业务结构图
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/fescar-1.png"  height="300" width="600">
+<img src="https://github.com/seata/seata-samples/blob/master/doc/img/fescar-1.png"  height="300" width="600">
 
 
 #### StorageService
@@ -60,7 +60,7 @@ public interface AccountService {
 
 #### Step 1 初始化 MySQL 数据库（需要InnoDB 存储引擎）
 
-在 [resources/jdbc.properties](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接信息。
+在 [resources/jdbc.properties](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接信息。
 
 ```properties
 jdbc.account.url=jdbc:mysql://xxxx/xxxx
@@ -82,7 +82,7 @@ jdbc.order.driver=com.mysql.jdbc.Driver
 #### Step 2 创建 undo_log（用于 Seata AT 模式）表和相关业务表   
 
 
-相关建表脚本可在 [resources/sql/](https://github.com/fescar-group/fescar-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/dubbo_biz.sql) 中的业务建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/sql/undo_log.sql) 建表脚本。
+相关建表脚本可在 [resources/sql/](https://github.com/seata/seata-samples/tree/master/nacos/src/main/resources/sql) 下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/sql/dubbo_biz.sql) 中的业务建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/sql/undo_log.sql) 建表脚本。
 
 ```sql
 -- 注意此处0.3.0+ 增加唯一索引 ux_undo_log
@@ -184,9 +184,9 @@ CREATE TABLE `account_tbl` (
 
 #### Step 4 微服务 Provider Spring配置
 
-分别在三个微服务Spring配置文件（[dubbo-account-service.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-account-service.xml)、
-[dubbo-order-service](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-order-service.xml) 和 
-[dubbo-storage-service.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-storage-service.xml)
+分别在三个微服务Spring配置文件（[dubbo-account-service.xml](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-account-service.xml)、
+[dubbo-order-service](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-order-service.xml) 和 
+[dubbo-storage-service.xml](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-storage-service.xml)
 ）进行如下配置：
 
 - 配置 Seata 代理数据源
@@ -222,7 +222,7 @@ CREATE TABLE `account_tbl` (
 
 #### Step 5 事务发起方配置
 
-在 [dubbo-business.xml](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/resources/spring/dubbo-business.xml) 配置以下配置：
+在 [dubbo-business.xml](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-business.xml) 配置以下配置：
 - 配置 Dubbo 注册中心
 
 同 Step 4
@@ -281,7 +281,7 @@ sh nacos-config.sh localhost
 
 脚本执行最后输出 "**init nacos config finished, please start Seata-server.**" 说明推送配置成功。若想进一步确认可登陆Nacos 控制台 配置列表 筛选 Group=SEATA_GROUP 的配置项。
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-1.png"  height="300" width="800">
+<img src="https://github.com/seata/seata-samples/blob/master/doc/img/nacos-1.png"  height="300" width="800">
 
 - 修改 Seata-server 服务注册方式为 nacos
 
@@ -373,29 +373,29 @@ sh seata-server.sh 8091 file
 
 运行成功后可在 Nacos 控制台看到 服务名 =serverAddr 服务注册列表:
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-2.png"  height="300" width="800">
+<img src="https://github.com/seata/seata-samples/blob/master/doc/img/nacos-2.png"  height="300" width="800">
 
 #### Step 8 启动微服务并测试
 
 - 修改业务客户端发现注册方式为 nacos   
 同Step 7 中[修改 Seata-server 服务注册方式为 nacos] 步骤
-- 启动 [DubboAccountServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboAccountServiceStarter.java)
-- 启动 [DubboOrderServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboOrderServiceStarter.java)
-- 启动 [DubboStorageServiceStarter](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboStorageServiceStarter.java)
+- 启动 [DubboAccountServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboAccountServiceStarter.java)
+- 启动 [DubboOrderServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboOrderServiceStarter.java)
+- 启动 [DubboStorageServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboStorageServiceStarter.java)
 
 启动完成可在 Nacos 控制台服务列表 看到启动完成的三个 provider
 
-<img src="https://github.com/fescar-group/fescar-samples/blob/master/doc/img/nacos-3.png"  height="300" width="800">
+<img src="https://github.com/seata/seata-samples/blob/master/doc/img/nacos-3.png"  height="300" width="800">
 
 
-- 启动 [DubboBusinessTester](https://github.com/fescar-group/fescar-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboBusinessTester.java) 进行测试
+- 启动 [DubboBusinessTester](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboBusinessTester.java) 进行测试
 
 **注意:** 在标注 @GlobalTransactional 注解方法内部显示的抛出异常才会进行事务的回滚。整个 Dubbo 服务调用链路只需要在事务最开始发起方的 service 方法标注注解即可。
 
 
 ## 相关链接:
 
-本文 sample 地址: https://github.com/fescar-group/fescar-samples/tree/master/nacos   
+本文 sample 地址: https://github.com/seata/seata-samples/tree/master/nacos   
 Seata: https://github.com/seata/seata   
 Dubbo: https://github.com/apache/incubator-dubbo   
 Nacos: https://github.com/alibaba/nacos
