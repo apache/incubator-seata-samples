@@ -1,7 +1,7 @@
 package com.alibaba.seata.sample;
 
+import io.seata.rm.datasource.DataSourceProxy;
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.fescar.rm.datasource.DataSourceProxy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;

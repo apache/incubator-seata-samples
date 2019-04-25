@@ -1,8 +1,8 @@
 package com.alibaba.seata.sample.service;
 
-import com.alibaba.seata.sample.repository.OrderDAO;
-import com.alibaba.seata.sample.feign.UserFeignClient;
 import com.alibaba.seata.sample.entity.Order;
+import com.alibaba.seata.sample.feign.UserFeignClient;
+import com.alibaba.seata.sample.repository.OrderDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ public class OrderService {
     private OrderDAO orderDAO;
 
     @Transactional
-    public void create(String userId,String commodityCode, Integer count){
+    public void create(String userId, String commodityCode, Integer count) {
 
         BigDecimal orderMoney = new BigDecimal(count).multiply(new BigDecimal(5));
 
@@ -37,6 +37,7 @@ public class OrderService {
         orderDAO.save(order);
 
         userFeignClient.debit(userId, orderMoney);
+
     }
 
 }

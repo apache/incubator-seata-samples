@@ -1,8 +1,8 @@
 package com.alibaba.seata.sample.service;
 
-import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 import com.alibaba.seata.sample.feign.OrderFeignClient;
 import com.alibaba.seata.sample.feign.StorageFeignClient;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
