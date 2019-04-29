@@ -70,17 +70,6 @@
             <artifactId>seata-discovery-nacos</artifactId>
             <version>${seata.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-dubbo-alibaba</artifactId>
-            <version>${seata.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>dubbo</artifactId>
-                    <groupId>org.apache.dubbo</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
 
         <dependency>

@@ -1,6 +1,5 @@
 package io.seata.samples.integration.common.exception;
 
-
 import io.seata.samples.integration.common.enums.RspStatusEnum;
 
 /**

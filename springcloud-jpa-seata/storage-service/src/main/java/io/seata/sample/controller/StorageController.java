@@ -18,8 +18,8 @@ public class StorageController {
     private StorageService storageService;
 
     @GetMapping(path = "/deduct")
-    public Boolean deduct(String commodityCode, Integer count){
-        storageService.deduct(commodityCode,count);
+    public Boolean deduct(String commodityCode, Integer count) {
+        storageService.deduct(commodityCode, count);
         return true;
     }
 }

@@ -1,5 +1,8 @@
 package io.seata.samples.tcc.starter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.seata.common.util.StringUtils;
 import io.seata.samples.tcc.ApplicationKeeper;
 import io.seata.samples.tcc.action.ResultHolder;
@@ -9,9 +12,6 @@ import io.seata.samples.tcc.service.TccTransactionService;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The type Local tcc transaction starter.

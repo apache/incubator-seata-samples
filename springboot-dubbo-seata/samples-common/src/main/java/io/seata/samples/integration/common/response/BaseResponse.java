@@ -1,8 +1,8 @@
 package io.seata.samples.integration.common.response;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * 基本返回

@@ -1,17 +1,8 @@
 package io.seata.samples.tcc.dubbo.starter;
 
-import io.seata.common.util.StringUtils;
 import io.seata.samples.tcc.dubbo.ApplicationKeeper;
-import io.seata.samples.tcc.dubbo.action.ResultHolder;
-import io.seata.samples.tcc.dubbo.service.TccTransactionService;
 import org.apache.curator.test.TestingServer;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.util.Assert;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The type Dubbo tcc provider starter.
@@ -33,7 +24,7 @@ public class DubboTccProviderStarter {
         mockZKServer();
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml"});
+            new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml"});
 
         new ApplicationKeeper(applicationContext).keep();
     }

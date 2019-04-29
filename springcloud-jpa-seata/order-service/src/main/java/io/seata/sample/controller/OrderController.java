@@ -18,7 +18,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/create")
-    public Boolean create(String userId,String commodityCode, Integer count){
+    public Boolean create(String userId, String commodityCode, Integer count) {
 
         orderService.create(userId, commodityCode, count);
         return true;

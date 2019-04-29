@@ -1,13 +1,13 @@
 package io.seata.samples.integration.common.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import lombok.Data;
+
 /**
  * @Author: heshouyou
- * @Description  账户信息
+ * @Description 账户信息
  * @Date Created in 2019/1/13 16:39
  */
 @Data

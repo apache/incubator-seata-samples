@@ -196,11 +196,11 @@
 			<groupId>io.seata</groupId>
 			<artifactId>seata-dubbo</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>io.seata</groupId>
+			<artifactId>seata-spring</artifactId>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<finalName>webapp</finalName>

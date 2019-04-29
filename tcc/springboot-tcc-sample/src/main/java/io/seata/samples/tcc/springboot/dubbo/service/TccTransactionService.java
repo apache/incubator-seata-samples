@@ -1,13 +1,13 @@
 package io.seata.samples.tcc.springboot.dubbo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import io.seata.core.context.RootContext;
 import io.seata.samples.tcc.springboot.dubbo.action.TccActionOne;
 import io.seata.samples.tcc.springboot.dubbo.action.TccActionTwo;
 import io.seata.spring.annotation.GlobalTransactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * The type Tcc transaction service.
@@ -26,17 +26,17 @@ public class TccTransactionService {
      * @return string string
      */
     @GlobalTransactional
-    public String doTransactionCommit(){
+    public String doTransactionCommit() {
         //第一个TCC 事务参与者
         boolean result = tccActionOne.prepare(null, 1);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List list = new ArrayList();
         list.add("c1");
         list.add("c2");
         result = tccActionTwo.prepare(null, "two", list);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
         return RootContext.getXID();
@@ -49,17 +49,17 @@ public class TccTransactionService {
      * @return the string
      */
     @GlobalTransactional
-    public String doTransactionRollback(Map map){
+    public String doTransactionRollback(Map map) {
         //第一个TCC 事务参与者
         boolean result = tccActionOne.prepare(null, 1);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List list = new ArrayList();
         list.add("c1");
         list.add("c2");
         result = tccActionTwo.prepare(null, "two", list);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
         map.put("xid", RootContext.getXID());

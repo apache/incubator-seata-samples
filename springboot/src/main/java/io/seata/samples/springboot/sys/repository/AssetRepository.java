@@ -16,7 +16,6 @@
 
 package io.seata.samples.springboot.sys.repository;
 
-
 import io.seata.samples.springboot.sys.domain.Asset;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;

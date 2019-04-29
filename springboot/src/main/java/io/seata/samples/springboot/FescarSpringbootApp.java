@@ -17,8 +17,8 @@
 package io.seata.samples.springboot;
 
 import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
-import io.seata.samples.springboot.service.AssignService;
 
+import io.seata.samples.springboot.service.AssignService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

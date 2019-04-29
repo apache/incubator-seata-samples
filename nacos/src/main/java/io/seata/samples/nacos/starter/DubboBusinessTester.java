@@ -17,7 +17,6 @@
 package io.seata.samples.nacos.starter;
 
 import io.seata.samples.nacos.service.BusinessService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

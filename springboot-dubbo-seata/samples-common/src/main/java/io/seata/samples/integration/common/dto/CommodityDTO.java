@@ -1,12 +1,12 @@
 package io.seata.samples.integration.common.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @Author: heshouyou
- * @Description  商品信息
+ * @Description 商品信息
  * @Date Created in 2019/1/13 16:25
  */
 @Data

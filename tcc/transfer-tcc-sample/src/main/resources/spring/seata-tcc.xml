@@ -15,11 +15,10 @@
   ~  limitations under the License.
   -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd" default-autowire="byName">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
 
     <!-- fescar bean scanner -->
     <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
@@ -27,12 +26,12 @@
         <constructor-arg value="my_test_tx_group"/>
     </bean>
 
-    <bean id = "firstTccActionImpl" class="io.seata.samples.tcc.transfer.action.impl.FirstTccActionImpl" />
+    <bean id="firstTccActionImpl" class="io.seata.samples.tcc.transfer.action.impl.FirstTccActionImpl"/>
 
-    <bean id = "secondTccActionImpl" class="io.seata.samples.tcc.transfer.action.impl.SecondTccActionImpl" />
+    <bean id="secondTccActionImpl" class="io.seata.samples.tcc.transfer.action.impl.SecondTccActionImpl"/>
 
-    <bean id = "transferService" class="io.seata.samples.tcc.transfer.activity.impl.TransferServiceImpl" />
+    <bean id="transferService" class="io.seata.samples.tcc.transfer.activity.impl.TransferServiceImpl"/>
 
-    <bean id = "transferDataPrepares" class="io.seata.samples.tcc.transfer.env.TransferDataPrepares" />
+    <bean id="transferDataPrepares" class="io.seata.samples.tcc.transfer.env.TransferDataPrepares"/>
 
 </beans>

@@ -26,7 +26,7 @@
     <artifactId>seata-samples-tcc</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>seata-samples-tcc ${project.version} </name>
+    <name>seata-samples-tcc ${project.version}</name>
     <modules>
         <module>dubbo-tcc-sample</module>
         <module>local-tcc-sample</module>
@@ -51,9 +51,9 @@
 
    <dependencies>
         <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-common</artifactId>
-                <version>${seata.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-common</artifactId>
+            <version>${seata.version}</version>
             </dependency>
 
             <dependency>

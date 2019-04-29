@@ -19,9 +19,9 @@ public class StorageService {
     private StorageDAO storageDAO;
 
     @Transactional
-    public void deduct(String commodityCode, int count){
+    public void deduct(String commodityCode, int count) {
         Storage storage = storageDAO.findByCommodityCode(commodityCode);
-        storage.setCount(storage.getCount()-count);
+        storage.setCount(storage.getCount() - count);
 
         storageDAO.save(storage);
     }

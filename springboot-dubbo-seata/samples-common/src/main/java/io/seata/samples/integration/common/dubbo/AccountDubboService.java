@@ -1,6 +1,5 @@
 package io.seata.samples.integration.common.dubbo;
 
-
 import io.seata.samples.integration.common.dto.AccountDTO;
 import io.seata.samples.integration.common.response.ObjectResponse;
 

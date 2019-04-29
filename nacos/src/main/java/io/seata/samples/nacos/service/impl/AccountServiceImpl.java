@@ -18,7 +18,6 @@ package io.seata.samples.nacos.service.impl;
 
 import io.seata.core.context.RootContext;
 import io.seata.samples.nacos.service.AccountService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;

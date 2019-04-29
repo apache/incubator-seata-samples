@@ -1,6 +1,5 @@
 package io.seata.samples.integration.storage.controller;
 
-
 import io.seata.samples.integration.common.dto.CommodityDTO;
 import io.seata.samples.integration.common.response.ObjectResponse;
 import io.seata.samples.integration.storage.service.ITStorageService;

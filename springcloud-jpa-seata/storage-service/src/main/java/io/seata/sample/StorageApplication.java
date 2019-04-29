@@ -1,6 +1,7 @@
 package io.seata.sample;
 
 import com.alibaba.druid.pool.DruidDataSource;
+
 import io.seata.rm.datasource.DataSourceProxy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
