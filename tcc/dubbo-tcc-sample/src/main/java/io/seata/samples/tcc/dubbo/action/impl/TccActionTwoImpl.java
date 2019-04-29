@@ -1,10 +1,10 @@
 package io.seata.samples.tcc.dubbo.action.impl;
 
+import java.util.List;
+
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.samples.tcc.dubbo.action.ResultHolder;
 import io.seata.samples.tcc.dubbo.action.TccActionTwo;
-
-import java.util.List;
 
 /**
  * The type Tcc action two.
@@ -23,7 +23,9 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean commit(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        System.out.println("TccActionTwo commit, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext.getActionContext("c"));
+        System.out.println(
+            "TccActionTwo commit, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
+                .getActionContext("c"));
         ResultHolder.setActionTwoResult(xid, "T");
         return true;
     }
@@ -31,7 +33,9 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean rollback(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        System.out.println("TccActionTwo rollback, xid:" + xid  + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext.getActionContext("c"));
+        System.out.println(
+            "TccActionTwo rollback, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
+                .getActionContext("c"));
         ResultHolder.setActionTwoResult(xid, "R");
         return true;
     }

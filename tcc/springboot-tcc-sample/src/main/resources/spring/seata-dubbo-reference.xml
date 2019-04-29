@@ -37,10 +37,12 @@
     <!--<dubbo:service interface="TccActionTwo" ref="tccActionTwoImpl"/>-->
 
     <!-- 第一个TCC参与者 服务订阅 -->
-    <dubbo:reference id="tccActionOne" interface="io.seata.samples.tcc.springboot.dubbo.action.TccActionOne" check="false" lazy="true"/>
+    <dubbo:reference id="tccActionOne" interface="io.seata.samples.tcc.springboot.dubbo.action.TccActionOne"
+                     check="false" lazy="true"/>
 
     <!-- 第二个TCC参与者 服务订阅 -->
-    <dubbo:reference id="tccActionTwo" interface="io.seata.samples.tcc.springboot.dubbo.action.TccActionTwo" check="false" lazy="true"  />
+    <dubbo:reference id="tccActionTwo" interface="io.seata.samples.tcc.springboot.dubbo.action.TccActionTwo"
+                     check="false" lazy="true"/>
 
 
 

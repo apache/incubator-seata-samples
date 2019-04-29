@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author fangliangsheng
  * @date 2019-04-04
  */
-public interface OrderDAO extends JpaRepository<Order,Long> {
+public interface OrderDAO extends JpaRepository<Order, Long> {
 
 }

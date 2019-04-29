@@ -16,7 +16,6 @@
 
 package io.seata.samples.springboot.config;
 
-
 import io.seata.spring.annotation.GlobalTransactionScanner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +37,8 @@ public class FescarConfiguration {
 	 */
 	@Bean
 	public GlobalTransactionScanner globalTransactionScanner() {
-		GlobalTransactionScanner globalTransactionScanner = new GlobalTransactionScanner(applicationId, "my_test_tx_group");
+        GlobalTransactionScanner globalTransactionScanner = new GlobalTransactionScanner(applicationId,
+            "my_test_tx_group");
 		return globalTransactionScanner;
 	}
 }

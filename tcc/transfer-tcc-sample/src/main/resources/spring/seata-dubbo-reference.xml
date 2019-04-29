@@ -31,9 +31,11 @@
     <dubbo:provider timeout="10000"  threads="10" threadpool="fixed" loadbalance="roundrobin"/>
 
     <!-- 第一个TCC参与者 服务订阅 -->
-    <dubbo:reference id="firstTccAction" interface="io.seata.samples.tcc.transfer.action.FirstTccAction" check="false" lazy="true"/>
+    <dubbo:reference id="firstTccAction" interface="io.seata.samples.tcc.transfer.action.FirstTccAction" check="false"
+                     lazy="true"/>
 
     <!-- 第二个TCC参与者 服务订阅 -->
-    <dubbo:reference id="secondTccAction" interface="io.seata.samples.tcc.transfer.action.SecondTccAction" check="false" lazy="true"  />
+    <dubbo:reference id="secondTccAction" interface="io.seata.samples.tcc.transfer.action.SecondTccAction" check="false"
+                     lazy="true"/>
 
 </beans>

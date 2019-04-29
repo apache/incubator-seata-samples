@@ -1,12 +1,12 @@
 package io.seata.sample.service;
 
+import java.math.BigDecimal;
+
 import io.seata.sample.entity.Account;
 import io.seata.sample.repository.AccountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
 
 /**
  * Description：
@@ -17,18 +17,17 @@ import java.math.BigDecimal;
 @Service
 public class AccountService {
 
+    private static final String ERROR_USER_ID = "1002";
     @Autowired
     private AccountDAO accountDAO;
 
-    private static final String ERROR_USER_ID= "1002";
-
     @Transactional(rollbackFor = Exception.class)
-    public void debit(String userId, BigDecimal num){
+    public void debit(String userId, BigDecimal num) {
         Account account = accountDAO.findByUserId(userId);
         account.setMoney(account.getMoney().subtract(num));
         accountDAO.save(account);
 
-        if (ERROR_USER_ID.equals(userId)){
+        if (ERROR_USER_ID.equals(userId)) {
             throw new RuntimeException("account branch exception");
         }
     }

@@ -1,15 +1,12 @@
 package io.seata.samples.tcc.transfer.starter;
 
+import java.sql.SQLException;
 
 import io.seata.samples.tcc.transfer.activity.TransferService;
 import io.seata.samples.tcc.transfer.dao.AccountDAO;
-import io.seata.samples.tcc.transfer.domains.Account;
 import io.seata.samples.tcc.transfer.env.TransferDataPrepares;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.util.Assert;
-
-import java.sql.SQLException;
 
 /**
  * 发起转账
@@ -41,7 +38,8 @@ public class TransferApplication {
     protected static TransferDataPrepares transferDataPrepares;
 
     public static void main(String[] args) throws SQLException {
-        applicationContext = new ClassPathXmlApplicationContext("spring/seata-tcc.xml", "spring/seata-dubbo-reference.xml",
+        applicationContext = new ClassPathXmlApplicationContext("spring/seata-tcc.xml",
+            "spring/seata-dubbo-reference.xml",
                 "db-bean/to-datasource-bean.xml", "db-bean/from-datasource-bean.xml");
 
         transferService = (TransferService) applicationContext.getBean("transferService" );

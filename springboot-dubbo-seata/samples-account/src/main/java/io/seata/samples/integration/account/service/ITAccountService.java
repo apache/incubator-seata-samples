@@ -1,9 +1,9 @@
 package io.seata.samples.integration.account.service;
 
+import com.baomidou.mybatisplus.service.IService;
 import io.seata.samples.integration.account.entity.TAccount;
 import io.seata.samples.integration.common.dto.AccountDTO;
 import io.seata.samples.integration.common.response.ObjectResponse;
-import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>

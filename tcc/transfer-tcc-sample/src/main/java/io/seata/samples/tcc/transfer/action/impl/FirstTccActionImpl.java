@@ -1,6 +1,5 @@
 package io.seata.samples.tcc.transfer.action.impl;
 
-
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.samples.tcc.transfer.action.FirstTccAction;
 import io.seata.samples.tcc.transfer.dao.AccountDAO;

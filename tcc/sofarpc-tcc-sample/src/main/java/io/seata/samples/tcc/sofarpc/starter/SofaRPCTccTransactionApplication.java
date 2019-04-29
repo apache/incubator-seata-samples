@@ -1,17 +1,16 @@
 package io.seata.samples.tcc.sofarpc.starter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.seata.common.util.StringUtils;
 import io.seata.samples.tcc.sofarpc.ApplicationKeeper;
 import io.seata.samples.tcc.sofarpc.service.TccTransactionService;
-import org.apache.curator.test.TestingServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.util.Assert;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The type Sofa rpc tcc transaction application.

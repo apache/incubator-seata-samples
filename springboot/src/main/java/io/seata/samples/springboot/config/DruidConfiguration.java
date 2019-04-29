@@ -16,10 +16,12 @@
 
 package io.seata.samples.springboot.config;
 
+import javax.sql.DataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+
 import io.seata.rm.datasource.DataSourceProxy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -28,8 +30,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
 
 /**
  * The type Druid configuration.

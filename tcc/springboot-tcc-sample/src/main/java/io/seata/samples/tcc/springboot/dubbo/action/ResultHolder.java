@@ -20,7 +20,7 @@ public class ResultHolder {
      * @param txId   the tx id
      * @param result the result
      */
-    public static void setActionOneResult(String txId, String result){
+    public static void setActionOneResult(String txId, String result) {
         actionOneResults.put(txId, result);
     }
 
@@ -30,7 +30,7 @@ public class ResultHolder {
      * @param txId the tx id
      * @return the string
      */
-    public static String getActionOneResult(String txId){
+    public static String getActionOneResult(String txId) {
         return actionOneResults.get(txId);
     }
 
@@ -40,7 +40,7 @@ public class ResultHolder {
      * @param txId   the tx id
      * @param result the result
      */
-    public static void setActionTwoResult(String txId, String result){
+    public static void setActionTwoResult(String txId, String result) {
         actionTwoResults.put(txId, result);
     }
 
@@ -50,7 +50,7 @@ public class ResultHolder {
      * @param txId the tx id
      * @return the string
      */
-    public static String getActionTwoResult(String txId){
+    public static String getActionTwoResult(String txId) {
         return actionTwoResults.get(txId);
     }
 

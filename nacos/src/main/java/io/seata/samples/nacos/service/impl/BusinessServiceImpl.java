@@ -21,7 +21,6 @@ import io.seata.samples.nacos.service.BusinessService;
 import io.seata.samples.nacos.service.OrderService;
 import io.seata.samples.nacos.service.StorageService;
 import io.seata.spring.annotation.GlobalTransactional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

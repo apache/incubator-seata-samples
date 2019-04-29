@@ -17,7 +17,6 @@
 package io.seata.samples.nacos.starter;
 
 import io.seata.samples.nacos.ApplicationKeeper;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
