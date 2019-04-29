@@ -1,22 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-      <groupId>com.alibaba.fescar</groupId>
-      <artifactId>fescar-samples</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>nutzboot-dubbo-fescar</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>nutzboot-dubbo-fescar-common</module>
-  	<module>nutzboot-dubbo-fescar-web</module>
-  	<module>nutzboot-dubbo-fescar-order</module>
-  	<module>nutzboot-dubbo-fescar-account</module>
-  	<module>nutzboot-dubbo-fescar-storage</module>
-  </modules>
+  
+	<groupId>io.seata</groupId>
+	<artifactId>nutzboot-dubbo-seata</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+  	<modules>
+		<module>nutzboot-dubbo-fescar-common</module>
+		<module>nutzboot-dubbo-fescar-web</module>
+		<module>nutzboot-dubbo-fescar-order</module>
+		<module>nutzboot-dubbo-fescar-account</module>
+		<module>nutzboot-dubbo-fescar-storage</module>
+	</modules>
   <properties>
-    <nutzboot.version>2.3.3.v20190329</nutzboot.version>
-    <slf4j.version>1.7.25</slf4j.version>
+		<seata.version>0.4.2</seata.version>
+		<nutzboot.version>2.3.3.v20190329</nutzboot.version>
+		<slf4j.version>1.7.25</slf4j.version>
+		<netty4.version>4.1.24.Final</netty4.version>
+	  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <maven.compiler.source>1.8</maven.compiler.source>
+	  	<maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -53,11 +57,12 @@
 		<dependency>
 			<groupId>com.alibaba.fescar</groupId>
 			<artifactId>fescar-dubbo-alibaba</artifactId>
-			<version>${fescar.version}</version>
+			<version>${seata.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
+			<version>${netty4.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -65,4 +70,97 @@
 			<version>5.1.42</version>
 		</dependency>
   </dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>spring-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>mvnrepository</id>
+			<name>mvnrepository</name>
+			<url>http://www.mvnrepository.com/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype</id>
+			<name>sonatype</name>
+			<url>http://oss.sonatype.org/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+				<configuration>
+					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+					<minimumPriority>2</minimumPriority>
+					<printFailingErrors>true</printFailingErrors>
+					<rulesets>
+						<ruleset>rulesets/java/ali-comment.xml</ruleset>
+						<ruleset>rulesets/java/ali-concurrent.xml</ruleset>
+						<ruleset>rulesets/java/ali-constant.xml</ruleset>
+						<ruleset>rulesets/java/ali-exception.xml</ruleset>
+						<ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
+						<ruleset>rulesets/java/ali-naming.xml</ruleset>
+						<ruleset>rulesets/java/ali-oop.xml</ruleset>
+						<ruleset>rulesets/java/ali-orm.xml</ruleset>
+						<ruleset>rulesets/java/ali-other.xml</ruleset>
+						<ruleset>rulesets/java/ali-set.xml</ruleset>
+					</rulesets>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.alibaba.p3c</groupId>
+						<artifactId>p3c-pmd</artifactId>
+						<version>1.3.6</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 </project>

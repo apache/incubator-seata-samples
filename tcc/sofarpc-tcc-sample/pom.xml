@@ -25,12 +25,13 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sofarpc-tcc-sample</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>sofarpc-tcc-sample ${project.version}</name>
 
     <properties>
+        <seata.version>0.5.0</seata.version>
         <curator.version>2.9.1</curator.version>
-        <fescar.version>0.4.0</fescar.version>
         <netty4.version>4.1.24.Final</netty4.version>
     </properties>
 
@@ -49,46 +50,46 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-common</artifactId>
-            <version>${fescar.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-config</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-common</artifactId>
+            <version>${seata.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-core</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-core</artifactId>
+            <version>${seata.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-rm-datasource</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-rm</artifactId>
+            <version>${seata.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-tm</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-rm-datasource</artifactId>
+            <version>${seata.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-spring</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-tm</artifactId>
+            <version>${seata.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-dubbo</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-dubbo</artifactId>
+            <version>${seata.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.fescar</groupId>
-            <artifactId>fescar-server</artifactId>
-            <version>${fescar.version}</version>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-server</artifactId>
+            <version>${seata.version}</version>
         </dependency>
 
         <dependency>
@@ -118,5 +119,32 @@
         </dependency>
         
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>mvnrepository</id>
+            <name>mvnrepository</name>
+            <url>http://www.mvnrepository.com/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <name>sonatype</name>
+            <url>http://oss.sonatype.org/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>

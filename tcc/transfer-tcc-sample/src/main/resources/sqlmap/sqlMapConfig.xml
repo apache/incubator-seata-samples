@@ -8,7 +8,7 @@
     </settings>
     
 	<typeAliases>
-		<typeAlias alias="account" type="com.alibaba.fescar.samples.tcc.transfer.domains.Account"/>
+		<typeAlias alias="account" type="io.seata.samples.tcc.transfer.domains.Account"/>
  	</typeAliases>
   	
   	<mappers>

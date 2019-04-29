@@ -18,79 +18,74 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.alibaba.fescar</groupId>
-        <artifactId>fescar-samples</artifactId>
+        <groupId>io.seata</groupId>
+        <artifactId>seata-samples</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>fescar-samples-tcc</artifactId>
+    <artifactId>seata-samples-tcc</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>fescar-samples-tcc ${project.version}</name>
+    <name>seata-samples-tcc ${project.version} </name>
     <modules>
         <module>dubbo-tcc-sample</module>
         <module>local-tcc-sample</module>
         <module>sofarpc-tcc-sample</module>
         <module>transfer-tcc-sample</module>
+        <module>springboot-tcc-sample</module>
     </modules>
 
     <properties>
-        <fescar.version>0.4.0</fescar.version>
         <spring.version>5.0.8.RELEASE</spring.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-dubbo-alibaba</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-dubbo-alibaba</artifactId>
+                <version>${seata.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
    <dependencies>
         <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-common</artifactId>
-                <version>${fescar.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-config</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-common</artifactId>
+                <version>${seata.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-core</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-core</artifactId>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-rm-datasource</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-rm-datasource</artifactId>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-tm</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-tm</artifactId>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-spring</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring</artifactId>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-dubbo</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-dubbo</artifactId>
+                <version>${seata.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>com.alibaba.fescar</groupId>
-                <artifactId>fescar-server</artifactId>
-                <version>${fescar.version}</version>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-server</artifactId>
+                <version>${seata.version}</version>
             </dependency>
 
            <dependency>
