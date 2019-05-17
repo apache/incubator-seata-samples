@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * The type Fescar configuration.
  */
 @Configuration
-public class FescarConfiguration {
+public class SeataConfiguration {
 
 	@Value("${spring.application.name}")
 	private String applicationId;
