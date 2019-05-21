@@ -16,11 +16,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 /**
  * @Author: heshouyou
- * @Description  fescar global configuration
+ * @Description  seata global configuration
  * @Date Created in 2019/1/24 10:28
  */
 @Configuration
-public class FescarConfig {
+public class SeataAutoConfig {
 
     /**
      * autowired datasource config

@@ -9,10 +9,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication(scanBasePackages = "io.seata.samples.integration.call")
 @EnableDiscoveryClient
 @EnableDubbo(scanBasePackages = "io.seata.samples.integration.call")
-public class DubboGtsFescarExampleApplication {
+public class BusinessExampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DubboGtsFescarExampleApplication.class, args);
+        SpringApplication.run(BusinessExampleApplication.class, args);
     }
 
 }

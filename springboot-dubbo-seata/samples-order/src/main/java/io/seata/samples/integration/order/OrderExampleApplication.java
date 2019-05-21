@@ -11,10 +11,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 @MapperScan({"io.seata.samples.integration.order.mapper"})
 @EnableDubbo(scanBasePackages = "io.seata.samples.integration.order")
-public class OrderGtsFescarExampleApplication {
+public class OrderExampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderGtsFescarExampleApplication.class, args);
+        SpringApplication.run(OrderExampleApplication.class, args);
     }
 
 }
