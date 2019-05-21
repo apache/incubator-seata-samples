@@ -1,62 +1,29 @@
-# 基于 Seata 分布式事务解决案例
+# SpringBoot + Dubbo + Mybatis + Nacos + Seata
 
-## 一、什么是 Seata？
-
-Seata 全称为：Simple Extensible Autonomous Transaction Architecture。该方案基于java实现、简单易用、性能强悍、业务侵入低，是一款能够解决大多数分布式事务场景的极佳选择。原理解析请关注 : https://github.com/seata/seata
-
-## 二、原理浅析和场景展示
-
-该案例实现的微服务架构下的场景示例图：
-
-![SEATA solution](https://camo.githubusercontent.com/b3a71332ae0a91db7f8616286a69b879fcbea672/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f31383836322f313534353239363739313037342d33626365376263652d303235652d343563332d393338362d3762393531333564616465382e706e67)
+Integration SpringBoot + Dubbo + Mybatis + Nacos + Seata
 
 
-Seata 原理图浅析：
-
-![Typical Process](https://camo.githubusercontent.com/0384806afd7c10544c258ae13717e4229942aa13/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f31383836322f313534353239363931373838312d32366661626562392d373166612d346633652d386137612d6663333137643333383966342e706e67)
-
-## 三、核心技术栈
-
-* SpringBoot 2.0.8.RELEASE（2.0以后第一个GA版本）
-* Durid 1.1.10（阿里巴巴开源高性能数据源连接池）
-* Mybatis 3.4.6（Mybatis-3）
-* Dubbo 2.6.5（阿里巴巴开源高性能RPC框架）
-* Seata 0.2.1
-* Nacos 0.8.0（阿里巴巴开源注册中心/配置中心）
-
-## 四、实现以及规划
-
-* 当前版本实现SpringBoot + Dubbo + Mybatis + Nacos + Seata 技术整合，实现如何在微服务架构中使用分布式事务框架 Seata
-* 之后版本将完善流程，并使用Nacos作为配置中心（现在Nacos只是作为注册中心）
-* 接下来版本等到 Seata 完善到0.5.0版本后开始支持SringCloud相关技术栈，将实现在Cloud微服务架构中解决分布式事务
-* 计划暂定上述
-
-## 五、使用该案例说明
-
-### 1. 准备项目
-
-clone此项目到本地，使用maven构建导入IDEA编辑器中，配置项目使用的maven仓库和JDK版本（1.8）
-    
-模块说明：
-   - samples-account  用户账户微服务模块
+### 1. clone the code 
+  
+   - samples-common  common module
+       
+   - samples-account  user account module
+     
+   - samples-order  order module
    
-   - samples-dubbo-business-call  业务发起方模块
+   - samples-storage  storage module
 
-   - samples-common  项目公共架构模块
-   
-   - samples-order  订单微服务模块
-   
-   - samples-storage  库存微服务模块
+   - samples-business  business module
 
-### 2. 准备数据库
+### 2. prepare database 
 
-创建数据库（默认为：db_gts_fescar），将sql目录中的sql脚本导入到数据库
+create database （默认为：seata），import db_seata.sql to database 
 
-执行完毕后，数据库中有如下表：
+then you will see ：
 
 ```
 +-------------------------+
-| Tables_in_db_gts_fescar |
+| Tables_in_seata         |
 +-------------------------+
 | t_account               |
 | t_order                 |
@@ -65,56 +32,57 @@ clone此项目到本地，使用maven构建导入IDEA编辑器中，配置项目
 +-------------------------+
 ```
 
-### 3. 启动 Nacos
+### 3. start Nacos
 
-Nacos 快速启动参考：https://nacos.io/en-us/docs/quick-start.html
+Nacos quickstart：https://nacos.io/en-us/docs/quick-start.html
 
-进入 Nacos 控制台表示启动成功：http://127.0.0.1:8848/nacos/index.html
+enter the  Nacos webconsole：http://127.0.0.1:8848/nacos/index.html
    
-### 4. 启动 Seata Server
+### 4. start Seata Server
   
-下载页面：https://github.com/seata/seata/releases
+download page：https://github.com/seata/seata/releases
 
-下载并解压 seata-server，进入bin目录，执行启动命令
+download and unzip seata-server，cd the bin dictory, and run 
 
 ```bash
 sh seata-server.sh 8091 file
 ```
 
-### 5. 启动各模块服务
+### 5. start the demo module
 
-分别启动 samples-account、samples-order、samples-storage、samples-dubbo-business-call 四个模块，确定微服务都注册到 Nacos 和 Seata
+start samples-account、samples-order、samples-storage、samples-business
 
-进入 Nacos 控制台确认服务注册情况: http://127.0.0.1:8848/nacos/#/serviceManagement
+use Nacos webconsole to ensure the registry is ok: http://127.0.0.1:8848/nacos/#/serviceManagement
 
-> 注意检查各个模块下 application.properties 中的 datasource 配置与本地数据库一致
+> check the datasource config in application.properties is right.
     
-### 6. 模拟请求
+### 6. start the normal request
 
-使用Postman工具请求Post接口地址：http://localhost:8104/business/dubbo/buy  
-参数示例：
+use postman to send a post request：http://localhost:8104/business/dubbo/buy  
+
+body：
 
 ```json
 {
     "userId":"1",
     "commodityCode":"P190510529590122",
-    "name":"风扇",
+    "name":"fan",
     "count":2,
     "amount":"100"
 }
 ```
 
-或使用curl命令：
+or use curl：
 
 ```bash
 curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"P190510529590122","name":"风扇","count":2,"amount":"100"}' localhost:8104/business/dubbo/buy
 ``` 
 
-模拟发起下单业务请求，成功后返回200
+then this will send a pay request,and return code is 200
 
-### 7. 模拟回滚
+### 7. test the rollback request
 
-进入samples-dubbo-business-call模块下的 BusinessServiceImpl类，打开被注释的代码：
+enter samples-business , change  BusinessServiceImpl, uncomment the following code ：
 
 ```
 if (!flag) {
@@ -122,4 +90,4 @@ if (!flag) {
 }
 ```
 
-重新启动 samples-dubbo-business-call 模块，再次发起请求，发生异常，全局事物被回滚
+restart the  samples-business module, and execute the step 6.

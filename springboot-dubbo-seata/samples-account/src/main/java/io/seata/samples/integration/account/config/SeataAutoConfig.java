@@ -1,4 +1,4 @@
-package io.seata.samples.integration.storage.config;
+package io.seata.samples.integration.account.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
@@ -16,11 +16,11 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 /**
  * @Author: heshouyou
- * @Description  fescar global configuration
+ * @Description  seata global configuration
  * @Date Created in 2019/1/24 10:28
  */
 @Configuration
-public class FescarConfig {
+public class SeataAutoConfig {
 
     /**
      * autowired datasource config
@@ -89,6 +89,6 @@ public class FescarConfig {
      */
     @Bean
     public GlobalTransactionScanner globalTransactionScanner(){
-        return new GlobalTransactionScanner("storage-gts-fescar-example", "my_test_tx_group");
+        return new GlobalTransactionScanner("account-gts-fescar-example", "my_test_tx_group");
     }
 }

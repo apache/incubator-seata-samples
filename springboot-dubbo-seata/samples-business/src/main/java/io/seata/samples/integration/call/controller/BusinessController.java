@@ -4,6 +4,8 @@ import io.seata.samples.integration.call.service.BusinessService;
 import io.seata.samples.integration.common.dto.BusinessDTO;
 import io.seata.samples.integration.common.response.ObjectResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class BusinessController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BusinessController.class);
+
+
     @Autowired
     private BusinessService businessService;
 
@@ -30,7 +35,7 @@ public class BusinessController {
      */
     @PostMapping("/buy")
     ObjectResponse handleBusiness(@RequestBody BusinessDTO businessDTO){
-        log.info("请求参数：{}",businessDTO.toString());
+        LOGGER.info("请求参数：{}",businessDTO.toString());
         return businessService.handleBusiness(businessDTO);
     }
 }
