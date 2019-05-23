@@ -392,11 +392,6 @@ sh seata-server.sh 8091 db
 - 启动 [DubboOrderServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboOrderServiceStarter.java)
 - 启动 [DubboStorageServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboStorageServiceStarter.java)
 
-启动完成可在 Nacos 控制台服务列表 看到启动完成的三个 provider
-
-<img src="https://github.com/seata/seata-samples/blob/master/doc/img/nacos-3.png"  height="300" width="800">
-
-
 - 启动 [DubboBusinessTester](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboBusinessTester.java) 进行测试
 
 **注意:** 在标注 @GlobalTransactional 注解方法内部显示的抛出异常才会进行事务的回滚。整个 Dubbo 服务调用链路只需要在事务最开始发起方的 service 方法标注注解即可。
