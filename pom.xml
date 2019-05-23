@@ -64,6 +64,7 @@
         <module>tcc</module>
         <module>springcloud-jpa-seata</module>
         <module>nutzboot-dubbo-fescar</module>
+        <module>ha</module>
     </modules>
 
     <dependencies>
