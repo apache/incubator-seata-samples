@@ -8,7 +8,6 @@
 本案例中，seata-server 服务端 使用数据库作为事务日志存储，用户可以部署多个seata-server以提供集群服务，从而支持服务端高可用。
 
 
-
 ## 业务案例
 
 用户采购商品业务，整个业务包含3个微服务:
@@ -343,7 +342,7 @@ store {
 }
 lock {
     ## the data row lock store mode: local_db、memory or db
-    mode = db
+    mode = "db"
 
     memory{
          ## store lock in memory of server
