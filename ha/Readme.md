@@ -58,7 +58,7 @@ public interface AccountService {
 ```
 **说明:** 以上三个微服务独立部署。
 
-### Seata、Dubbo和Nacos 集成
+### Seata、Dubbo 集成
 
 
 #### Step 1 初始化 MySQL 数据库（需要InnoDB 存储引擎）
@@ -296,7 +296,7 @@ timeoutMills 为事务的总体超时时间默认60s，name 为事务方法签�
 store.mode = "db"
 store.db.datasource=dbcp
 store.db.db-type=mysql
-store.db.url=jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true
+store.db.url=jdbc:mysql://127.0.0.1:3306/seata_server?useUnicode=true
 store.db.user=mysql
 store.db.password=mysql
 lock.mode=db
@@ -333,7 +333,7 @@ store {
       datasource = "dbcp"
       ## mysql/oracle/h2/oceanbase etc.
       db-type = "mysql"
-      url = "jdbc:mysql://127.0.0.1:3306/seata"
+      url = "jdbc:mysql://127.0.0.1:3306/seata_server"
       user = "mysql"
       password = "mysql"
       min-conn = 1
