@@ -8,4 +8,4 @@ jdk:
 install: true
 
 script:
-  - mvn -e clean install
+  - mvn -q clean install
