@@ -52,25 +52,18 @@
 
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
+            <artifactId>seata-all</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-dubbo-alibaba</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-config-nacos</artifactId>
-            <version>${seata.version}</version>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-discovery-nacos</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-
 
         <dependency>
             <groupId>com.alibaba.boot</groupId>

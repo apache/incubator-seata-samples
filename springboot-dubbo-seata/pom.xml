@@ -46,6 +46,8 @@
         <dubbo-registry-nacos.version>0.0.2</dubbo-registry-nacos.version>
         <lombok.version>1.16.22</lombok.version>
         <spring.version>5.0.8.RELEASE</spring.version>
+        <dubbo.version>2.6.5</dubbo.version>
+        <nacos-client.verison>1.0.0</nacos-client.verison>
     </properties>
 
     <dependencyManagement>
@@ -102,14 +104,20 @@
 
             <dependency>
                 <groupId>io.seata</groupId>
-                <artifactId>seata-spring</artifactId>
+                <artifactId>seata-all</artifactId>
                 <version>${seata.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-dubbo-alibaba</artifactId>
-                <version>${seata.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos-client.verison}</version>
             </dependency>
 
             <dependency>
