@@ -34,14 +34,14 @@
     <dependencies>
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
+            <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-config-nacos</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-config-nacos</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-discovery-nacos</artifactId>
