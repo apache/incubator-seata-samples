@@ -41,52 +41,43 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-dubbo-alibaba</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
    <dependencies>
+
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-context</artifactId>
+           <version>${spring.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-core</artifactId>
+           <version>${spring.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-beans</artifactId>
+           <version>${spring.version}</version>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-aop</artifactId>
+           <version>${spring.version}</version>
+       </dependency>
+
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-common</artifactId>
+            <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
-            </dependency>
+        </dependency>
 
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-core</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-rm-datasource</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-tm</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-spring</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-dubbo</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-server</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-server</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
 
            <dependency>
                <groupId>org.slf4j</groupId>
