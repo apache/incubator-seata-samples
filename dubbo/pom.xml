@@ -29,11 +29,7 @@
     <dependencies>
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-dubbo</artifactId>
+            <artifactId>seata-all</artifactId>
         </dependency>
         <dependency>
             <groupId>com.101tec</groupId>
