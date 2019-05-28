@@ -27,7 +27,7 @@
     <artifactId>springboot-tcc-sample</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>dubbo-tcc-sample ${project.version}</name>
+    <name>springboot-tcc-sample ${project.version}</name>
 
     <properties>
         <seata.version>0.6.0</seata.version>
