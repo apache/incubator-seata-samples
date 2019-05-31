@@ -137,7 +137,7 @@ CREATE TABLE `account_tbl` (
 
 ```xml
       <properties>
-          <seata.version>0.6.0</seata.version>
+          <seata.version>0.6.1</seata.version>
           <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
        </properties>
         
@@ -229,58 +229,58 @@ timeoutMills 为事务的总体超时时间默认60s，name 为事务方法签�
 创建 事务记录表，建表语句 [db_store.sql](https://github.com/seata/seata/blob/develop/server/src/main/resources/db_store.sql)  :
 
 ```sql
-    -- the table to store GlobalSession data
-    drop table `global_table`;
-    create table `global_table` (
-      `xid` varchar(128)  not null,
-      `transaction_id` bigint,
-      `status` tinyint not null,
-      `application_id` varchar(32),
-      `transaction_service_group` varchar(32),
-      `transaction_name` varchar(64),
-      `timeout` int,
-      `begin_time` bigint,
-      `application_data` varchar(2000),
-      `gmt_create` datetime,
-      `gmt_modified` datetime,
-      primary key (`xid`),
-      key `idx_gmt_modified_status` (`gmt_modified`, `status`),
-      key `idx_transaction_id` (`transaction_id`)
-    );
-    
-    -- the table to store BranchSession data
-    drop table `branch_table`;
-    create table `branch_table` (
-      `branch_id` bigint not null,
-      `xid` varchar(128) not null,
-      `transaction_id` bigint ,
-      `resource_group_id` varchar(32),
-      `resource_id` varchar(256) ,
-      `lock_key` varchar(128) ,
-      `branch_type` varchar(8) ,
-      `status` tinyint,
-      `client_id` varchar(64),
-      `application_data` varchar(2000),
-      `gmt_create` datetime,
-      `gmt_modified` datetime,
-      primary key (`branch_id`),
-      key `idx_xid` (`xid`)
-    );
-    
-    -- the table to store lock data
-    drop table `lock_table`;
-    create table `lock_table` (
-      `row_key` varchar(128) not null,
-      `xid` varchar(96),
-      `transaction_id` long ,
-      `branch_id` long,
-      `resource_id` varchar(256) ,
-      `table_name` varchar(32) ,
-      `pk` varchar(32) ,
-      `gmt_create` datetime ,
-      `gmt_modified` datetime,
-      primary key(`row_key`)
-    );
+-- the table to store GlobalSession data
+drop table `global_table`;
+create table `global_table` (
+  `xid` varchar(128)  not null,
+  `transaction_id` bigint,
+  `status` tinyint not null,
+  `application_id` varchar(64),
+  `transaction_service_group` varchar(64),
+  `transaction_name` varchar(128),
+  `timeout` int,
+  `begin_time` bigint,
+  `application_data` varchar(2000),
+  `gmt_create` datetime,
+  `gmt_modified` datetime,
+  primary key (`xid`),
+  key `idx_gmt_modified_status` (`gmt_modified`, `status`),
+  key `idx_transaction_id` (`transaction_id`)
+);
+
+-- the table to store BranchSession data
+drop table `branch_table`;
+create table `branch_table` (
+  `branch_id` bigint not null,
+  `xid` varchar(128) not null,
+  `transaction_id` bigint ,
+  `resource_group_id` varchar(128),
+  `resource_id` varchar(256) ,
+  `lock_key` varchar(256) ,
+  `branch_type` varchar(8) ,
+  `status` tinyint,
+  `client_id` varchar(64),
+  `application_data` varchar(2000),
+  `gmt_create` datetime,
+  `gmt_modified` datetime,
+  primary key (`branch_id`),
+  key `idx_xid` (`xid`)
+);
+
+-- the table to store lock data
+drop table `lock_table`;
+create table `lock_table` (
+  `row_key` varchar(128) not null,
+  `xid` varchar(128),
+  `transaction_id` long ,
+  `branch_id` long,
+  `resource_id` varchar(256) ,
+  `table_name` varchar(32) ,
+  `pk` varchar(128) ,
+  `gmt_create` datetime ,
+  `gmt_modified` datetime,
+  primary key(`row_key`)
+);
 
 ```
 
