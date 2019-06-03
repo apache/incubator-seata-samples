@@ -28,6 +28,10 @@
     <name>seata-samples-dubbo ${project.version}</name>
     <dependencies>
         <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
         </dependency>
