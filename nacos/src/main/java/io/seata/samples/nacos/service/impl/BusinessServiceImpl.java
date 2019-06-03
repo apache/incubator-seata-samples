@@ -43,7 +43,6 @@ public class BusinessServiceImpl implements BusinessService {
         storageService.deduct(commodityCode, orderCount);
         orderService.create(userId, commodityCode, orderCount);
         throw new RuntimeException("xxx");
-
     }
 
     /**
