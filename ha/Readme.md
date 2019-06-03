@@ -1,7 +1,8 @@
 # 基于 Seata 解决微服务架构下数据一致性的实践
 
 [Seata](https://github.com/seata/seata) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。   
-  
+
+
 
 本文将通过一个简单的微服务架构的例子，说明业务如何step by step的使用 Seata、Dubbo 来保证业务数据的一致性；
 
