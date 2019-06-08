@@ -4,7 +4,7 @@ server:
         context-path: /demo
 spring:
     application:
-        name: defang-template
+        name: seata-springboot-app
     http:
         encoding:
         charset: UTF-8
@@ -12,9 +12,9 @@ spring:
         force: true
     datasource:
         driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/fescar?useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/seata?useSSL=false&serverTimezone=UTC
         username: root
-        password: root
+        password: 123456
         poolPingConnectionsNotUsedFor: 60000
         removeAbandoned: true
         connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
@@ -40,6 +40,6 @@ spring:
         show-sql: true
     dubbo:
         server: true
-        registry: multicast://224.5.6.7:1234?unicast=false
+        registry: zookeeper://localhost:2181
         provider:
             port: 20999

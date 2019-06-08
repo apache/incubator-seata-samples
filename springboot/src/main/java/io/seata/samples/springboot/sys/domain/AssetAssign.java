@@ -206,4 +206,18 @@ public class AssetAssign implements Serializable {
 		this.updateUser = updateUser;
 	}
 
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("AssetAssign{");
+		sb.append("id='").append(id).append('\'');
+		sb.append(", assetId='").append(assetId).append('\'');
+		sb.append(", createTime=").append(createTime);
+		sb.append(", createUser='").append(createUser).append('\'');
+		sb.append(", desc='").append(desc).append('\'');
+		sb.append(", status='").append(status).append('\'');
+		sb.append(", updateTime=").append(updateTime);
+		sb.append(", updateUser='").append(updateUser).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }

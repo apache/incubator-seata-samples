@@ -96,4 +96,13 @@ public class Asset implements Serializable {
 		this.voucherCode = voucherCode;
 	}
 
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("Asset{");
+		sb.append("id='").append(id).append('\'');
+		sb.append(", amount=").append(amount);
+		sb.append(", voucherCode='").append(voucherCode).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }
