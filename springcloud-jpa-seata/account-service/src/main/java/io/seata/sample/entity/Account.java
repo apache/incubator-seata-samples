@@ -1,13 +1,12 @@
 package io.seata.sample.entity;
 
-import java.math.BigDecimal;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "account_tbl")
