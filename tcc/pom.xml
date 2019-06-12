@@ -35,71 +35,66 @@
         <module>springboot-tcc-sample</module>
     </modules>
 
-    <properties>
-        <spring.version>5.0.8.RELEASE</spring.version>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
         </dependencies>
     </dependencyManagement>
 
-   <dependencies>
-
-       <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-context</artifactId>
-           <version>${spring.version}</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-core</artifactId>
-           <version>${spring.version}</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-beans</artifactId>
-           <version>${spring.version}</version>
-       </dependency>
-       <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-aop</artifactId>
-           <version>${spring.version}</version>
-       </dependency>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
-
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-server</artifactId>
             <version>${seata.version}</version>
         </dependency>
-
-           <dependency>
-               <groupId>org.slf4j</groupId>
-               <artifactId>slf4j-api</artifactId>
-               <version>1.7.7</version>
-           </dependency>
-           <dependency>
-               <groupId>ch.qos.logback</groupId>
-               <artifactId>logback-core</artifactId>
-               <version>1.1.7</version>
-           </dependency>
-           <dependency>
-               <groupId>ch.qos.logback</groupId>
-               <artifactId>logback-access</artifactId>
-               <version>1.1.7</version>
-           </dependency>
-           <dependency>
-               <groupId>ch.qos.logback</groupId>
-               <artifactId>logback-classic</artifactId>
-               <version>1.1.7</version>
-           </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.7</version>
+        </dependency>
     </dependencies>
 
 </project>
