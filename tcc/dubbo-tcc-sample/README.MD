@@ -63,10 +63,3 @@ public interface TccActionTwo {
 运行 [DubboTccTransactionStarter](https://github.com/seata/seata-samples/blob/master/tcc/dubbo-tcc-sample/src/main/java/io/seata/samples/tcc/dubbo/starter/DubboTccTransactionStarter.java) , 启动 demo工程；
 
 本应用订阅TCC dubbo服务，发起方分布式事务，调用TCC dubbo参与者；内含TCC 事务提交场景和TCC事务回滚场景的演示；
-
-```java
-public interface TxcUserDegrade{
-    
-    boolean enableDegrade();
-}
-```
