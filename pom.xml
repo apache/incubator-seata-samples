@@ -66,6 +66,7 @@
         <module>springcloud-jpa-seata</module>
         <module>nutzboot-dubbo-fescar</module>
         <module>ha</module>
+        <module>springcloud-eureka-seata</module>
     </modules>
 
     <dependencies>

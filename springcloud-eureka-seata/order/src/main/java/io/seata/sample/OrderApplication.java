@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -20,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 @SpringBootApplication
 @EnableFeignClients
+@EnableEurekaClient
 public class OrderApplication {
 
     public static void main(String[] args) {
