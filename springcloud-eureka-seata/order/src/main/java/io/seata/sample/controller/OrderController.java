@@ -16,7 +16,7 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/create")
+    @GetMapping(value = "/create", produces = "application/json")
     public Boolean create(String userId, String commodityCode, Integer count) {
 
         orderService.create(userId, commodityCode, count);

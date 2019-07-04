@@ -21,7 +21,7 @@ public class BusinessController {
      *
      * @return
      */
-    @RequestMapping("/purchase/commit")
+    @RequestMapping(value = "/purchase/commit", produces = "application/json")
     public String purchaseCommit() {
         try {
             businessService.purchase("U100000", "C100000", 30);
