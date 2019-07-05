@@ -19,7 +19,7 @@
     </properties>
 
     <modules>
-        <module>user-service</module>
+        <module>account-service</module>
         <module>order-service</module>
         <module>storage-service</module>
         <module>business-service</module>

@@ -8,10 +8,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableFeignClients
 @EnableJpaRepositories
-public class OrderApplication {
+public class AccountApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderApplication.class, args);
+        SpringApplication.run(AccountApplication.class, args);
     }
-
 }
