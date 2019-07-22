@@ -139,35 +139,20 @@ CREATE TABLE `account_tbl` (
 ```xml
       <properties>
           <seata.version>0.7.1</seata.version>
+          <nacos-client.version>1.0.0</nacos-client.version>
           <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
           <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
        </properties>
         
        <dependency>
            <groupId>io.seata</groupId>
-           <artifactId>seata-spring</artifactId>
+           <artifactId>seata-all</artifactId>
            <version>${seata.version}</version>
        </dependency>
        <dependency>
-           <groupId>io.seata</groupId>
-           <artifactId>seata-config-nacos</artifactId>
-           <version>${seata.version}</version>
-       </dependency>
-       <dependency>
-           <groupId>io.seata</groupId>
-           <artifactId>seata-discovery-nacos</artifactId>
-           <version>${seata.version}</version>
-       </dependency>
-       <dependency>
-           <groupId>io.seata</groupId>
-           <artifactId>seata-dubbo-alibaba</artifactId>
-           <version>${seata.version}</version>
-           <exclusions>
-               <exclusion>
-                   <artifactId>dubbo</artifactId>
-                   <groupId>org.apache.dubbo</groupId>
-               </exclusion>
-           </exclusions>
+           <groupId>com.alibaba.nacos</groupId>
+           <artifactId>nacos-client</artifactId>
+           <version>${nacos-client.version}</version>
        </dependency>
        <dependency>
            <groupId>com.alibaba</groupId>
@@ -180,7 +165,7 @@ CREATE TABLE `account_tbl` (
            <version>${dubbo.registry.nacos.version}</version>
        </dependency>
 ```
-**说明:** 由于当前 apache-dubbo 与 dubbo-registry-nacos jar存在兼容性问题，需要排除 seata-dubbo 中的 apache.dubbo 依赖并手动引入 alibaba-dubbo，后续 apache-dubbo(2.7.1+) 将兼容 dubbo-registry-nacos。在 Seata 中 seata-dubbo jar 支持 apache.dubbo，seata-dubbo-alibaba jar 支持 alibaba-dubbo。
+**说明:** 由于当前 apache-dubbo 与 dubbo-registry-nacos jar存在兼容性问题，需要手动引入 alibaba-dubbo，后续 apache-dubbo(2.7.1+) 将兼容 dubbo-registry-nacos。在 Seata 中 seata-dubbo jar 支持 apache.dubbo，seata-dubbo-alibaba jar 支持 alibaba-dubbo。
 
 
 #### Step 4 微服务 Provider Spring配置
@@ -290,31 +275,13 @@ sh nacos-config.sh localhost
 
 ```properties
 registry {
-  # file 、nacos 、eureka、redis、zk
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
   type = "nacos"
 
   nacos {
     serverAddr = "localhost"
     namespace = "public"
     cluster = "default"
-  }
-  eureka {
-    serviceUrl = "http://localhost:1001/eureka"
-    application = "default"
-    weight = "1"
-  }
-  redis {
-    serverAddr = "localhost:6379"
-    db = "0"
-  }
-  zk {
-    cluster = "default"
-    serverAddr = "127.0.0.1:2181"
-    session.timeout = 6000
-    connect.timeout = 2000
-  }
-  file {
-    name = "file.conf"
   }
 }
 
@@ -327,27 +294,14 @@ config {
     namespace = "public"
     cluster = "default"
   }
-  apollo {
-    app.id = "seata-server"
-    apollo.meta = "http://192.168.1.204:8801"
-  }
-  zk {
-    serverAddr = "127.0.0.1:2181"
-    session.timeout = 6000
-    connect.timeout = 2000
-  }
-  file {
-    name = "file.conf"
-  }
 }
 
 
 ```
-**type**: 可配置为 nacos 和 file，配置为 file 时无服务注册功能   
+**type**: 可配置为注释中的类型，此处选择nacos类型，配置为 file 时无服务注册功能   
 **nacos.serverAddr**: Nacos-Sever 服务地址(不含端口号)   
 **nacos.namespace**: Nacos 注册和配置隔离 namespace   
 **nacos.cluster**: 注册服务的集群名称   
-**file.name**: type = "file" classpath 下配置文件名   
 
 
 - 运行 Seata-server
@@ -355,13 +309,13 @@ config {
 **Linux/Unix/Mac**
 
 ```bash
-sh seata-server.sh $LISTEN_PORT $STORE_MODE $IP(此参数可选)
+sh seata-server.sh -p $LISTEN_PORT -m $STORE_MODE -h $IP(此参数可选)
 ```
 
 **Windows**
 
 ```bash
-cmd seata-server.bat $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选)
+cmd seata-server.bat -p $LISTEN_PORT -m $STORE_MODE -h $IP(此参数可选)
 
 ```
 
@@ -370,7 +324,7 @@ cmd seata-server.bat $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选)
 **$IP(可选参数)**: 用于多 IP 环境下指定 Seata-Server 注册服务的IP      
 
 **eg**:
-sh seata-server.sh 8091 file
+sh seata-server.sh -p 8091 -m file
 
 运行成功后可在 Nacos 控制台看到 服务名 =serverAddr 服务注册列表:
 
