@@ -14,7 +14,7 @@
         <module>nutzboot-dubbo-fescar-storage</module>
     </modules>
   <properties>
-      <seata.version>0.4.2</seata.version>
+      <seata.version>0.4.2</seata.version> <!--禁止改动此版本,无对应starter-->
       <nutzboot.version>2.3.3.v20190329</nutzboot.version>
       <slf4j.version>1.7.25</slf4j.version>
       <netty4.version>4.1.24.Final</netty4.version>
