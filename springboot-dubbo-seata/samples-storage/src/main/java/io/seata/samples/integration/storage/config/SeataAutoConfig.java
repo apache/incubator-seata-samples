@@ -89,6 +89,6 @@ public class SeataAutoConfig {
      */
     @Bean
     public GlobalTransactionScanner globalTransactionScanner(){
-        return new GlobalTransactionScanner("storage-gts-fescar-example", "my_test_tx_group");
+        return new GlobalTransactionScanner("storage-gts-seata-example", "my_test_tx_group");
     }
 }

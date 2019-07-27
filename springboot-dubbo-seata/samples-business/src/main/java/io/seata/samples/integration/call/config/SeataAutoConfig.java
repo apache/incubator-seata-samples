@@ -19,6 +19,6 @@ public class SeataAutoConfig {
      */
     @Bean
     public GlobalTransactionScanner globalTransactionScanner(){
-        return new GlobalTransactionScanner("dubbo-gts-fescar-example", "my_test_tx_group");
+        return new GlobalTransactionScanner("dubbo-gts-seata-example", "my_test_tx_group");
     }
 }
