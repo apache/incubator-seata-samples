@@ -47,15 +47,9 @@
                 <version>1.1.10</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
+                <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-seata</artifactId>
-                <version>0.9.1.BUILD-SNAPSHOT</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.seata</groupId>
-                        <artifactId>seata-spring</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>2.1.0.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>
