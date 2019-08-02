@@ -145,6 +145,12 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo-config-spring</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
