@@ -14,8 +14,8 @@
   ~  See the License for the specific language governing permissions and
   ~  limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -27,12 +27,12 @@
     <artifactId>springboot-tcc-sample</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>dubbo-tcc-sample ${project.version}</name>
+    <name>springboot-tcc-sample ${project.version}</name>
 
     <properties>
-        <seata.version>0.5.0</seata.version>
+        <seata.version>0.7.1</seata.version>
 
-        <zookeeper.version>3.4.6</zookeeper.version>
+        <zookeeper.version>3.4.14</zookeeper.version>
         <curator.version>2.9.1</curator.version>
         <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
         <dubbo.version>2.7.0</dubbo.version>
@@ -102,39 +102,39 @@
 
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-common</artifactId>
+            <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-core</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-rm-datasource</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-tm</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-rm</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-dubbo</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-core</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-rm-datasource</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-tm</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-rm</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-spring</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-dubbo</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>io.seata</groupId>

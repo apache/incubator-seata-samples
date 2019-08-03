@@ -1,9 +1,9 @@
 package io.seata.samples.integration.common.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+
+import lombok.Data;
 
 /**
  * @Author: heshouyou

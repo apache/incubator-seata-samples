@@ -29,34 +29,19 @@
     <properties>
         <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
         <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
+        <nacos-client.version>1.0.0</nacos-client.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
+            <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-config-nacos</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-discovery-nacos</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-dubbo-alibaba</artifactId>
-            <version>${seata.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>dubbo</artifactId>
-                    <groupId>org.apache.dubbo</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <version>${nacos-client.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>

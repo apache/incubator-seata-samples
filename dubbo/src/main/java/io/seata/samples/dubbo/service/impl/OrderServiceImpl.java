@@ -21,10 +21,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import io.seata.core.context.RootContext;
-import io.seata.samples.dubbo.service.AccountService;
 import io.seata.samples.dubbo.Order;
+import io.seata.samples.dubbo.service.AccountService;
 import io.seata.samples.dubbo.service.OrderService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;

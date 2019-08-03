@@ -1,10 +1,10 @@
 package io.seata.samples.tcc.springboot.dubbo.action;
 
+import java.util.List;
+
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.rm.tcc.api.BusinessActionContextParameter;
 import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
-
-import java.util.List;
 
 /**
  * The interface Tcc action two.
@@ -21,9 +21,10 @@ public interface TccActionTwo {
      * @param list          the list
      * @return the boolean
      */
-    @TwoPhaseBusinessAction(name = "DubboTccActionTwo" , commitMethod = "commit", rollbackMethod = "rollback")
-    public boolean prepare(BusinessActionContext actionContext, @BusinessActionContextParameter(paramName = "b") String b,
-                           @BusinessActionContextParameter(paramName = "c",index = 1) List list);
+    @TwoPhaseBusinessAction(name = "DubboTccActionTwo", commitMethod = "commit", rollbackMethod = "rollback")
+    public boolean prepare(BusinessActionContext actionContext,
+                           @BusinessActionContextParameter(paramName = "b") String b,
+                           @BusinessActionContextParameter(paramName = "c", index = 1) List list);
 
     /**
      * Commit boolean.

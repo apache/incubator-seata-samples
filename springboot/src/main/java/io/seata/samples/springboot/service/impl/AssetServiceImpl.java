@@ -52,10 +52,9 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public int increase() {
         LOGGER.info("Asset Service Begin ... xid: " + RootContext.getXID() + "\n");
-
         Asset asset = assetRepository.findById(ASSET_ID).get();
         asset.setAmount(asset.getAmount().add(new BigDecimal("1")));
         assetRepository.save(asset);
-        throw new RuntimeException("test exception for fescar");
+        throw new RuntimeException("test exception for seata, your transaction should be rollbacked,asset=" + asset);
     }
 }

@@ -30,7 +30,7 @@
     <name>sofarpc-tcc-sample ${project.version}</name>
 
     <properties>
-        <seata.version>0.5.0</seata.version>
+        <seata.version>0.7.1</seata.version>
         <curator.version>2.9.1</curator.version>
         <netty4.version>4.1.24.Final</netty4.version>
     </properties>
@@ -51,40 +51,40 @@
 
         <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-common</artifactId>
+            <artifactId>seata-all</artifactId>
             <version>${seata.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-core</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-rm</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-rm-datasource</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-tm</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-dubbo</artifactId>
-            <version>${seata.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-core</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-rm</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-rm-datasource</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-tm</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-spring</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.seata</groupId>-->
+<!--            <artifactId>seata-dubbo</artifactId>-->
+<!--            <version>${seata.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>io.seata</groupId>

@@ -1,69 +1,93 @@
-# 基于 Seata 分布式事务解决案例
+# SpringBoot + Dubbo + Mybatis + Nacos + Seata
 
-一、什么是 Seata？
-
-Seata 全称为：Simple Extensible Autonomous Transaction Architecture。该方案基于java实现、简单易用、性能强悍、业务侵入低，是一款能够解决大多数分布式事务场景的极佳选择。原理解析请关注 : https://github.com/seata/seata
-
-二、原理浅析和场景展示
-
-![SEATA solution](https://camo.githubusercontent.com/b3a71332ae0a91db7f8616286a69b879fcbea672/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f31383836322f313534353239363739313037342d33626365376263652d303235652d343563332d393338362d3762393531333564616465382e706e67)
-
-​						该案例实现的微服务架构下的场景示例图
+Integration SpringBoot + Dubbo + Mybatis + Nacos + Seata
 
 
+### 1. clone the code 
+  
+   - samples-common  common module
+       
+   - samples-account  user account module
+     
+   - samples-order  order module
+   
+   - samples-storage  storage module
 
-![Typical Process](https://camo.githubusercontent.com/0384806afd7c10544c258ae13717e4229942aa13/68747470733a2f2f63646e2e6e6c61726b2e636f6d2f6c61726b2f302f323031382f706e672f31383836322f313534353239363931373838312d32366661626562392d373166612d346633652d386137612d6663333137643333383966342e706e67)
+   - samples-business  business module
 
-​								     Seata 原理图浅析
+### 2. prepare database 
 
+create database （默认为：seata），import db_seata.sql to database 
 
+then you will see ：
 
-三、核心技术栈
+```
++-------------------------+
+| Tables_in_seata         |
++-------------------------+
+| t_account               |
+| t_order                 |
+| t_storage               |
+| undo_log                |
++-------------------------+
+```
 
-* SpringBoot 2.0.8.RELEASE（2.0以后第一个GA版本）
-* Durid 1.1.10（阿里巴巴开源高性能数据源连接池）
-* Mybatis 3.4.6（Mybatis-3）
-* Dubbo 2.6.5（阿里巴巴开源高性能RPC框架）
-* Seata 0.2.1
-* Nacos 0.8.0（阿里巴巴开源注册中心/配置中心）
+### 3. start Nacos
 
-四、实现以及规划
+Nacos quickstart：https://nacos.io/en-us/docs/quick-start.html
 
-* 当前版本实现SpringBoot + Dubbo + Mybatis + Nacos + Seata 技术整合，实现如何在微服务架构中使用分布式事务框架 Seata
-* 之后版本将完善流程，并使用Nacos作为配置中心（现在Nacos只是作为注册中心）
-* 接下来版本等到 Seata 完善到0.5.0版本后开始支持SringCloud相关技术栈，将实现在Cloud微服务架构中解决分布式事务
-* 计划暂定上述
+enter the  Nacos webconsole：http://127.0.0.1:8848/nacos/index.html
+   
+### 4. start Seata Server
+  
+download page：https://github.com/seata/seata/releases
 
-五、使用该案例说明
+download and unzip seata-server，cd the bin dictory, and run 
 
-1. 前往 Seata Github官方页面下载最新版本的  https://github.com/seata/seata/releases
+```bash
+sh seata-server.sh 8091 file
+```
 
-2. 前往Nacos Github官方页面下载最新版本的   https://github.com/alibaba/nacos/releases
+### 5. start the demo module
 
-3. clone此项目到本地，使用maven构建导入IDEA编辑器中，配置项目使用的maven仓库和JDK版本（1.8）
+start samples-account、samples-order、samples-storage、samples-business
 
-4. 将sql目录中的sql脚本导入到mysql数据库中，在此之前先创建数据库 sql/db_seata.sql，设置用户名密码为root  root
+use Nacos webconsole to ensure the registry is ok: http://127.0.0.1:8848/nacos/#/serviceManagement
 
-5. 模块说明：
+> check the datasource config in application.properties is right.
+    
+### 6. start the normal request
 
-   - samples-account  用户账户微服务模块
-   - samples-dubbo-business-call  业务发起方模块
-   - samples-common  项目公共架构模块
-   - samples-order  订单微服务模块
-   - samples-storage  库存微服务模块
+use postman to send a post request：http://localhost:8104/business/dubbo/buy  
 
-6. 首先启动Nacos和 Seata，中间件具体使用说明详见上述Github官方页
+body：
 
-7. 分别启动samples-account、samples-order、samples-storage、samples-dubbo-business-call四个模块，确定微服务都注册到Nacos和 Seata
+```json
+{
+    "userId":"1",
+    "commodityCode":"P190510529590122",
+    "name":"fan",
+    "count":2,
+    "amount":"100"
+}
+```
 
-8. 使用Postman工具请求Post接口地址：http://localhost:8104/business/dubbo/buy   模拟发起下单业务请求，成功后返回200
+or use curl：
 
-9. 接下来测试全局回滚功能，打开samples-dubbo-business-call模块下的 BusinessServiceImpl类，打开被注释的代码
+```bash
+curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"P190510529590122","name":"风扇","count":2,"amount":"100"}' localhost:8104/business/dubbo/buy
+``` 
 
-   ```
-   if (!flag) {
-      throw new RuntimeException("测试抛异常后，分布式事务回滚！");
-   }
-   ```
+then this will send a pay request,and return code is 200
 
-10. 再次请求测试发生异常后全局事务被回滚
+### 7. test the rollback request
+
+enter samples-business , change  BusinessServiceImpl, uncomment the following code ：
+
+```
+if (!flag) {
+  throw new RuntimeException("测试抛异常后，分布式事务回滚！");
+}
+```
+
+restart the  samples-business module, and execute the step 6.

@@ -1,7 +1,7 @@
 package io.seata.samples.integration.storage.mapper;
 
-import io.seata.samples.integration.storage.entity.TStorage;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import io.seata.samples.integration.storage.entity.TStorage;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -1,6 +1,5 @@
 package io.seata.samples.tcc.transfer.activity.impl;
 
-
 import io.seata.samples.tcc.transfer.action.FirstTccAction;
 import io.seata.samples.tcc.transfer.action.SecondTccAction;
 import io.seata.samples.tcc.transfer.activity.TransferService;

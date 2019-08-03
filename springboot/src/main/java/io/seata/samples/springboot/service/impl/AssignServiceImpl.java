@@ -41,7 +41,7 @@ public class AssignServiceImpl implements AssignService {
 	private AssignRepository assignRepository;
 
 	@Reference(check = false)
-	private io.seata.samples.springboot.service.AssetService assetService;
+    private io.seata.samples.springboot.service.AssetService assetService;
 
 	@Override
 	@Transactional

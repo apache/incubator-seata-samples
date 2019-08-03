@@ -1,17 +1,15 @@
 package io.seata.samples.tcc.dubbo.starter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.seata.common.util.StringUtils;
 import io.seata.samples.tcc.dubbo.ApplicationKeeper;
-import io.seata.samples.tcc.dubbo.action.ResultHolder;
 import io.seata.samples.tcc.dubbo.service.TccTransactionService;
 import org.apache.curator.test.TestingServer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The type Dubbo tcc transaction starter.
@@ -41,7 +39,7 @@ public class DubboTccTransactionStarter {
     public static void main(String[] args) throws Exception {
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-reference.xml"});
+            new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-reference.xml"});
 
         tccTransactionService = (TccTransactionService) applicationContext.getBean("tccTransactionService"   );
 

@@ -1,10 +1,10 @@
 package io.seata.samples.integration.storage.entity;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
-
-import java.io.Serializable;
 
 /**
  * <p>

@@ -1,6 +1,5 @@
 package io.seata.samples.tcc.transfer.starter;
 
-
 import io.seata.samples.tcc.transfer.ApplicationKeeper;
 import io.seata.samples.tcc.transfer.env.TransferDataPrepares;
 import org.apache.curator.test.TestingServer;
@@ -20,7 +19,7 @@ public class TransferProviderStarter {
         mockZKServer();
 
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-                new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml",
+            new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml",
                 "db-bean/to-datasource-bean.xml", "db-bean/from-datasource-bean.xml"});
 
         //初始化数据库和账号余额

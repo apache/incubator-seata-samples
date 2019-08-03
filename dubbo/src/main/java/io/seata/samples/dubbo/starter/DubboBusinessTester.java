@@ -17,7 +17,6 @@
 package io.seata.samples.dubbo.starter;
 
 import io.seata.samples.dubbo.service.BusinessService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

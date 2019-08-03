@@ -1,9 +1,8 @@
 package io.seata.samples.tcc.transfer.dao;
 
+import java.sql.SQLException;
 
 import io.seata.samples.tcc.transfer.domains.Account;
-
-import java.sql.SQLException;
 
 /**
  * 余额账户 DAO

@@ -22,12 +22,12 @@
        default-autowire="byName">
 
     <!-- 第一个TCC参与者服务发布 -->
-    <sofa:service ref = "tccActionOneImpl" interface="io.seata.samples.tcc.sofarpc.action.TccActionOne">
+    <sofa:service ref="tccActionOneImpl" interface="io.seata.samples.tcc.sofarpc.action.TccActionOne">
         <sofa:binding.bolt />
     </sofa:service>
 
     <!-- 第二个TCC参与者服务发布 -->
-    <sofa:service ref = "tccActionTwoImpl" interface="io.seata.samples.tcc.sofarpc.action.TccActionTwo">
+    <sofa:service ref="tccActionTwoImpl" interface="io.seata.samples.tcc.sofarpc.action.TccActionTwo">
         <sofa:binding.bolt />
     </sofa:service>
 

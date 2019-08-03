@@ -14,9 +14,9 @@
   ~  See the License for the specific language governing permissions and
   ~  limitations under the License.
   -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
@@ -26,9 +26,9 @@
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
     <!--<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
 
-    <dubbo:protocol name="dubbo" port="-1" />
+    <dubbo:protocol name="dubbo" port="-1"/>
 
-    <dubbo:provider timeout="10000"  threads="10" threadpool="fixed" loadbalance="roundrobin"/>
+    <dubbo:provider timeout="10000" threads="10" threadpool="fixed" loadbalance="roundrobin"/>
 
     <!-- 第一个TCC 参与者服务发布 -->
     <dubbo:service interface="io.seata.samples.tcc.dubbo.action.TccActionOne" ref="tccActionOneImpl"/>

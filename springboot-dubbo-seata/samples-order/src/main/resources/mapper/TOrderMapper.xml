@@ -20,7 +20,8 @@
         id, order_no, user_id, commodity_code, count, amount
     </sql>
     <!--创建订单-->
-    <insert id="createOrder" keyProperty="id" useGeneratedKeys="true" parameterType = "io.seata.samples.integration.order.entity.TOrder">
+    <insert id="createOrder" keyProperty="id" useGeneratedKeys="true"
+            parameterType="io.seata.samples.integration.order.entity.TOrder">
       insert into t_order values(null,#{order.orderNo},#{order.userId},#{order.commodityCode},${order.count},${order.amount})
     </insert>
 

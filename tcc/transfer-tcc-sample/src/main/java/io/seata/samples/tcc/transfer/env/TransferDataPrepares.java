@@ -1,10 +1,11 @@
 package io.seata.samples.tcc.transfer.env;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.sql.DataSource;
 
 /**
  * 准备转账 demo 数据

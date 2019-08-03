@@ -17,11 +17,10 @@
 package io.seata.samples.dubbo.service.impl;
 
 import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import io.seata.samples.dubbo.service.BusinessService;
 import io.seata.samples.dubbo.service.OrderService;
 import io.seata.samples.dubbo.service.StorageService;
-
+import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

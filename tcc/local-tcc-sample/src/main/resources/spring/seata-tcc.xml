@@ -17,9 +17,8 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-                        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd" default-autowire="byName">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
 
     <!-- fescar bean scanner -->
     <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
@@ -28,10 +27,10 @@
     </bean>
 
 
-    <bean id = "tccActionOne" class="io.seata.samples.tcc.action.impl.TccActionOneImpl" />
+    <bean id="tccActionOne" class="io.seata.samples.tcc.action.impl.TccActionOneImpl"/>
 
-    <bean id = "tccActionTwo" class="io.seata.samples.tcc.action.impl.TccActionTwoImpl" />
+    <bean id="tccActionTwo" class="io.seata.samples.tcc.action.impl.TccActionTwoImpl"/>
 
-    <bean id = "tccTransactionService" class="io.seata.samples.tcc.service.TccTransactionService" />
+    <bean id="tccTransactionService" class="io.seata.samples.tcc.service.TccTransactionService"/>
 
 </beans>

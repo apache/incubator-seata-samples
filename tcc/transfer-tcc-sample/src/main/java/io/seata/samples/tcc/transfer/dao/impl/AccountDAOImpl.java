@@ -1,11 +1,10 @@
 package io.seata.samples.tcc.transfer.dao.impl;
 
+import java.sql.SQLException;
 
 import io.seata.samples.tcc.transfer.dao.AccountDAO;
 import io.seata.samples.tcc.transfer.domains.Account;
 import org.mybatis.spring.SqlSessionTemplate;
-
-import java.sql.SQLException;
 
 /**
  * 余额账户 DAO 实现

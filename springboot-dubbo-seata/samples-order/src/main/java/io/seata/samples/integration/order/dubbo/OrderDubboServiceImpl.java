@@ -1,7 +1,7 @@
 package io.seata.samples.integration.order.dubbo;
 
-
 import com.alibaba.dubbo.config.annotation.Service;
+
 import io.seata.core.context.RootContext;
 import io.seata.samples.integration.common.dto.OrderDTO;
 import io.seata.samples.integration.common.dubbo.OrderDubboService;
