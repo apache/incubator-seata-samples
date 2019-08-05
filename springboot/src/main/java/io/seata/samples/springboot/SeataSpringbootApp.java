@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * The type Fescar springboot app.
+ * The type Seata springboot app.
  *
  * @author 张国豪
  * @Description

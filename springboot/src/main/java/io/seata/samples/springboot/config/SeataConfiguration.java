@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * The type Fescar configuration.
+ * The type Seata configuration.
  */
 @Configuration
 public class SeataConfiguration {

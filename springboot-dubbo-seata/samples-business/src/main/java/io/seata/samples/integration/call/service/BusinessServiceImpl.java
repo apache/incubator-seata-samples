@@ -36,7 +36,7 @@ public class BusinessServiceImpl implements BusinessService{
      * @Return:
      */
     @Override
-    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-fescar-example")
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata-example")
     public ObjectResponse handleBusiness(BusinessDTO businessDTO) {
         System.out.println("开始全局事务，XID = " + RootContext.getXID());
         ObjectResponse<Object> objectResponse = new ObjectResponse<>();
