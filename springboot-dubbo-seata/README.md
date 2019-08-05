@@ -32,7 +32,7 @@ then you will see ：
 +-------------------------+
 ```
 
-### 3. start Nacos（使用1.1.0版本，要不然会出现心跳机制的http请求报错问题。 附上1。1。0地址：https://github.com/alibaba/nacos/releases）
+### 3. start Nacos（使用1.1.0版本，防止因为dubbo，nacos因版本不匹配出现的心跳请求出错的情况。 v1.1.0地址：https://github.com/alibaba/nacos/releases）
 
 Nacos quickstart：https://nacos.io/en-us/docs/quick-start.html
 
