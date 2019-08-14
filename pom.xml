@@ -52,6 +52,7 @@
         <dubbo.registry.nacos>0.0.2</dubbo.registry.nacos>
         <spring-context-support.version>1.0.2</spring-context-support.version>
         <testng.version>6.4</testng.version>
+        <protobuf.version>3.7.1</protobuf.version>
         <spring.version>5.1.3.RELEASE</spring.version>
         <mysql-connector.version>5.1.31</mysql-connector.version>
         <curator.version>4.1.0</curator.version>
@@ -230,6 +231,11 @@
                 <artifactId>testng</artifactId>
                 <version>${testng.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
