@@ -9,8 +9,8 @@
 
     <update id="updateById" parameterType="io.seata.samples.account.persistence.Account">
       update account_tbl
-      set money = #{money,jdbcType=DECIMAL},
-      where id = #{id,jdbcType=BIGINT}
+      set money = #{money,jdbcType=DECIMAL}
+      where id = #{id}
     </update>
 
 </mapper>

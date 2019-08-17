@@ -67,6 +67,7 @@
         <module>nutzboot-dubbo-fescar</module>
         <module>ha</module>
         <module>springcloud-eureka-seata</module>
+        <module>springboot-mybatis</module>
     </modules>
 
     <dependencies>

@@ -20,11 +20,12 @@
         <module>sbm-order-service</module>
         <module>sbm-storage-service</module>
         <module>sbm-business-service</module>
+        <module>sbm-common-service</module>
     </modules>
 
     <properties>
         <springboot.version>2.1.7.RELEASE</springboot.version>
-        <seata.version>0.7.1</seata.version>
+        <seata.version>0.8.0</seata.version>
         <spring-cloud-alibaba-seata.version>2.1.0.RELEASE</spring-cloud-alibaba-seata.version>
         <mysql-connector-java.version>5.1.14</mysql-connector-java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,6 +35,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>sbm-common-service</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
@@ -51,25 +57,14 @@
                 <version>${druid-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <optional>true</optional>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-seata</artifactId>
-                <version>${spring-cloud-alibaba-seata.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.seata</groupId>
-                        <artifactId>seata-all</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-spring</artifactId>
-                <version>${seata.version}</version>
+                <version>1.16.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

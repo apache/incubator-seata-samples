@@ -26,19 +26,19 @@ public class StorageController {
         return storageService.get(id);
     }
 
-    @GetMapping(value = "/batch/update/mulity")
-    public void batchUpdateMulityCond() {
+    @GetMapping(value = "/batch/update")
+    public void batchUpdateCond() {
         try {
-            storageService.batchUpdateMulityCond();
+            storageService.batchUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @GetMapping(value = "/batch/delete/mulity")
-    public void batchDeleteMulityCond() {
+    @GetMapping(value = "/batch/delete")
+    public void batchDeleteCond() {
         try {
-            storageService.batchDeleteMulityCond();
+            storageService.batchDelete();
         } catch (SQLException e) {
             e.printStackTrace();
         }

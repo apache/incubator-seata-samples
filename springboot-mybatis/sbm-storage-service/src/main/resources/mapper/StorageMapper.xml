@@ -7,6 +7,16 @@
         <result column="count" property="count" jdbcType="INTEGER"/>
     </resultMap>
 
+    <select id="selectById" resultType="io.seata.samples.storage.persistence.Storage">
+        select id, commodity_code, count from storage_tbl
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByCommodityCode" resultType="io.seata.samples.storage.persistence.Storage">
+        select id, commodity_code commodityCode, count from storage_tbl
+        WHERE commodity_code = #{commodityCode}
+    </select>
+
     <update id="updateById">
         update storage_tbl set count = #{count,jdbcType=INTEGER}
         WHERE id = #{id}

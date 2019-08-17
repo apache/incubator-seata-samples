@@ -5,7 +5,6 @@ import io.seata.samples.order.persistence.Order;
 import io.seata.samples.order.persistence.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -17,7 +16,6 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    @Transactional
     public void create(String userId, String commodityCode, Integer count) {
         BigDecimal orderMoney = new BigDecimal(count).multiply(new BigDecimal(5));
         Order order = new Order();

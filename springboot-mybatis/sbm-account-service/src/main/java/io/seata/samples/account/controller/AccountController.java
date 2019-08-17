@@ -1,5 +1,6 @@
 package io.seata.samples.account.controller;
 
+import io.seata.core.context.RootContext;
 import io.seata.samples.account.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ public class AccountController {
 
     @GetMapping
     public void debit(@RequestParam String userId, @RequestParam BigDecimal orderMoney) {
+        System.out.println("account XID " + RootContext.getXID());
         accountService.debit(userId, orderMoney);
     }
 

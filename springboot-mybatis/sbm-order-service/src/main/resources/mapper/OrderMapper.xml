@@ -11,7 +11,7 @@
 
     <insert id="insert" parameterType="io.seata.samples.order.persistence.Order">
     insert into order_tbl (user_id,commodity_code,count,money)
-    values (#{user_id,jdbcType=VARCHAR}, #{commodityCode,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL})
+    values (#{userId,jdbcType=VARCHAR}, #{commodityCode,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, #{money,jdbcType=DECIMAL})
   </insert>
 
 </mapper>

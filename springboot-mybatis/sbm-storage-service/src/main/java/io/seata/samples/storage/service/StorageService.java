@@ -34,12 +34,12 @@ public class StorageService {
     }
 
     /**
-     * wait for seata 0.8 release
+     * 0.8.0 release
      *
      * @throws SQLException
      */
     @GlobalTransactional
-    public void batchUpdateMulityCond() throws SQLException {
+    public void batchUpdate() throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -72,12 +72,12 @@ public class StorageService {
     }
 
     /**
-     * wait for seata 0.8 release
+     * 0.8.0 release
      *
      * @throws SQLException
      */
     @GlobalTransactional
-    public void batchDeleteMulityCond() throws SQLException {
+    public void batchDelete() throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
