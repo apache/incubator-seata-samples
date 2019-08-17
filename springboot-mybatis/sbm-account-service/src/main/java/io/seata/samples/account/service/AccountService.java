@@ -4,7 +4,6 @@ import io.seata.samples.account.persistence.Account;
 import io.seata.samples.account.persistence.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
@@ -16,9 +15,8 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    @Transactional
     public void debit(String userId, BigDecimal num) {
-        Account account = accountMapper.findByUserId(userId);
+        Account account = accountMapper.selectByUserId(userId);
         account.setMoney(account.getMoney().subtract(num));
         accountMapper.updateById(account);
 
