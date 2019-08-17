@@ -24,11 +24,9 @@
     </modules>
 
     <properties>
-        <springboot.version>2.1.7.RELEASE</springboot.version>
         <seata.version>0.8.0</seata.version>
-        <spring-cloud-alibaba-seata.version>2.1.0.RELEASE</spring-cloud-alibaba-seata.version>
-        <mysql-connector-java.version>5.1.14</mysql-connector-java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <springboot.version>2.1.7.RELEASE</springboot.version>
+        <mysql-connector.version>5.1.31</mysql-connector.version>
         <java.version>1.8</java.version>
         <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
     </properties>
@@ -52,6 +50,11 @@
                 <version>2.1.0</version>
             </dependency>
             <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid-spring-boot-starter.version}</version>
@@ -70,14 +73,6 @@
     </dependencyManagement>
 
     <repositories>
-        <repository>
-            <id>spring-snapshot</id>
-            <name>Spring Snapshot Repository</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
         <repository>
             <id>mvnrepository</id>
             <name>mvnrepository</name>
