@@ -19,6 +19,7 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 * [springboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/springboot-dubbo-seata) - Integration example of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
 * [nutzboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/nutzboot-dubbo-fescar) - Integration example of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo) and [NutzBoot](https://github.com/nutzam/nutzboot/) 
 * [springcloud-jpa-seata](https://github.com/seata/seata-samples/tree/master/springcloud-jpa-seata) - Integration example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud) and JPA
+* [spring-boot-multiple-datasource](./multiple-datasource) - Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) with multiple datasource and MyBatis
 
 
 ## Guide 
