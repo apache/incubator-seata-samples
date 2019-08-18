@@ -21,7 +21,6 @@ public class StorageService {
     @Autowired
     private DataSource dataSource;
 
-    @GlobalTransactional
     public void deduct(String commodityCode, int count) {
         Storage storage = storageMapper.findByCommodityCode(commodityCode);
         storage.setCount(storage.getCount() - count);
