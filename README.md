@@ -16,6 +16,11 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example of [Seata](https://github.com/seata/seata) and [Apache Dubbo](https://github.com/apache/dubbo)
 * [springboot](https://github.com/seata/seata-samples/tree/master/springboot) - Integration example of [Seata](https://github.com/seata/seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
 * [nacos](https://github.com/seata/seata-samples/tree/master/nacos) - Integration example of [Seata](https://github.com/alibaba/fescar)、 [Apache Dubbo](https://github.com/apache/dubbo) and [Alibaba Nacos](https://github.com/alibaba/nacos/) 
-* [springboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/nutzboot-dubbo-fescar) - Integration example of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
+* [springboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/springboot-dubbo-seata) - Integration example of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
 * [nutzboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/nutzboot-dubbo-fescar) - Integration example of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo) and [NutzBoot](https://github.com/nutzam/nutzboot/) 
-* [springcloud-jpa-seata](https://github.com/seata/seata-samples/tree/master/springcloud-jpa-seata) - Integration example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud)
+* [springcloud-jpa-seata](https://github.com/seata/seata-samples/tree/master/springcloud-jpa-seata) - Integration example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud) and JPA
+
+
+## Guide 
+
+- [Quick integration with Spring Cloud](./doc/quick-integration-with-spring-cloud.md)
