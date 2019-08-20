@@ -65,7 +65,7 @@ body：
 ```json
 {
     "userId":"1",
-    "commodityCode":"P190510529590122",
+    "commodityCode":"C201901140001",
     "name":"fan",
     "count":2,
     "amount":"100"
