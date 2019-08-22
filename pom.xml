@@ -72,7 +72,7 @@
         <module>springcloud-eureka-seata</module>
         <module>multiple-datasource</module>
         <module>springboot-mybatis</module>
-        <module>seata-samples-api</module>
+        <module>api</module>
     </modules>
 
     <dependencies>
