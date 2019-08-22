@@ -58,6 +58,7 @@
         <curator.version>4.1.0</curator.version>
         <guava.version>27.0.1-jre</guava.version>
         <jackson.version>2.9.9.1</jackson.version>
+        <druid.version>1.1.12</druid.version>
     </properties>
     <modules>
         <module>dubbo</module>
@@ -70,6 +71,7 @@
         <module>ha</module>
         <module>springcloud-eureka-seata</module>
         <module>springboot-mybatis</module>
+        <module>seata-samples-api</module>
     </modules>
 
     <dependencies>
@@ -243,6 +245,11 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
