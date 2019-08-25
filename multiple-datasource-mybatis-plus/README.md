@@ -1,6 +1,6 @@
-# Spring Cloud 使用 Seata 实现分布式事务 - 多数据源
+# Spring Cloud 使用 Seata 实现分布式事务 - 多数据源和 MyBatisPlus
 
-> 使用 Seata 作为分布式事务组件，使用 MySQL 数据库，使用 MyBatis 作为数据访问层实现多数据源下事务一致
+> 使用 Seata 作为分布式事务组件，使用 MySQL 数据库，使用 MyBatis 作为数据访问层实现多数据源下事务一致，使用 MyBatisPlus 作为 MyBatis 的辅助工具
 
 ## 环境准备
 
