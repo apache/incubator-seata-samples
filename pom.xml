@@ -73,6 +73,7 @@
         <module>multiple-datasource</module>
         <module>springboot-mybatis</module>
         <module>api</module>
+        <module>multiple-datasource-mybatis-plus</module>
     </modules>
 
     <dependencies>
