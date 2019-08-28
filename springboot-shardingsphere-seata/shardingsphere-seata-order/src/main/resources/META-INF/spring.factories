@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.seata.samples.config.MybatisPlusConfig,\
+io.seata.samples.config.MybatisPlusAutoConfig

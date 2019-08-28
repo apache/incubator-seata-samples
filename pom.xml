@@ -73,6 +73,7 @@
         <module>multiple-datasource</module>
         <module>springboot-mybatis</module>
         <module>api</module>
+        <module>springboot-shardingsphere-seata</module>
     </modules>
 
     <dependencies>
