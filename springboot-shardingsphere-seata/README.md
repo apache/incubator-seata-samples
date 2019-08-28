@@ -1,4 +1,4 @@
-# SpringBoot 使用 Seata+Shardingsphere+Dubbo+Nacos+MabatisPlus+DruidDataSource
+# SpringBoot 使用 Seata+Shardingsphere+Dubbo+Nacos+MybatisPlus+DruidDataSource
 
 > 使用 Seata 作为分布式事务组件，使用 MySQL 数据库，使用 MyBatisPlus 作为数据访问层实现多数据源下事务一致
 
