@@ -22,6 +22,8 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 * [spring-boot-multiple-datasource](./multiple-datasource) - Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) with multiple datasource and MyBatis
 * [springboot-mybatis](https://github.com/seata/seata-samples/tree/master/springboot-mybatis) - Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) and [Mybatis](https://github.com/mybatis/mybatis-3) 
 * [api](https://github.com/seata/seata-samples/tree/master/api) - Non-Spring environment uses api to build Seata distributed transactions
+* [springcloud-nacos-seata](https://github.com/seata/seata-samples/tree/master/springcloud-nacos-seata) - Integration 
+example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud) and [Alibaba Nacos](https://github.com/alibaba/nacos/)
 
 
 
