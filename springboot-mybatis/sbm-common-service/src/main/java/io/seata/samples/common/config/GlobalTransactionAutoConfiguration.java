@@ -22,7 +22,7 @@ public class GlobalTransactionAutoConfiguration {
     @Bean
     public GlobalTransactionScanner globalTransactionScanner() {
         String applicationName = this.applicationContext.getEnvironment().getProperty("spring.application.name");
-        String txServiceGroup = "my_test_tx_group";
+        String txServiceGroup = seataProperties.getTxServiceGroup();
         if (StringUtils.isEmpty(txServiceGroup)) {
             txServiceGroup = applicationName + "-fescar-service-group";
             this.seataProperties.setTxServiceGroup(txServiceGroup);
