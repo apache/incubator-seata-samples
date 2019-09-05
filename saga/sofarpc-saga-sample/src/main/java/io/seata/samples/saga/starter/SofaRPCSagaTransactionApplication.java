@@ -1,0 +1,112 @@
+package io.seata.samples.saga.starter;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import io.seata.saga.engine.AsyncCallback;
+import io.seata.saga.engine.StateMachineEngine;
+import io.seata.saga.proctrl.ProcessContext;
+import io.seata.saga.statelang.domain.ExecutionStatus;
+import io.seata.saga.statelang.domain.StateMachineInstance;
+import io.seata.samples.saga.ApplicationKeeper;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.util.Assert;
+
+/**
+ *
+ */
+@SpringBootApplication
+@ImportResource("classpath:spring/*.xml")
+public class SofaRPCSagaTransactionApplication {
+
+    public static void main(String[] args) {
+
+        ApplicationContext applicationContext = SpringApplication.run(SofaRPCSagaTransactionApplication.class, args);
+
+        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
+
+        transactionCommittedDemo(stateMachineEngine);
+
+        transactionCompensatedDemo(stateMachineEngine);
+
+        new ApplicationKeeper(null).keep();
+    }
+
+    private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
+
+        Map<String, Object> startParams = new HashMap<>(3);
+        String businessKey = String.valueOf(System.currentTimeMillis());
+        startParams.put("businessKey", businessKey);
+        startParams.put("count", 10);
+        startParams.put("amount", new BigDecimal("100"));
+
+        //sync test
+        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null, businessKey, startParams);
+
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()), "saga transaction execute failed. XID: " + inst.getId());
+        System.out.println("saga transaction commit succeed. XID: " + inst.getId());
+
+        //async test
+        businessKey = String.valueOf(System.currentTimeMillis());
+        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams, CALL_BACK);
+
+        waittingForFinish(inst);
+
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()), "saga transaction execute failed. XID: " + inst.getId());
+        System.out.println("saga transaction commit succeed. XID: " + inst.getId());
+    }
+
+    private static void transactionCompensatedDemo(StateMachineEngine stateMachineEngine) {
+        Map<String, Object> startParams = new HashMap<>(4);
+        String businessKey = String.valueOf(System.currentTimeMillis());
+        startParams.put("businessKey", businessKey);
+        startParams.put("count", 10);
+        startParams.put("amount", new BigDecimal("100"));
+        startParams.put("mockReduceBalanceFail", "true");
+
+        //sync test
+        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null, businessKey, startParams);
+
+        //async test
+        businessKey = String.valueOf(System.currentTimeMillis());
+        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams, CALL_BACK);
+
+        waittingForFinish(inst);
+
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()), "saga transaction compensate failed. XID: " + inst.getId());
+        System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
+    }
+
+    private static volatile Object lock = new Object();
+    private static AsyncCallback CALL_BACK = new AsyncCallback() {
+        @Override
+        public void onFinished(ProcessContext context, StateMachineInstance stateMachineInstance) {
+            synchronized (lock){
+                lock.notifyAll();
+            }
+        }
+
+        @Override
+        public void onError(ProcessContext context, StateMachineInstance stateMachineInstance, Exception exp) {
+            synchronized (lock){
+                lock.notifyAll();
+            }
+        }
+    };
+
+    private static void waittingForFinish(StateMachineInstance inst){
+        synchronized (lock){
+            if(ExecutionStatus.RU.equals(inst.getStatus())){
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}

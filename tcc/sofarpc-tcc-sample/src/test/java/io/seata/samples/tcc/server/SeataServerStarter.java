@@ -19,7 +19,7 @@ public class SeataServerStarter {
      * @throws IOException the io exception
      */
     public static void main(String[] args) throws IOException {
-        new FescarServer().init();
+        new FescarServer().init(args);
     }
 
     /**
@@ -37,9 +37,9 @@ public class SeataServerStarter {
          *
          * @throws IOException the io exception
          */
-        public void init() throws IOException {
+        public void init(String[] args) throws IOException {
             server = new Server();
-            server.main(new String[] {"8091", StoreMode.FILE.name(), "127.0.0.1"});
+            server.main(args);
         }
     }
 }
