@@ -74,6 +74,8 @@
         <module>springboot-mybatis</module>
         <module>springcloud-nacos-seata</module>
         <module>api</module>
+        <module>springboot-shardingsphere-seata</module>
+        <module>multiple-datasource-mybatis-plus</module>
         <module>saga</module>
     </modules>
 
