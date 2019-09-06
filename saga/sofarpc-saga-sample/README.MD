@@ -50,4 +50,4 @@ public interface InventoryAction {
 运行 [SofaRPCSagaTransactionApplication](https://github.com/seata/seata-samples/blob/master/saga/sofarpc-saga-sample/src/main/java/io/seata/samples/saga/starter/SofaRPCSagaTransactionApplication.java) , 启动 demo工程；
 
 
-内含Saga 调用sofa-rpc 事务提交场景和Saga 调用sofa-rpc事务回滚场景的演示；
+内含Saga 调用sofa-rpc 事务提交场景和Saga 调用sofa-rpc 事务回滚场景的演示；
