@@ -27,8 +27,6 @@
 
     <dubbo:protocol name="dubbo" port="-1"/>
 
-    <dubbo:provider timeout="10000" threads="10" threadpool="fixed" loadbalance="roundrobin"/>
-
     <dubbo:reference id="inventoryAction" interface="io.seata.samples.saga.action.InventoryAction" check="false" lazy="true"/>
 
     <dubbo:reference id="balanceAction" interface="io.seata.samples.saga.action.BalanceAction" check="false" lazy="true"/>

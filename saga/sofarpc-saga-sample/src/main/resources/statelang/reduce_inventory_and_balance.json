@@ -1,7 +1,7 @@
 {
     "Name": "reduceInventoryAndBalance",
     "Comment": "reduce inventory then reduce balance in a transaction",
-    "StartAt": "ReduceInventory",
+    "StartState": "ReduceInventory",
     "Version": "0.0.1",
     "States": {
         "ReduceInventory": {
@@ -58,7 +58,7 @@
                     "Exceptions": [
                         "java.lang.Throwable"
                     ],
-                    "Next": "CompensationStart"
+                    "Next": "CompensationTrigger"
                 }
             ],
             "Next": "Succeed"
@@ -79,8 +79,8 @@
                 "$.[businessKey]"
             ]
         },
-        "CompensationStart": {
-            "Type": "CompensationStart",
+        "CompensationTrigger": {
+            "Type": "CompensationTrigger",
             "Next": "Fail"
         },
         "Succeed": {
