@@ -1,4 +1,4 @@
-# Seata TCC 模式 demo 工程
+# Seata Saga 模式 demo 工程
 
 
 [Seata](https://github.com/seata/seata) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。   
@@ -6,40 +6,33 @@
 
 ## demo 说明
 
-基于 Seata TCC模式，演示分布式事务的提交和回滚；
+基于 Seata Saga模式，演示分布式事务的提交和回滚；
 
-本demo中一个分布式事务内会有2个TCC事务参与者，分别是: [TccActionOne](https://github.com/seata/seata-samples/blob/master/tcc/local-tcc-sample/src/main/java/io/seata/samples/tcc/action/TccActionOne.java) 和 [TccActionTwo](https://github.com/seata/seata-samples/blob/master/tcc/local-tcc-sample/src/main/java/io/seata/samples/tcc/action/TccActionTwo.java) ;分布式事务提交则两者均提交，分布式事务回滚则两者均回滚；
+本demo中一个分布式事务内会有2个Saga事务参与者，分别是: [InventoryAction](https://github.com/seata/seata-samples/blob/master/saga/local-saga-sample/src/main/java/io/seata/samples/saga/action/InventoryAction.java) 和 [BalanceAction](https://github.com/seata/seata-samples/blob/master/saga/local-saga-sample/src/main/java/io/seata/samples/saga/action/BalanceAction.java) ;分布式事务提交则两者均提交，分布式事务回滚则两者均回滚；
 
-这2个TCC参与者均是 本地bean（非远程RPC服务），本地TCC bean需要在 接口定义中添加 @LocalTCC 注解，其定义如下：
+这2个Saga参与者均是 本地bean（非远程RPC服务），两个参与都有一个reduce方法，表示库存扣减或余额扣减，还有一个compensateReduce方法，表示补偿扣减操作。
 
-- TccActionOne 接口定义如下：
-
-```java
-@LocalTCC
-public interface TccActionOne {
-
-    @TwoPhaseBusinessAction(name = "TccActionOne" , commitMethod = "commit", rollbackMethod = "rollback")
-    public boolean prepare(BusinessActionContext actionContext, int a);
-
-    public boolean commit(BusinessActionContext actionContext);
-
-    public boolean rollback(BusinessActionContext actionContext);
-}
-
-```
-
-- TccActionTwo 接口定义如下：
+- InventoryAction 接口定义如下：
 
 ```java
-@LocalTCC
-public interface TccActionTwo {
+public interface InventoryAction {
 
-    @TwoPhaseBusinessAction(name = "TccActionTwo" , commitMethod = "commit", rollbackMethod = "rollback")
-    public boolean prepare(BusinessActionContext actionContext, String b);
+    /**
+     * reduce
+     * @param businessKey
+     * @param amount
+     * @param params
+     * @return
+     */
+    boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params);
 
-    public boolean commit(BusinessActionContext actionContext);
-
-    public boolean rollback(BusinessActionContext actionContext);
+    /**
+     * compensateReduce
+     * @param businessKey
+     * @param params
+     * @return
+     */
+    boolean compensateReduce(String businessKey, Map<String, Object> params);
 }
 ```
 
@@ -48,10 +41,10 @@ public interface TccActionTwo {
 
 #### step 1 启动 SEATA Server
 
-运行 [SeataServerStarter](https://github.com/seata/seata-samples/blob/master/tcc/local-tcc-sample/src/test/java/io/seata/samples/tcc/SeataServerStarter.java) ，启动 Seata Server；
+运行 [SeataServerStarter](https://github.com/seata/seata-samples/blob/master/saga/local-saga-sample/src/test/java/io/seata/samples/saga/SeataServerStarter.java) ，启动 Seata Server；
 
-#### step 2 启动 TCC Demo
+#### step 2 启动 Saga Demo
 
-运行 [LocalTccTransactionStarter](https://github.com/seata/seata-samples/blob/master/tcc/local-tcc-sample/src/main/java/io/seata/samples/tcc/starter/LocalTccTransactionStarter.java) , 启动 demo工程；
+运行 [LocalSagaTransactionStarter](https://github.com/seata/seata-samples/blob/master/saga/local-saga-sample/src/main/java/io/seata/samples/saga/starter/LocalSagaTransactionStarter.java) , 启动 demo工程；
 
-内含TCC 事务提交场景和TCC事务回滚场景的演示；
+内含Saga 事务提交场景和Saga事务回滚场景的演示；
