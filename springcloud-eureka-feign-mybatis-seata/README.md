@@ -2,17 +2,22 @@
 ### 概览
 ##### 1.整合seata的demo,此demo都配置好了，拉下来按照步骤，直接可以跑起来观察效果。
 
-##### 2.自己项目整合，主要步骤如下：
-- 下载，seata-server,修改server配置
-- client端（你自己的项目），引入配置文件，修改配置文件(注意不要遗漏，可参考下方步骤)
-- 数据源代理设置
-- 创建数据库表
-- 启动注册中心，启动server,启动client
+##### 2.自己项目整合Seata，主要步骤如下：
+- 1.[下载seata-server](https://github.com/seata/seata/releases),修改server配置
+- 2.client端（你自己的项目），引入配置文件，修改配置文件(注意不要遗漏，可参考下方几个关键步骤)
+- 3.数据源代理设置
+- 4.创建数据库表
+- 5.启动注册中心，启动server,启动client
 
-### 1.版本信息
+### 1.此demo技术选型及版本信息
+
 注册中心：eureka
 
-持久层：mybatis
+服务间调用：feign
+
+持久层：mybatis 
+
+数据库：mysql 5.7.20
 
 Springboot:2.1.7.RELEASE
 
@@ -21,6 +26,8 @@ Springcloud:Greenwich.SR2
 jdk:1.8 
 
 seata:0.8
+
+使用不同组件，配置情况不同，可参考其他sample；
 
 ### 2.demo概况
 demo分为四个项目，单独启动。
@@ -45,7 +52,7 @@ order服务关键代码如下：
 ```
 ### 3.使用步骤
 - 1.拉取本demo代码 git clone xxxx;
-- 2.下载seata server,https://github.com/seata/seata/releases，本demo为0.8.0版本;
+- 2.[下载seata-server](https://github.com/seata/seata/releases);
 - 3.执行每个项目下的建表语句，resource下xx.sql文件；
 - 4.seata相关建表语句见下文说明；
 
@@ -107,7 +114,7 @@ service {
   #vgroup->rgroup
   vgroup_mapping.fsp_tx_group = "default"  修改这里，fsp_tx_group这个事务组名称是我自定义的，一定要与client端的这个配置一致！否则会报错！
   #only support single node
-  default.grouplist = "127.0.0.1:8091"
+  default.grouplist = "127.0.0.1:8091"   此配置作用参考:https://blog.csdn.net/weixin_39800144/article/details/100726116
   #degrade current not support
   enableDegrade = false
   #disable
@@ -131,7 +138,7 @@ registry {
 
   nacos {
     serverAddr = "localhost"
-    namespace = "public"
+    namespace = ""
     cluster = "default"
   }
   eureka {
@@ -171,7 +178,7 @@ registry {
   }
 }
 ```
-配置中心，demo里暂时不用，可以不管，其他的配置可以暂时使用默认值。
+其他的配置可以暂时使用默认值。
 
 如果是在windows下启动seata-server，现在已经完成配置修改了，等eureka启动后，就可以启动seata-server了：执行/bin/seata-server.bat即可。
 
@@ -277,12 +284,11 @@ public class DataSourceConfiguration {
 }
 ```
 
-### 6.尽情把玩
-1.启动eureka;
-2.启动seata-server;
-3.启动order,storage,account服务;
-
-访问：http://localhost:8080/order/create?userId=1&productId=1&count=10&money=100
+### 6.启动测试
+- 1.启动eureka;
+- 2.启动seata-server;
+- 3.启动order,storage,account服务;
+- 4.访问：http://localhost:8080/order/create?userId=1&productId=1&count=10&money=100
 
 然后可以模拟正常情况，异常情况，超时情况等，观察数据库即可。
 
