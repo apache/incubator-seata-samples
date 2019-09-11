@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.8.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>io.seata.sample</groupId>
+		<artifactId>springcloud-eureka-feign-mybatis-seata</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+
 	<groupId>io.seata.sample</groupId>
 	<artifactId>account-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -29,47 +29,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--mybatis-->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<!--mysql-->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.37</version>
-		</dependency>
-		<!--druid-->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.10</version>
-		</dependency>
-		<!--lombok-->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.8</version>
-		</dependency>
-		<!--seata-->
-		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-alibaba-seata</artifactId>
-			<version>2.1.0.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>io.seata</groupId>
-			<artifactId>seata-all</artifactId>
-			<version>0.8.0</version>
-		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
