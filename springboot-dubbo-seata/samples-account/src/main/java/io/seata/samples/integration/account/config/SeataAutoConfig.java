@@ -7,6 +7,7 @@ import io.seata.spring.annotation.GlobalTransactionScanner;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
@@ -83,7 +84,7 @@ public class SeataAutoConfig {
         factoryBean.setDataSource(dataSourceProxy);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath*:/mapper/*.xml"));
-        factoryBean.setTransactionFactory(new JdbcTransactionFactory());
+        factoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
         return factoryBean.getObject();
     }
 
