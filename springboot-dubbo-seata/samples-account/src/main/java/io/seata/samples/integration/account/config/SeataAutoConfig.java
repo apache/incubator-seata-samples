@@ -7,12 +7,14 @@ import io.seata.spring.annotation.GlobalTransactionScanner;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 /**
  * @Author: heshouyou
@@ -34,7 +36,6 @@ public class SeataAutoConfig {
      * @Return: druidDataSource  datasource instance
      */
     @Bean
-    @Primary
     public DruidDataSource druidDataSource(){
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(dataSourceProperties.getUrl());
@@ -67,6 +68,11 @@ public class SeataAutoConfig {
         return new DataSourceProxy(druidDataSource);
     }
 
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSourceProxy dataSourceProxy) {
+        return new DataSourceTransactionManager(dataSourceProxy);
+    }
+
     /**
      * init mybatis sqlSessionFactory
      * @Param: dataSourceProxy  datasource proxy
@@ -78,7 +84,7 @@ public class SeataAutoConfig {
         factoryBean.setDataSource(dataSourceProxy);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath*:/mapper/*.xml"));
-        factoryBean.setTransactionFactory(new JdbcTransactionFactory());
+        factoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
         return factoryBean.getObject();
     }
 
