@@ -19,4 +19,6 @@ public interface ITAccountService extends IService<TAccount> {
      * 扣用户钱
      */
     ObjectResponse decreaseAccount(AccountDTO accountDTO);
+
+    void testGlobalLock();
 }
