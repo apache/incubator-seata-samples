@@ -1,0 +1,31 @@
+eureka:
+    instance:
+        hostname: localhost
+        prefer-ip-address: true
+    client:
+        serviceUrl:
+            defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+feign:
+    hystrix:
+        enabled: false
+logging:
+    level:
+        io:
+            seata: info
+mybatis:
+    mapperLocations: classpath:mapper/*.xml
+    typeAliasesPackage: io.seata.sample.entity
+server:
+    port: 8080
+spring:
+    application:
+        name: order-server
+    cloud:
+        alibaba:
+            seata:
+                tx-service-group: fsp_tx_group
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        password: 14789632
+        url: jdbc:mysql://116.62.62.26/seat-order
+        username: root
