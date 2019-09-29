@@ -35,7 +35,7 @@ registry {
 
   nacos {
     serverAddr = "192.168.21.89"
-    namespace = "public"
+    namespace = ""
     cluster = "default"
   }
 }
@@ -44,7 +44,7 @@ config {
   type = "nacos"
   nacos {
     serverAddr = "192.168.21.89"
-    namespace = "public"
+    namespace = ""
     cluster = "default"
   }
 }
