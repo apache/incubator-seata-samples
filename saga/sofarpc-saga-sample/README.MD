@@ -43,7 +43,7 @@ public interface InventoryAction {
 
 #### step 2 启动 sofa-rpc provider Demo
 
-运行 [SofaRpcSagaProviderApplication](https://github.com/seata/seata-samples/blob/master/saga/sofarpc-saga-sample/src/test/java/io/seata/samples/saga/provider/SeataServerStarter.java) ，启动 sofa-rpc provider；
+运行 [SofaRpcSagaProviderApplication](https://github.com/seata/seata-samples/blob/master/saga/sofarpc-saga-sample/src/test/java/io/seata/samples/saga/provider/SofaRPCSagaTransactionApplication.java) ，启动 sofa-rpc provider；
 
 ### step 3 启动 Saga Demo
 
