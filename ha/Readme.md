@@ -139,7 +139,7 @@ CREATE TABLE `account_tbl` (
 
 ```xml
       <properties>
-          <seata.version>0.8.0</seata.version>
+          <seata.version>0.9.0</seata.version>
           <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
        </properties>
         
