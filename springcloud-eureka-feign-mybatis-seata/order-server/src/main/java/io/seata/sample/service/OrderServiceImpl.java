@@ -5,6 +5,7 @@ import io.seata.sample.entity.Order;
 import io.seata.sample.feign.AccountApi;
 import io.seata.sample.feign.StorageApi;
 import io.seata.spring.annotation.GlobalTransactional;
+import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,14 @@ public class OrderServiceImpl implements OrderService{
         LOGGER.info("------->扣减账户结束order中");
 
         LOGGER.info("------->交易结束");
+    }
+
+    /**
+     * 修改订单状态
+     */
+    @Override
+    public void update(Long userId,BigDecimal money,Integer status) {
+        LOGGER.info("修改订单状态，入参为：userId={},money={},status={}",userId,money,status);
+        orderDao.update(userId,money,status);
     }
 }
