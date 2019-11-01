@@ -13,7 +13,7 @@ mybatis:
     mapperLocations: classpath:mapper/*.xml
     typeAliasesPackage: io.seata.sample.entity
 server:
-    port: 8081
+    port: 8181
 spring:
     application:
         name: account-server
