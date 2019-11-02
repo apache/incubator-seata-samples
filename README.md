@@ -13,6 +13,7 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 
 ## Sub-projects
 
+* [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) - Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata 
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example of [Seata](https://github.com/seata/seata) and [Apache Dubbo](https://github.com/apache/dubbo)
 * [springboot](https://github.com/seata/seata-samples/tree/master/springboot) - Integration example of [Seata](https://github.com/seata/seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
 * [nacos](https://github.com/seata/seata-samples/tree/master/nacos) - Integration example of [Seata](https://github.com/alibaba/fescar)、 [Apache Dubbo](https://github.com/apache/dubbo) and [Alibaba Nacos](https://github.com/alibaba/nacos/) 
