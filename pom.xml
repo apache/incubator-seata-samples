@@ -77,6 +77,7 @@
         <module>springboot-shardingsphere-seata</module>
         <module>multiple-datasource-mybatis-plus</module>
         <module>saga</module>
+        <module>spring-cloud-alibaba-samples</module>
     </modules>
 
     <dependencies>
