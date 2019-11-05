@@ -16,7 +16,7 @@ mybatis:
     mapperLocations: classpath:mapper/*.xml
     typeAliasesPackage: io.seata.sample.entity
 server:
-    port: 8080
+    port: 8180
 spring:
     application:
         name: order-server

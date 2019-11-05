@@ -9,6 +9,8 @@
 - 4.创建数据库表
 - 5.启动注册中心，启动server,启动client
 
+##### 关于调用成环和seata-server HA，见最后部分
+
 ### 1.此demo技术选型及版本信息
 
 注册中心：eureka
@@ -288,7 +290,7 @@ public class DataSourceConfiguration {
 - 1.启动eureka;
 - 2.启动seata-server;
 - 3.启动order,storage,account服务;
-- 4.访问：http://localhost:8080/order/create?userId=1&productId=1&count=10&money=100
+- 4.访问：http://localhost:8180/order/create?userId=1&productId=1&count=10&money=100
 
 然后可以模拟正常情况，异常情况，超时情况等，观察数据库即可。
 
@@ -323,7 +325,7 @@ public class DataSourceConfiguration {
 2019-09-06 15:44:35.545  INFO 36556 --- [atch_RMROLE_3_8] io.seata.rm.AbstractRMHandler            : Branch committing: 192.168.158.133:8091:2021468859 2021468867 jdbc:mysql://116.62.62.26/seat-account null
 2019-09-06 15:44:35.545  INFO 36556 --- [atch_RMROLE_3_8] io.seata.rm.AbstractRMHandler            : Branch commit result: PhaseTwo_Committed
 ```
-### 模拟异常
+### 8.模拟异常
 在AccountServiceImpl中模拟异常情况，然后可以查看日志
 ```java
     /**
@@ -343,3 +345,53 @@ public class DataSourceConfiguration {
         accountDao.decrease(userId,money);
     }
 ```
+### 9.调用成环
+前面的调用链为order->storage->account;
+这里测试的成环是指order->storage->account->order，
+这里的account服务又会回头去修改order在前面添加的数据。
+经过测试，是支持此种场景的。
+```java
+    /**
+     * 扣减账户余额
+     * @param userId 用户id
+     * @param money 金额
+     */
+    @Override
+    public void decrease(Long userId, BigDecimal money) {
+        LOGGER.info("------->扣减账户开始account中");
+        //模拟超时异常，全局事务回滚
+//        try {
+//            Thread.sleep(30*1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        accountDao.decrease(userId,money);
+        LOGGER.info("------->扣减账户结束account中");
+
+        //修改订单状态，此调用会导致调用成环
+        LOGGER.info("修改订单状态开始");
+        String mes = orderApi.update(userId, money.multiply(new BigDecimal("0.09")),0);
+        LOGGER.info("修改订单状态结束：{}",mes);
+    }
+```
+在最初的order会创建一个订单，然后扣减库存，然后扣减账户，账户扣减完，会回头修改订单的金额和状态，这样调用就成环了。
+
+### 10.seata-server HA
+下载seata server包，地址：https://github.com/seata/seata/releases;
+
+部署集群，第一台和第二台配置相同，在server端的registry.conf中，注意：
+```java
+registry {
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
+  type = "eureka"
+......
+  eureka {
+    serviceUrl = "http://192.168.xx.xx:8761/eureka"  //两台tcc相同,注册中心的地址
+    application = "default" //两台tc相同
+    weight = "1"  //权重，截至0.9版本，暂时不支持此参数
+  }
+ ......
+```
+注意上述配置和client的配置要一致，2台和多台情况相同。
+
+0.9及之前版本，多tc时，tc会误报异常，此问题0.9之后已经修复，之后的版本应该不会出现此问题。
