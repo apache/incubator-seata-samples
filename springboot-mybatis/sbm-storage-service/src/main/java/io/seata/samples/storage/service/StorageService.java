@@ -23,8 +23,7 @@ public class StorageService {
 
     public void deduct(String commodityCode, int count) {
         Storage storage = storageMapper.findByCommodityCode(commodityCode);
-        storage.setCount(storage.getCount() - count);
-        storageMapper.updateById(storage);
+        storageMapper.updateById(storage.getId(), count);
     }
 
     @GlobalLock
