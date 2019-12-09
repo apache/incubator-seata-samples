@@ -33,7 +33,6 @@ dubbo:
     name: test-provider
   registry:
     id: my-registry
-#    address:  zookeeper://127.0.0.1:2181?client=curator
     address:  nacos://127.0.0.1:8848
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
