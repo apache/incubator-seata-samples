@@ -39,7 +39,6 @@ import lombok.extern.slf4j.Slf4j;
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
 @Import(DruidDynamicDataSourceConfiguration.class)
 public class SeataAutoConfig {
-    @Autowired(required = true)
     private final static Logger logger = LoggerFactory.getLogger(SeataAutoConfig.class);
     @Autowired
     private DynamicDataSourceProperties properties;
