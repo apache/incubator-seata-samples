@@ -32,7 +32,7 @@ then you will see ：
 +-------------------------+
 ```
 
-### 3. start Nacos
+### 3. start Nacos（使用1.1.0版本，防止因为dubbo，nacos因版本不匹配出现的心跳请求出错的情况。 v1.1.0地址：https://github.com/alibaba/nacos/releases/tag/1.1.0）
 
 Nacos quickstart：https://nacos.io/en-us/docs/quick-start.html
 
@@ -75,7 +75,7 @@ body：
 or use curl：
 
 ```bash
-curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"P190510529590122","name":"风扇","count":2,"amount":"100"}' localhost:8104/business/dubbo/buy
+curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"C201901140001","name":"风扇","count":2,"amount":"100"}' localhost:8104/business/dubbo/buy
 ``` 
 
 then this will send a pay request,and return code is 200

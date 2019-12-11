@@ -19,5 +19,8 @@
     <update id="decreaseAccount">
       update t_account set amount = amount-${amount} where user_id = #{userId}
     </update>
+    <update id="testGlobalLock">
+      select * from t_account where user_id = #{userId} for update
+    </update>
 
 </mapper>

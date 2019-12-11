@@ -29,8 +29,7 @@
     <name>transfer-tcc-sample ${project.version}</name>
 
     <properties>
-        <zookeeper.version>3.4.14</zookeeper.version>
-        <curator.version>2.9.1</curator.version>
+        <curator.version>4.2.0</curator.version>
         <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
         <dubbo.version>2.7.0</dubbo.version>
 
@@ -65,12 +64,6 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-test</artifactId>
             <version>${curator.version}</version>
-        </dependency>
-        <!-- zk jar -->
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>${zookeeper.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>

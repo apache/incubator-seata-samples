@@ -1,0 +1,95 @@
+{
+    "Name": "reduceInventoryAndBalance",
+    "Comment": "reduce inventory then reduce balance in a transaction",
+    "StartState": "ReduceInventory",
+    "Version": "0.0.1",
+    "States": {
+        "ReduceInventory": {
+            "Type": "ServiceTask",
+            "ServiceName": "inventoryAction",
+            "ServiceMethod": "reduce",
+            "CompensateState": "CompensateReduceInventory",
+            "Next": "ChoiceState",
+            "Input": [
+                "$.[businessKey]",
+                "$.[count]"
+            ],
+            "Output": {
+                "reduceInventoryResult": "$.#root"
+            },
+            "Status": {
+                "#root == true": "SU",
+                "#root == false": "FA",
+                "$Exception{java.lang.Throwable}": "UN"
+            }
+        },
+        "ChoiceState":{
+            "Type": "Choice",
+            "Choices":[
+                {
+                    "Expression":"[reduceInventoryResult] == true",
+                    "Next":"ReduceBalance"
+                }
+            ],
+            "Default":"Fail"
+        },
+        "ReduceBalance": {
+            "Type": "ServiceTask",
+            "ServiceName": "balanceAction",
+            "ServiceMethod": "reduce",
+            "CompensateState": "CompensateReduceBalance",
+            "Input": [
+                "$.[businessKey]",
+                "$.[amount]",
+                {
+                    "throwException" : "$.[mockReduceBalanceFail]"
+                }
+            ],
+            "Output": {
+                "compensateReduceBalanceResult": "$.#root"
+            },
+            "Status": {
+                "#root == true": "SU",
+                "#root == false": "FA",
+                "$Exception{java.lang.Throwable}": "UN"
+            },
+            "Catch": [
+                {
+                    "Exceptions": [
+                        "java.lang.Throwable"
+                    ],
+                    "Next": "CompensationTrigger"
+                }
+            ],
+            "Next": "Succeed"
+        },
+        "CompensateReduceInventory": {
+            "Type": "ServiceTask",
+            "ServiceName": "inventoryAction",
+            "ServiceMethod": "compensateReduce",
+            "Input": [
+                "$.[businessKey]"
+            ]
+        },
+        "CompensateReduceBalance": {
+            "Type": "ServiceTask",
+            "ServiceName": "balanceAction",
+            "ServiceMethod": "compensateReduce",
+            "Input": [
+                "$.[businessKey]"
+            ]
+        },
+        "CompensationTrigger": {
+            "Type": "CompensationTrigger",
+            "Next": "Fail"
+        },
+        "Succeed": {
+            "Type":"Succeed"
+        },
+        "Fail": {
+            "Type":"Fail",
+            "ErrorCode": "PURCHASE_FAILED",
+            "Message": "purchase failed"
+        }
+    }
+}
