@@ -3,8 +3,6 @@ package io.seata.samples.controller;
 import org.apache.dubbo.config.annotation.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +27,7 @@ import io.seata.samples.service.IProductService;
 public class TestController {
 
     private final static Logger logger = LoggerFactory.getLogger(TestController.class);
-    @Autowired
-    @Lazy
+    @Reference(version = "1.0.0", timeout = 60000)
     DemoService demoService;
     @Reference(version = "1.0.0", timeout = 60000)
     private IProductService productService;
@@ -51,9 +48,9 @@ public class TestController {
      * @return
      * @throws TransactionException
      */
-    @GetMapping(value = "testSeataTwo")
-    public Object testSeataTwo() throws TransactionException {
-        return demoService.Two();
+    @GetMapping(value = "testCommit")
+    public Object testCommit() throws TransactionException {
+        return demoService.testCommit();
     }
 
     /**
@@ -62,9 +59,9 @@ public class TestController {
      * @return
      * @throws TransactionException
      */
-    @GetMapping(value = "testSeataOne")
-    public Object testSeataOne() throws TransactionException {
-        return demoService.One();
+    @GetMapping(value = "testRollback")
+    public Object testRollback() throws TransactionException {
+        return demoService.testRollback();
     }
 
 }

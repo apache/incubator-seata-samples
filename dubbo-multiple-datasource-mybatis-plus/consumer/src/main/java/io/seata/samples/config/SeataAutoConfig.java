@@ -19,6 +19,6 @@ public class SeataAutoConfig {
     @Bean
     public GlobalTransactionScanner globalTransactionScanner() {
         logger.info("配置seata........");
-        return new GlobalTransactionScanner("test-consumer", "test-consumer");
+        return new GlobalTransactionScanner("test-consumer", "my_test_tx_group");
     }
 }
