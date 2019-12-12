@@ -36,7 +36,7 @@ dubbo:
     address:  nacos://127.0.0.1:8848
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  typeAliasesPackage: org.test.entity
+  typeAliasesPackage: io.seata.samples.entity
   global-config:
     db-config:
       field-strategy: not-empty
