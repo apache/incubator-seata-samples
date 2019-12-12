@@ -24,13 +24,13 @@ import io.seata.tm.api.GlobalTransactionContext;
  */
 @Service
 public class DemoService {
+    private final static Logger logger = LoggerFactory.getLogger(DemoService.class);
     @Reference(version = "1.0.0", timeout = 60000)
     private IAccountService accountService;
     @Reference(version = "1.0.0", timeout = 60000)
     private IOrdersService ordersService;
     @Reference(version = "1.0.0", timeout = 60000)
     private IProductService productService;
-    private final static Logger logger = LoggerFactory.getLogger(DemoService.class);
     private Lock lock = new ReentrantLock();
 
     /**
@@ -45,22 +45,26 @@ public class DemoService {
             lock.lock();
             LocalDateTime now = LocalDateTime.now();
             Product product = productService.getById(1);
-            Account account = accountService.getById(1);
-            Orders orders = new Orders();
-            orders.setCreateTime(now);
-            orders.setProductId(product.getId());
-            orders.setReplaceTime(now);
-            orders.setSum(1);
-            orders.setAmount(product.getPrice());
-            orders.setAccountId(account.getId());
-            product.setStock(product.getStock() - 1);
-            account.setSum(account.getSum() != null ? account.getSum() + 1 : 1);
-            account.setLastUpdateTime(now);
-            productService.updateById(product);
-            accountService.updateById(account);
-            ordersService.save(orders);
-            int i = 1 / 0;
-            return true;
+            if (product.getStock() > 0) {
+                Account account = accountService.getById(1);
+                Orders orders = new Orders();
+                orders.setCreateTime(now);
+                orders.setProductId(product.getId());
+                orders.setReplaceTime(now);
+                orders.setSum(1);
+                orders.setAmount(product.getPrice());
+                orders.setAccountId(account.getId());
+                product.setStock(product.getStock() - 1);
+                account.setSum(account.getSum() != null ? account.getSum() + 1 : 1);
+                account.setLastUpdateTime(now);
+                productService.updateById(product);
+                accountService.updateById(account);
+                ordersService.save(orders);
+                int i = 1 / 0;
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             // TODO: handle exception
             logger.info("载入事务id进行回滚");
@@ -83,21 +87,25 @@ public class DemoService {
             lock.lock();
             LocalDateTime now = LocalDateTime.now();
             Product product = productService.getById(1);
-            Account account = accountService.getById(1);
-            Orders orders = new Orders();
-            orders.setCreateTime(now);
-            orders.setProductId(product.getId());
-            orders.setReplaceTime(now);
-            orders.setSum(1);
-            orders.setAmount(product.getPrice());
-            orders.setAccountId(account.getId());
-            product.setStock(product.getStock() - 1);
-            account.setSum(account.getSum() != null ? account.getSum() + 1 : 1);
-            account.setLastUpdateTime(now);
-            productService.updateById(product);
-            accountService.updateById(account);
-            ordersService.save(orders);
-            return true;
+            if (product.getStock() > 0) {
+                Account account = accountService.getById(1);
+                Orders orders = new Orders();
+                orders.setCreateTime(now);
+                orders.setProductId(product.getId());
+                orders.setReplaceTime(now);
+                orders.setSum(1);
+                orders.setAmount(product.getPrice());
+                orders.setAccountId(account.getId());
+                product.setStock(product.getStock() - 1);
+                account.setSum(account.getSum() != null ? account.getSum() + 1 : 1);
+                account.setLastUpdateTime(now);
+                productService.updateById(product);
+                accountService.updateById(account);
+                ordersService.save(orders);
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             // TODO: handle exception
             logger.info("载入事务id进行回滚");

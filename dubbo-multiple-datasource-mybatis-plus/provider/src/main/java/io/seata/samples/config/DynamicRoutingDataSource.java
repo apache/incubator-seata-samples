@@ -15,6 +15,8 @@
  */
 package io.seata.samples.config;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,7 +34,6 @@ import com.baomidou.dynamic.datasource.provider.DynamicDataSourceProvider;
 import com.baomidou.dynamic.datasource.strategy.DynamicDataSourceStrategy;
 import com.baomidou.dynamic.datasource.toolkit.DynamicDataSourceContextHolder;
 
-import io.seata.rm.datasource.DataSourceProxy;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,6 +56,8 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
     @Setter
     private boolean strict;
     private boolean p6spy;
+    private boolean isSeata = false;
+    private Constructor dataSourceProxy;
 
     /**
      * 所有数据库
@@ -64,6 +67,17 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
      * 分组数据库
      */
     private Map<String, DynamicGroupDataSource> groupDataSources = new ConcurrentHashMap<>();
+
+    public DynamicRoutingDataSource() {
+        try {
+            dataSourceProxy = Class.forName("io.seata.rm.datasource.DataSourceProxy").getConstructor(DataSource.class);
+            isSeata = true;
+            log.info("启用seata代理数据源");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            log.info("seata不存在:{}", e.getMessage());
+        }
+    }
 
     @Override
     public DataSource determineDataSource() {
@@ -124,9 +138,20 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource implemen
      *            数据源名称
      * @param dataSource
      *            数据源
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
     public synchronized void addDataSource(String ds, DataSource dataSource) {
-        dataSource = new DataSourceProxy(dataSource);
+        if (isSeata) {
+            try {
+                dataSource = (DataSource)dataSourceProxy.newInstance(dataSource);
+            } catch (Exception e) {
+            }
+        }
         dataSourceMap.put(ds, dataSource);
         if (ds.contains(UNDERLINE)) {
             String group = ds.split(UNDERLINE)[0];
