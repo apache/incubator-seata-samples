@@ -13,6 +13,7 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 
 ## Sub-projects
 
+* [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) - Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata 
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example of [Seata](https://github.com/seata/seata) and [Apache Dubbo](https://github.com/apache/dubbo)
 * [springboot](https://github.com/seata/seata-samples/tree/master/springboot) - Integration example of [Seata](https://github.com/seata/seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
 * [nacos](https://github.com/seata/seata-samples/tree/master/nacos) - Integration example of [Seata](https://github.com/alibaba/fescar)、 [Apache Dubbo](https://github.com/apache/dubbo) and [Alibaba Nacos](https://github.com/alibaba/nacos/) 
@@ -22,7 +23,10 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 * [spring-boot-multiple-datasource](./multiple-datasource) - Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) with multiple datasource and MyBatis
 * [springboot-mybatis](https://github.com/seata/seata-samples/tree/master/springboot-mybatis) - Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) and [Mybatis](https://github.com/mybatis/mybatis-3) 
 * [api](https://github.com/seata/seata-samples/tree/master/api) - Non-Spring environment uses api to build Seata distributed transactions
-
+* [spring-boot-multiple-datasource-mybatis-plus](./multiple-datasource-mybatis-plus) - Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) with multiple datasource and [MyBatisPlus](https://github.com/baomidou/mybatis-plus)
+* [springcloud-nacos-seata](https://github.com/seata/seata-samples/tree/master/springcloud-nacos-seata) - Integration 
+example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud) and [Alibaba Nacos](https://github.com/alibaba/nacos/)
+* [saga](https://github.com/seata/seata-samples/tree/master/saga) - Saga mode distributed transaction demo projects
 
 
 ## Guide 

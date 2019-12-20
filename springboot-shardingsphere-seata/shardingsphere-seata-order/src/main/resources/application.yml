@@ -1,0 +1,147 @@
+server:
+  port: 8095
+
+#nacos:
+#  config:
+#    server-addr: 127.0.0.1:8848
+
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848
+  application:
+    name: shardingsphere-seata-nacos-dubbo-provider-order
+    qos-enable: false
+  protocol:
+    name: dubbo
+    port: 20881
+#  scan:
+#    basePackages: com.company.spring.boot.shardingsphere.seata.modules.service
+
+#endpoint http://localhost:8080/actuator/nacos-config
+#health http://localhost:8080/actuator/health
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+spring:
+  aop:  #使用CGLIB来实现AOP的时候
+    proxy-target-class: true
+  application:
+    name: shardingsphere-seata-nacos-dubbo-provider-order
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+#        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 123456
+        jdbc-url: jdbc:mysql://localhost:3306/demo_ds_0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/demo_ds_0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        filters: stat,wall,log4j
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        connection-properties: druid.stat.merggSql=ture;druid.stat.slowSqlMillis=5000
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+#        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 123456
+        jdbc-url: jdbc:mysql://localhost:3306/demo_ds_1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/demo_ds_1?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+        filters: stat,wall,log4j
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        connection-properties: druid.stat.merggSql=ture;druid.stat.slowSqlMillis=5000
+    sharding:
+      default-database-strategy:
+        inline:
+          sharding-column: user_id
+          algorithm-expression: ds$->{user_id % 2}
+      tables:
+        t_order:
+          actual-data-nodes: ds$->{0..1}.t_order_$->{0..1}
+          table-strategy:
+            inline:
+              sharding-column: order_id
+              algorithm-expression: t_order_$->{order_id % 2}
+          key-generator:
+            column: order_id
+            type: SNOWFLAKE
+            props:
+              worker.id: 123
+        t_order_item:
+          actual-data-nodes: ds$->{0..1}.t_order_item_$->{0..1}
+          table-strategy:
+            inline:
+              sharding-column: order_id
+              algorithm-expression: t_order_item_$->{order_id % 2}
+          key-generator:
+            column: order_item_id
+            type: SNOWFLAKE
+            props:
+              worker.id: 123
+
+#mybatis:
+#  mapper-locations: classpath:/mapper/**/*.xml   #把xml文件放在com.XX.mapper.*中可能会出现找到的问题，这里把他放在resource下的mapper中
+#  #实体扫描，多个package用逗号或者分号分隔
+#  typeAliasesPackage: com.company.spring.boot.shardingsphere.seata.modules.entity  #这里是实体类的位置
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: false
+
+mybatis-plus:
+#  datasource: dataSource
+  mapper-locations: classpath:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package:  io.seata.samples.shardingsphere.modules.entity
+  #typeEnumsPackage: com.baomidou.springboot.entity.enums
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID", 4:"该类型为未设置主键类型", 5:"字符串全局唯一ID";
+    id-type: 2
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+    #逻辑删除配置（下面3个配置）
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    # SQL 解析缓存，开启后多租户 @SqlParser 注解生效
+    sql-parser-cache: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  configuration-properties:
+    dbType: mysql #设置全局属性用于控制数据库的类型

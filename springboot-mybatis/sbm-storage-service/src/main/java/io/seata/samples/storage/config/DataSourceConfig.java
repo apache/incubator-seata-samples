@@ -35,7 +35,6 @@ public class DataSourceConfig {
         factoryBean.setDataSource(dataSourceProxy);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
             .getResources("classpath*:/mapper/*.xml"));
-        factoryBean.setTransactionFactory(new SpringManagedTransactionFactory());
         return factoryBean.getObject();
     }
 }

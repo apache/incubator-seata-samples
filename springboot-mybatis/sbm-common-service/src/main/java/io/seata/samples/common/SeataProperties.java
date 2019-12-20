@@ -14,6 +14,6 @@ public class SeataProperties {
     }
 
     public void setTxServiceGroup(String txServiceGroup) {
-        this.txServiceGroup = "my_test_tx_group";
+        this.txServiceGroup = txServiceGroup;
     }
 }

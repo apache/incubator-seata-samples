@@ -17,13 +17,13 @@
 在 [Seata Release](https://github.com/seata/seata/releases) 下载相应版本的 Seata Server，解压后执行以下命令启动，这里使用 file 配置
 
 ```bash
-sh ./bin/seata-server.sh -p 8091 -m file
+sh ./bin/seata-server.sh
 ```
 
 - 通过 Docker 启动
 
 ```bash
-docker run --name seata-file -d -p 8091:8091 hellowoodes/seata:0.7.1-file
+docker run --name seata-file -d -p 8091:8091 hellowoodes/seata:0.9.0-file
 ```
 
 ## 测试

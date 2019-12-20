@@ -58,3 +58,7 @@ server/.root.*
 Thumbs.db
 *.orig
 *.class
+
+*/.idea/
+*/.mvn/
+*/target/

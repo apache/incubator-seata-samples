@@ -30,14 +30,13 @@
     <name>springboot-tcc-sample ${project.version}</name>
 
     <properties>
-        <seata.version>0.8.0</seata.version>
+        <seata.version>0.9.0</seata.version>
 
-        <zookeeper.version>3.4.14</zookeeper.version>
-        <curator.version>2.9.1</curator.version>
+        <curator.version>4.2.0</curator.version>
         <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
         <dubbo.version>2.7.0</dubbo.version>
         <netty4.version>4.1.24.Final</netty4.version>
-        <curator.version>4.1.0</curator.version>
+        <curator.version>4.2.0</curator.version>
         <spring.version>5.0.8.RELEASE</spring.version>
 
     </properties>
@@ -81,12 +80,6 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-test</artifactId>
             <version>2.9.1</version>
-        </dependency>
-        <!-- zk jar -->
-        <dependency>
-            <groupId>org.apache.zookeeper</groupId>
-            <artifactId>zookeeper</artifactId>
-            <version>${zookeeper.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
