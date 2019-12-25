@@ -1,0 +1,32 @@
+eureka:
+    instance:
+        hostname: 192.168.168.168
+        prefer-ip-address: true
+    client:
+        serviceUrl:
+            defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+logging:
+    level:
+        io:
+            seata: info
+mybatis:
+    mapperLocations: classpath:mapper/*.xml
+    typeAliasesPackage: io.seata.sample.entity
+server:
+    port: 8180
+spring:
+    application:
+        name: order-server
+    cloud:
+        alibaba:
+            seata:
+                tx-service-group: default
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://116.62.xx.xx/seata-order
+        password: xxxx
+        username: root
+
+# -----------seata--------------
+# -----------seata--------------
+
