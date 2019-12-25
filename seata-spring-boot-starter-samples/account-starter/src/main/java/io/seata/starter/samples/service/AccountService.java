@@ -30,6 +30,6 @@ public class AccountService implements AccountApi {
             throw new RuntimeException("库存不足，抛出异常...");
         }
         int i = accountMapper.updateAccount(sid, count);
-        return i>0?true:false;
+        return i>0;
     }
 }
