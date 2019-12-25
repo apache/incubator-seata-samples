@@ -22,6 +22,7 @@ public class AccountService implements AccountApi {
     @Autowired
     AccountMapper accountMapper;
 
+    @Override
     @GetMapping("updateAccount/{sid}/{count}")
     public boolean updateAccount(@PathVariable String sid, @PathVariable int count) {
         // 当前库存
@@ -32,4 +33,5 @@ public class AccountService implements AccountApi {
         int i = accountMapper.updateAccount(sid, count);
         return i>0;
     }
+
 }

@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50557
-Source Host           : localhost:3306
+Source Server Version : 100133
+Source Host           : 127.0.0.1:3306
 Source Database       : seata_server2
 
 Target Server Type    : MYSQL
-Target Server Version : 50557
+Target Server Version : 100133
 File Encoding         : 65001
 
-Date: 2019-12-24 14:12:18
+Date: 2019-12-25 10:06:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,6 +25,11 @@ CREATE TABLE `seata` (
   `count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of seata
+-- ----------------------------
+INSERT INTO `seata` VALUES ('', 'soul', '99999');
 
 -- ----------------------------
 -- Table structure for undo_log
@@ -43,3 +48,7 @@ CREATE TABLE `undo_log` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of undo_log
+-- ----------------------------

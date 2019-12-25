@@ -6,9 +6,10 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/seata_server1?useAffectedRows=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
-    name: root
-    password:
+    username: root
+    password: root
     type: com.alibaba.druid.pool.DruidDataSource
+
 seata:
   enabled: true #开启配置
   application-id: seata-spring-boot-starter-samples  #客户端注册ID
