@@ -24,7 +24,6 @@ CREATE TABLE seata_order.undo_log
     log_status    INT(11)      NOT NULL,
     log_created   DATETIME     NOT NULL,
     log_modified  DATETIME     NOT NULL,
-    ext           VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY ux_undo_log (xid, branch_id)
 ) ENGINE = InnoDB
@@ -56,7 +55,6 @@ CREATE TABLE seata_storage.undo_log
     log_status    INT(11)      NOT NULL,
     log_created   DATETIME     NOT NULL,
     log_modified  DATETIME     NOT NULL,
-    ext           VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY ux_undo_log (xid, branch_id)
 ) ENGINE = InnoDB
@@ -85,7 +83,6 @@ CREATE TABLE seata_pay.undo_log
     log_status    INT(11)      NOT NULL,
     log_created   DATETIME     NOT NULL,
     log_modified  DATETIME     NOT NULL,
-    ext           VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY ux_undo_log (xid, branch_id)
 ) ENGINE = InnoDB
