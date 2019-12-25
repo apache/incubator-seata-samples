@@ -23,6 +23,6 @@ spring:
                 tx-service-group: fsp_tx_group
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        password: 14789632
-        url: jdbc:mysql://116.62.62.26/seat-storage
+        password: xxxx
+        url: jdbc:mysql://116.62.xx.xx/seat-storage
         username: root
