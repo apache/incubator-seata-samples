@@ -12,7 +12,7 @@ spring:
 
 seata:
   enabled: true #开启配置
-  application-id: seata-spring-boot-starter-samples  #客户端注册ID
+  application-id: business-starter-samples  #客户端注册ID
   tx-service-group: default # 事务分组
   client:
     rm-async-commit-buffer-limit: 1000

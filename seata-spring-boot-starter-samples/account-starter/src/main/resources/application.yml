@@ -13,7 +13,7 @@ spring:
 
 seata:
   enabled: true #开启配置
-  application-id: seata-spring-boot-starter-samples  #客户端注册ID
+  application-id: account-starter-samples  #客户端注册ID
   tx-service-group: default # 事务分组
   client:
     rm-async-commit-buffer-limit: 1000
@@ -77,6 +77,7 @@ seata:
       server-addr: 127.0.0.1:2181
       session-timeout: 6000
       connect-timeout: 2000
+  ## 这里配置服务注册和配置信息  加载顺序 file.conf -> yml
   registry:
     type: file
     file:
