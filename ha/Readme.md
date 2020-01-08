@@ -277,7 +277,7 @@ create table `lock_table` (
   `transaction_id` long ,
   `branch_id` long,
   `resource_id` varchar(256) ,
-  `table_name` varchar(32) ,
+  `table_name` varchar(64) ,
   `pk` varchar(128) ,
   `gmt_create` datetime ,
   `gmt_modified` datetime,
