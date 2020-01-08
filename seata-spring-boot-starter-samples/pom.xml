@@ -8,19 +8,19 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>springboot-dubbo-seata</artifactId>
+    <artifactId>seata-spring-boot-starter-samples</artifactId>
     <packaging>pom</packaging>
-    <name>springboot-dubbo-seata</name>
+    <name>seata-spring-boot-starter-samples</name>
     <groupId>io.seata</groupId>
     <version>1.0.0</version>
-    <description>Demo project for Spring Cloud Alibaba Dubbo</description>
+    <description>Demo project for Spring Boot Dubbo</description>
 
     <modules>
-        <module>samples-common</module>
-        <module>samples-account</module>
-        <module>samples-order</module>
-        <module>samples-storage</module>
-        <module>samples-business</module>
+        <module>samples-common-service</module>
+        <module>samples-account-service</module>
+        <module>samples-order-service</module>
+        <module>samples-storage-service</module>
+        <module>samples-business-service</module>
     </modules>
 
     <properties>
@@ -156,10 +156,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
