@@ -12,7 +12,7 @@ public interface StorageMapper {
 
     Storage findByCommodityCode(@Param("commodityCode") String commodityCode);
 
-    int updateById(Storage record);
+    int updateById(@Param("id") Integer id, @Param("count") Integer count);
 
     void insert(Storage record);
 
