@@ -26,7 +26,8 @@ public class StorageService {
         //I hope that users can solve it and deepen their understanding of seata isolation.
         //At the bottom I will put a reference solution.
         Storage storage = storageMapper.findByCommodityCode(commodityCode);
-        storageMapper.updateById(storage.getId(), count);
+        storage.setCount(storage.getCount() - count);
+        storageMapper.updateById(storage);
     }
 
     @GlobalLock
