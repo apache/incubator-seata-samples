@@ -9,6 +9,8 @@
         </encoder>
     </appender>
 
+    <logger name="io.seata.samples.order.persistence" level="DEBUG"/>
+
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
