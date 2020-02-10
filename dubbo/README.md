@@ -13,6 +13,7 @@ Engligh: http://dubbo.apache.org/en-us/blog/dubbo-fescar.html
 ```shell script
 docker run --name seata-file -p 8091:8091 hellowoodes/seata:0.9.0-file
 ```
+> You can also download seata [release](https://github.com/seata/seata/releases) version ,then run bin/seata-server .
 
 2. Startup Zookeeper 
 
