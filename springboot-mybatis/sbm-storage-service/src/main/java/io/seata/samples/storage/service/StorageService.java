@@ -22,6 +22,9 @@ public class StorageService {
     private DataSource dataSource;
 
     public void deduct(String commodityCode, int count) {
+        //There is a latent isolation problem here.
+        //I hope that users can solve it and deepen their understanding of seata isolation.
+        //At the bottom I will put a reference solution.
         Storage storage = storageMapper.findByCommodityCode(commodityCode);
         storage.setCount(storage.getCount() - count);
         storageMapper.updateById(storage);
@@ -104,3 +107,16 @@ public class StorageService {
         }
     }
 }
+
+/*
+reference solution:
+    @Transactional
+    public void deduct(String commodityCode, int count) {
+        //select + for update
+        Storage storage = storageMapper.findByCommodityCode(commodityCode);
+        storage.setCount(storage.getCount() - count);
+        storageMapper.updateById(storage);
+    }
+    1.select for update,refer https://seata.io/zh-cn/docs/overview/faq.html#4
+    2.(optional)use @Transactional,keep X locks held until connection submission
+*/
