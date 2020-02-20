@@ -78,6 +78,7 @@
         <module>multiple-datasource-mybatis-plus</module>
         <module>saga</module>
         <module>spring-cloud-alibaba-samples</module>
+        <module>seata-spring-boot-starter-samples</module>
     </modules>
 
     <dependencies>
@@ -293,7 +294,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.2.0.M3</version>
+                    <version>2.2.0.RELEASE</version>
                 </plugin>
             </plugins>
         </pluginManagement>

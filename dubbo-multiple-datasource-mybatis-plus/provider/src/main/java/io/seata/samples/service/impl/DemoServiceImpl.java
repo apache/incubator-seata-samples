@@ -24,7 +24,7 @@ import io.seata.spring.annotation.GlobalTransactional;
 import io.seata.tm.api.GlobalTransactionContext;
 
 /**
- * 
+ *
  * @author 陈健斌
  * @date 2019/12/05
  */
@@ -40,15 +40,16 @@ public class DemoServiceImpl implements DemoService {
     private Lock lock = new ReentrantLock();
 
     /**
-     * 
+     *
      * @return
      * @throws TransactionException
      */
+    @Override
     @GlobalTransactional
     public Object testRollback() throws TransactionException {
         logger.info("seata分布式事务Id:{}", RootContext.getXID());
+        lock.lock();
         try {
-            lock.lock();
             LocalDateTime now = LocalDateTime.now();
             Product product = productService.getOne(Wrappers.<Product>query().eq("id", 1).last("for update"));
             if (product.getStock() > 0) {
@@ -82,14 +83,15 @@ public class DemoServiceImpl implements DemoService {
     }
 
     /**
-     * 
+     *
      * @return
      * @throws TransactionException
      */
+    @Override
     @GlobalTransactional
     public Object testCommit() throws TransactionException {
+        lock.lock();
         try {
-            lock.lock();
             LocalDateTime now = LocalDateTime.now();
             Product product = productService.getOne(Wrappers.<Product>query().eq("id", 1).last("for update"));
             if (product.getStock() > 0) {
