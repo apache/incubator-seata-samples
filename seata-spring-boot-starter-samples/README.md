@@ -31,9 +31,9 @@ sh startup.sh -m standalone
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905101221566.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 这是时候naocs 就正常启动了。
-## 2.2 下载seata1.0.0 并安装启动
+## 2.2 下载seata server 并安装启动
 
-#### 2.2.1 在 [Seata Release](https://github.com/seata/seata/releases/tag/v1.0.0) 下载最新版的 Seata Server 并解压得到如下目录：
+#### 2.2.1 在 [Seata Release](https://github.com/seata/seata/releases) 下载最新版的 Seata Server 并解压得到如下目录：
 
 
 ```shell
@@ -591,7 +591,7 @@ SET FOREIGN_KEY_CHECKS=1;
     <packaging>pom</packaging>
     <name>springboot-dubbo-seata</name>
     <groupId>io.seata</groupId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <description>Demo project for Spring Cloud Alibaba Dubbo</description>
 
     <modules>
@@ -612,7 +612,7 @@ SET FOREIGN_KEY_CHECKS=1;
         <lombok.version>1.16.22</lombok.version>
         <dubbo.version>2.7.5</dubbo.version>
         <nacos-client.verison>1.1.3</nacos-client.verison>
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
         <netty.version>4.1.32.Final</netty.version>
     </properties>
 
