@@ -25,12 +25,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>springboot-tcc-sample</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
     <name>springboot-tcc-sample ${project.version}</name>
 
     <properties>
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
 
         <curator.version>4.2.0</curator.version>
         <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
