@@ -5,6 +5,7 @@ spring:
     name: test-provider
   datasource:
     dynamic:
+      seata: true
       primary: master_1
       datasource:
         master_1:
