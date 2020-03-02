@@ -14,9 +14,7 @@
 安装文档详见阿里云官网：[https://help.aliyun.com/document_detail/99410.html](https://help.aliyun.com/document_detail/99410.html) 的“安装 Ali-Tomcat 和 Pandora” 部分；
 
 <a name="1Ql3g"></a>
-### 3、下载 seata tcc demo 代码
-
-seata edas demo 代码地址：[http://gitlab.alipay-inc.com/shaohui.zs/seata-tcc-edas/tree/master](http://gitlab.alipay-inc.com/shaohui.zs/seata-tcc-edas/tree/master)
+### 3、查看本模块 demo
 
 <a name="px105"></a>
 ### 4、配置IDE 环境
