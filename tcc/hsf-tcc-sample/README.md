@@ -34,16 +34,16 @@ eclipse 环境配置可以参考，[https://help.aliyun.com/document_detail/9941
   1. 在右侧页面单击 **Server** 页签，并在 **Application Server** 区域单击 **Con**figure，设置tomcat server地址；
   1. 在 **Application Server** 页面右上角单击 “**+**”，并在 **Tomcat Server** 对话框中设置 **Tomcat Home** 和 **Tomcat base directory **路径，且单击 **OK**。将 Tomcat Home 的路径设置为本地解压后的 Ali-Tomcat 路径，Tomcat base directory 可以自动使用该路径，无需再设置。
 
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/597/1581499163139-790797af-9190-404f-864c-a5f057e1a87e.png#align=left&display=inline&height=363&name=image.png&originHeight=1418&originWidth=2150&size=699721&status=done&style=none&width=550)
+![image.png](./1.png)
 
 5. 在 **Application Server** 区域的下拉菜单中，选择刚刚配置好的 Ali-Tomcat。
 5. 在 **VM Options** 区域的文本框中，设置 JVM 启动参数指向 Pandora 的路径。列如：-Dpandora.location=d:\work\tomcat\deploy\taobao-hsf.sar<br />将d:\work\tomcat\deploy\taobao-hsf.sar 替换为在本地安装 Pandora 的实际路径。
 
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/597/1581499245897-6e149003-fcd0-432f-857c-d4648f0babd8.png#align=left&display=inline&height=339&name=image.png&originHeight=1288&originWidth=2142&size=532112&status=done&style=none&width=563)
+![image.png](./2.png)
 
-7. 在“Deployment” tab 页，添加“seata-tcc-edas:war”；
+7. 在“Deployment” tab 页，添加“hsf-tcc-sample:war”；
 
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/597/1581499502890-3a3137e1-1b9e-453c-bbc6-5d28635d4504.png#align=left&display=inline&height=363&name=image.png&originHeight=1346&originWidth=2144&size=335313&status=done&style=none&width=578)
+![image.png](./3.png)
 
 8. 单击 **Apply** 或 **OK **完成配置;
 
@@ -56,7 +56,7 @@ eclipse 环境配置可以参考，[https://help.aliyun.com/document_detail/9941
 
 2、运行tomcat
 
-在 idea 中 run 上面配置的 “Ali-Tomcat-seata-edas-tcc”,tomcat 启动之后，浏览器 执行“http://localhost:8085/index.htm” 触发分布式事务；
+在 idea 中 run 上面配置的 “Ali-Tomcat-hsf-tcc-sample”,tomcat 启动之后，浏览器 执行“http://localhost:8085/index.htm” 触发分布式事务；
 
 
 
