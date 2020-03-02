@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:hsf="http://www.taobao.com/hsf"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.taobao.com/hsf
+       http://www.taobao.com/hsf/hsf.xsd" default-autowire="byName">
+
+    <!-- seata 初始化 -->
+    <bean class="io.seata.spring.annotation.GlobalTransactionScanner" >
+        <constructor-arg value="hsf-tcc-sample"/>
+        <constructor-arg value="my_test_tx_group"/>
+    </bean>
+
+    <!-- 第一个 TCC 服务发布  -->
+    <bean id="actionOneImpl" class="io.seata.edas.tcc.action.impl.ActionOneImpl"/>
+    <hsf:provider id="actionOneImplService"
+                  interface="io.seata.edas.tcc.action.ActionOne"
+                  ref="actionOneImpl"
+                  version="1.0.0">
+    </hsf:provider>
+
+    <!-- 第二个 TCC 服务发布 -->
+    <bean id="actionTwoImpl" class="io.seata.edas.tcc.action.impl.ActionTwoImpl"/>
+    <hsf:provider id="actionTwoImplService"
+                  interface="io.seata.edas.tcc.action.ActionTwo"
+                  ref="actionTwoImpl"
+                  version="1.0.0">
+    </hsf:provider>
+
+
+    <!-- TCC 2个 服务订阅 -->
+    <hsf:consumer id="actionOne" interface="io.seata.edas.tcc.action.ActionOne"  version="1.0.0" />
+    <hsf:consumer id="actionTwo" interface="io.seata.edas.tcc.action.ActionTwo"  version="1.0.0" />
+
+
+    <!-- 事务发起服务 -->
+    <bean id = "activityService" class = "io.seata.edas.tcc.activity.ActivityServiceImpl" />
+
+</beans>
