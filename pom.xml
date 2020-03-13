@@ -21,10 +21,10 @@
     <groupId>io.seata</groupId>
     <artifactId>seata-samples</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -57,7 +57,7 @@
         <mysql-connector.version>5.1.44</mysql-connector.version>
         <curator.version>4.2.0</curator.version>
         <guava.version>27.0.1-jre</guava.version>
-        <jackson.version>2.9.10.1</jackson.version>
+        <jackson.version>2.9.10.3</jackson.version>
         <druid.version>1.1.12</druid.version>
     </properties>
     <modules>
@@ -78,6 +78,7 @@
         <module>multiple-datasource-mybatis-plus</module>
         <module>saga</module>
         <module>spring-cloud-alibaba-samples</module>
+        <module>seata-spring-boot-starter-samples</module>
     </modules>
 
     <dependencies>
@@ -293,7 +294,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.2.0.M3</version>
+                    <version>2.2.0.RELEASE</version>
                 </plugin>
             </plugins>
         </pluginManagement>

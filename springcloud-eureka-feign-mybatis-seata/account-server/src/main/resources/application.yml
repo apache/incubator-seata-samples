@@ -5,6 +5,12 @@ eureka:
     client:
         serviceUrl:
             defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+feign:
+    client:
+        config:
+            default:
+                connectTimeout: 5000
+                readTimeout: 10000
 logging:
     level:
         io:

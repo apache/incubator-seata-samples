@@ -25,12 +25,12 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>sofarpc-tcc-sample</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
     <name>sofarpc-tcc-sample ${project.version}</name>
 
     <properties>
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
         <curator.version>4.2.0</curator.version>
         <netty4.version>4.1.42.Final</netty4.version>
     </properties>
