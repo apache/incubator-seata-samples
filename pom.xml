@@ -39,7 +39,7 @@
         <netty4.version>4.1.42.Final</netty4.version>
         <org.springframework.spring.version>2.5.6.SEC03</org.springframework.spring.version>
         <junit.version>4.12</junit.version>
-        <dubbo.version>2.7.1</dubbo.version>
+        <dubbo.version>2.7.5</dubbo.version>
         <fastjson.version>1.2.54</fastjson.version>
         <config.version>1.2.1</config.version>
         <slf4j-api.version>1.7.22</slf4j-api.version>
@@ -50,7 +50,7 @@
         <aopalliance.version>1.0</aopalliance.version>
         <zkclient.version>0.10</zkclient.version>
         <dubbo.registry.nacos>0.0.2</dubbo.registry.nacos>
-        <spring-context-support.version>1.0.2</spring-context-support.version>
+        <spring-context-support.version>1.0.6</spring-context-support.version>
         <testng.version>6.4</testng.version>
         <protobuf.version>3.7.1</protobuf.version>
         <spring.version>5.1.3.RELEASE</spring.version>

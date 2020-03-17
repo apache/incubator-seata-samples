@@ -54,15 +54,17 @@
         <property name="dataSource" ref="accountDataSourceProxy" />
     </bean>
 
-    <dubbo:application name="dubbo-demo-account-service"  />
-<!--    <dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
+    <dubbo:application name="dubbo-demo-account-service" >
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
+    <!--<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
     <!--support etcd -->
     <!--<dubbo:registry address="etcd3://127.0.0.1:2379/org.apache.dubbo.registry.RegistryService" />-->
     <!--support zk-->
     <dubbo:registry address="zookeeper://localhost:2181" />
     <!--support nacos-->
     <!--<dubbo:registry address="nacos://127.0.0.1:8848"/>-->
-    <dubbo:protocol name="dubbo" port="20881" />
+    <dubbo:protocol name="dubbo" port="20881"/>
     <dubbo:service interface="io.seata.samples.dubbo.service.AccountService" ref="service" timeout="10000"/>
 
     <bean id="service" class="io.seata.samples.dubbo.service.impl.AccountServiceImpl">
