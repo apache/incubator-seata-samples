@@ -12,6 +12,9 @@ public class StorageService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StorageService.class);
 
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAIL = "FAIL";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

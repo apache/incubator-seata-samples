@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
+import static io.seata.sample.service.AccountService.FAIL;
+import static io.seata.sample.service.AccountService.SUCCESS;
 
 @RestController
 public class AccountController {
@@ -20,8 +21,8 @@ public class AccountController {
             accountService.reduce(userId, money);
         } catch (Exception exx) {
             exx.printStackTrace();
-            return "FAIL";
+            return FAIL;
         }
-        return "SUCCESS";
+        return SUCCESS;
     }
 }

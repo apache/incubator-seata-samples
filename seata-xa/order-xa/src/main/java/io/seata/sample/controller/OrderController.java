@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static io.seata.sample.service.OrderService.FAIL;
+import static io.seata.sample.service.OrderService.SUCCESS;
+
 @RestController
 public class OrderController {
 
@@ -18,9 +21,9 @@ public class OrderController {
             orderService.create(userId, commodityCode, orderCount);
         } catch (Exception exx) {
             exx.printStackTrace();
-            return "FAIL";
+            return FAIL;
         }
-        return "SUCCESS";
+        return SUCCESS;
     }
 
 }

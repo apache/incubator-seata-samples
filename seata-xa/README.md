@@ -1,6 +1,6 @@
-# Seata Spring Cloud Sample
+# Sample of Seata XA mode
 
-Spring Cloud 中使用 Seata，使用 Feign 实现远程调用，使用 Spring Jpa 访问 MySQL 数据库
+Spring Cloud 中使用 Seata，使用 Feign 实现远程调用，使用 Spring JDBC 访问 MySQL 数据库
 
 ### 准备工作
 
@@ -17,58 +17,77 @@ cd distribution
 sh ./bin/seata-server.sh 8091 file
 ```
 
-4. 启动 Account, Order, Storage, Business 服务
-
-> 数据库配置的用户名和密码是 `root`和`123456`，因为没有使用注册中心，所有的 Feign 的配置都是 `127.0.0.1+端口`，如果不同请手动修改
+4. 启动 AccountXA, OrderXA, StorageXA, BusinessXA 服务
 
 ### 测试 
  
 - 无错误成功提交
 
 ```bash
-curl http://127.0.0.1:8084/purchase/commit
+curl http://127.0.0.1:8084/purchase
 ``` 
-完成后可以看到数据库中 `account_tbl`的`id`为1的`money`会减少 5，`order_tbl`中会新增一条记录，`storage_tbl`的`id`为1的`count`字段减少 1
+具体调用参数请结合 BusinessController 的代码。
 
-- 发生异常事务回滚
+数据初始化逻辑，参见 BusinessService#initData() 方法。
 
-```bash
-curl http://127.0.0.1:8084/purchase/rollback
-```
-此时 account-service 会抛出异常，发生回滚，待完成后数据库中的数据没有发生变化，回滚成功
+基于初始化数据，和默认的调用逻辑，purchase 将可以被成功调用 3 次。
 
-### 注意
+每次账户余额扣减 3000，由最初的 10000 减少到 1000。
 
-- 注入 DataSourceProxy 
+第 4 次调用，因为账户余额不足，purchase 调用将失败。相应的：库存、订单、账户都回滚。
 
-因为 Seata 通过代理数据源实现分支事务，如果没有注入，事务无法成功回滚
+### XA 模式与 AT 模式
+
+只要切换数据源代理类型，该样例即可在 XA 模式和 AT 模式之间切换。
+
+DataSourceConfiguration
+
+XA 模式使用 DataSourceProxyXA
 
 ```java
-@Configuration
-public class DataSourceConfig {
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DruidDataSource druidDataSource() {
-        return new DruidDataSource();
-    }
+public class DataSourceProxy {
 
-    /**
-     * 需要将 DataSourceProxy 设置为主数据源，否则事务无法回滚
-     *
-     * @param druidDataSource The DruidDataSource
-     * @return The default datasource
-     */
-    @Primary
-    @Bean("dataSource")
+    @Bean("dataSourceProxy")
     public DataSource dataSource(DruidDataSource druidDataSource) {
+        // DataSourceProxyXA for XA mode
+        return new DataSourceProxyXA(druidDataSource);
+    }
+}
+
+```
+
+AT 模式使用 DataSourceProxy
+
+```java
+
+public class DataSourceProxy {
+
+    @Bean("dataSourceProxy")
+    public DataSource dataSource(DruidDataSource druidDataSource) {
+        // DataSourceProxyXA for AT mode
         return new DataSourceProxy(druidDataSource);
     }
 }
+
 ```
 
-- file.conf 的 service.vgroup_mapping 配置必须和`spring.application.name`一致
+*当然，AT 模式需要在数据库中建立 undo_log 表。（XA 模式是不需要这个表的）*
 
-在 `org.springframework.cloud:spring-cloud-starter-alibaba-seata`的`org.springframework.cloud.alibaba.seata.GlobalTransactionAutoConfiguration`类中，默认会使用 `${spring.application.name}-fescar-service-group`作为服务名注册到 Seata Server上，如果和`file.conf`中的配置不一致，会提示 `no available server to connect`错误
 
-也可以通过配置 `spring.cloud.alibaba.seata.tx-service-group`修改后缀，但是必须和`file.conf`中的配置保持一致
+```sql
+CREATE TABLE `undo_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `branch_id` bigint(20) NOT NULL,
+  `xid` varchar(100) NOT NULL,
+  `context` varchar(128) NOT NULL,
+  `rollback_info` longblob NOT NULL,
+  `log_status` int(11) NOT NULL,
+  `log_created` datetime NOT NULL,
+  `log_modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+```
+

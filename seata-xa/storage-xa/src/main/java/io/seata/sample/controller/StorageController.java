@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static io.seata.sample.service.StorageService.FAIL;
+import static io.seata.sample.service.StorageService.SUCCESS;
+
 @RestController
 public class StorageController {
 
@@ -18,8 +21,8 @@ public class StorageController {
             storageService.deduct(commodityCode, count);
         } catch (Exception exx) {
             exx.printStackTrace();
-            return "FAIL";
+            return FAIL;
         }
-        return "SUCCESS";
+        return SUCCESS;
     }
 }

@@ -46,10 +46,6 @@ public class BusinessService {
             throw new RuntimeException("订单服务调用失败,事务回滚!");
         }
 
-        if (!validData(userId, commodityCode)) {
-            throw new RuntimeException("账户或库存不足,事务回滚!");
-        }
-
         if (rollback) {
             throw new RuntimeException("Force rollback ... ");
         }

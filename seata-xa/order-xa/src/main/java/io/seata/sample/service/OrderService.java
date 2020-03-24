@@ -13,6 +13,9 @@ public class OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAIL = "FAIL";
+
     @Autowired
     private AccountFeignClient accountFeignClient;
 
@@ -29,7 +32,10 @@ public class OrderService {
         jdbcTemplate.update("insert order_tbl(user_id,commodity_code,count,money) values(?,?,?,?)",
             new Object[] {userId, commodityCode, count, orderMoney});
         // 调用账户余额扣减
-        accountFeignClient.reduce(userId, orderMoney);
+        String result = accountFeignClient.reduce(userId, orderMoney);
+        if (!SUCCESS.equals(result)) {
+            throw new RuntimeException("Failed to call Account Service. ");
+        }
 
     }
 
