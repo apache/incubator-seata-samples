@@ -30,7 +30,7 @@ dependencies {
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-dependencies</artifactId>
             <version>2.1.0.RELEASE</version>
             <type>pom</type>

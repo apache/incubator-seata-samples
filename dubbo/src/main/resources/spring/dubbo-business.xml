@@ -21,8 +21,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
 
-    <dubbo:application name="dubbo-demo-app"  />
-<!--    <dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
+    <dubbo:application name="dubbo-demo-app">
+        <dubbo:parameter key="qos.enable" value="false" />
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false" />
+        <dubbo:parameter key="qos.port" value="33333" />
+    </dubbo:application>
+    <!--<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
     <!--support etcd -->
     <!--<dubbo:registry address="etcd3://127.0.0.1:2379/org.apache.dubbo.registry.RegistryService" />-->
     <!--support zk-->

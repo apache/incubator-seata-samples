@@ -64,10 +64,12 @@ seata:
       spring:
         datasource-autoproxy: true
   service:
-    vgroup-mapping: default # TC 集群（必须与seata-server保持一致）
+    vgroup-mapping:
+      my_test_tx_group: default # TC 集群（必须与seata-server保持一致）
     enable-degrade: false # 降级开关
     disable-global-transaction: false # 禁用全局事务（默认false）
-    grouplist: 127.0.0.1:8091
+    grouplist:
+      default: 127.0.0.1:8091
   transport:
     shutdown:
       wait: 3

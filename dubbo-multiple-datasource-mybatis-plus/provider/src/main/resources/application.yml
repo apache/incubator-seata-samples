@@ -1,0 +1,50 @@
+server:
+  port: 38888
+spring:
+  application: 
+    name: test-provider
+  datasource:
+    dynamic:
+      seata: true
+      primary: master_1
+      datasource:
+        master_1:
+          url: jdbc:mysql://127.0.0.1:3306/test_pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: 123456
+        master_2:
+          url: jdbc:mysql://127.0.0.1:3306/test_order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: 123456
+        master_3:
+          url: jdbc:mysql://127.0.0.1:3306/test_storage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          driver-class-name: com.mysql.jdbc.Driver
+          username: root
+          password: 123456
+dubbo:
+  protocol:
+    loadbalance: leastactive
+    threadpool: cached
+  scan:
+    base-packages: io.seata.samples.service
+  application:
+    qos-enable: false
+    name: test-provider
+  registry:
+    id: my-registry
+    address:  nacos://127.0.0.1:8848
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: io.seata.samples.entity
+  global-config:
+    db-config:
+      field-strategy: not-empty
+      id-type: auto
+      db-type: mysql
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true      
+    auto-mapping-unknown-column-behavior: none
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
