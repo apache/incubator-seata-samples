@@ -21,7 +21,9 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
 
-    <dubbo:application name="tcc-sample"/>
+    <dubbo:application name="tcc-sample">
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
     <!--使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper-->
     <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
     <!--<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
