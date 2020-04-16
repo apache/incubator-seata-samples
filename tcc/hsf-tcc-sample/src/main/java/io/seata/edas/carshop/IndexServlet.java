@@ -19,8 +19,8 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	public void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
-//		writer.write("OK");
-//		System.out.println("OK");
+		writer.write("OK");
+		System.out.println("OK");
 
 		final ActivityServiceImpl activityService = ( ActivityServiceImpl )
 				StartListener.CONTEXT.getBean( "activityService" );

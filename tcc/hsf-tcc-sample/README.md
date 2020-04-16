@@ -20,7 +20,7 @@
 ### 4、配置IDE 环境
 
 <a name="Yvcnv"></a>
-#### 4.1、eclipse （我用的不是eclipse）
+#### 4.1、eclipse
 
 eclipse 环境配置可以参考，[https://help.aliyun.com/document_detail/99410.html](https://help.aliyun.com/document_detail/99410.html) 的“配置 Eclipse 开发环境” 部分；
 
