@@ -6,12 +6,12 @@
     <parent>
         <groupId>io.seata</groupId>
         <artifactId>seata-samples</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.1.0</version>
     </parent>
 
     <groupId>io.seata</groupId>
     <artifactId>spring-cloud-alibaba-samples</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0</version>
 
     <name>spring-cloud-alibaba-samples</name>
     <description>Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata</description>
@@ -29,6 +29,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sikpTests>true</sikpTests>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +82,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,6 +90,7 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

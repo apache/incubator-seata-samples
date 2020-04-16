@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.seata</groupId>
         <artifactId>seata-samples</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.1.0</version>
     </parent>
     <groupId>io.seata</groupId>
     <artifactId>springboot-shardingsphere-seata</artifactId>
@@ -20,7 +20,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
         <nacos-client.verison>1.0.0</nacos-client.verison>
         <dubbo.version>2.6.5</dubbo.version>
         <dubbo-registry-nacos.version>0.0.2</dubbo-registry-nacos.version>

@@ -139,7 +139,7 @@ CREATE TABLE `account_tbl` (
 
 ```xml
       <properties>
-          <seata.version>1.0.0</seata.version>
+          <seata.version>1.1.0</seata.version>
           <dubbo.alibaba.version>2.6.5</dubbo.alibaba.version>
        </properties>
         
@@ -277,7 +277,7 @@ create table `lock_table` (
   `transaction_id` long ,
   `branch_id` long,
   `resource_id` varchar(256) ,
-  `table_name` varchar(32) ,
+  `table_name` varchar(64) ,
   `pk` varchar(128) ,
   `gmt_create` datetime ,
   `gmt_modified` datetime,
@@ -295,6 +295,7 @@ create table `lock_table` (
 store.mode = "db"
 store.db.datasource=dbcp
 store.db.db-type=mysql
+store.db.driver-class-name=com.mysql.jdbc.Driver
 store.db.url=jdbc:mysql://127.0.0.1:3306/seata_server?useUnicode=true
 store.db.user=mysql
 store.db.password=mysql
@@ -332,6 +333,7 @@ store {
       datasource = "dbcp"
       ## mysql/oracle/h2/oceanbase etc.
       db-type = "mysql"
+      driver-class-name = com.mysql.jdbc.Driver
       url = "jdbc:mysql://127.0.0.1:3306/seata_server"
       user = "mysql"
       password = "mysql"

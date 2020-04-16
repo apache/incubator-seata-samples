@@ -21,10 +21,10 @@
     <groupId>io.seata</groupId>
     <artifactId>seata-samples</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.0.0</seata.version>
+        <seata.version>1.1.0</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -39,8 +39,8 @@
         <netty4.version>4.1.42.Final</netty4.version>
         <org.springframework.spring.version>2.5.6.SEC03</org.springframework.spring.version>
         <junit.version>4.12</junit.version>
-        <dubbo.version>2.7.1</dubbo.version>
-        <fastjson.version>1.2.54</fastjson.version>
+        <dubbo.version>2.7.5</dubbo.version>
+        <fastjson.version>1.2.67</fastjson.version>
         <config.version>1.2.1</config.version>
         <slf4j-api.version>1.7.22</slf4j-api.version>
         <logback-classic.version>1.1.6</logback-classic.version>
@@ -50,14 +50,14 @@
         <aopalliance.version>1.0</aopalliance.version>
         <zkclient.version>0.10</zkclient.version>
         <dubbo.registry.nacos>0.0.2</dubbo.registry.nacos>
-        <spring-context-support.version>1.0.2</spring-context-support.version>
+        <spring-context-support.version>1.0.6</spring-context-support.version>
         <testng.version>6.4</testng.version>
         <protobuf.version>3.7.1</protobuf.version>
         <spring.version>5.1.3.RELEASE</spring.version>
         <mysql-connector.version>5.1.44</mysql-connector.version>
         <curator.version>4.2.0</curator.version>
         <guava.version>27.0.1-jre</guava.version>
-        <jackson.version>2.9.10.1</jackson.version>
+        <jackson.version>2.9.10.3</jackson.version>
         <druid.version>1.1.12</druid.version>
     </properties>
     <modules>
@@ -78,6 +78,7 @@
         <module>multiple-datasource-mybatis-plus</module>
         <module>saga</module>
         <module>spring-cloud-alibaba-samples</module>
+        <module>seata-spring-boot-starter-samples</module>
     </modules>
 
     <dependencies>
@@ -293,7 +294,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.2.0.M3</version>
+                    <version>2.2.0.RELEASE</version>
                 </plugin>
             </plugins>
         </pluginManagement>
