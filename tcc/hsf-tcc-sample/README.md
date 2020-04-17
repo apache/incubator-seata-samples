@@ -56,7 +56,8 @@ eclipse 环境配置可以参考，[https://help.aliyun.com/document_detail/9941
 
 2、运行tomcat
 
-在 idea 中 run 上面配置的 “Ali-Tomcat-hsf-tcc-sample”,tomcat 启动之后，浏览器 执行“http://localhost:8085/index.htm” 触发分布式事务；
+在 idea 中 run 上面配置的 “Ali-Tomcat-hsf-tcc-sample”,tomcat 启动之后，浏览器 执行“http://localhost:8085/index.htm?op=commit|rollback” 触发分布式事务；
+> op=rollback 分布式事务将抛出异常模拟异常情况，默认不带参数执行commit。注意工程根路径默认是：http://localhost:8085/hsf_tcc_sample_war/index.htm?op=rollback
 
 
 

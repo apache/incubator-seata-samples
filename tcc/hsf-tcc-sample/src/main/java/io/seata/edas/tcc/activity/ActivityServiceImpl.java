@@ -19,10 +19,10 @@ public class ActivityServiceImpl {
     private ActionTwo actionTwo;
 
     @GlobalTransactional
-    public String doActivity(int a, String b){
+    public String doActivity(boolean commit){
         //第一个TCC 事务参与者
         boolean result = actionOne.prepare(null, 1);
-        if(!result){
+        if(!commit || !result){
             throw new RuntimeException("TccActionOne failed.");
         }
 

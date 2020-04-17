@@ -1,6 +1,7 @@
 package io.seata.edas.carshop;
 
 import io.seata.edas.tcc.activity.ActivityServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,13 +20,13 @@ public class IndexServlet extends HttpServlet {
 	@Override
 	public void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException {
 		PrintWriter writer = resp.getWriter();
-		writer.write("OK");
-		System.out.println("OK");
 
 		final ActivityServiceImpl activityService = ( ActivityServiceImpl )
 				StartListener.CONTEXT.getBean( "activityService" );
 
-		writer.write(activityService.doActivity(999, "seata"));
+		String op = req.getParameter("op");
+		boolean commit = StringUtils.equalsIgnoreCase("rollback",op) ? false : true;
+		writer.write(activityService.doActivity(commit));
 
 		return;
 	}
