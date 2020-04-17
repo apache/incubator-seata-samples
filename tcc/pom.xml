@@ -33,6 +33,7 @@
         <module>sofarpc-tcc-sample</module>
         <module>transfer-tcc-sample</module>
         <module>springboot-tcc-sample</module>
+        <module>hsf-tcc-sample</module>
     </modules>
 
     <dependencyManagement>
