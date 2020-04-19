@@ -28,4 +28,12 @@ public interface StorageService {
      * @param count         扣减数量
      */
     void deduct(String commodityCode, int count);
+
+    /**
+     * 批量扣减
+     *
+     * @param commodityCode
+     * @param count
+     */
+    void batchDeduct(String commodityCode, int count);
 }
