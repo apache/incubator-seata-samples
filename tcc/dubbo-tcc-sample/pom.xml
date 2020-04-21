@@ -30,8 +30,6 @@
 
     <properties>
         <curator.version>4.2.0</curator.version>
-        <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
-        <dubbo.version>2.7.3</dubbo.version>
     </properties>
 
     <dependencies>
@@ -99,6 +97,16 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-server</artifactId>
+            <version>${seata.version}</version>
         </dependency>
     </dependencies>
 
