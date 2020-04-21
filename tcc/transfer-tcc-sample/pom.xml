@@ -42,7 +42,6 @@
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
-            <version>${dubbo.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
