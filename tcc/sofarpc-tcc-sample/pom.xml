@@ -55,41 +55,17 @@
             <version>${seata.version}</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-core</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-rm</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-rm-datasource</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-tm</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-spring</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-dubbo</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-server</artifactId>
             <version>${seata.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
