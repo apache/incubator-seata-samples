@@ -26,7 +26,7 @@ spring:
     cloud:
         alibaba:
             seata:
-                tx-service-group: fsp_tx_group
+                tx-service-group: my_test_tx_group
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         password: 14789632
