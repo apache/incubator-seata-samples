@@ -24,7 +24,7 @@
     <version>1.1.0</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.1.0</seata.version>
+        <seata.version>1.2.0</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -57,7 +57,7 @@
         <mysql-connector.version>5.1.44</mysql-connector.version>
         <curator.version>4.2.0</curator.version>
         <guava.version>27.0.1-jre</guava.version>
-        <jackson.version>2.9.10.3</jackson.version>
+        <jackson.version>2.9.10.4</jackson.version>
         <druid.version>1.1.12</druid.version>
     </properties>
     <modules>
@@ -80,6 +80,7 @@
         <module>spring-cloud-alibaba-samples</module>
         <module>seata-spring-boot-starter-samples</module>
         <module>springboot-dubbo-seata-zk</module>
+        <module>seata-xa</module>
     </modules>
 
     <dependencies>

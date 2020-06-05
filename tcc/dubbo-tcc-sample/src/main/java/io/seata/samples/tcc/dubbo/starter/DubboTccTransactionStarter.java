@@ -41,7 +41,7 @@ public class DubboTccTransactionStarter {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
             new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-reference.xml"});
 
-        tccTransactionService = (TccTransactionService) applicationContext.getBean("tccTransactionService"   );
+        tccTransactionService = (TccTransactionService) applicationContext.getBean("tccTransactionService");
 
         //分布式事务提交demo
         transactionCommitDemo();

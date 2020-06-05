@@ -29,15 +29,12 @@
 
     <properties>
         <curator.version>4.2.0</curator.version>
-        <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
-        <dubbo.version>2.7.0</dubbo.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
-            <version>${dubbo.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
