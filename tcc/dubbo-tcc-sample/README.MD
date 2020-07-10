@@ -47,7 +47,7 @@ public interface TccActionTwo {
 
 ## demo 运行指南
 
-#### step 1 启动 Fesacr Server
+#### step 1 启动 Seata Server
 
 运行 [SeataServerStarter](https://github.com/seata/seata-samples/blob/master/tcc/dubbo-tcc-sample/src/test/java/io/seata/samples/tcc/SeataServerStarter.java) ，启动 Seata Server；
 
