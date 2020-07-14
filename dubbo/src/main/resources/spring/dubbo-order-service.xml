@@ -54,7 +54,9 @@
         <property name="dataSource" ref="orderDataSourceProxy"/>
     </bean>
 
-    <dubbo:application name="dubbo-demo-order-service"/>
+    <dubbo:application name="dubbo-demo-order-service">
+        <dubbo:parameter key="qos.enable" value="false"/>
+    </dubbo:application>
 <!--    <dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
     <!--support etcd -->
     <!--<dubbo:registry address="etcd3://127.0.0.1:2379/org.apache.dubbo.registry.RegistryService" />-->
