@@ -11,8 +11,8 @@ feign:
     client:
         config:
             default:
-                connectTimeout: 5000
-                readTimeout: 10000
+                connectTimeout: 60000
+                readTimeout: 60000
 logging:
     level:
         io:
