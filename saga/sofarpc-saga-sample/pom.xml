@@ -56,6 +56,12 @@
             <groupId>io.seata</groupId>
             <artifactId>seata-server</artifactId>
             <version>${seata.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
