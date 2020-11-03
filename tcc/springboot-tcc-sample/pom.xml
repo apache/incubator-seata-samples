@@ -30,7 +30,7 @@
     <name>springboot-tcc-sample ${project.version}</name>
 
     <properties>
-        <seata.version>1.3.0</seata.version>
+        <seata.version>1.4.0</seata.version>
         <curator.version>4.2.0</curator.version>
         <dubbo.springboot.starter.version>1.0.0</dubbo.springboot.starter.version>
         <dubbo.version>2.7.5</dubbo.version>

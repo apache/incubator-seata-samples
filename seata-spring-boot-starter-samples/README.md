@@ -612,7 +612,7 @@ SET FOREIGN_KEY_CHECKS=1;
         <lombok.version>1.16.22</lombok.version>
         <dubbo.version>2.7.5</dubbo.version>
         <nacos-client.verison>1.1.3</nacos-client.verison>
-        <seata.version>1.1.0</seata.version>
+        <seata.version>x.x.x</seata.version>
         <netty.version>4.1.32.Final</netty.version>
     </properties>
 
