@@ -42,6 +42,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- 解决高版本jdk启动报错：https://github.com/apache/dubbo/issues/6879 -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
