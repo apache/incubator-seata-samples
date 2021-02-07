@@ -70,7 +70,7 @@ public class ApplicationKeeper {
         synchronized (LOCK) {
             try {
                 LOGGER.info("Application is keep running ... ");
-                LOCK.wait();
+                STOP.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
