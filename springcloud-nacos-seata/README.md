@@ -62,6 +62,7 @@ service.vgroup_mapping.storage-service-group=default
 service.vgroup_mapping.order-service-group=default
 ~~~
 
+** 注意这里,高版本中应该是vgroupMapping 同时后面的如: order-service-group  不能定义为 order_service_group**
 
 
 #### 1.3 启动seata-server
