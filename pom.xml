@@ -39,7 +39,7 @@
         <netty4.version>4.1.42.Final</netty4.version>
         <org.springframework.spring.version>2.5.6.SEC03</org.springframework.spring.version>
         <junit.version>4.13.1</junit.version>
-        <dubbo.version>2.7.5</dubbo.version>
+        <dubbo.version>2.7.8</dubbo.version>
         <fastjson.version>1.2.67</fastjson.version>
         <config.version>1.2.1</config.version>
         <slf4j-api.version>1.7.22</slf4j-api.version>
@@ -59,6 +59,7 @@
         <guava.version>27.0.1-jre</guava.version>
         <jackson.version>2.9.10.5</jackson.version>
         <druid.version>1.1.12</druid.version>
+        <javax.annotation-api.version>1.3.1</javax.annotation-api.version>
     </properties>
     <modules>
         <module>dubbo</module>
@@ -259,6 +260,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${javax.annotation-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
