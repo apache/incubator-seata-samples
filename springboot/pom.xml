@@ -174,7 +174,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.14</version><!--$NO-MVN-MAN-VER$ -->
+			<version>8.0.16</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		
 		<dependency>
