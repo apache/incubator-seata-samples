@@ -32,6 +32,15 @@
         `产品库存服务`
     - doc `sql数据库和yaml配置`
 > 注意: 使用seata tcc模式的时候请关闭 enable-auto-data-source-proxy: false 自动代码，否则tcc模式执行后会执行at模式
+
+- 版本
+```xml
+<mybatis-plus.version>3.4.1</mybatis-plus.version>
+<druid.version>1.1.22</druid.version>
+<mysql-connector-java.version>8.0.21</mysql-connector-java.version>
+<shardingsphere.version>4.0.0-RC2</shardingsphere.version>
+```
+
 ## demo
 场景：<br/>
 当创建订单的时候库存-1 <br/>
