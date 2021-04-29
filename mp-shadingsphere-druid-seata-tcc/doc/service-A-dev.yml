@@ -1,0 +1,126 @@
+server:
+  application:
+    name: service-demo
+  port: 8070
+  undertow:
+      io-threads: 6
+      worker-threads: 48
+  error:
+    include-exception: true
+    include-stacktrace: ALWAYS
+    include-message: ALWAYS
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css,image/*
+management:
+  endpoints:
+    web:
+      exposure:
+        include: metrics,httptrace
+  health:
+    db:
+      enabled: false
+spring:
+  swagger:
+    description: 'demo服务a'
+    termsOfServiceUrl: 'http://localhost'
+    version: '2.0.0'
+    groupName: '2.x版本'
+    basePackage: 'com.demo.modules'
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.1.188:8858
+        clientIp: 192.168.1.117
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  #json 时间戳统一转换
+  jackson:
+    date-format:   yyyy-MM-dd HH:mm:ss
+    time-zone:   GMT+8
+  aop:
+    proxy-target-class: true
+  shardingsphere:
+    datasource:
+      names:
+        master,slave01,slave02
+      # 主数据源
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.1.188:3307/seata-test-service-a?characterEncoding=utf-8
+        username: root
+        password: 123456789
+      # 从数据源
+      slave01:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.1.188:3307/seata-test-service-a?characterEncoding=utf-8
+        username: root
+        password: 123456789
+      slave02:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.1.188:3307/seata-test-service-a?characterEncoding=utf-8
+        username: root
+        password: 123456789
+    masterslave:
+      # 读写分离配置
+      load-balance-algorithm-type: round_robin
+      # 最终的数据源名称
+      name: dataSource
+      # 主库数据源名称
+      master-data-source-name: master
+      # 从库数据源名称列表，多个逗号分隔
+      slave-data-source-names: slave01,slave02
+    props:
+      # 开启SQL显示，默认false
+      sql:
+        show: true
+#mybatis plus 设置
+mybatis-plus:
+  mapper-locations: classpath*:com/yzs/modules/**/mapper/xml/*Mapper.xml
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      #主键类型
+      id-type: ID_WORKER_STR
+      # 默认数据库表下划线命名
+      table-underline: true
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 返回类型为Map,显示null对应的字段
+    call-setters-on-nulls: true
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: my_test_tx_group
+  enable-auto-data-source-proxy: false
+  config:
+    type: nacos
+    nacos:
+      namespace:
+      serverAddr: 192.168.1.188:8848
+      group: SEATA_GROUP
+      userName: "nacos"
+      password: "nacos"
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 192.168.1.188:8848
+      namespace:
+      userName: "nacos"
+      password: "nacos"
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
