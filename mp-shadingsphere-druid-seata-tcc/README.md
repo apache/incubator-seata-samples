@@ -30,13 +30,14 @@
         `订单服务`
     - demo-service-B
         `产品库存服务`
-
+    - doc `sql数据库和yaml配置`
+> 注意: 使用seata tcc模式的时候请关闭 enable-auto-data-source-proxy: false 自动代码，否则tcc模式执行后会执行at模式
 ## demo
 场景：<br/>
 当创建订单的时候库存-1 <br/>
 此时两个服务为分布式事务操作<br/>
 >当两个服务调用完毕的时候1/0，发生异常，两个数据回滚
-##关键代码
+## 关键代码
 ```java
 @Override
 @GlobalTransactional
@@ -56,7 +57,7 @@ public void geneOrder(UserOrder userOrder) {
     int a = 1/0;
 }
 ```
-##运行结果
+## 运行结果
 ```
 2021-04-29 15:57:35.909  INFO 9104 --- [nio-8070-exec-1] i.seata.tm.api.DefaultGlobalTransaction  : Begin new global transaction [192.168.1.188:8091:27149561796388640]
 2021-04-29 15:57:39.033  INFO 9104 --- [nio-8070-exec-1] ShardingSphere-SQL                       : Rule Type: master-slave
