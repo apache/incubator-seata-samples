@@ -212,3 +212,14 @@ ok！最终总结一句！
 
 
 
+# 项目启动流程
+
+一、启动nacos（demo版本1.4.0），导入配置文件，配置文件在项目sql-and-seataconfig文件夹中。
+
+二、启动seata（demo版本1.3.0，其实1.4.2也支持），将seata配置registry.conf中配置中心和注册中心都改成nacos。
+
+三、启动demo。
+
+​       POST访问http://localhost:8001/seata/test?hasError=false，订单和产品都成功，日志也有提交信息。
+
+​       POST访问http://localhost:8001/seata/test?hasError=true，订单和产品都失败，日志也有回滚信息。
