@@ -58,6 +58,7 @@ public void geneOrder(UserOrder userOrder) {
 }
 ```
 ## 运行结果
+- 订单服务
 ```
 2021-04-29 15:57:35.909  INFO 9104 --- [nio-8070-exec-1] i.seata.tm.api.DefaultGlobalTransaction  : Begin new global transaction [192.168.1.188:8091:27149561796388640]
 2021-04-29 15:57:39.033  INFO 9104 --- [nio-8070-exec-1] ShardingSphere-SQL                       : Rule Type: master-slave
@@ -78,5 +79,20 @@ p_id )  VALUES  ( ?,
 2021-04-29 15:57:39.338 ERROR 9104 --- [nio-8070-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.ArithmeticException: / by zero] with root cause
 
 java.lang.ArithmeticException: / by zero
+```
+- 库存服务
+```
+2021-04-29 15:57:39.221  INFO 4656 --- [h_RMROLE_1_1_12] i.s.c.r.p.c.RmBranchRollbackProcessor    : rm handle branch rollback process:xid=192.168.1.188:8091:27149561796388640,branchId=27149561796388642,branchType=TCC,resourceId=order-decuct,applicationData={"actionContext":{"action-start-time":1619683056387,"sys::prepare":"deduct","sys::rollback":"cancel","sys::commit":"commit","id":1,"host-name":"169.254.174.68","actionName":"order-decuct"}}
+2021-04-29 15:57:39.229  INFO 4656 --- [h_RMROLE_1_1_12] io.seata.rm.AbstractRMHandler            : Branch Rollbacking: 192.168.1.188:8091:27149561796388640 27149561796388642 order-decuct
+2021-04-29 15:57:39.251  INFO 4656 --- [h_RMROLE_1_1_12] c.d.m.p.a.impl.CompanyProductActionImpl  : cancel---------------------1
+2021-04-29 15:57:39.252  INFO 4656 --- [h_RMROLE_1_1_12] ShardingSphere-SQL                       : Rule Type: master-slave
+2021-04-29 15:57:39.252  INFO 4656 --- [h_RMROLE_1_1_12] ShardingSphere-SQL                       : SQL: SELECT  id,product_name,account  FROM company_product 
+ 
+ WHERE (id = ?) ::: DataSources: slave02
+2021-04-29 15:57:39.257  INFO 4656 --- [h_RMROLE_1_1_12] ShardingSphere-SQL                       : Rule Type: master-slave
+2021-04-29 15:57:39.257  INFO 4656 --- [h_RMROLE_1_1_12] ShardingSphere-SQL                       : SQL: UPDATE company_product  SET product_name=?,
+account=?  WHERE id=? ::: DataSources: master
+2021-04-29 15:57:39.264  INFO 4656 --- [h_RMROLE_1_1_12] io.seata.rm.AbstractResourceManager      : TCC resource rollback result : true, xid: 192.168.1.188:8091:27149561796388640, branchId: 27149561796388642, resourceId: order-decuct
+2021-04-29 15:57:39.266  INFO 4656 --- [h_RMROLE_1_1_12] io.seata.rm.AbstractRMHandler            : Branch Rollbacked result: PhaseTwo_Rollbacked
 ```
 感谢seata团队的帮助。
