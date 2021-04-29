@@ -2,7 +2,7 @@
 
 # Seata Samples
 
-Samples for Seata. This project contains several sub-projects, each of which is an example of integration with other projects.
+ Easy to understand, high availability，Integration example of Spring-cloud，Seata ，Sharding-jdbc，mybatis-plus。
                                 
 [![Build Status](https://travis-ci.org/seata/seata-samples.svg?branch=master)](https://travis-ci.org/seata/seata-samples) 
 ![license](https://img.shields.io/github/license/seata/seata-samples.svg)
