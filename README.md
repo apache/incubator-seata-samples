@@ -12,7 +12,7 @@
 * [Seata](https://github.com/seata/seata) - The Seata core project
 
 ## Sub-projects
-
+* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples) -  Easy to understand, high availability，Integration example of Spring-cloud，Seata ，Sharding-jdbc，mybatis-plus。 
 * [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) - Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata 
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example of [Seata](https://github.com/seata/seata) and [Apache Dubbo](https://github.com/apache/dubbo)
 * [springboot](https://github.com/seata/seata-samples/tree/master/springboot) - Integration example of [Seata](https://github.com/seata/seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 
