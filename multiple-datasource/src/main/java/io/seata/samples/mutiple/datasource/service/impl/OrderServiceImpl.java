@@ -54,9 +54,11 @@ public class OrderServiceImpl implements OrderService {
         log.info("保存订单{}", saveOrderRecord > 0 ? "成功" : "失败");
 
         // 扣减库存
+        DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.STORAGE);
         boolean operationStorageResult = storageService.reduceStock(placeOrderRequestVO.getProductId(), amount);
 
         // 扣减余额
+        DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.PAY);
         boolean operationBalanceResult = payService.reduceBalance(placeOrderRequestVO.getUserId(), price);
 
         log.info("=============ORDER=================");

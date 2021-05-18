@@ -1,8 +1,6 @@
 package io.seata.samples.mutiple.datasource.service.impl;
 
 import io.seata.core.context.RootContext;
-import io.seata.samples.mutiple.datasource.config.DataSourceKey;
-import io.seata.samples.mutiple.datasource.config.DynamicDataSourceContextHolder;
 import io.seata.samples.mutiple.datasource.dao.AccountDao;
 import io.seata.samples.mutiple.datasource.service.PayService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +31,6 @@ public class PayServiceImpl implements PayService {
     @Override
     public boolean reduceBalance(Long userId, Integer price) throws Exception {
         log.info("=============PAY=================");
-        DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.PAY);
         log.info("当前 XID: {}", RootContext.getXID());
 
         checkBalance(userId, price);
