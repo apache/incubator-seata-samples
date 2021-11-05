@@ -1,34 +1,34 @@
 eureka:
-    instance:
-        hostname: localhost
-        prefer-ip-address: true
-    client:
-        serviceUrl:
-            defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
 feign:
-    client:
-        config:
-            default:
-                connectTimeout: 5000
-                readTimeout: 10000
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 10000
 logging:
-    level:
-        io:
-            seata: info
+  level:
+    io:
+      seata: info
 mybatis:
-    mapperLocations: classpath:mapper/*.xml
-    typeAliasesPackage: io.seata.sample.entity
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: io.seata.sample.entity
 server:
-    port: 8181
+  port: 8181
 spring:
-    application:
-        name: account-server
-    cloud:
-        alibaba:
-            seata:
-                tx-service-group: my_test_tx_group
-    datasource:
-        driver-class-name: com.mysql.jdbc.Driver
-        password: xxx
-        url: jdbc:mysql://xxx/seat-account
-        username: xxx
+  application:
+    name: account-server
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: xxx
+    url: jdbc:mysql://xxx/seat-account
+    username: xxx

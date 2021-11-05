@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.seata.starter.core.config;
 
 import com.seata.common.constant.CommonConstant;
@@ -22,7 +37,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 @ConditionalOnClass(Feign.class)
 @AutoConfigureBefore(FeignAutoConfiguration.class)
 @Slf4j
@@ -32,7 +46,7 @@ public class FeignClientConfig {
     @Bean
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
             if (null != attributes) {
                 HttpServletRequest request = attributes.getRequest();
                 log.info("Feign request: {}", request.getRequestURI());
@@ -43,11 +57,11 @@ public class FeignClientConfig {
                 String sys_id = request.getHeader(CommonConstant.SYS_ID);
                 String term_id = request.getHeader(CommonConstant.TERM_ID);
                 String username = request.getHeader(CommonConstant.USERNAME);
-                if(token==null){
+                if (token == null) {
                     token = request.getParameter("token");
                 }
                 log.info("Feign request token: {}", token);
-                requestTemplate.header(CommonConstant.TENANT_ID,request.getHeader(CommonConstant.TENANT_ID));
+                requestTemplate.header(CommonConstant.TENANT_ID, request.getHeader(CommonConstant.TENANT_ID));
                 requestTemplate.header(CommonConstant.USER_ID, request.getHeader(CommonConstant.USER_ID));
                 requestTemplate.header(CommonConstant.USERNAME, request.getHeader(CommonConstant.USERNAME));
                 requestTemplate.header(CommonConstant.SYS_ID, request.getHeader(CommonConstant.SYS_ID));
@@ -62,8 +76,6 @@ public class FeignClientConfig {
             }
         };
     }
-
-
 
     /**
      * Feign 客户端的日志记录，默认级别为NONE
@@ -80,6 +92,7 @@ public class FeignClientConfig {
 
     /**
      * Feign支持文件上传
+     *
      * @param messageConverters
      * @return
      */

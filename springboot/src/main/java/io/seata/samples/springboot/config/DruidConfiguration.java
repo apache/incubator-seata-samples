@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.springboot.config;
 
 import javax.sql.DataSource;
@@ -37,70 +36,70 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class DruidConfiguration {
 
-	@Value("${spring.datasource.druid.user}")
-	private String druidUser;
+    @Value("${spring.datasource.druid.user}")
+    private String druidUser;
 
-	@Value("${spring.datasource.druid.password}")
-	private String druidPassword;
+    @Value("${spring.datasource.druid.password}")
+    private String druidPassword;
 
-	/**
-	 * Druid data source druid data source.
-	 *
-	 * @return the druid data source
-	 */
-	@Bean(destroyMethod = "close", initMethod = "init")
-	@ConfigurationProperties(prefix = "spring.datasource")
-	public DruidDataSource druidDataSource() {
-		DruidDataSource druidDataSource = new DruidDataSource();
-		return druidDataSource;
-	}
+    /**
+     * Druid data source druid data source.
+     *
+     * @return the druid data source
+     */
+    @Bean(destroyMethod = "close", initMethod = "init")
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DruidDataSource druidDataSource() {
+        DruidDataSource druidDataSource = new DruidDataSource();
+        return druidDataSource;
+    }
 
-	/**
-	 * Data source data source.
-	 *
-	 * @param druidDataSource the druid data source
-	 * @return the data source
-	 */
-	@ConfigurationProperties(prefix = "spring.datasource")
-	@Primary
-	@Bean("dataSource")
-	public DataSource dataSource(DruidDataSource druidDataSource) {
-		DataSourceProxy dataSourceProxy = new DataSourceProxy(druidDataSource);
-		return dataSourceProxy;
-	}
+    /**
+     * Data source data source.
+     *
+     * @param druidDataSource the druid data source
+     * @return the data source
+     */
+    @ConfigurationProperties(prefix = "spring.datasource")
+    @Primary
+    @Bean("dataSource")
+    public DataSource dataSource(DruidDataSource druidDataSource) {
+        DataSourceProxy dataSourceProxy = new DataSourceProxy(druidDataSource);
+        return dataSourceProxy;
+    }
 
-	/**
-	 * 注册一个StatViewServlet
-	 *
-	 * @return servlet registration bean
-	 */
-	@Bean
-	public ServletRegistrationBean<StatViewServlet> druidStatViewServlet() {
-		ServletRegistrationBean<StatViewServlet> servletRegistrationBean = new ServletRegistrationBean<StatViewServlet>(
-			new StatViewServlet(), "/druid/*");
+    /**
+     * 注册一个StatViewServlet
+     *
+     * @return servlet registration bean
+     */
+    @Bean
+    public ServletRegistrationBean<StatViewServlet> druidStatViewServlet() {
+        ServletRegistrationBean<StatViewServlet> servletRegistrationBean = new ServletRegistrationBean<StatViewServlet>(
+            new StatViewServlet(), "/druid/*");
 
-		servletRegistrationBean.addInitParameter("loginUsername", druidUser);
-		servletRegistrationBean.addInitParameter("loginPassword", druidPassword);
-		servletRegistrationBean.addInitParameter("resetEnable", "false");
-		return servletRegistrationBean;
-	}
+        servletRegistrationBean.addInitParameter("loginUsername", druidUser);
+        servletRegistrationBean.addInitParameter("loginPassword", druidPassword);
+        servletRegistrationBean.addInitParameter("resetEnable", "false");
+        return servletRegistrationBean;
+    }
 
-	/**
-	 * 注册一个：filterRegistrationBean
-	 *
-	 * @return filter registration bean
-	 */
-	@Bean
-	public FilterRegistrationBean<WebStatFilter> druidStatFilter() {
+    /**
+     * 注册一个：filterRegistrationBean
+     *
+     * @return filter registration bean
+     */
+    @Bean
+    public FilterRegistrationBean<WebStatFilter> druidStatFilter() {
 
-		FilterRegistrationBean<WebStatFilter> filterRegistrationBean = new FilterRegistrationBean<WebStatFilter>(
-			new WebStatFilter());
+        FilterRegistrationBean<WebStatFilter> filterRegistrationBean = new FilterRegistrationBean<WebStatFilter>(
+            new WebStatFilter());
 
-		// 添加过滤规则.
-		filterRegistrationBean.addUrlPatterns("/*");
+        // 添加过滤规则.
+        filterRegistrationBean.addUrlPatterns("/*");
 
-		// 添加不需要忽略的格式信息.
-		filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
-		return filterRegistrationBean;
-	}
+        // 添加不需要忽略的格式信息.
+        filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+        return filterRegistrationBean;
+    }
 }

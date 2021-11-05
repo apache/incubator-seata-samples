@@ -2,17 +2,17 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-	
-	<settings>
-        <setting name="mapUnderscoreToCamelCase" value="true" />  
+
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-    
-	<typeAliases>
+
+    <typeAliases>
         <typeAlias alias="account" type="io.seata.samples.tcc.transfer.domains.Account"/>
- 	</typeAliases>
-  	
-  	<mappers>
-    	<mapper resource="sqlmap/account.xml" />
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="sqlmap/account.xml"/>
     </mappers>
-    
+
 </configuration>

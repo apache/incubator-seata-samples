@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.dubbo.starter;
 
 import io.seata.samples.dubbo.ApplicationKeeper;
@@ -31,9 +30,9 @@ public class DubboStockServiceStarter {
      */
     public static void main(String[] args) {
         ClassPathXmlApplicationContext stockContext = new ClassPathXmlApplicationContext(
-            new String[]{"spring/dubbo-stock-service.xml"});
+            new String[] {"spring/dubbo-stock-service.xml"});
         stockContext.getBean("service");
-        JdbcTemplate stockJdbcTemplate = (JdbcTemplate) stockContext.getBean("jdbcTemplate");
+        JdbcTemplate stockJdbcTemplate = (JdbcTemplate)stockContext.getBean("jdbcTemplate");
         stockJdbcTemplate.update("delete from stock_tbl where commodity_code = 'C00321'");
         stockJdbcTemplate.update("insert into stock_tbl(commodity_code, count) values ('C00321', 100)");
         new ApplicationKeeper(stockContext).keep();

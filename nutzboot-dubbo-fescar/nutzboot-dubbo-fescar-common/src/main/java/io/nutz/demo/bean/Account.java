@@ -7,15 +7,15 @@ import org.nutz.dao.entity.annotation.Table;
 import org.nutz.dao.entity.annotation.TableIndexes;
 
 @Table("account_tbl")
-@TableIndexes(@Index(fields="userId", unique=true))
+@TableIndexes(@Index(fields = "userId", unique = true))
 public class Account {
 
     @Id
     private long id;
-    
+
     @Column("user_id")
     private String userId;
-    
+
     @Column
     private int money;
 
@@ -42,6 +42,5 @@ public class Account {
     public void setMoney(int money) {
         this.money = money;
     }
-    
-    
+
 }

@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.enums.IdType;
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 public class TStock extends Model<TStock> {
@@ -23,7 +24,6 @@ public class TStock extends Model<TStock> {
     private String commodityCode;
     private String name;
     private Integer count;
-
 
     public Integer getId() {
         return id;
@@ -64,11 +64,7 @@ public class TStock extends Model<TStock> {
 
     @Override
     public String toString() {
-        return "TStock{" +
-        ", id=" + id +
-        ", commodityCode=" + commodityCode +
-        ", name=" + name +
-        ", count=" + count +
-        "}";
+        return "TStock{" + ", id=" + id + ", commodityCode=" + commodityCode + ", name=" + name + ", count=" + count
+            + "}";
     }
 }

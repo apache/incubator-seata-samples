@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ package io.seata.samples.saga;
 
 import java.io.IOException;
 
-import io.seata.core.store.StoreMode;
 import io.seata.server.Server;
 
 /**

@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 @RestController
 @RequestMapping("/stock")
 @Slf4j
 public class TStockController {
-
 
     @Autowired
     private ITStockService stockService;
@@ -31,8 +31,8 @@ public class TStockController {
      * 扣减库存
      */
     @PostMapping("dec_stock")
-    ObjectResponse decreaseStock(@RequestBody CommodityDTO commodityDTO){
-        log.info("请求库存微服务：{}",commodityDTO.toString());
+    ObjectResponse decreaseStock(@RequestBody CommodityDTO commodityDTO) {
+        log.info("请求库存微服务：{}", commodityDTO.toString());
         return stockService.decreaseStock(commodityDTO);
     }
 }

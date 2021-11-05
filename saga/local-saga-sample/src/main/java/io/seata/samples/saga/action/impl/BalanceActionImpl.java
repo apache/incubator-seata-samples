@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,15 +15,14 @@
  */
 package io.seata.samples.saga.action.impl;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 import io.seata.samples.saga.action.BalanceAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-import java.util.Map;
-
 /**
- *
  * @author lorne.cl
  */
 public class BalanceActionImpl implements BalanceAction {
@@ -32,7 +31,7 @@ public class BalanceActionImpl implements BalanceAction {
 
     @Override
     public boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params) {
-        if(params != null && "true".equals(params.get("throwException"))){
+        if (params != null && "true".equals(params.get("throwException"))) {
             throw new RuntimeException("reduce balance failed");
         }
         LOGGER.info("reduce balance succeed, amount: " + amount + ", businessKey:" + businessKey);
@@ -41,7 +40,7 @@ public class BalanceActionImpl implements BalanceAction {
 
     @Override
     public boolean compensateReduce(String businessKey, Map<String, Object> params) {
-        if(params != null && "true".equals(params.get("throwException"))){
+        if (params != null && "true".equals(params.get("throwException"))) {
             throw new RuntimeException("compensate reduce balance failed");
         }
         LOGGER.info("compensate reduce balance succeed, businessKey:" + businessKey);

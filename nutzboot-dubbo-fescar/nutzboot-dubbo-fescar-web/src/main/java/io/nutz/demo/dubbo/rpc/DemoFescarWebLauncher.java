@@ -1,5 +1,8 @@
 package io.nutz.demo.dubbo.rpc;
 
+import io.nutz.demo.bean.Account;
+import io.nutz.demo.bean.Stock;
+import io.nutz.demo.dubbo.rpc.service.BusinessService;
 import org.nutz.boot.NbApp;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
@@ -10,10 +13,6 @@ import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
-
-import io.nutz.demo.bean.Account;
-import io.nutz.demo.bean.Stock;
-import io.nutz.demo.dubbo.rpc.service.BusinessService;
 
 @IocBean
 public class DemoFescarWebLauncher {
@@ -30,8 +29,7 @@ public class DemoFescarWebLauncher {
         try {
             businessService.purchase(userId, commodityCode, orderCount, dofail);
             return new NutMap("ok", true);
-        }
-        catch (Throwable e) {
+        } catch (Throwable e) {
             log.debug("purchase fail", e);
             return new NutMap("ok", false);
         }

@@ -1,11 +1,5 @@
 package io.seata.samples.integration.common;
 
-import io.seata.common.util.CollectionUtils;
-import io.seata.common.util.NetUtil;
-import io.seata.common.util.StringUtils;
-import io.seata.config.Configuration;
-import io.seata.config.ConfigurationFactory;
-import io.seata.discovery.registry.RegistryService;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +13,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+
+import io.seata.common.util.CollectionUtils;
+import io.seata.common.util.NetUtil;
+import io.seata.common.util.StringUtils;
+import io.seata.config.Configuration;
+import io.seata.config.ConfigurationFactory;
+import io.seata.discovery.registry.RegistryService;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.I0Itec.zkclient.IZkStateListener;
 import org.I0Itec.zkclient.ZkClient;
@@ -55,7 +56,7 @@ public class ZookeeperRegisterServiceImpl implements RegistryService<IZkChildLis
     static ZookeeperRegisterServiceImpl getInstance() {
         if (null == instance) {
             Class var0 = ZookeeperRegisterServiceImpl.class;
-            synchronized(ZookeeperRegisterServiceImpl.class) {
+            synchronized (ZookeeperRegisterServiceImpl.class) {
                 if (null == instance) {
                     instance = new ZookeeperRegisterServiceImpl();
                 }
@@ -167,9 +168,12 @@ public class ZookeeperRegisterServiceImpl implements RegistryService<IZkChildLis
     private ZkClient getClientInstance() {
         if (zkClient == null) {
             Class var1 = ZookeeperRegisterServiceImpl.class;
-            synchronized(ZookeeperRegisterServiceImpl.class) {
+            synchronized (ZookeeperRegisterServiceImpl.class) {
                 if (null == zkClient) {
-                    zkClient = this.buildZkClient(FILE_CONFIG.getConfig("registry.zk.serverAddr"), FILE_CONFIG.getInt("registry.zk.session.timeout"), FILE_CONFIG.getInt("registry.zk.connect.timeout"), FILE_CONFIG.getConfig("registry.zk.username"), FILE_CONFIG.getConfig("registry.zk.password"));
+                    zkClient = this.buildZkClient(FILE_CONFIG.getConfig("registry.zk.serverAddr"),
+                        FILE_CONFIG.getInt("registry.zk.session.timeout"),
+                        FILE_CONFIG.getInt("registry.zk.connect.timeout"),
+                        FILE_CONFIG.getConfig("registry.zk.username"), FILE_CONFIG.getConfig("registry.zk.password"));
                 }
             }
         }
@@ -178,12 +182,13 @@ public class ZookeeperRegisterServiceImpl implements RegistryService<IZkChildLis
     }
 
     ZkClient buildZkClient(String address, int sessionTimeout, int connectTimeout, String... authInfo) {
-        ZkClient zkClient = new ZkClient(address, sessionTimeout==0?6000:6000, connectTimeout==0?2000:2000);
+        ZkClient zkClient = new ZkClient(address, sessionTimeout == 0 ? 6000 : 6000, connectTimeout == 0 ? 2000 : 2000);
         if (!zkClient.exists("/registry/zk")) {
             zkClient.createPersistent("/registry/zk", true);
         }
 
-        if (null != authInfo && authInfo.length == 2 && !StringUtils.isBlank(authInfo[0]) && !StringUtils.isBlank(authInfo[1])) {
+        if (null != authInfo && authInfo.length == 2 && !StringUtils.isBlank(authInfo[0]) && !StringUtils.isBlank(
+            authInfo[1])) {
             StringBuilder auth = (new StringBuilder(authInfo[0])).append(":").append(authInfo[1]);
             zkClient.addAuthInfo("digest", auth.toString().getBytes());
         }
@@ -213,7 +218,7 @@ public class ZookeeperRegisterServiceImpl implements RegistryService<IZkChildLis
             Map<String, List<IZkChildListener>> listenerMap = new HashMap(LISTENER_SERVICE_MAP);
             Iterator var2 = listenerMap.entrySet().iterator();
 
-            while(true) {
+            while (true) {
                 Map.Entry listenerEntry;
                 List iZkChildListeners;
                 do {
@@ -223,11 +228,11 @@ public class ZookeeperRegisterServiceImpl implements RegistryService<IZkChildLis
 
                     listenerEntry = (Map.Entry)var2.next();
                     iZkChildListeners = (List)listenerEntry.getValue();
-                } while(CollectionUtils.isEmpty(iZkChildListeners));
+                } while (CollectionUtils.isEmpty(iZkChildListeners));
 
                 Iterator var5 = iZkChildListeners.iterator();
 
-                while(var5.hasNext()) {
+                while (var5.hasNext()) {
                     IZkChildListener listener = (IZkChildListener)var5.next();
                     this.subscribe((String)listenerEntry.getKey(), listener);
                 }
@@ -254,7 +259,7 @@ public class ZookeeperRegisterServiceImpl implements RegistryService<IZkChildLis
         } else {
             Iterator var4 = instances.iterator();
 
-            while(var4.hasNext()) {
+            while (var4.hasNext()) {
                 String path = (String)var4.next();
 
                 try {

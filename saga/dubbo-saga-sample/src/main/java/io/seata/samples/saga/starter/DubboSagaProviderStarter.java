@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -38,7 +38,8 @@ public class DubboSagaProviderStarter {
         //mock zk server
         mockZKServer();
 
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] {"spring/seata-dubbo-provider.xml"});
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+            new String[] {"spring/seata-dubbo-provider.xml"});
 
         new ApplicationKeeper(applicationContext).keep();
     }

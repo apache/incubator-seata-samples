@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.springboot.config;
 
 import io.seata.spring.annotation.GlobalTransactionScanner;
@@ -27,18 +26,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SeataConfiguration {
 
-	@Value("${spring.application.name}")
-	private String applicationId;
+    @Value("${spring.application.name}")
+    private String applicationId;
 
-	/**
-	 * 注册一个StatViewServlet
-	 *
-	 * @return global transaction scanner
-	 */
-	@Bean
-	public GlobalTransactionScanner globalTransactionScanner() {
+    /**
+     * 注册一个StatViewServlet
+     *
+     * @return global transaction scanner
+     */
+    @Bean
+    public GlobalTransactionScanner globalTransactionScanner() {
         GlobalTransactionScanner globalTransactionScanner = new GlobalTransactionScanner(applicationId,
             "my_test_tx_group");
-		return globalTransactionScanner;
-	}
+        return globalTransactionScanner;
+    }
 }

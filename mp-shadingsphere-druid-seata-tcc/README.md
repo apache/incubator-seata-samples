@@ -1,39 +1,48 @@
 # mp-shadingsphere-druid-seata-tcc
+
 ## 准备环境
+
 * 启动 Nacos server <br>
-[Nacos Server 下载地址](https://github.com/alibaba/nacos/releases)
->下载最新版本Nacos Server, 本地启动Nacos
+  [Nacos Server 下载地址](https://github.com/alibaba/nacos/releases)
+
+> 下载最新版本Nacos Server, 本地启动Nacos
 
 * 启动Seata Server <br>
-[Seata Server 下载地址](https://github.com/seata/seata/releases)
+  [Seata Server 下载地址](https://github.com/seata/seata/releases)
+
 > 下载最新版本Seata Server, 本地启动Seata
 
 ## 使用组件介绍
+
 * Nacos 注册中心
 * Nacos 配置中心
 * Open Feign REST 服务调用
 * Sentinel 限流熔断
 * Seata 分布式事务解决方案
+
 ## 项目目录介绍
+
 - mp-shadingsphere-druid-seata-tcc
-    - base-common 
-        `通用常量 vo`
-    - base-starter 
-        `通用star组件`
+    - base-common
+      `通用常量 vo`
+    - base-starter
+      `通用star组件`
         - base-core-starter
-            `核心依赖，集成了nacos注册配置中心，openfeign,sentinel，validator`
+          `核心依赖，集成了nacos注册配置中心，openfeign,sentinel，validator`
         - base-jdbc-starter
-            `持久化依赖，集成了mybatis-plus+druid+shardingsphere(分库分表+读写分离)`
+          `持久化依赖，集成了mybatis-plus+druid+shardingsphere(分库分表+读写分离)`
         - base-transaction-starter
-            `分布式事务依赖，集成了seata分布式事务(主要使用tcc模式)`
+          `分布式事务依赖，集成了seata分布式事务(主要使用tcc模式)`
     - demo-service-A
-        `订单服务`
+      `订单服务`
     - demo-service-B
-        `产品库存服务`
+      `产品库存服务`
     - doc `sql数据库和yaml配置`
+
 > 注意: 使用seata tcc模式的时候请关闭 enable-auto-data-source-proxy: false 自动代码，否则tcc模式执行后会执行at模式
 
 - 版本
+
 ```xml
 <mybatis-plus.version>3.4.1</mybatis-plus.version>
 <druid.version>1.1.22</druid.version>
@@ -42,11 +51,14 @@
 ```
 
 ## demo
+
 场景：<br/>
 当创建订单的时候库存-1 <br/>
 此时两个服务为分布式事务操作<br/>
->当两个服务调用完毕的时候1/0，发生异常，两个数据回滚
+> 当两个服务调用完毕的时候1/0，发生异常，两个数据回滚
+
 ## 关键代码
+
 ```java
 @Override
 @GlobalTransactional
@@ -66,8 +78,11 @@ public void geneOrder(UserOrder userOrder) {
     int a = 1/0;
 }
 ```
+
 ## 运行结果
+
 - 订单服务
+
 ```
 2021-04-29 15:57:35.909  INFO 9104 --- [nio-8070-exec-1] i.seata.tm.api.DefaultGlobalTransaction  : Begin new global transaction [192.168.1.188:8091:27149561796388640]
 2021-04-29 15:57:39.033  INFO 9104 --- [nio-8070-exec-1] ShardingSphere-SQL                       : Rule Type: master-slave
@@ -89,7 +104,9 @@ p_id )  VALUES  ( ?,
 
 java.lang.ArithmeticException: / by zero
 ```
+
 - 库存服务
+
 ```
 2021-04-29 15:57:39.221  INFO 4656 --- [h_RMROLE_1_1_12] i.s.c.r.p.c.RmBranchRollbackProcessor    : rm handle branch rollback process:xid=192.168.1.188:8091:27149561796388640,branchId=27149561796388642,branchType=TCC,resourceId=order-decuct,applicationData={"actionContext":{"action-start-time":1619683056387,"sys::prepare":"deduct","sys::rollback":"cancel","sys::commit":"commit","id":1,"host-name":"169.254.174.68","actionName":"order-decuct"}}
 2021-04-29 15:57:39.229  INFO 4656 --- [h_RMROLE_1_1_12] io.seata.rm.AbstractRMHandler            : Branch Rollbacking: 192.168.1.188:8091:27149561796388640 27149561796388642 order-decuct
@@ -104,4 +121,5 @@ account=?  WHERE id=? ::: DataSources: master
 2021-04-29 15:57:39.264  INFO 4656 --- [h_RMROLE_1_1_12] io.seata.rm.AbstractResourceManager      : TCC resource rollback result : true, xid: 192.168.1.188:8091:27149561796388640, branchId: 27149561796388642, resourceId: order-decuct
 2021-04-29 15:57:39.266  INFO 4656 --- [h_RMROLE_1_1_12] io.seata.rm.AbstractRMHandler            : Branch Rollbacked result: PhaseTwo_Rollbacked
 ```
+
 感谢seata团队的帮助。

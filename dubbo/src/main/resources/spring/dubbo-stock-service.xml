@@ -30,41 +30,41 @@
         <property name="username" value="${jdbc.stock.username}"/>
         <property name="password" value="${jdbc.stock.password}"/>
         <property name="driverClassName" value="${jdbc.stock.driver}"/>
-        <property name="initialSize" value="0" />
-        <property name="maxActive" value="180" />
-        <property name="minIdle" value="0" />
-        <property name="maxWait" value="60000" />
-        <property name="validationQuery" value="Select 'x' from DUAL" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-        <property name="testWhileIdle" value="true" />
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        <property name="minEvictableIdleTimeMillis" value="25200000" />
-        <property name="removeAbandoned" value="true" />
-        <property name="removeAbandonedTimeout" value="1800" />
-        <property name="logAbandoned" value="true" />
-        <property name="filters" value="mergeStat" />
+        <property name="initialSize" value="0"/>
+        <property name="maxActive" value="180"/>
+        <property name="minIdle" value="0"/>
+        <property name="maxWait" value="60000"/>
+        <property name="validationQuery" value="Select 'x' from DUAL"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="25200000"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
+        <property name="logAbandoned" value="true"/>
+        <property name="filters" value="mergeStat"/>
     </bean>
 
     <bean id="stockDataSourceProxy" class="io.seata.rm.datasource.DataSourceProxy">
-        <constructor-arg ref="stockDataSource" />
+        <constructor-arg ref="stockDataSource"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="stockDataSourceProxy" />
+        <property name="dataSource" ref="stockDataSourceProxy"/>
     </bean>
 
-    <dubbo:application name="dubbo-demo-stock-service"  >
+    <dubbo:application name="dubbo-demo-stock-service">
         <dubbo:parameter key="qos.enable" value="false"/>
     </dubbo:application>
-    <dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />
+    <dubbo:registry address="multicast://224.5.6.7:1234?unicast=false"/>
     <!--support etcd -->
     <!--<dubbo:registry address="etcd3://127.0.0.1:2379/org.apache.dubbo.registry.RegistryService" />-->
     <!--support zk-->
     <!--<dubbo:registry address="zookeeper://localhost:2181" />-->
     <!--support nacos-->
     <!--<dubbo:registry address="nacos://127.0.0.1:8848"/> -->
-    <dubbo:protocol name="dubbo" port="20882" />
+    <dubbo:protocol name="dubbo" port="20882"/>
     <dubbo:service interface="io.seata.samples.dubbo.service.StockService" ref="service" timeout="10000"/>
 
     <bean id="service" class="io.seata.samples.dubbo.service.impl.StockServiceImpl">

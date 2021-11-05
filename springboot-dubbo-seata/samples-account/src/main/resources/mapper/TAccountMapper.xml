@@ -7,20 +7,25 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.seata.samples.integration.account.entity.TAccount">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="amount" property="amount" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="amount" property="amount"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, amount
+        id
+        , user_id, amount
     </sql>
     <update id="decreaseAccount">
-      update t_account set amount = amount-${amount} where user_id = #{userId}
+        update t_account
+        set amount = amount - ${amount}
+        where user_id = #{userId}
     </update>
     <update id="testGlobalLock">
-      select * from t_account where user_id = #{userId} for update
+        select *
+        from t_account
+        where user_id = #{userId} for update
     </update>
 
 </mapper>

@@ -19,13 +19,14 @@ sh ./bin/seata-server.sh 8091 file
 
 4. 启动 AccountXA, OrderXA, StockXA, BusinessXA 服务
 
-### 测试 
- 
+### 测试
+
 - 无错误成功提交
 
 ```bash
 curl http://127.0.0.1:8084/purchase
 ``` 
+
 具体调用参数请结合 BusinessController 的代码。
 
 数据初始化逻辑，参见 BusinessService#initData() 方法。
@@ -73,7 +74,6 @@ public class DataSourceProxy {
 ```
 
 *当然，AT 模式需要在数据库中建立 undo_log 表。（XA 模式是不需要这个表的）*
-
 
 ```sql
 CREATE TABLE `undo_log` (

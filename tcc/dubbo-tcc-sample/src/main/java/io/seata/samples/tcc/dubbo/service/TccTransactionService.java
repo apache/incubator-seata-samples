@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package io.seata.samples.tcc.dubbo.service;
 
 import java.util.ArrayList;
@@ -26,17 +41,17 @@ public class TccTransactionService {
      * @return string string
      */
     @GlobalTransactional
-    public String doTransactionCommit(){
+    public String doTransactionCommit() {
         //第一个TCC 事务参与者
         boolean result = tccActionOne.prepare(null, 1);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List list = new ArrayList();
         list.add("c1");
         list.add("c2");
         result = tccActionTwo.prepare(null, "two", list);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
         return RootContext.getXID();
@@ -49,17 +64,17 @@ public class TccTransactionService {
      * @return the string
      */
     @GlobalTransactional
-    public String doTransactionRollback(Map map){
+    public String doTransactionRollback(Map map) {
         //第一个TCC 事务参与者
         boolean result = tccActionOne.prepare(null, 1);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List list = new ArrayList();
         list.add("c1");
         list.add("c2");
         result = tccActionTwo.prepare(null, "two", list);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
         map.put("xid", RootContext.getXID());

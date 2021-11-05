@@ -1,6 +1,5 @@
 package com.work.stock.service;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.work.stock.entity.Stock;
 import com.work.stock.repository.StockDAO;
@@ -27,7 +26,7 @@ public class StockService {
 
     /**
      * 减库存
-     * 
+     *
      * @param commodityCode
      * @param count
      */

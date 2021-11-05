@@ -1,4 +1,5 @@
 package io.nutz.demo.dubbo.rpc.service;
+
 public interface AccountService {
 
     /**

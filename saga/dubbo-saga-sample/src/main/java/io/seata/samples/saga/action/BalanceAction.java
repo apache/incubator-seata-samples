@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ public interface BalanceAction {
 
     /**
      * reduce
+     *
      * @param businessKey
      * @param amount
      * @param params
@@ -34,6 +35,7 @@ public interface BalanceAction {
 
     /**
      * compensateReduce
+     *
      * @param businessKey
      * @param params
      * @return

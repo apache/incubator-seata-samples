@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  库存服务实现类
+ * 库存服务实现类
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 @Service
@@ -23,7 +24,7 @@ public class TStockServiceImpl extends ServiceImpl<TStockMapper, TStock> impleme
     public ObjectResponse decreaseStock(CommodityDTO commodityDTO) {
         int stock = baseMapper.decreaseStock(commodityDTO.getCommodityCode(), commodityDTO.getCount());
         ObjectResponse<Object> response = new ObjectResponse<>();
-        if (stock > 0){
+        if (stock > 0) {
             response.setStatus(RspStatusEnum.SUCCESS.getCode());
             response.setMessage(RspStatusEnum.SUCCESS.getMessage());
             return response;

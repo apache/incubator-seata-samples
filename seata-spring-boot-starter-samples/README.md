@@ -1,11 +1,12 @@
 ## 1.简介
->本文主要介绍SpringBoot2.2.2 + Dubbo 2.7.5 + Mybatis 3.4.2 + Nacos 1.1.3 +Seata 1.0.0整合来实现Dubbo分布式事务管理，使用Nacos 作为 Dubbo和Seata的注册中心和配置中心,使用 MySQL 数据库和 MyBatis来操作数据。
+
+> 本文主要介绍SpringBoot2.2.2 + Dubbo 2.7.5 + Mybatis 3.4.2 + Nacos 1.1.3 +Seata 1.0.0整合来实现Dubbo分布式事务管理，使用Nacos 作为 Dubbo和Seata的注册中心和配置中心,使用 MySQL 数据库和 MyBatis来操作数据。
 
 如果你还对`SpringBoot`、`Dubbo`、`Nacos`、`Seata`、` Mybatis` 不是很了解的话，这里我为大家整理个它们的官网网站，如下
 
 - SpringBoot：[https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
- - Dubbo：[http://dubbo.apache.org/en-us/](http://dubbo.apache.org/en-us/)
+- Dubbo：[http://dubbo.apache.org/en-us/](http://dubbo.apache.org/en-us/)
 
 - Nacos：[https://nacos.io/zh-cn/docs/quick-start.html](https://nacos.io/zh-cn/docs/quick-start.html)
 
@@ -16,7 +17,9 @@
 在这里我们就不一个一个介绍它们是怎么使用和原理，详细请学习官方文档，在这里我将开始对它们进行整合，完成一个简单的案例，来让大家了解`Seata`来实现`Dubbo`分布式事务管理的基本流程。
 
 ## 2.环境准备
+
 ## 2.1 下载nacos并安装启动
+
 nacos下载：[https://github.com/alibaba/nacos/releases/tag/1.1.3](https://github.com/alibaba/nacos/releases/tag/1.1.3)
 
 Nacos 快速入门：[https://nacos.io/en-us/docs/quick-start.html](https://nacos.io/en-us/docs/quick-start.html)
@@ -31,10 +34,10 @@ sh startup.sh -m standalone
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905101221566.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 这是时候naocs 就正常启动了。
+
 ## 2.2 下载seata server 并安装启动
 
 #### 2.2.1 在 [Seata Release](https://github.com/seata/seata/releases) 下载最新版的 Seata Server 并解压得到如下目录：
-
 
 ```shell
 .
@@ -43,9 +46,10 @@ sh startup.sh -m standalone
 ├──file_store
 └──lib
 ```
+
 #### 2.2.2 修改 conf/registry.conf 配置，
-目前seata支持如下的file、nacos 、apollo、zk、consul的注册中心和配置中心。这里我们以`nacos` 为例。
-将 type 改为 nacos
+
+目前seata支持如下的file、nacos 、apollo、zk、consul的注册中心和配置中心。这里我们以`nacos` 为例。 将 type 改为 nacos
 
 ```bash
 registry {
@@ -76,11 +80,13 @@ config {
   }
 }
 ```
+
 - serverAddr = "192.168.10.200:8848"   ：nacos 的地址
 - namespace = "" ：nacos的命名空间默认为``
 - cluster = "default"  ：集群设置未默认 `default`
 
 **注意： seata0.9.0之后，配置如下, 其中`namespace = ""`**
+
 #### 2.2.3 修改 conf/nacos-config.txt配置
 
 ```
@@ -146,10 +152,12 @@ client.report.retry.count=5
 service.disableGlobalTransaction=false
 client.support.spring.datasource.autoproxy=true
 ```
+
 配置的详细说明参考官网：[https://seata.io/zh-cn/docs/user/configurations.html](https://seata.io/zh-cn/docs/user/configurations.html)
 
 这里主要修改了如下几项：
-- store.mode :存储模式 默认file  这里我修改为db 模式 ，并且需要三个表`global_table`、`branch_table`和`lock_table`
+
+- store.mode :存储模式 默认file 这里我修改为db 模式 ，并且需要三个表`global_table`、`branch_table`和`lock_table`
 - store.db.driver-class-name： 0.8.0版本默认没有，会报错。添加了 `com.mysql.jdbc.Driver`
 - store.db.datasource=dbcp ：数据源 dbcp
 - store.db.db-type=mysql : 存储数据库的类型为`mysql`
@@ -162,7 +170,8 @@ client.support.spring.datasource.autoproxy=true
 - service.vgroup_mapping.business-service-seata-service-group=default
 - client.support.spring.datasource.autoproxy=true 开启数据源自动代理
 
-也可以在 Nacos 配置页面添加，data-id 为 service.vgroup_mapping.${YOUR_SERVICE_NAME}-seata-service-group, group 为 SEATA_GROUP， 如果不添加该配置，启动后会提示no available server to connect
+也可以在 Nacos 配置页面添加，data-id 为 service.vgroup_mapping.${YOUR_SERVICE_NAME}-seata-service-group, group 为 SEATA_GROUP，
+如果不添加该配置，启动后会提示no available server to connect
 
 **注意：** 配置文件末尾有空行，需要删除，否则会提示失败，尽管实际上是成功的
 
@@ -212,6 +221,7 @@ CREATE TABLE `branch_table` (
 
 
 ```
+
 `lock_table`的表结构
 
 ```
@@ -230,6 +240,7 @@ create table `lock_table` (
 ```
 
 #### 2.2.4 将 Seata 配置添加到 Nacos 中
+
 使用命令如下
 
 ```
@@ -243,9 +254,10 @@ sh nacos-config.sh localhost
 init nacos config finished, please start seata-server
 ```
 
-在 Nacos 管理页面应该可以看到有 62 个 Group 为SEATA_GROUP的配置 
+在 Nacos 管理页面应该可以看到有 62 个 Group 为SEATA_GROUP的配置
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019090510533734.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
+
 #### 2.2.5 启动 Seata Server
 
 使用db 模式启动
@@ -254,12 +266,15 @@ init nacos config finished, please start seata-server
  cd ..
  sh ./bin/seata-server.sh
 ```
+
 这时候在 Nacos 的服务列表下面可以看到一个名为serverAddr的服务
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905110455278.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
-## 3 使用seata-spring-boot-starter案例分析
-`seata-spring-boot-starter`是使用springboot自动装配来简化seata-all的复杂配置。1.0.0可用于替换seata-all，`GlobalTransactionScanner`自动初始化（依赖SpringUtils）若其他途径实现`GlobalTransactionScanner`初始化，请保证`io.seata.spring.boot.autoconfigure.util.SpringUtils`先初始化；
-`seata-spring-boot-starter`默认开启数据源自动代理，用户若再手动配置`DataSourceProxy`将会导致异常。
 
+## 3 使用seata-spring-boot-starter案例分析
+
+`seata-spring-boot-starter`是使用springboot自动装配来简化seata-all的复杂配置。1.0.0可用于替换seata-all，`GlobalTransactionScanner`
+自动初始化（依赖SpringUtils）若其他途径实现`GlobalTransactionScanner`初始化，请保证`io.seata.spring.boot.autoconfigure.util.SpringUtils`先初始化；
+`seata-spring-boot-starter`默认开启数据源自动代理，用户若再手动配置`DataSourceProxy`将会导致异常。
 
 参考官网中用户购买商品的业务逻辑。整个业务逻辑由4个微服务提供支持：
 
@@ -272,7 +287,9 @@ init nacos config finished, please start seata-server
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905111031350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 
 ## 3.1  github地址
+
 springboot-dubbo-seata：[https://github.com/lidong1665/spring-cloud-learning-example/tree/master/springboot-dubbo-seata-nacos](https://github.com/lidong1665/spring-cloud-learning-example/tree/master/springboot-dubbo-seata-nacos)
+
 - samples-common ：公共模块
 
 - samples-account ：用户账号模块
@@ -282,7 +299,6 @@ springboot-dubbo-seata：[https://github.com/lidong1665/spring-cloud-learning-ex
 - samples-stock ：库存模块
 
 - samples-business ：业务模块
-
 
 #### 3.2 账户服务：AccountDubboService
 
@@ -300,6 +316,7 @@ public interface AccountDubboService {
     ObjectResponse decreaseAccount(AccountDTO accountDTO);
 }
 ```
+
 #### 3.3 订单服务：OrderDubboService
 
 ```java
@@ -316,7 +333,8 @@ public interface OrderDubboService {
     ObjectResponse<OrderDTO> createOrder(OrderDTO orderDTO);
 }
 ```
-#### 3.4  库存服务：StockDubboService
+
+#### 3.4 库存服务：StockDubboService
 
 ```java
 /**
@@ -334,7 +352,7 @@ public interface StockDubboService {
 
 ```
 
-#### 3.5 业务服务：BusinessService 
+#### 3.5 业务服务：BusinessService
 
 ```java
 
@@ -357,6 +375,7 @@ public interface BusinessService {
 业务逻辑的具体实现主要体现在 订单服务的实现和业务服务的实现
 
 订单服务的实现
+
 ```java
 @Service
 public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> implements ITOrderService {
@@ -407,6 +426,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
 ```
 
 整个业务的实现逻辑
+
 ```java
 @Service
 @Slf4j
@@ -460,10 +480,12 @@ public class BusinessServiceImpl implements BusinessService{
     }
 }
 ```
+
 ## 3.6 使用seata的分布式事务解决方案处理dubbo的分布式事务
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905113350848.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 
-我们只需要在业务处理的方法`handleBusiness`添加一个注解 `@GlobalTransactional` 
+我们只需要在业务处理的方法`handleBusiness`添加一个注解 `@GlobalTransactional`
 
 ```java
 @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata-example")
@@ -472,13 +494,16 @@ public class BusinessServiceImpl implements BusinessService{
     
     }
 ```
+
 - `timeoutMills`: 超时时间
 - `name ` ：事务名称
 
 ## 3.7 准备数据库
+
 注意: MySQL必须使用`InnoDB engine`.
 
-创建数据库  并导入数据库脚本
+创建数据库 并导入数据库脚本
+
 ```sql
 DROP DATABASE IF EXISTS seata;
 CREATE DATABASE seata;
@@ -575,6 +600,7 @@ SET FOREIGN_KEY_CHECKS=1;
 这里为了简化我将这个三张表创建到一个库中,使用是三个数据源来实现。
 
 ## 3.8 我们以账号服务`samples-account`为例 ，分析需要注意的配置项目
+
 ### 3.8.1 引入的依赖
 
 ```xml
@@ -760,14 +786,15 @@ SET FOREIGN_KEY_CHECKS=1;
 </project>
 
 ```
+
 注意：
+
 - `seata-spring-boot-starter`: 这个是spring-boot seata 所需的主要依赖，1.0.0版本开始加入支持。
 - `dubbo-spring-boot-starter`:   springboot dubbo的依赖
 
 其他的就不一一介绍，其他的一目了然，就知道是干什么的。
-  
- ### 3.8.2  application.yml配置
- 
+
+### 3.8.2  application.yml配置
 
 ```yml
 server:
@@ -874,7 +901,8 @@ seata:
       namespace:
       server-addr: localhost:8848
 ```
-### 3.8.3 SeataDataSourceAutoConfig  配置
+
+### 3.8.3 SeataDataSourceAutoConfig 配置
 
 ```java
 package io.seata.samples.integration.account.config;
@@ -950,6 +978,7 @@ public class SeataDataSourceAutoConfig {
 }
 
 ```
+
 ### 3.8.4 AccountExampleApplication 启动类的配置
 
 ```java
@@ -977,10 +1006,11 @@ public class AccountExampleApplication {
 
 - `@EnableDubbo`等同于 `@DubboComponentScan`和 `@EnableDubboConfig`组合
 
- - `@DubboComponentScan` 扫描 classpaths 下类中添加了 `@Service` 和 `@Reference` 将自动注入到spring beans中。
- - @EnableDubboConfig 扫描的dubbo的外部化配置。
+- `@DubboComponentScan` 扫描 classpaths 下类中添加了 `@Service` 和 `@Reference` 将自动注入到spring beans中。
+- @EnableDubboConfig 扫描的dubbo的外部化配置。
 
 ## 4 启动所有的sample模块
+
 启动 `samples-account`、`samples-order`、`samples-stock`、`samples-business`
 
 并且在nocos的控制台查看注册情况: http://192.168.10.200:8848/nacos/#/serviceManagement
@@ -990,8 +1020,10 @@ public class AccountExampleApplication {
 我们可以看到上面的服务都已经注册成功。
 
 ## 5 测试
+
 ### 5. 1 发送一个下单请求
-使用postman 发送 ：[http://localhost:8104/business/dubbo/buy](http://localhost:8104/business/dubbo/buy) 
+
+使用postman 发送 ：[http://localhost:8104/business/dubbo/buy](http://localhost:8104/business/dubbo/buy)
 
 参数：
 
@@ -1004,6 +1036,7 @@ public class AccountExampleApplication {
     "amount":"100"
 }
 ```
+
 返回
 
 ```json
@@ -1013,6 +1046,7 @@ public class AccountExampleApplication {
     "data": null
 }
 ```
+
 这时候控制台：
 
 ```
@@ -1025,11 +1059,12 @@ public class AccountExampleApplication {
 2020-01-08 10:50:00.807  INFO 24032 --- [nio-8104-exec-2] i.s.s.i.c.service.BusinessServiceImpl    : 开始全局事务，XID = 192.168.10.103:8091:2032177946
 2020-01-08 10:50:20.235  INFO 24032 --- [nio-8104-exec-2] i.seata.tm.api.DefaultGlobalTransaction  : [192.168.10.103:8091:2032177946] commit status: Committed
 ```
+
 事务提交成功，
 
 我们来看一下数据库数据变化
 
-t_account 
+t_account
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905122211274.png)
 t_order
 
@@ -1040,6 +1075,7 @@ t_stock
 数据没有问题。
 
 ### 5.2 测试回滚
+
 我们`samples-business`将`BusinessServiceImpl`的`handleBusiness2` 下面的代码去掉注释
 
 ```
@@ -1047,7 +1083,8 @@ if (!flag) {
   throw new RuntimeException("测试抛异常后，分布式事务回滚！");
 }
 ```
-使用postman 发送 ：[http://localhost:8104/business/dubbo/buy2](http://localhost:8104/business/dubbo/buy2) 
+
+使用postman 发送 ：[http://localhost:8104/business/dubbo/buy2](http://localhost:8104/business/dubbo/buy2)
 
 .响应结果：
 
@@ -1060,6 +1097,7 @@ if (!flag) {
     "path": "/business/dubbo/buy"
 }
 ```
+
 #### 5.2.1 business控制台日志
 
 ```
@@ -1141,7 +1179,6 @@ java.lang.RuntimeException: 测试抛异常后，分布式事务回滚！
 	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_144]
 ```
 
-
 #### 5.2.2 account服务控制台日志
 
 ```bash
@@ -1154,6 +1191,7 @@ java.lang.RuntimeException: 测试抛异常后，分布式事务回滚！
 2020-01-08 11:05:37.477  INFO 23416 --- [atch_RMROLE_1_8] i.s.r.d.undo.AbstractUndoLogManager      : xid 192.168.10.103:8091:2032180177 branch 2032180189, undo_log deleted with GlobalFinished
 2020-01-08 11:05:37.478  INFO 23416 --- [atch_RMROLE_1_8] io.seata.rm.AbstractRMHandler            : Branch Rollbacked result: PhaseTwo_Rollbacked
 ```
+
 #### 5.2.3 order服务控制台日志
 
 ```bash

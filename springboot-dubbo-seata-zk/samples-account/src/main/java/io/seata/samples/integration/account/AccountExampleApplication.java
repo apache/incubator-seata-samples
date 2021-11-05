@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableAutoDataSourceProxy
 public class AccountExampleApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(AccountExampleApplication.class, args);
     }

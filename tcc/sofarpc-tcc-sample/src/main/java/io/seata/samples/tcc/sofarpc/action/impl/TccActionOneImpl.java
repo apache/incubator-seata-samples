@@ -11,7 +11,6 @@ import io.seata.samples.tcc.sofarpc.action.TccActionOne;
  */
 public class TccActionOneImpl implements TccActionOne {
 
-
     @Override
     public boolean prepare(BusinessActionContext actionContext, int a) {
         String txId = actionContext.getXid();

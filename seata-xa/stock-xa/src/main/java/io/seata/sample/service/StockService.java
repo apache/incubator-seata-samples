@@ -21,7 +21,7 @@ public class StockService {
     public void deduct(String commodityCode, int count) {
         String xid = RootContext.getXID();
         LOGGER.info("deduct stock balance in transaction: " + xid);
-        jdbcTemplate.update("update stock_tbl set count = count - ? where commodity_code = ?", new Object[] { count,
-            commodityCode});
+        jdbcTemplate.update("update stock_tbl set count = count - ? where commodity_code = ?",
+            new Object[] {count, commodityCode});
     }
 }

@@ -1,6 +1,5 @@
 package io.seata.samples.integration.storage.dubbo;
 
-
 import io.seata.core.context.RootContext;
 import io.seata.samples.integration.common.dto.CommodityDTO;
 import io.seata.samples.integration.common.dubbo.StorageDubboService;
@@ -15,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description
  * @Date Created in 2019/1/23 16:13
  */
-@Service(version = "1.0.0",protocol = "${dubbo.protocol.id}",
-        application = "${dubbo.application.id}",registry = "${dubbo.registry.id}",
-        timeout = 3000)
+@Service(version = "1.0.0", protocol = "${dubbo.protocol.id}", application = "${dubbo.application.id}",
+    registry = "${dubbo.registry.id}", timeout = 3000)
 @Slf4j
 public class StorageDubboServiceImpl implements StorageDubboService {
 

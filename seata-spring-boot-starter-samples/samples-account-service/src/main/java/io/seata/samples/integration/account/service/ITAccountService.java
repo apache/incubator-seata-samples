@@ -7,10 +7,11 @@ import io.seata.samples.integration.common.response.ObjectResponse;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 public interface ITAccountService extends IService<TAccount> {

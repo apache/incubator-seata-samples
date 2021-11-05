@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.enums.IdType;
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 public class TAccount extends Model<TAccount> {
@@ -22,7 +23,6 @@ public class TAccount extends Model<TAccount> {
     private Integer id;
     private String userId;
     private Double amount;
-
 
     public Integer getId() {
         return id;
@@ -55,10 +55,6 @@ public class TAccount extends Model<TAccount> {
 
     @Override
     public String toString() {
-        return "TAccount{" +
-        ", id=" + id +
-        ", userId=" + userId +
-        ", amount=" + amount +
-        "}";
+        return "TAccount{" + ", id=" + id + ", userId=" + userId + ", amount=" + amount + "}";
     }
 }

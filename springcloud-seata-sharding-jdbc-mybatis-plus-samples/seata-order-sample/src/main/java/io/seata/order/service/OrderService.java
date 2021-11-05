@@ -1,10 +1,8 @@
 package io.seata.order.service;
 
-
 import io.seata.order.client.ProductClient;
 import io.seata.order.entity.Order;
 import io.seata.order.mapper.OrderMapper;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class OrderService {
         productClient.minusStock();
 
         //异常模拟
-        if(hasError){
-            int i=1/0;
+        if (hasError) {
+            int i = 1 / 0;
         }
     }
 }

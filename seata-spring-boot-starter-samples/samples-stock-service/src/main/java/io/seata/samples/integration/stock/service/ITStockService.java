@@ -9,6 +9,7 @@ import io.seata.samples.integration.stock.entity.TStock;
  * 仓库服务
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 public interface ITStockService extends IService<TStock> {

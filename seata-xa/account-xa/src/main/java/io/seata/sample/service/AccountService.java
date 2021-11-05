@@ -24,7 +24,8 @@ public class AccountService {
         String xid = RootContext.getXID();
         LOGGER.info("reduce account balance in transaction: " + xid);
         jdbcTemplate.update("update account_tbl set money = money - ? where user_id = ?", new Object[] {money, userId});
-        int balance = jdbcTemplate.queryForObject("select money from account_tbl where user_id = ?", new Object[] {userId}, Integer.class);
+        int balance = jdbcTemplate.queryForObject("select money from account_tbl where user_id = ?",
+            new Object[] {userId}, Integer.class);
         LOGGER.info("balance after transaction: " + balance);
         if (balance < 0) {
             throw new RuntimeException("Not Enough Money ...");

@@ -1,6 +1,5 @@
 package io.seata.product.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.seata.product.entity.Product;
 import org.apache.ibatis.annotations.Update;

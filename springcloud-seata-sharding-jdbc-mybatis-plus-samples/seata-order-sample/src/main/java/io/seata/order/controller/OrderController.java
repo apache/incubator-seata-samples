@@ -1,6 +1,5 @@
 package io.seata.order.controller;
 
-
 import io.seata.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +14,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/seata/test")
-    public ResponseEntity<Void> seataDemo(Boolean hasError){
+    public ResponseEntity<Void> seataDemo(Boolean hasError) {
         orderService.seataDemo(hasError);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 
 }

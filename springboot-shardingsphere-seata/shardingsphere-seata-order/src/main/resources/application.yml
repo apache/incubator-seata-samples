@@ -26,7 +26,7 @@ management:
         include: '*'
 
 spring:
-  aop:  #使用CGLIB来实现AOP的时候
+  aop: #使用CGLIB来实现AOP的时候
     proxy-target-class: true
   application:
     name: shardingsphere-seata-nacos-dubbo-provider-order
@@ -39,7 +39,7 @@ spring:
       names: ds0,ds1
       ds0:
         type: com.alibaba.druid.pool.DruidDataSource
-#        type: com.zaxxer.hikari.HikariDataSource
+        #        type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         username: root
         password: 123456
@@ -61,7 +61,7 @@ spring:
         connection-properties: druid.stat.merggSql=ture;druid.stat.slowSqlMillis=5000
       ds1:
         type: com.alibaba.druid.pool.DruidDataSource
-#        type: com.zaxxer.hikari.HikariDataSource
+        #        type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         username: root
         password: 123456
@@ -119,10 +119,10 @@ spring:
 #    cache-enabled: false
 
 mybatis-plus:
-#  datasource: dataSource
+  #  datasource: dataSource
   mapper-locations: classpath:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  type-aliases-package:  io.seata.samples.shardingsphere.modules.entity
+  type-aliases-package: io.seata.samples.shardingsphere.modules.entity
   #typeEnumsPackage: com.baomidou.springboot.entity.enums
   global-config:
     #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID", 4:"该类型为未设置主键类型", 5:"字符串全局唯一ID";

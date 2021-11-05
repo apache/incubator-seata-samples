@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  * @author HelloWoodes
  */
@@ -43,12 +42,8 @@ public class OrderServiceImpl implements OrderService {
         Integer amount = 1;
         Integer price = placeOrderRequestVO.getPrice();
 
-        Order order = Order.builder()
-                           .userId(placeOrderRequestVO.getUserId())
-                           .productId(placeOrderRequestVO.getProductId())
-                           .status(OrderStatus.INIT)
-                           .payAmount(price)
-                           .build();
+        Order order = Order.builder().userId(placeOrderRequestVO.getUserId()).productId(
+            placeOrderRequestVO.getProductId()).status(OrderStatus.INIT).payAmount(price).build();
 
         Integer saveOrderRecord = orderDao.insert(order);
 
@@ -67,8 +62,6 @@ public class OrderServiceImpl implements OrderService {
         Integer updateOrderRecord = orderDao.updateById(order);
         log.info("更新订单:{} {}", order.getId(), updateOrderRecord > 0 ? "成功" : "失败");
 
-        return OperationResponse.builder()
-                                .success(operationStockResult && operationBalanceResult)
-                                .build();
+        return OperationResponse.builder().success(operationStockResult && operationBalanceResult).build();
     }
 }

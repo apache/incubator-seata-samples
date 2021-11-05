@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.enums.IdType;
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 public class TOrder extends Model<TOrder> {
@@ -25,7 +26,6 @@ public class TOrder extends Model<TOrder> {
     private String commodityCode;
     private Integer count;
     private Double amount;
-
 
     public Integer getId() {
         return id;
@@ -82,13 +82,7 @@ public class TOrder extends Model<TOrder> {
 
     @Override
     public String toString() {
-        return "TOrder{" +
-        ", id=" + id +
-        ", orderNo=" + orderNo +
-        ", userId=" + userId +
-        ", commodityCode=" + commodityCode +
-        ", count=" + count +
-        ", amount=" + amount +
-        "}";
+        return "TOrder{" + ", id=" + id + ", orderNo=" + orderNo + ", userId=" + userId + ", commodityCode="
+            + commodityCode + ", count=" + count + ", amount=" + amount + "}";
     }
 }

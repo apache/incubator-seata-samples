@@ -17,20 +17,21 @@ SET NAMES 'utf8';
 -- 
 -- Set default database
 --
-USE demo_ds_0;
+USE
+demo_ds_0;
 
 --
 -- Definition for table t_order_0
 --
 DROP TABLE IF EXISTS t_order_0;
-CREATE TABLE t_order_0 (
-  id VARCHAR(64) NOT NULL COMMENT '主键',
-  order_id BIGINT(20) NOT NULL,
-  user_id INT(11) NOT NULL,
-  status VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
+CREATE TABLE t_order_0
+(
+    id       VARCHAR(64) NOT NULL COMMENT '主键',
+    order_id BIGINT(20) NOT NULL,
+    user_id  INT(11) NOT NULL,
+    status   VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -39,14 +40,14 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table t_order_1
 --
 DROP TABLE IF EXISTS t_order_1;
-CREATE TABLE t_order_1 (
-  id VARCHAR(64) NOT NULL COMMENT '主键',
-  order_id BIGINT(20) NOT NULL,
-  user_id INT(11) NOT NULL,
-  status VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
+CREATE TABLE t_order_1
+(
+    id       VARCHAR(64) NOT NULL COMMENT '主键',
+    order_id BIGINT(20) NOT NULL,
+    user_id  INT(11) NOT NULL,
+    status   VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -55,15 +56,15 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table t_order_item_0
 --
 DROP TABLE IF EXISTS t_order_item_0;
-CREATE TABLE t_order_item_0 (
-  id VARCHAR(64) NOT NULL COMMENT '主键',
-  order_item_id BIGINT(20) NOT NULL,
-  order_id BIGINT(20) NOT NULL,
-  user_id INT(11) NOT NULL,
-  status VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
+CREATE TABLE t_order_item_0
+(
+    id            VARCHAR(64) NOT NULL COMMENT '主键',
+    order_item_id BIGINT(20) NOT NULL,
+    order_id      BIGINT(20) NOT NULL,
+    user_id       INT(11) NOT NULL,
+    status        VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -72,15 +73,15 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table t_order_item_1
 --
 DROP TABLE IF EXISTS t_order_item_1;
-CREATE TABLE t_order_item_1 (
-  id VARCHAR(64) NOT NULL COMMENT '主键',
-  order_item_id BIGINT(20) NOT NULL,
-  order_id BIGINT(20) NOT NULL,
-  user_id INT(11) NOT NULL,
-  status VARCHAR(50) DEFAULT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB
+CREATE TABLE t_order_item_1
+(
+    id            VARCHAR(64) NOT NULL COMMENT '主键',
+    order_item_id BIGINT(20) NOT NULL,
+    order_id      BIGINT(20) NOT NULL,
+    user_id       INT(11) NOT NULL,
+    status        VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci
 ROW_FORMAT = DYNAMIC;
@@ -89,20 +90,20 @@ ROW_FORMAT = DYNAMIC;
 -- Definition for table undo_log
 --
 DROP TABLE IF EXISTS undo_log;
-CREATE TABLE undo_log (
-  id BIGINT(20) NOT NULL AUTO_INCREMENT,
-  branch_id BIGINT(20) NOT NULL,
-  xid VARCHAR(100) NOT NULL,
-  context VARCHAR(128) NOT NULL,
-  rollback_info LONGBLOB NOT NULL,
-  log_status INT(11) NOT NULL,
-  log_created DATETIME NOT NULL,
-  log_modified DATETIME NOT NULL,
-  ext VARCHAR(100) DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE INDEX ux_undo_log (xid, branch_id)
-)
-ENGINE = INNODB
+CREATE TABLE undo_log
+(
+    id            BIGINT(20) NOT NULL AUTO_INCREMENT,
+    branch_id     BIGINT(20) NOT NULL,
+    xid           VARCHAR(100) NOT NULL,
+    context       VARCHAR(128) NOT NULL,
+    rollback_info LONGBLOB     NOT NULL,
+    log_status    INT(11) NOT NULL,
+    log_created   DATETIME     NOT NULL,
+    log_modified  DATETIME     NOT NULL,
+    ext           VARCHAR(100) DEFAULT NULL,
+    PRIMARY KEY (id),
+    UNIQUE INDEX ux_undo_log (xid, branch_id)
+) ENGINE = INNODB
 AUTO_INCREMENT = 1
 CHARACTER SET utf8
 COLLATE utf8_general_ci

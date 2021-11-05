@@ -23,7 +23,9 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean commit(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        System.out.println("TccActionTwo commit, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext.getActionContext("c"));
+        System.out.println(
+            "TccActionTwo commit, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
+                .getActionContext("c"));
         ResultHolder.setActionTwoResult(xid, "T");
         return true;
     }
@@ -31,7 +33,9 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean rollback(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        System.out.println("TccActionTwo rollback, xid:" + xid  + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext.getActionContext("c"));
+        System.out.println(
+            "TccActionTwo rollback, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
+                .getActionContext("c"));
         ResultHolder.setActionTwoResult(xid, "R");
         return true;
     }

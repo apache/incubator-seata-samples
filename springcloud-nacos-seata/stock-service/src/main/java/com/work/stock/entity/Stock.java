@@ -19,9 +19,8 @@ import lombok.experimental.Accessors;
 @TableName("stock_tbl")
 public class Stock {
 
-  private Long id;
-  private String commodityCode;
-  private Long count;
-
+    private Long id;
+    private String commodityCode;
+    private Long count;
 
 }

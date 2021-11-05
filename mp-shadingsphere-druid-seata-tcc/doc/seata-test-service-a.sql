@@ -15,18 +15,21 @@
 */
 
 SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
+SET
+FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for user_order
 -- ----------------------------
 DROP TABLE IF EXISTS `user_order`;
-CREATE TABLE `user_order`  (
-  `id` bigint(255) NOT NULL,
-  `uid` bigint(255) NULL DEFAULT NULL,
-  `order_id` bigint(20) NULL DEFAULT NULL,
-  `p_id` bigint(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+CREATE TABLE `user_order`
+(
+    `id`       bigint(255) NOT NULL,
+    `uid`      bigint(255) NULL DEFAULT NULL,
+    `order_id` bigint(20) NULL DEFAULT NULL,
+    `p_id`     bigint(20) NULL DEFAULT NULL,
+    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-SET FOREIGN_KEY_CHECKS = 1;
+SET
+FOREIGN_KEY_CHECKS = 1;

@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description
  * @Date Created in 2019-09-04
  */
-@Service(version = "1.0.0",protocol = "${dubbo.protocol.id}",
-        application = "${dubbo.application.id}",registry = "${dubbo.registry.id}",
-        timeout = 3000)
+@Service(version = "1.0.0", protocol = "${dubbo.protocol.id}", application = "${dubbo.application.id}",
+    registry = "${dubbo.registry.id}", timeout = 3000)
 @Slf4j
 public class OrderDubboServiceImpl implements OrderDubboService {
 
