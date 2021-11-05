@@ -47,7 +47,7 @@ public class ApplicationKeeper {
             @Override
             public void run() {
                 try {
-                    if(applicationContext != null){
+                    if (applicationContext != null) {
                         applicationContext.close();
                     }
                     LOGGER.info("ApplicationContext " + applicationContext + " is closed.");

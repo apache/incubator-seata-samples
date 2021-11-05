@@ -1,6 +1,6 @@
 package com.work.order.controller;
 
-import com.work.order.feign.StorageFeignClient;
+import com.work.order.feign.StockFeignClient;
 import com.work.order.service.OrderService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +24,7 @@ public class OrderController {
     @Resource
     private OrderService orderService;
     @Resource
-    private StorageFeignClient storageFeignClient;
-
+    private StockFeignClient stockFeignClient;
 
     /**
      * 下单：插入订单表、扣减库存，模拟回滚
@@ -50,7 +49,6 @@ public class OrderController {
         orderService.placeOrder("1", "product-2", 1);
         return true;
     }
-
 
     @RequestMapping("/placeOrder")
     public Boolean placeOrder(String userId, String commodityCode, Integer count) {

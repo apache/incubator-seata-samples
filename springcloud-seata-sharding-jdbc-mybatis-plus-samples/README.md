@@ -1,16 +1,19 @@
 # SEATA整合sharding-jdbc思路
 
-​		这里主要是参考了ShardingSphere官网的整合思路
+​ 这里主要是参考了ShardingSphere官网的整合思路
 
-​		参考连接：https://shardingsphere.apache.org/document/legacy/4.x/document/cn/features/transaction/principle/base-transaction-seata/
+​
+参考连接：https://shardingsphere.apache.org/document/legacy/4.x/document/cn/features/transaction/principle/base-transaction-seata/
 
-​		具体内容如下：
+​ 具体内容如下：
 
-​		整合`Seata AT`事务时，需要把TM，RM，TC的模型融入到ShardingSphere  分布式事务的SPI的生态中。在数据库资源上，Seata通过对接DataSource接口，让JDBC操作可以同TC进行RPC通信。同样，ShardingSphere也是面向DataSource接口对用户配置的物理DataSource进行了聚合，因此把物理DataSource二次包装为Seata 的DataSource后，就可以把Seata AT事务融入到ShardingSphere的分片中。
+​ 整合`Seata AT`事务时，需要把TM，RM，TC的模型融入到ShardingSphere
+分布式事务的SPI的生态中。在数据库资源上，Seata通过对接DataSource接口，让JDBC操作可以同TC进行RPC通信。同样，ShardingSphere也是面向DataSource接口对用户配置的物理DataSource进行了聚合，因此把物理DataSource二次包装为Seata
+的DataSource后，就可以把Seata AT事务融入到ShardingSphere的分片中。
 
-​		解读：
+​ 解读：
 
-​		这里注意ShardingSphere分布式事务的SPI的生态中，已经提供了整合的实现类SeataATShardingTransactionManager，只需要导入对应jar包就可以使用了
+​ 这里注意ShardingSphere分布式事务的SPI的生态中，已经提供了整合的实现类SeataATShardingTransactionManager，只需要导入对应jar包就可以使用了
 
 ```xml
 <dependency>
@@ -20,7 +23,7 @@
 </dependency>
 ```
 
-​		 我们来看下SeataATShardingTransactionManager里面的内容：
+​ 我们来看下SeataATShardingTransactionManager里面的内容：
 
 ```java
 //
@@ -210,8 +213,6 @@ ok！最终总结一句！
 
 而且，你的项目中千万不能再出现@GlobalTransactional注解了，用SeataATShardingTransactionManager就可以了。
 
-
-
 # 项目启动流程
 
 一、启动nacos（demo版本1.4.0），导入配置文件，配置文件在项目sql-and-seataconfig文件夹中。
@@ -220,6 +221,6 @@ ok！最终总结一句！
 
 三、启动demo。
 
-​       POST访问http://localhost:8001/seata/test?hasError=false，订单和产品都成功，日志也有提交信息。
+​ POST访问http://localhost:8001/seata/test?hasError=false，订单和产品都成功，日志也有提交信息。
 
-​       POST访问http://localhost:8001/seata/test?hasError=true，订单和产品都失败，日志也有回滚信息。
+​ POST访问http://localhost:8001/seata/test?hasError=true，订单和产品都失败，日志也有回滚信息。

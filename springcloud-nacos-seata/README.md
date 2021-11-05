@@ -6,7 +6,7 @@ demo中使用的相关版本号，具体请看代码。如果搭建个人demo不
 
 * seata 0.8.0
 * spring-cloud-alibaba-seata 2.1.0.RELEASE
-* spring-cloud-starter-alibaba-nacos-discovery  0.2.1.RELEASE
+* spring-cloud-starter-alibaba-nacos-discovery 0.2.1.RELEASE
 * springboot 2.0.6.RELEASE
 * springcloud Finchley.RELEASE
 
@@ -20,7 +20,8 @@ demo中使用的相关版本号，具体请看代码。如果搭建个人demo不
 
 ### 1.2 Seata-server
 
-seata-server为release版本0.8.0，demo采用本地单机部署，从此处下载 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases) 并解压
+seata-server为release版本0.8.0，demo采用本地单机部署，从此处下载 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases)
+并解压
 
 #### 1.2.1 修改conf/registry.conf 配置
 
@@ -55,15 +56,14 @@ config {
 
 service.vgroup_mapping.${your-service-gruop}=default，中间的${your-service-gruop}为自己定义的服务组名称，服务中的application.properties文件里配置服务组名称。
 
-demo中有两个服务，分别是storage-service和order-service，所以配置如下
+demo中有两个服务，分别是stock-service和order-service，所以配置如下
 
 ~~~properties
-service.vgroup_mapping.storage-service-group=default
+service.vgroup_mapping.stock-service-group=default
 service.vgroup_mapping.order-service-group=default
 ~~~
 
-** 注意这里,高版本中应该是vgroupMapping 同时后面的如: order-service-group  不能定义为 order_service_group**
-
+** 注意这里,高版本中应该是vgroupMapping 同时后面的如: order-service-group 不能定义为 order_service_group**
 
 #### 1.3 启动seata-server
 
@@ -118,12 +118,12 @@ CREATE TABLE `undo_log`
   DEFAULT CHARSET = utf8;
 
 
--- 创建 storage库、业务表、undo_log表
-create database seata_storage;
-use seata_storage;
+-- 创建 stock库、业务表、undo_log表
+create database seata_stock;
+use seata_stock;
 
-DROP TABLE IF EXISTS `storage_tbl`;
-CREATE TABLE `storage_tbl` (
+DROP TABLE IF EXISTS `stock_tbl`;
+CREATE TABLE `stock_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_code` varchar(255) DEFAULT NULL,
   `count` int(11) DEFAULT 0,
@@ -149,8 +149,8 @@ CREATE TABLE `undo_log`
   DEFAULT CHARSET = utf8;
 
 -- 初始化库存模拟数据
-INSERT INTO seata_storage.storage_tbl (id, commodity_code, count) VALUES (1, 'product-1', 9999999);
-INSERT INTO seata_storage.storage_tbl (id, commodity_code, count) VALUES (2, 'product-2', 0);
+INSERT INTO seata_stock.stock_tbl (id, commodity_code, count) VALUES (1, 'product-1', 9999999);
+INSERT INTO seata_stock.stock_tbl (id, commodity_code, count) VALUES (2, 'product-2', 0);
 ~~~
 
 ### 2.2 应用配置
@@ -160,7 +160,8 @@ INSERT INTO seata_storage.storage_tbl (id, commodity_code, count) VALUES (2, 'pr
 几个重要的配置
 
 1. 每个应用的resource里需要配置一个registry.conf ，demo中与seata-server里的配置相同
-2. application.propeties 的各个配置项，注意spring.cloud.alibaba.seata.tx-service-group 是服务组名称，与nacos-config.txt 配置的service.vgroup_mapping.${your-service-gruop}具有对应关系
+2. application.propeties 的各个配置项，注意spring.cloud.alibaba.seata.tx-service-group 是服务组名称，与nacos-config.txt
+   配置的service.vgroup_mapping.${your-service-gruop}具有对应关系
 
 ----------
 
@@ -168,7 +169,7 @@ INSERT INTO seata_storage.storage_tbl (id, commodity_code, count) VALUES (2, 'pr
 
 1. 分布式事务成功，模拟正常下单、扣库存
 
-   localhost:9091/order/placeOrder/commit   
+   localhost:9091/order/placeOrder/commit
 
 2. 分布式事务失败，模拟下单成功、扣库存失败，最终同时回滚
 

@@ -1,7 +1,24 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package io.seata.sample.dao;
 
 import io.seata.sample.entity.Order;
+
 import java.math.BigDecimal;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +30,7 @@ public interface OrderDao {
 
     /**
      * 创建订单
+     *
      * @param order
      * @return
      */
@@ -20,8 +38,9 @@ public interface OrderDao {
 
     /**
      * 修改订单金额
+     *
      * @param userId
      * @param money
      */
-    void update(@Param("userId") Long userId,@Param("money") BigDecimal money, @Param("status") Integer status);
+    void update(@Param("userId") Long userId, @Param("money") BigDecimal money, @Param("status") Integer status);
 }

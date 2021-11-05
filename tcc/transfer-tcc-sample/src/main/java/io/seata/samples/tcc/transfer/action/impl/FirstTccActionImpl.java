@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package io.seata.samples.tcc.transfer.action.impl;
 
 import io.seata.rm.tcc.api.BusinessActionContext;
@@ -27,24 +42,26 @@ public class FirstTccActionImpl implements FirstTccAction {
 
     /**
      * 一阶段准备，冻结 转账资金
+     *
      * @param businessActionContext
      * @param accountNo
      * @param amount
      * @return
      */
     @Override
-    public boolean prepareMinus(BusinessActionContext businessActionContext, final String accountNo, final double amount) {
+    public boolean prepareMinus(BusinessActionContext businessActionContext, final String accountNo,
+                                final double amount) {
         //分布式事务ID
         final String xid = businessActionContext.getXid();
 
-        return fromDsTransactionTemplate.execute(new TransactionCallback<Boolean>(){
+        return fromDsTransactionTemplate.execute(new TransactionCallback<Boolean>() {
 
             @Override
             public Boolean doInTransaction(TransactionStatus status) {
                 try {
                     //校验账户余额
                     Account account = fromAccountDAO.getAccountForUpdate(accountNo);
-                    if(account == null){
+                    if (account == null) {
                         throw new RuntimeException("账户不存在");
                     }
                     if (account.getAmount() - amount < 0) {
@@ -54,7 +71,9 @@ public class FirstTccActionImpl implements FirstTccAction {
                     double freezedAmount = account.getFreezedAmount() + amount;
                     account.setFreezedAmount(freezedAmount);
                     fromAccountDAO.updateFreezedAmount(account);
-                    System.out.println(String.format("prepareMinus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(String
+                        .format("prepareMinus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount,
+                            xid));
                     return true;
                 } catch (Throwable t) {
                     t.printStackTrace();
@@ -67,6 +86,7 @@ public class FirstTccActionImpl implements FirstTccAction {
 
     /**
      * 二阶段提交
+     *
      * @param businessActionContext
      * @return
      */
@@ -82,7 +102,7 @@ public class FirstTccActionImpl implements FirstTccAction {
 
             @Override
             public Boolean doInTransaction(TransactionStatus status) {
-                try{
+                try {
                     Account account = fromAccountDAO.getAccountForUpdate(accountNo);
                     //扣除账户余额
                     double newAmount = account.getAmount() - amount;
@@ -91,11 +111,12 @@ public class FirstTccActionImpl implements FirstTccAction {
                     }
                     account.setAmount(newAmount);
                     //释放账户 冻结金额
-                    account.setFreezedAmount(account.getFreezedAmount()  - amount);
+                    account.setFreezedAmount(account.getFreezedAmount() - amount);
                     fromAccountDAO.updateAmount(account);
-                    System.out.println(String.format("minus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(
+                        String.format("minus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
                     return true;
-                }catch (Throwable t){
+                } catch (Throwable t) {
                     t.printStackTrace();
                     status.setRollbackOnly();
                     return false;
@@ -106,6 +127,7 @@ public class FirstTccActionImpl implements FirstTccAction {
 
     /**
      * 二阶段回滚
+     *
      * @param businessActionContext
      * @return
      */
@@ -121,18 +143,20 @@ public class FirstTccActionImpl implements FirstTccAction {
 
             @Override
             public Boolean doInTransaction(TransactionStatus status) {
-                try{
+                try {
                     Account account = fromAccountDAO.getAccountForUpdate(accountNo);
-                    if(account == null){
+                    if (account == null) {
                         //账户不存在，回滚什么都不做
                         return true;
                     }
                     //释放冻结金额
-                    account.setFreezedAmount(account.getFreezedAmount()  - amount);
+                    account.setFreezedAmount(account.getFreezedAmount() - amount);
                     fromAccountDAO.updateFreezedAmount(account);
-                    System.out.println(String.format("Undo prepareMinus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount, xid));
+                    System.out.println(String
+                        .format("Undo prepareMinus account[%s] amount[%f], dtx transaction id: %s.", accountNo, amount,
+                            xid));
                     return true;
-                }catch (Throwable t){
+                } catch (Throwable t) {
                     t.printStackTrace();
                     status.setRollbackOnly();
                     return false;

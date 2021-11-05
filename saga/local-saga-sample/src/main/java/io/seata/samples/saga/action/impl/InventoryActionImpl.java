@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author lorne.cl
  */
 public class InventoryActionImpl implements InventoryAction {

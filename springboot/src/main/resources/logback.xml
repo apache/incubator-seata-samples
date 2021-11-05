@@ -16,15 +16,15 @@
   -->
 
 <configuration>
-	<!-- 调试日志 -->
-	<appender name="STDOUT"
-		class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} %5p [%t] \(%F:%L\) - %m%n</pattern>
-		</encoder>
-	</appender>
-	<root level="INFO">
-		<appender-ref ref="STDOUT" />
-	</root>
+    <!-- 调试日志 -->
+    <appender name="STDOUT"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %5p [%t] \(%F:%L\) - %m%n</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
 
 </configuration>

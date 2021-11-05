@@ -1,6 +1,12 @@
 package io.seata.samples.mutiple.datasource.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
 import com.alibaba.druid.pool.DruidDataSource;
+
 import io.seata.rm.datasource.DataSourceProxy;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,10 +14,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author HelloWoodes
@@ -25,9 +27,9 @@ public class DataSourceProxyConfig {
         return new DruidDataSource();
     }
 
-    @Bean("originStorage")
-    @ConfigurationProperties(prefix = "spring.datasource.storage")
-    public DataSource dataSourceStorage() {
+    @Bean("originStock")
+    @ConfigurationProperties(prefix = "spring.datasource.stock")
+    public DataSource dataSourceStock() {
         return new DruidDataSource();
     }
 
@@ -42,8 +44,8 @@ public class DataSourceProxyConfig {
         return new DataSourceProxy(dataSource);
     }
 
-    @Bean(name = "storage")
-    public DataSourceProxy storageDataSourceProxy(@Qualifier("originStorage") DataSource dataSource) {
+    @Bean(name = "stock")
+    public DataSourceProxy stockDataSourceProxy(@Qualifier("originStock") DataSource dataSource) {
         return new DataSourceProxy(dataSource);
     }
 
@@ -55,14 +57,14 @@ public class DataSourceProxyConfig {
     @Primary
     @Bean("dynamicDataSource")
     public DataSource dynamicDataSource(@Qualifier("order") DataSource dataSourceOrder,
-                                        @Qualifier("storage") DataSource dataSourceStorage,
+                                        @Qualifier("stock") DataSource dataSourceStock,
                                         @Qualifier("pay") DataSource dataSourcePay) {
 
         DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource();
 
         Map<Object, Object> dataSourceMap = new HashMap<>(3);
         dataSourceMap.put(DataSourceKey.ORDER.name(), dataSourceOrder);
-        dataSourceMap.put(DataSourceKey.STORAGE.name(), dataSourceStorage);
+        dataSourceMap.put(DataSourceKey.STOCK.name(), dataSourceStock);
         dataSourceMap.put(DataSourceKey.PAY.name(), dataSourcePay);
 
         dynamicRoutingDataSource.setDefaultTargetDataSource(dataSourceOrder);

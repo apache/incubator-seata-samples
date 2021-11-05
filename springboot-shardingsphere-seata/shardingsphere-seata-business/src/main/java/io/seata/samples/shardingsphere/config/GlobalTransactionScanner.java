@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -14,6 +14,10 @@
  *  limitations under the License.
  */
 package io.seata.samples.shardingsphere.config;
+
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.seata.config.ConfigurationFactory;
 import io.seata.spring.annotation.GlobalLock;
@@ -39,25 +43,22 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * The type Global transaction scanner.
  *
  * @author jimin.jm @alibaba-inc.com
  * @date 2018 /12/28
  */
-public class GlobalTransactionScanner extends AbstractAutoProxyCreator implements InitializingBean, ApplicationContextAware,
-        DisposableBean {
+public class GlobalTransactionScanner extends AbstractAutoProxyCreator
+    implements InitializingBean, ApplicationContextAware, DisposableBean {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(io.seata.spring.annotation.GlobalTransactionScanner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+        io.seata.spring.annotation.GlobalTransactionScanner.class);
 
     private static final int AT_MODE = 1;
     private static final int MT_MODE = 2;
@@ -73,8 +74,8 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
     private final String applicationId;
     private final String txServiceGroup;
     private final int mode;
-    private final boolean disableGlobalTransaction =
-        ConfigurationFactory.getInstance().getBoolean("service.disableGlobalTransaction", false);
+    private final boolean disableGlobalTransaction = ConfigurationFactory.getInstance().getBoolean(
+        "service.disableGlobalTransaction", false);
 
     private final FailureHandler failureHandlerHook;
 
@@ -93,7 +94,7 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
      * Instantiates a new Global transaction scanner.
      *
      * @param txServiceGroup the tx service group
-     * @param mode the mode
+     * @param mode           the mode
      */
     public GlobalTransactionScanner(String txServiceGroup, int mode) {
         this(txServiceGroup, txServiceGroup, mode);
@@ -102,7 +103,7 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
     /**
      * Instantiates a new Global transaction scanner.
      *
-     * @param applicationId the application id
+     * @param applicationId  the application id
      * @param txServiceGroup the default server group
      */
     public GlobalTransactionScanner(String applicationId, String txServiceGroup) {
@@ -112,9 +113,9 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
     /**
      * Instantiates a new Global transaction scanner.
      *
-     * @param applicationId the application id
+     * @param applicationId  the application id
      * @param txServiceGroup the tx service group
-     * @param mode the mode
+     * @param mode           the mode
      */
     public GlobalTransactionScanner(String applicationId, String txServiceGroup, int mode) {
         this(applicationId, txServiceGroup, mode, DEFAULT_FAIL_HANDLER);
@@ -123,8 +124,8 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
     /**
      * Instantiates a new Global transaction scanner.
      *
-     * @param applicationId the application id
-     * @param txServiceGroup the tx service group
+     * @param applicationId      the application id
+     * @param txServiceGroup     the tx service group
      * @param failureHandlerHook the failure handler hook
      */
     public GlobalTransactionScanner(String applicationId, String txServiceGroup, FailureHandler failureHandlerHook) {
@@ -134,9 +135,9 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
     /**
      * Instantiates a new Global transaction scanner.
      *
-     * @param applicationId the application id
-     * @param txServiceGroup the tx service group
-     * @param mode the mode
+     * @param applicationId      the application id
+     * @param txServiceGroup     the tx service group
+     * @param mode               the mode
      * @param failureHandlerHook the failure handler hook
      */
     public GlobalTransactionScanner(String applicationId, String txServiceGroup, int mode,
@@ -151,45 +152,47 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
 
     @Override
     public void destroy() {
-//        ShutdownHook.getInstance().destroyAll();
+        //        ShutdownHook.getInstance().destroyAll();
     }
 
-//    private void initClient() {
-//        if (LOGGER.isInfoEnabled()) {
-//            LOGGER.info("Initializing Global Transaction Clients ... ");
-//        }
-//        if (StringUtils.isNullOrEmpty(applicationId) || StringUtils.isNullOrEmpty(txServiceGroup)) {
-//            throw new IllegalArgumentException(
-//                    "applicationId: " + applicationId + ", txServiceGroup: " + txServiceGroup);
-//        }
-//        //init TM
-//        TMClient.init(applicationId, txServiceGroup);
-//        if (LOGGER.isInfoEnabled()) {
-//            LOGGER.info(
-//                    "Transaction Manager Client is initialized. applicationId[" + applicationId + "] txServiceGroup["
-//                            + txServiceGroup + "]");
-//        }
-//        //init RM
-//        RMClient.init(applicationId, txServiceGroup);
-//        if (LOGGER.isInfoEnabled()) {
-//            LOGGER.info("Resource Manager is initialized. applicationId[" + applicationId  + "] txServiceGroup["  + txServiceGroup + "]");
-//        }
-//
-//        if (LOGGER.isInfoEnabled()) {
-//            LOGGER.info("Global Transaction Clients are initialized. ");
-//        }
-//        registerSpringShutdownHook();
-//
-//    }
-//
-//    private void registerSpringShutdownHook() {
-//        if (applicationContext instanceof ConfigurableApplicationContext) {
-//            ((ConfigurableApplicationContext) applicationContext).registerShutdownHook();
-//            ShutdownHook.removeRuntimeShutdownHook();
-//        }
-//        ShutdownHook.getInstance().addDisposable(TmRpcClient.getInstance(applicationId, txServiceGroup));
-//        ShutdownHook.getInstance().addDisposable(RmRpcClient.getInstance(applicationId, txServiceGroup));
-//    }
+    //    private void initClient() {
+    //        if (LOGGER.isInfoEnabled()) {
+    //            LOGGER.info("Initializing Global Transaction Clients ... ");
+    //        }
+    //        if (StringUtils.isNullOrEmpty(applicationId) || StringUtils.isNullOrEmpty(txServiceGroup)) {
+    //            throw new IllegalArgumentException(
+    //                    "applicationId: " + applicationId + ", txServiceGroup: " + txServiceGroup);
+    //        }
+    //        //init TM
+    //        TMClient.init(applicationId, txServiceGroup);
+    //        if (LOGGER.isInfoEnabled()) {
+    //            LOGGER.info(
+    //                    "Transaction Manager Client is initialized. applicationId[" + applicationId + "]
+    //                   txServiceGroup["
+    //                            + txServiceGroup + "]");
+    //        }
+    //        //init RM
+    //        RMClient.init(applicationId, txServiceGroup);
+    //        if (LOGGER.isInfoEnabled()) {
+    //            LOGGER.info("Resource Manager is initialized. applicationId[" + applicationId  + "]
+    //           txServiceGroup["  + txServiceGroup + "]");
+    //        }
+    //
+    //        if (LOGGER.isInfoEnabled()) {
+    //            LOGGER.info("Global Transaction Clients are initialized. ");
+    //        }
+    //        registerSpringShutdownHook();
+    //
+    //    }
+    //
+    //    private void registerSpringShutdownHook() {
+    //        if (applicationContext instanceof ConfigurableApplicationContext) {
+    //            ((ConfigurableApplicationContext) applicationContext).registerShutdownHook();
+    //            ShutdownHook.removeRuntimeShutdownHook();
+    //        }
+    //        ShutdownHook.getInstance().addDisposable(TmRpcClient.getInstance(applicationId, txServiceGroup));
+    //        ShutdownHook.getInstance().addDisposable(RmRpcClient.getInstance(applicationId, txServiceGroup));
+    //    }
 
     @Override
     protected Object wrapIfNecessary(Object bean, String beanName, Object cacheKey) {
@@ -210,8 +213,7 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
                     Class<?> serviceInterface = SpringProxyUtils.findTargetClass(bean);
                     Class<?>[] interfacesIfJdk = SpringProxyUtils.findInterfaces(bean);
 
-                    if (!existsAnnotation(new Class[] {serviceInterface})
-                            && !existsAnnotation(interfacesIfJdk)) {
+                    if (!existsAnnotation(new Class[] {serviceInterface}) && !existsAnnotation(interfacesIfJdk)) {
                         return bean;
                     }
 
@@ -221,8 +223,8 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
                 }
 
                 LOGGER.info(
-                        "Bean[" + bean.getClass().getName() + "] with name [" + beanName + "] would use interceptor ["
-                                + interceptor.getClass().getName() + "]");
+                    "Bean[" + bean.getClass().getName() + "] with name [" + beanName + "] would use interceptor ["
+                        + interceptor.getClass().getName() + "]");
                 if (!AopUtils.isAopProxy(bean)) {
                     bean = super.wrapIfNecessary(bean, beanName, cacheKey);
                 } else {
@@ -269,7 +271,7 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
 
     @Override
     protected Object[] getAdvicesAndAdvisorsForBean(Class beanClass, String beanName, TargetSource customTargetSource)
-            throws BeansException {
+        throws BeansException {
         return new Object[] {interceptor};
     }
 
@@ -281,7 +283,7 @@ public class GlobalTransactionScanner extends AbstractAutoProxyCreator implement
             }
             return;
         }
-//        initClient();
+        //        initClient();
 
     }
 

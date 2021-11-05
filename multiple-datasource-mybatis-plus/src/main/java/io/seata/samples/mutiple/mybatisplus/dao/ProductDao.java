@@ -1,8 +1,7 @@
 package io.seata.samples.mutiple.mybatisplus.dao;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.seata.samples.mutiple.mybatisplus.common.storage.Product;
+import io.seata.samples.mutiple.mybatisplus.common.stock.Product;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

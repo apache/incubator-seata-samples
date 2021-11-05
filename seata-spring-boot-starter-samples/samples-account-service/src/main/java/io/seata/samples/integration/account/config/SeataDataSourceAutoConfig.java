@@ -1,5 +1,7 @@
 package io.seata.samples.integration.account.config;
 
+import javax.sql.DataSource;
+
 import com.alibaba.druid.pool.DruidDataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -11,11 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import javax.sql.DataSource;
-
 /**
  * @Author: lidong
- * @Description  seata global configuration
+ * @Description seata global configuration
  * @Date Created in 2019/9/05 10:28
  */
 @Configuration
@@ -34,7 +34,7 @@ public class SeataDataSourceAutoConfig {
      */
     @Bean
     @Primary
-    public DruidDataSource druidDataSource(){
+    public DruidDataSource druidDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl(dataSourceProperties.getUrl());
         druidDataSource.setUsername(dataSourceProperties.getUsername());
@@ -55,8 +55,10 @@ public class SeataDataSourceAutoConfig {
         druidDataSource.setLogAbandoned(true);
         return druidDataSource;
     }
+
     /**
      * init mybatis sqlSessionFactory
+     *
      * @Param: dataSourceProxy  datasource proxy
      * @Return: DataSourceProxy  datasource proxy
      */
@@ -64,8 +66,8 @@ public class SeataDataSourceAutoConfig {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
-        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:/mapper/*.xml"));
+        factoryBean.setMapperLocations(
+            new PathMatchingResourcePatternResolver().getResources("classpath*:/mapper/*.xml"));
         return factoryBean.getObject();
     }
 }

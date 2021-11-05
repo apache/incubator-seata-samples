@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.dubbo.starter;
 
 import io.seata.samples.dubbo.service.BusinessService;
@@ -30,11 +29,12 @@ public class DubboBusinessTester {
      */
     public static void main(String[] args) {
         /**
-         *  4. The whole e-commerce platform is ready , The buyer(U100001) create an order on the sku(C00321) , the count is 2
+         *  4. The whole e-commerce platform is ready , The buyer(U100001) create an order on the sku(C00321) , the
+         *  count is 2
          */
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-            new String[]{"spring/dubbo-business.xml"});
-        final BusinessService business = (BusinessService) context.getBean("business");
+            new String[] {"spring/dubbo-business.xml"});
+        final BusinessService business = (BusinessService)context.getBean("business");
         business.purchase("U100001", "C00321", 2);
     }
 }

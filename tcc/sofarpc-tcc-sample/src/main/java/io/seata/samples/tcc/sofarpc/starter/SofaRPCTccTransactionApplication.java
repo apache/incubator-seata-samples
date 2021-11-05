@@ -36,7 +36,7 @@ public class SofaRPCTccTransactionApplication {
 
         ApplicationContext applicationContext = SpringApplication.run(SofaRPCTccTransactionApplication.class, args);
 
-        tccTransactionService = (TccTransactionService) applicationContext.getBean("tccTransactionService"   );
+        tccTransactionService = (TccTransactionService)applicationContext.getBean("tccTransactionService");
 
         //分布式事务提交demo
         transactionCommitDemo();
@@ -57,13 +57,13 @@ public class SofaRPCTccTransactionApplication {
 
     private static void transactionRollbackDemo() throws InterruptedException {
         Map map = new HashMap(16);
-        try{
+        try {
             tccTransactionService.doTransactionRollback(map);
             Assert.isTrue(false, "分布式事务未回滚");
-        }catch (Throwable t) {
+        } catch (Throwable t) {
             Assert.isTrue(true, "分布式事务异常回滚");
         }
-        String txId = (String) map.get("xid");
+        String txId = (String)map.get("xid");
 
         System.out.println("transaction rollback demo finish.");
     }

@@ -1,13 +1,10 @@
 # 基于 Seata 解决微服务架构下数据一致性的实践
 
-[Seata](https://github.com/seata/seata) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。   
-
-
+[Seata](https://github.com/seata/seata) 是一款开源的分布式事务解决方案，提供高性能和简单易用的分布式事务服务。
 
 本文将通过一个简单的微服务架构的例子，说明业务如何step by step的使用 Seata、Dubbo 来保证业务数据的一致性；
 
 本案例中，seata-server 服务端 使用数据库作为事务日志存储，用户可以部署多个seata-server以提供集群服务，从而支持服务端高可用。
-
 
 ## 业务案例
 
@@ -21,13 +18,12 @@
 
 <img src="https://github.com/seata/seata-samples/blob/master/doc/img/fescar-1.png"  height="300" width="600">
 
-
-#### StorageService
+#### StockService
 
 ```java
-public interface StorageService {
+public interface StockService {
     /**
-     * deduct storage count
+     * deduct stock count
      */
     void deduct(String commodityCode, int count);
 }
@@ -54,25 +50,26 @@ public interface AccountService {
     void debit(String userId, int money);
 }
 ```
+
 **说明:** 以上三个微服务独立部署。
 
 ### Seata、Dubbo 集成
 
-
 #### Step 1 初始化 MySQL 数据库（需要InnoDB 存储引擎）
 
-在 [resources/jdbc.properties](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接信息。
+在 [resources/jdbc.properties](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/jdbc. properties)
+修改StockService、OrderService、AccountService 对应的连接信息。
 
 ```properties
 jdbc.account.url=jdbc:mysql://xxxx/xxxx
 jdbc.account.username=xxxx
 jdbc.account.password=xxxx
 jdbc.account.driver=com.mysql.jdbc.Driver
-# storage db config
-jdbc.storage.url=jdbc:mysql://xxxx/xxxx
-jdbc.storage.username=xxxx
-jdbc.storage.password=xxxx
-jdbc.storage.driver=com.mysql.jdbc.Driver
+# stock db config
+jdbc.stock.url=jdbc:mysql://xxxx/xxxx
+jdbc.stock.username=xxxx
+jdbc.stock.password=xxxx
+jdbc.stock.driver=com.mysql.jdbc.Driver
 # order db config
 jdbc.order.url=jdbc:mysql://xxxx/xxxx
 jdbc.order.username=xxxx
@@ -80,10 +77,12 @@ jdbc.order.password=xxxx
 jdbc.order.driver=com.mysql.jdbc.Driver
 ```
 
-#### Step 2 创建 undo_log（用于 Seata AT 模式）表和相关业务表   
+#### Step 2 创建 undo_log（用于 Seata AT 模式）表和相关业务表
 
-
-相关建表脚本可在 [resources/sql/](https://github.com/seata/seata-samples/tree/master/ha/src/main/resources/sql) 下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/sql/dubbo_biz.sql) 中的业务建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/sql/undo_log.sql) 建表脚本。
+相关建表脚本可在 [resources/sql/](https://github.com/seata/seata-samples/tree/master/ha/src/main/resources/sql)
+下获取，在相应数据库中执行 [dubbo_biz.sql](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/sql/dubbo_biz.sql)
+中的业务建表脚本，在每个数据库执行 [undo_log.sql](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/sql/undo_log.sql)
+建表脚本。
 
 ```sql
 -- 注意此处0.3.0+ 增加唯一索引 ux_undo_log
@@ -103,8 +102,8 @@ CREATE TABLE `undo_log` (
 ```
 
 ```sql
-DROP TABLE IF EXISTS `storage_tbl`;
-CREATE TABLE `storage_tbl` (
+DROP TABLE IF EXISTS `stock_tbl`;
+CREATE TABLE `stock_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_code` varchar(255) DEFAULT NULL,
   `count` int(11) DEFAULT 0,
@@ -132,10 +131,10 @@ CREATE TABLE `account_tbl` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+
 **说明:** 需要保证每个物理库都包含 undo_log 表，此处可使用一个物理库来表示上述三个微服务对应的独立逻辑库。
 
 #### Step 3 引入 Seata、Dubbo 相关 POM 依赖
-
 
 ```xml
       <properties>
@@ -157,12 +156,12 @@ CREATE TABLE `account_tbl` (
       
 ```
 
-
 #### Step 4 微服务 Provider Spring配置
 
 分别在三个微服务Spring配置文件（[dubbo-account-service.xml](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-account-service.xml)、
-[dubbo-order-service](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-order-service.xml) 和 
-[dubbo-storage-service.xml](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-storage-service.xml)
+[dubbo-order-service](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-order-service.xml)
+和
+[dubbo-stock-service.xml](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-stock-service.xml)
 ）进行如下配置：
 
 - 配置 Seata 代理数据源
@@ -193,12 +192,16 @@ CREATE TABLE `account_tbl` (
         <constructor-arg value="my_test_tx_group"/>
     </bean>
 ```
+
 此处构造方法的第一个参数为业务自定义 applicationId，若在单机部署多微服务需要保证 applicationId 唯一。   
-构造方法的第二个参数为 Seata 事务服务逻辑分组，此分组通过配置中心配置项 service.vgroup_mapping.my_test_tx_group 映射到相应的 Seata-Server 集群名称，然后再根据集群名称.grouplist 获取到可用服务列表。
+构造方法的第二个参数为 Seata 事务服务逻辑分组，此分组通过配置中心配置项 service.vgroup_mapping.my_test_tx_group 映射到相应的 Seata-Server
+集群名称，然后再根据集群名称.grouplist 获取到可用服务列表。
 
 #### Step 5 事务发起方配置
 
-在 [dubbo-business.xml](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-business.xml) 配置以下配置：
+在 [dubbo-business.xml](https://github.com/seata/seata-samples/blob/master/ha/src/main/resources/spring/dubbo-business.xml)
+配置以下配置：
+
 - 配置 Dubbo 注册中心
 
 同 Step 4
@@ -212,6 +215,7 @@ CREATE TABLE `account_tbl` (
 ```java
 @GlobalTransactional(timeoutMills = 300000, name = "dubbo-demo-tx")
 ```
+
 timeoutMills 为事务的总体超时时间默认60s，name 为事务方法签名的别名，默认为空。注解内参数均可省略。
 
 #### Step 6 启动 Zookeeper
@@ -288,9 +292,11 @@ create table `lock_table` (
 
 - 初始化 Seata 配置
 
-进入到 Seata-Server 解压目录 conf 文件夹下 [file.conf](https://github.com/seata/seata/blob/develop/server/src/main/resources/file.conf) ,修改事务日志存储相关属性：
+进入到 Seata-Server 解压目录 conf
+文件夹下 [file.conf](https://github.com/seata/seata/blob/develop/server/src/main/resources/file.conf) ,修改事务日志存储相关属性：
 
 修改项如下：
+
 ```
 store.mode = "db"
 store.db.datasource=dbcp
@@ -362,7 +368,6 @@ lock {
 
 ```   
 
-
 - 运行 Seata-server
 
 **Linux/Unix/Mac**
@@ -380,7 +385,7 @@ cmd seata-server.bat $LISTEN_PORT $PATH_FOR_PERSISTENT_DATA $IP(此参数可选)
 
 **$LISTEN_PORT**: Seata-Server 服务端口      
 **$STORE_MODE**: 事务操作记录存储模式：file、db  
-**$IP(可选参数)**: 用于多 IP 环境下指定 Seata-Server 注册服务的IP      
+**$IP(可选参数)**: 用于多 IP 环境下指定 Seata-Server 注册服务的IP
 
 **eg**:
 sh seata-server.sh 8091 db
@@ -388,15 +393,21 @@ sh seata-server.sh 8091 db
 #### Step 8 启动微服务并测试
 
 - 修改业务客户端发现注册方式为 zookeeper   
-同Step 7 中[修改 Seata-server 服务注册方式为 zookeeper] 步骤
-- 启动 [DubboAccountServiceStarter](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboAccountServiceStarter.java)
-- 启动 [DubboOrderServiceStarter](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboOrderServiceStarter.java)
-- 启动 [DubboStorageServiceStarter](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboStorageServiceStarter.java)
+  同Step 7 中[修改 Seata-server 服务注册方式为 zookeeper] 步骤
+-
 
-- 启动 [DubboBusinessTester](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboBusinessTester.java) 进行测试
+启动 [DubboAccountServiceStarter](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboAccountServiceStarter.java)
+-
+启动 [DubboOrderServiceStarter](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboOrderServiceStarter.java)
+-
+启动 [DubboStockServiceStarter](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboStockServiceStarter.java)
+
+-
+
+启动 [DubboBusinessTester](https://github.com/seata/seata-samples/blob/master/ha/src/main/java/io/seata/samples/ha/starter/DubboBusinessTester.java)
+进行测试
 
 **注意:** 在标注 @GlobalTransactional 注解方法内部显示的抛出异常才会进行事务的回滚。整个 Dubbo 服务调用链路只需要在事务最开始发起方的 service 方法标注注解即可。
-
 
 ## 相关链接:
 

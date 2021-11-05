@@ -5,7 +5,7 @@ import io.seata.samples.integration.common.dto.BusinessDTO;
 import io.seata.samples.integration.common.dto.CommodityDTO;
 import io.seata.samples.integration.common.dto.OrderDTO;
 import io.seata.samples.integration.common.dubbo.OrderDubboService;
-import io.seata.samples.integration.common.dubbo.StorageDubboService;
+import io.seata.samples.integration.common.dubbo.StockDubboService;
 import io.seata.samples.integration.common.enums.RspStatusEnum;
 import io.seata.samples.integration.common.exception.DefaultException;
 import io.seata.samples.integration.common.response.ObjectResponse;
@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Author: lidong
- * @Description  Dubbo业务发起方逻辑
+ * @Description Dubbo业务发起方逻辑
  * @Date Created in 2019/9/5 18:36
  */
 @Service
 @Slf4j
-public class BusinessServiceImpl implements BusinessService{
+public class BusinessServiceImpl implements BusinessService {
 
     @Reference(version = "1.0.0")
-    private StorageDubboService storageDubboService;
+    private StockDubboService stockDubboService;
 
     @Reference(version = "1.0.0")
     private OrderDubboService orderDubboService;
@@ -33,6 +33,7 @@ public class BusinessServiceImpl implements BusinessService{
 
     /**
      * 处理业务逻辑 正常的业务逻辑
+     *
      * @Param:
      * @Return:
      */
@@ -45,7 +46,7 @@ public class BusinessServiceImpl implements BusinessService{
         CommodityDTO commodityDTO = new CommodityDTO();
         commodityDTO.setCommodityCode(businessDTO.getCommodityCode());
         commodityDTO.setCount(businessDTO.getCount());
-        ObjectResponse storageResponse = storageDubboService.decreaseStorage(commodityDTO);
+        ObjectResponse stockResponse = stockDubboService.decreaseStock(commodityDTO);
         //2、创建订单
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setUserId(businessDTO.getUserId());
@@ -54,7 +55,7 @@ public class BusinessServiceImpl implements BusinessService{
         orderDTO.setOrderAmount(businessDTO.getAmount());
         ObjectResponse<OrderDTO> response = orderDubboService.createOrder(orderDTO);
 
-        if (storageResponse.getStatus() != 200 || response.getStatus() != 200) {
+        if (stockResponse.getStatus() != 200 || response.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);
         }
 
@@ -79,7 +80,7 @@ public class BusinessServiceImpl implements BusinessService{
         CommodityDTO commodityDTO = new CommodityDTO();
         commodityDTO.setCommodityCode(businessDTO.getCommodityCode());
         commodityDTO.setCount(businessDTO.getCount());
-        ObjectResponse storageResponse = storageDubboService.decreaseStorage(commodityDTO);
+        ObjectResponse stockResponse = stockDubboService.decreaseStock(commodityDTO);
         //2、创建订单
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setUserId(businessDTO.getUserId());
@@ -88,12 +89,12 @@ public class BusinessServiceImpl implements BusinessService{
         orderDTO.setOrderAmount(businessDTO.getAmount());
         ObjectResponse<OrderDTO> response = orderDubboService.createOrder(orderDTO);
 
-//        打开注释测试事务发生异常后，全局回滚功能
+        //        打开注释测试事务发生异常后，全局回滚功能
         if (!flag) {
             throw new RuntimeException("测试抛异常后，分布式事务回滚！");
         }
 
-        if (storageResponse.getStatus() != 200 || response.getStatus() != 200) {
+        if (stockResponse.getStatus() != 200 || response.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);
         }
 

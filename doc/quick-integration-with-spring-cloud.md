@@ -1,8 +1,8 @@
-# Spring Cloud 快速集成 Seata 
+# Spring Cloud 快速集成 Seata
 
 ### 1. 添加依赖
 
-添加Spring Cloud Alibaba 依赖管理工具和 Seata 依赖 
+添加Spring Cloud Alibaba 依赖管理工具和 Seata 依赖
 
 <details>
 <summary>Gradle</summary>
@@ -52,9 +52,10 @@ dependencies {
 
 需要注意的是Spring Cloud Alibaba 的毕业版本的 GroupId 是 `com.alibaba.cloud`
 
-`spring-cloud-starter-alibaba-seata`这个依赖中只依赖了`spring-cloud-alibaba-seata`，所以在项目中添加`spring-cloud-starter-alibaba-seata`和`spring-cloud-alibaba-seata`是一样的
+`spring-cloud-starter-alibaba-seata`这个依赖中只依赖了`spring-cloud-alibaba-seata`，所以在项目中添加`spring-cloud-starter-alibaba-seata`
+和`spring-cloud-alibaba-seata`是一样的
 
-### 2.  添加Seata 配置文件
+### 2. 添加Seata 配置文件
 
 #### registry.conf
 
@@ -142,7 +143,7 @@ config {
 
 </details>
 
-#### file.conf 
+#### file.conf
 
 该配置用于指定TC的相关属性；如果使用注册中心也可以将配置添加到配置中心
 
@@ -275,11 +276,14 @@ metrics {
 
 </details>
 
-需要注意的是 `service.vgroup_mapping`这个配置，在 Spring Cloud 中默认是`${spring.application.name}-fescar-service-group`，可以通过指定`application.properties`的 `spring.cloud.alibaba.seata.tx-service-group`这个属性覆盖，但是必须要和 `file.conf `中的一致，否则会提示 `no available server to connect`
+需要注意的是 `service.vgroup_mapping`这个配置，在 Spring Cloud 中默认是`${spring.application.name}-fescar-service-group`
+，可以通过指定`application.properties`的 `spring.cloud.alibaba.seata.tx-service-group`这个属性覆盖，但是必须要和 `file.conf `
+中的一致，否则会提示 `no available server to connect`
 
 ### 3. 注入数据源
 
-Seata 通过代理数据源的方式实现分支事务；MyBatis 和 JPA 都需要注入 `io.seata.rm.datasource.DataSourceProxy`, 不同的是，MyBatis 还需要额外注入 `org.apache.ibatis.session.SqlSessionFactory`
+Seata 通过代理数据源的方式实现分支事务；MyBatis 和 JPA 都需要注入 `io.seata.rm.datasource.DataSourceProxy`, 不同的是，MyBatis
+还需要额外注入 `org.apache.ibatis.session.SqlSessionFactory`
 
 <details>
 <summary>MyBatis</summary>
@@ -307,6 +311,7 @@ public class DataSourceProxyConfig {
     }
 }
 ```
+
 </details>
 
 
@@ -376,7 +381,8 @@ CREATE TABLE `undo_log`
 
 ### 5. 启动 Seata-Server
 
-在 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases) 下载相应版本的 Seata-Server，修改 `registry.conf`为相应的配置(如果使用 file 则不需要修改)，解压并通过以下命令启动:
+在 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases) 下载相应版本的
+Seata-Server，修改 `registry.conf`为相应的配置(如果使用 file 则不需要修改)，解压并通过以下命令启动:
 
 ```bash
 sh ./bin/seata-server.sh

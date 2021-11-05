@@ -1,18 +1,19 @@
 package io.seata.sample.service;
 
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
 import io.seata.core.context.RootContext;
 import io.seata.sample.TestDatas;
 import io.seata.sample.feign.OrderFeignClient;
-import io.seata.sample.feign.StorageFeignClient;
+import io.seata.sample.feign.StockFeignClient;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.util.Map;
 
 @Service
 public class BusinessService {
@@ -23,7 +24,7 @@ public class BusinessService {
     public static final String FAIL = "FAIL";
 
     @Autowired
-    private StorageFeignClient storageFeignClient;
+    private StockFeignClient stockFeignClient;
     @Autowired
     private OrderFeignClient orderFeignClient;
     @Autowired
@@ -34,7 +35,7 @@ public class BusinessService {
         String xid = RootContext.getXID();
         LOGGER.info("New Transaction Begins: " + xid);
 
-        String result = storageFeignClient.deduct(commodityCode, orderCount);
+        String result = stockFeignClient.deduct(commodityCode, orderCount);
 
         if (!SUCCESS.equals(result)) {
             throw new RuntimeException("库存服务调用失败,事务回滚!");
@@ -55,9 +56,10 @@ public class BusinessService {
     public void initData() {
         jdbcTemplate.update("delete from account_tbl");
         jdbcTemplate.update("delete from order_tbl");
-        jdbcTemplate.update("delete from storage_tbl");
+        jdbcTemplate.update("delete from stock_tbl");
         jdbcTemplate.update("insert into account_tbl(user_id,money) values('" + TestDatas.USER_ID + "','10000') ");
-        jdbcTemplate.update("insert into storage_tbl(commodity_code,count) values('" + TestDatas.COMMODITY_CODE + "','100') ");
+        jdbcTemplate.update(
+            "insert into stock_tbl(commodity_code,count) values('" + TestDatas.COMMODITY_CODE + "','100') ");
     }
 
     public boolean validData(String userId, String commodityCode) {
@@ -67,9 +69,8 @@ public class BusinessService {
             return false;
         }
 
-        Map storageMap = jdbcTemplate.queryForMap(
-            "select * from storage_tbl where commodity_code='" + commodityCode + "'");
-        if (Integer.parseInt(storageMap.get("count").toString()) < 0) {
+        Map stockMap = jdbcTemplate.queryForMap("select * from stock_tbl where commodity_code='" + commodityCode + "'");
+        if (Integer.parseInt(stockMap.get("count").toString()) < 0) {
             // 库存被扣减为负：库存不足
             return false;
         }

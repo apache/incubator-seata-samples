@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,9 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.jit;
-
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -23,10 +21,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The type Application keeper.
+ *
  * @author ppf
  */
 public class ApplicationKeeper {
-
 
     private final ReentrantLock LOCK = new ReentrantLock();
     private final Condition STOP = LOCK.newCondition();
@@ -58,6 +56,7 @@ public class ApplicationKeeper {
     public void keep() {
         keep(TimeUnit.MINUTES.toMillis(30));
     }
+
     /**
      * Keep.
      */

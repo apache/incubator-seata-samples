@@ -26,7 +26,7 @@
     <artifactId>local-tcc-sample</artifactId>
     <packaging>jar</packaging>
     <name>local-tcc-sample ${project.version}</name>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>

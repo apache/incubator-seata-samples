@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.seata.common.constant;
 
 public interface CommonConstant {
@@ -7,22 +22,34 @@ public interface CommonConstant {
      * 验证码原始字符
      */
     public static final String BASE_CHECK_CODES = "qwertyuiplkjhgfdsazxcvbnmQWERTYUPLKJHGFDSAZXCVBNM1234567890";
-	
-	/** {@code 500 Server Error} (HTTP/1.0 - RFC 1945) */
+
+    /**
+     * {@code 500 Server Error} (HTTP/1.0 - RFC 1945)
+     */
     public static final Integer SC_INTERNAL_SERVER_ERROR_500 = 500;
-    /** {@code 200 OK} (HTTP/1.0 - RFC 1945) */
+    /**
+     * {@code 200 OK} (HTTP/1.0 - RFC 1945)
+     */
     public static final Integer SC_OK_200 = 200;
 
-    /**访问权限认证未通过 510*/
-    public static final Integer SC_YZS_NO_AUTHZ=510;
+    /**
+     * 访问权限认证未通过 510
+     */
+    public static final Integer SC_YZS_NO_AUTHZ = 510;
 
-    /**没找到资源 404*/
-    public static final Integer SC_YZS_NOT_FOUND=404;
+    /**
+     * 没找到资源 404
+     */
+    public static final Integer SC_YZS_NOT_FOUND = 404;
 
-    /** 登录用户Token令牌缓存KEY前缀 */
-    public static final String PREFIX_USER_TOKEN  = "prefix_user_token_";
-    /** Token缓存时间：3600秒即一小时 */
-    public static final int TOKEN_EXPIRE_TIME = 10*3600;
+    /**
+     * 登录用户Token令牌缓存KEY前缀
+     */
+    public static final String PREFIX_USER_TOKEN = "prefix_user_token_";
+    /**
+     * Token缓存时间：3600秒即一小时
+     */
+    public static final int TOKEN_EXPIRE_TIME = 10 * 3600;
     /**
      * 状态(0无效1有效)
      */
@@ -87,7 +114,7 @@ public interface CommonConstant {
     /**
      * 账号最大会话数，为1表明一个账号同时只允许一个人登陆
      */
-    public static final Integer ACCOUNT_MAX_SESSION  = 1;
+    public static final Integer ACCOUNT_MAX_SESSION = 1;
 
     /**
      * 发送短信topic
