@@ -492,7 +492,8 @@ CREATE TABLE `t_account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- ----------------------------
+-- 
+----------------------
 -- Records of t_account
 -- ----------------------------
 INSERT INTO `t_account` VALUES ('1', '1', '4000.00');

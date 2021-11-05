@@ -81,6 +81,7 @@
         <module>saga</module>
         <module>spring-cloud-alibaba-samples</module>
         <module>seata-spring-boot-starter-samples</module>
+        <module>springboot-dubbo-seata-zk</module>
         <module>seata-xa</module>
         <module>seata-samples-jit</module>
         <module>springcloud-seata-sharding-jdbc-mybatis-plus-samples</module>
