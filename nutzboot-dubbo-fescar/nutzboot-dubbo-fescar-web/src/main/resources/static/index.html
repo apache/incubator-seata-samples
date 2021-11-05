@@ -12,7 +12,7 @@
 			<span>当前余额: </span><input v-model="account_money" disabled="disabled">
 		</div>
 		<div>
-			<span>剩余库存: </span><input v-model="storage_count" disabled="disabled">
+			<span>剩余库存: </span><input v-model="stock_count" disabled="disabled">
 		</div>
 		<div>
 			<button @click="buyit(false)">购买并成功</button>
@@ -30,7 +30,7 @@ var _app = new Vue({
 	el : "#app",
 	data : {
 		account_money : 0,
-		storage_count : 0
+		stock_count : 0
 	},
 	methods : {
 		dataReload : function() {
@@ -39,7 +39,7 @@ var _app = new Vue({
 				success : function(re) {
 					if (re && re.ok) {
 						_app.account_money = re.data.account.money;
-						_app.storage_count = re.data.storage.count;
+						_app.stock_count = re.data.stock.count;
 					}
 				}
 			});

@@ -10,7 +10,7 @@ import io.seata.samples.mutiple.mybatisplus.config.DynamicDataSourceContextHolde
 import io.seata.samples.mutiple.mybatisplus.dao.OrderDao;
 import io.seata.samples.mutiple.mybatisplus.service.OrderService;
 import io.seata.samples.mutiple.mybatisplus.service.PayService;
-import io.seata.samples.mutiple.mybatisplus.service.StorageService;
+import io.seata.samples.mutiple.mybatisplus.service.StockService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private PayService payService;
 
     @Autowired
-    private StorageService storageService;
+    private StockService stockService;
 
     @GlobalTransactional
     @Override
@@ -55,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("保存订单{}", saveOrderRecord > 0 ? "成功" : "失败");
 
         // 扣减库存
-        boolean operationStorageResult = storageService.reduceStock(placeOrderRequestVO.getProductId(), amount);
+        boolean operationStockResult = stockService.reduceStock(placeOrderRequestVO.getProductId(), amount);
 
         // 扣减余额
         boolean operationBalanceResult = payService.reduceBalance(placeOrderRequestVO.getUserId(), price);
@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("更新订单:{} {}", order.getId(), updateOrderRecord > 0 ? "成功" : "失败");
 
         return OperationResponse.builder()
-                                .success(operationStorageResult && operationBalanceResult)
+                                .success(operationStockResult && operationBalanceResult)
                                 .build();
     }
 }

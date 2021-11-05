@@ -21,12 +21,12 @@
 <img src="https://github.com/seata/seata-samples/blob/master/doc/img/fescar-1.png"  height="300" width="600">
 
 
-#### StorageService
+#### StockService
 
 ```java
-public interface StorageService {
+public interface StockService {
     /**
-     * deduct storage count
+     * deduct stock count
      */
     void deduct(String commodityCode, int count);
 }
@@ -60,18 +60,19 @@ public interface AccountService {
 
 #### Step 1 初始化 MySQL 数据库（需要InnoDB 存储引擎）
 
-在 [resources/jdbc.properties](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/jdbc.properties) 修改StorageService、OrderService、AccountService 对应的连接信息。
+在 [resources/jdbc.properties](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/jdbc.
+properties) 修改StockService、OrderService、AccountService 对应的连接信息。
 
 ```properties
 jdbc.account.url=jdbc:mysql://xxxx/xxxx
 jdbc.account.username=xxxx
 jdbc.account.password=xxxx
 jdbc.account.driver=com.mysql.jdbc.Driver
-# storage db config
-jdbc.storage.url=jdbc:mysql://xxxx/xxxx
-jdbc.storage.username=xxxx
-jdbc.storage.password=xxxx
-jdbc.storage.driver=com.mysql.jdbc.Driver
+# stock db config
+jdbc.stock.url=jdbc:mysql://xxxx/xxxx
+jdbc.stock.username=xxxx
+jdbc.stock.password=xxxx
+jdbc.stock.driver=com.mysql.jdbc.Driver
 # order db config
 jdbc.order.url=jdbc:mysql://xxxx/xxxx
 jdbc.order.username=xxxx
@@ -102,8 +103,8 @@ CREATE TABLE `undo_log` (
 ```
 
 ```sql
-DROP TABLE IF EXISTS `storage_tbl`;
-CREATE TABLE `storage_tbl` (
+DROP TABLE IF EXISTS `stock_tbl`;
+CREATE TABLE `stock_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_code` varchar(255) DEFAULT NULL,
   `count` int(11) DEFAULT 0,
@@ -172,7 +173,7 @@ CREATE TABLE `account_tbl` (
 
 分别在三个微服务Spring配置文件（[dubbo-account-service.xml](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-account-service.xml)、
 [dubbo-order-service](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-order-service.xml) 和 
-[dubbo-storage-service.xml](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-storage-service.xml)
+[dubbo-stock-service.xml](https://github.com/seata/seata-samples/blob/master/nacos/src/main/resources/spring/dubbo-stock-service.xml)
 ）进行如下配置：
 
 - 配置 Seata 代理数据源
@@ -335,7 +336,7 @@ sh seata-server.sh -p 8091 -m file
 同Step 7 中[修改 Seata-server 服务注册方式为 nacos] 步骤
 - 启动 [DubboAccountServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboAccountServiceStarter.java)
 - 启动 [DubboOrderServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboOrderServiceStarter.java)
-- 启动 [DubboStorageServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboStorageServiceStarter.java)
+- 启动 [DubboStockServiceStarter](https://github.com/seata/seata-samples/blob/master/nacos/src/main/java/io/seata/samples/nacos/starter/DubboStockServiceStarter.java)
 
 启动完成可在 Nacos 控制台服务列表 看到启动完成的三个 provider
 

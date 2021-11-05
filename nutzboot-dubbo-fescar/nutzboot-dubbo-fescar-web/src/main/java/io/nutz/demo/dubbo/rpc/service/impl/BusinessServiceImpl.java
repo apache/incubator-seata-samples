@@ -6,7 +6,7 @@ import com.alibaba.fescar.spring.annotation.GlobalTransactional;
 
 import io.nutz.demo.dubbo.rpc.service.BusinessService;
 import io.nutz.demo.dubbo.rpc.service.OrderService;
-import io.nutz.demo.dubbo.rpc.service.StorageService;
+import io.nutz.demo.dubbo.rpc.service.StockService;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.log.Log;
@@ -19,7 +19,7 @@ public class BusinessServiceImpl implements BusinessService {
     
     @Inject
     @Reference
-    private StorageService storageService;
+    private StockService stockService;
 
     
     @Inject
@@ -34,7 +34,7 @@ public class BusinessServiceImpl implements BusinessService {
     public void purchase(String userId, String commodityCode, int orderCount, boolean dofail) {
         log.info("purchase begin ... xid: " + RootContext.getXID());
         
-        storageService.deduct(commodityCode, orderCount);
+        stockService.deduct(commodityCode, orderCount);
         orderService.create(userId, commodityCode, orderCount);
         
         // for test

@@ -10,7 +10,7 @@ import io.seata.samples.mutiple.datasource.config.DynamicDataSourceContextHolder
 import io.seata.samples.mutiple.datasource.dao.OrderDao;
 import io.seata.samples.mutiple.datasource.service.OrderService;
 import io.seata.samples.mutiple.datasource.service.PayService;
-import io.seata.samples.mutiple.datasource.service.StorageService;
+import io.seata.samples.mutiple.datasource.service.StockService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
     private PayService payService;
 
     @Autowired
-    private StorageService storageService;
+    private StockService stockService;
 
     @GlobalTransactional
     @Override
@@ -54,8 +54,8 @@ public class OrderServiceImpl implements OrderService {
         log.info("保存订单{}", saveOrderRecord > 0 ? "成功" : "失败");
 
         // 扣减库存
-        DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.STORAGE);
-        boolean operationStorageResult = storageService.reduceStock(placeOrderRequestVO.getProductId(), amount);
+        DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.STOCK);
+        boolean operationStockResult = stockService.reduceStock(placeOrderRequestVO.getProductId(), amount);
 
         // 扣减余额
         DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.PAY);
@@ -68,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
         log.info("更新订单:{} {}", order.getId(), updateOrderRecord > 0 ? "成功" : "失败");
 
         return OperationResponse.builder()
-                                .success(operationStorageResult && operationBalanceResult)
+                                .success(operationStockResult && operationBalanceResult)
                                 .build();
     }
 }

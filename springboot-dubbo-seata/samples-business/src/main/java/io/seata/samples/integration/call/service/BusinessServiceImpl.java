@@ -7,7 +7,7 @@ import io.seata.samples.integration.common.dto.BusinessDTO;
 import io.seata.samples.integration.common.dto.CommodityDTO;
 import io.seata.samples.integration.common.dto.OrderDTO;
 import io.seata.samples.integration.common.dubbo.OrderDubboService;
-import io.seata.samples.integration.common.dubbo.StorageDubboService;
+import io.seata.samples.integration.common.dubbo.StockDubboService;
 import io.seata.samples.integration.common.enums.RspStatusEnum;
 import io.seata.samples.integration.common.exception.DefaultException;
 import io.seata.samples.integration.common.response.ObjectResponse;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class BusinessServiceImpl implements BusinessService{
 
     @Reference(version = "1.0.0")
-    private StorageDubboService storageDubboService;
+    private StockDubboService stockDubboService;
 
     @Reference(version = "1.0.0")
     private OrderDubboService orderDubboService;
@@ -44,7 +44,7 @@ public class BusinessServiceImpl implements BusinessService{
         CommodityDTO commodityDTO = new CommodityDTO();
         commodityDTO.setCommodityCode(businessDTO.getCommodityCode());
         commodityDTO.setCount(businessDTO.getCount());
-        ObjectResponse storageResponse = storageDubboService.decreaseStorage(commodityDTO);
+        ObjectResponse stockResponse = stockDubboService.decreaseStock(commodityDTO);
         //2、创建订单
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setUserId(businessDTO.getUserId());
@@ -58,7 +58,7 @@ public class BusinessServiceImpl implements BusinessService{
 //            throw new RuntimeException("测试抛异常后，分布式事务回滚！");
 //        }
 
-        if (storageResponse.getStatus() != 200 || response.getStatus() != 200) {
+        if (stockResponse.getStatus() != 200 || response.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);
         }
 

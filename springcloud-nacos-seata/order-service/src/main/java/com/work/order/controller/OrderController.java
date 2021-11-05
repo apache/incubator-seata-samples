@@ -1,6 +1,6 @@
 package com.work.order.controller;
 
-import com.work.order.feign.StorageFeignClient;
+import com.work.order.feign.StockFeignClient;
 import com.work.order.service.OrderService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,7 @@ public class OrderController {
     @Resource
     private OrderService orderService;
     @Resource
-    private StorageFeignClient storageFeignClient;
+    private StockFeignClient stockFeignClient;
 
 
     /**

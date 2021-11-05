@@ -11,7 +11,7 @@ Integration SpringBoot + Dubbo + Mybatis + Nacos + Seata
      
    - samples-order  order module
    
-   - samples-storage  storage module
+   - samples-stock  stock module
 
    - samples-business  business module
 
@@ -27,7 +27,7 @@ then you will see ：
 +-------------------------+
 | t_account               |
 | t_order                 |
-| t_storage               |
+| t_stock               |
 | undo_log                |
 +-------------------------+
 ```
@@ -50,7 +50,7 @@ sh seata-server.sh 8091 file
 
 ### 5. start the demo module
 
-start samples-account、samples-order、samples-storage、samples-business
+start samples-account、samples-order、samples-stock、samples-business
 
 use Nacos webconsole to ensure the registry is ok: http://127.0.0.1:8848/nacos/#/serviceManagement
 

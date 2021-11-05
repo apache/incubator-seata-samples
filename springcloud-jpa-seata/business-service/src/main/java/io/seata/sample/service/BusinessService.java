@@ -1,7 +1,7 @@
 package io.seata.sample.service;
 
 import io.seata.sample.feign.OrderFeignClient;
-import io.seata.sample.feign.StorageFeignClient;
+import io.seata.sample.feign.StockFeignClient;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class BusinessService {
 
     @Autowired
-    private StorageFeignClient storageFeignClient;
+    private StockFeignClient stockFeignClient;
     @Autowired
     private OrderFeignClient orderFeignClient;
 
@@ -29,7 +29,7 @@ public class BusinessService {
      */
     @GlobalTransactional
     public void purchase(String userId, String commodityCode, int orderCount) {
-        storageFeignClient.deduct(commodityCode, orderCount);
+        stockFeignClient.deduct(commodityCode, orderCount);
 
         orderFeignClient.create(userId, commodityCode, orderCount);
     }

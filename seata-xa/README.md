@@ -17,7 +17,7 @@ cd distribution
 sh ./bin/seata-server.sh 8091 file
 ```
 
-4. 启动 AccountXA, OrderXA, StorageXA, BusinessXA 服务
+4. 启动 AccountXA, OrderXA, StockXA, BusinessXA 服务
 
 ### 测试 
  

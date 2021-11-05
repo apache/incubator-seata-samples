@@ -23,5 +23,5 @@ docker run --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 -d zookeeper
 
 3. Execute SQL under `seata-samples\dubbo\src\main\resources\sql`
 
-4. Run `DubboStorageServiceStarter`,`DubboAccountServiceStarter`,`DubboOrderServiceStarter`,`DubboBusinessTester`
+4. Run `DubboStockServiceStarter`,`DubboAccountServiceStarter`,`DubboOrderServiceStarter`,`DubboBusinessTester`
 

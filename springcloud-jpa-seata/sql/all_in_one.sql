@@ -59,12 +59,12 @@ CREATE TABLE `undo_log` (
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-# Storage
-DROP SCHEMA IF EXISTS db_storage;
-CREATE SCHEMA db_storage;
-USE db_storage;
+# Stock
+DROP SCHEMA IF EXISTS db_stock;
+CREATE SCHEMA db_stock;
+USE db_stock;
 
-CREATE TABLE `storage_tbl`
+CREATE TABLE `stock_tbl`
 (
     `id`             INT(11) NOT NULL AUTO_INCREMENT,
     `commodity_code` VARCHAR(255) DEFAULT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE `storage_tbl`
   DEFAULT CHARSET = utf8;
 
 
-INSERT INTO storage_tbl (id, commodity_code, count)
+INSERT INTO stock_tbl (id, commodity_code, count)
 VALUES (1, '2001', 1000);
 
 CREATE TABLE `undo_log` (

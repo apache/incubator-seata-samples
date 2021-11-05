@@ -19,7 +19,7 @@
     <modules>
         <module>account-xa</module>
         <module>order-xa</module>
-        <module>storage-xa</module>
+        <module>stock-xa</module>
         <module>business-xa</module>
     </modules>
 

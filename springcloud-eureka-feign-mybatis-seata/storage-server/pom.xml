@@ -9,9 +9,9 @@
 	</parent>
 
 	<groupId>io.seata.sample</groupId>
-	<artifactId>storage-server</artifactId>
+	<artifactId>stock-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>storage-server</name>
+	<name>stock-server</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

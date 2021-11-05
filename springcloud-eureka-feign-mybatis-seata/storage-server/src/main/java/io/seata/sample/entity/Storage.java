@@ -6,7 +6,7 @@ import lombok.Data;
  * @author IT云清
  */
 @Data
-public class Storage {
+public class Stock {
 
     private Long id;
 

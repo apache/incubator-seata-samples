@@ -19,7 +19,7 @@
         <module>samples-common-service</module>
         <module>samples-account-service</module>
         <module>samples-order-service</module>
-        <module>samples-storage-service</module>
+        <module>samples-stock-service</module>
         <module>samples-business-service</module>
     </modules>
 

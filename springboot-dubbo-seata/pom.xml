@@ -30,7 +30,7 @@
         <module>samples-common</module>
         <module>samples-account</module>
         <module>samples-order</module>
-        <module>samples-storage</module>
+        <module>samples-stock</module>
         <module>samples-business</module>
     </modules>
 

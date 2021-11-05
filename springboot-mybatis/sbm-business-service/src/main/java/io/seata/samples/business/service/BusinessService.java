@@ -2,7 +2,7 @@ package io.seata.samples.business.service;
 
 import io.seata.core.context.RootContext;
 import io.seata.samples.business.client.OrderClient;
-import io.seata.samples.business.client.StorageClient;
+import io.seata.samples.business.client.StockClient;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ public class BusinessService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessService.class);
 
     @Autowired
-    private StorageClient storageClient;
+    private StockClient stockClient;
     @Autowired
     private OrderClient orderClient;
 
@@ -29,7 +29,7 @@ public class BusinessService {
     @GlobalTransactional
     public void purchase(String userId, String commodityCode, int orderCount) {
         LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
-        storageClient.deduct(commodityCode, orderCount);
+        stockClient.deduct(commodityCode, orderCount);
         orderClient.create(userId, commodityCode, orderCount);
     }
 }

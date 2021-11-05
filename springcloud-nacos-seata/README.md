@@ -55,10 +55,10 @@ config {
 
 service.vgroup_mapping.${your-service-gruop}=default，中间的${your-service-gruop}为自己定义的服务组名称，服务中的application.properties文件里配置服务组名称。
 
-demo中有两个服务，分别是storage-service和order-service，所以配置如下
+demo中有两个服务，分别是stock-service和order-service，所以配置如下
 
 ~~~properties
-service.vgroup_mapping.storage-service-group=default
+service.vgroup_mapping.stock-service-group=default
 service.vgroup_mapping.order-service-group=default
 ~~~
 
@@ -118,12 +118,12 @@ CREATE TABLE `undo_log`
   DEFAULT CHARSET = utf8;
 
 
--- 创建 storage库、业务表、undo_log表
-create database seata_storage;
-use seata_storage;
+-- 创建 stock库、业务表、undo_log表
+create database seata_stock;
+use seata_stock;
 
-DROP TABLE IF EXISTS `storage_tbl`;
-CREATE TABLE `storage_tbl` (
+DROP TABLE IF EXISTS `stock_tbl`;
+CREATE TABLE `stock_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_code` varchar(255) DEFAULT NULL,
   `count` int(11) DEFAULT 0,
@@ -149,8 +149,8 @@ CREATE TABLE `undo_log`
   DEFAULT CHARSET = utf8;
 
 -- 初始化库存模拟数据
-INSERT INTO seata_storage.storage_tbl (id, commodity_code, count) VALUES (1, 'product-1', 9999999);
-INSERT INTO seata_storage.storage_tbl (id, commodity_code, count) VALUES (2, 'product-2', 0);
+INSERT INTO seata_stock.stock_tbl (id, commodity_code, count) VALUES (1, 'product-1', 9999999);
+INSERT INTO seata_stock.stock_tbl (id, commodity_code, count) VALUES (2, 'product-2', 0);
 ~~~
 
 ### 2.2 应用配置
