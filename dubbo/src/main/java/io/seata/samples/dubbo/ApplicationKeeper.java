@@ -52,9 +52,9 @@ public class ApplicationKeeper {
                 } catch (Exception e) {
                     LOGGER.error("Failed to close ApplicationContext", e);
                 }
-
+                
+                LOCK.lock();
                 try {
-                    LOCK.lock();
                     STOP.signal();
                 } finally {
                     LOCK.unlock();
@@ -67,13 +67,14 @@ public class ApplicationKeeper {
      * Keep.
      */
     public void keep() {
-        synchronized (LOCK) {
-            try {
-                LOGGER.info("Application is keep running ... ");
-                LOCK.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        LOCK.lock();
+        try {  
+            LOGGER.info("Application is keep running ... ");
+            STOP.await();
+        } catch (InterruptedException e) {
+            LOGGER.error("ApplicationKeeper.keep() is interrupted by InterruptedException!", e);
+        } finally {
+            LOCK.unlock();
         }
     }
 }

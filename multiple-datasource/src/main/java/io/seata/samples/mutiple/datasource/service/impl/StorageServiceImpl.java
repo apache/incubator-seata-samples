@@ -1,8 +1,6 @@
 package io.seata.samples.mutiple.datasource.service.impl;
 
 import io.seata.core.context.RootContext;
-import io.seata.samples.mutiple.datasource.config.DataSourceKey;
-import io.seata.samples.mutiple.datasource.config.DynamicDataSourceContextHolder;
 import io.seata.samples.mutiple.datasource.dao.ProductDao;
 import io.seata.samples.mutiple.datasource.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +31,6 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public boolean reduceStock(Long productId, Integer amount) throws Exception {
         log.info("=============STORAGE=================");
-        DynamicDataSourceContextHolder.setDataSourceKey(DataSourceKey.STORAGE);
         log.info("当前 XID: {}", RootContext.getXID());
 
         // 检查库存

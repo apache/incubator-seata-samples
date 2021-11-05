@@ -2,7 +2,7 @@
 
 # Seata Samples
 
-Samples for Seata. This project contains several sub-projects, each of which is an example of integration with other projects.
+ Samples for Seata. This project contains several sub-projects, each of which is an example of integration with other projects.
                                 
 [![Build Status](https://travis-ci.org/seata/seata-samples.svg?branch=master)](https://travis-ci.org/seata/seata-samples) 
 ![license](https://img.shields.io/github/license/seata/seata-samples.svg)
@@ -12,7 +12,7 @@ Samples for Seata. This project contains several sub-projects, each of which is 
 * [Seata](https://github.com/seata/seata) - The Seata core project
 
 ## Sub-projects
-
+* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples) -  Easy to understand, high availability，Integration example of  [Spring Cloud](https://github.com/spring-cloud)，[Seata](https://github.com/seata/seata) ， [ShardingJdbc](https://github.com/apache/shardingsphere)， [MyBatisPlus](https://github.com/baomidou/mybatis-plus)。 
 * [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) - Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata 
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example of [Seata](https://github.com/seata/seata) and [Apache Dubbo](https://github.com/apache/dubbo)
 * [springboot](https://github.com/seata/seata-samples/tree/master/springboot) - Integration example of [Seata](https://github.com/seata/seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) 

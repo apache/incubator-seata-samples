@@ -34,7 +34,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>5.0.8.RELEASE</spring.version>
 		<springboot.version>2.0.4.RELEASE</springboot.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -67,7 +67,7 @@
 			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
-				<version>1.2.3</version>
+				<version>1.2.0</version>
 			</dependency>
 			<dependency>
 				<groupId>net.logstash.logback</groupId>
@@ -174,7 +174,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.14</version><!--$NO-MVN-MAN-VER$ -->
+			<version>8.0.16</version><!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		
 		<dependency>

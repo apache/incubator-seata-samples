@@ -11,8 +11,8 @@ feign:
     client:
         config:
             default:
-                connectTimeout: 5000
-                readTimeout: 10000
+                connectTimeout: 60000
+                readTimeout: 60000
 logging:
     level:
         io:
@@ -31,6 +31,6 @@ spring:
                 tx-service-group: my_test_tx_group
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
-        password: 14789632
-        url: jdbc:mysql://116.62.62.26/seat-order
-        username: root
+        password: xxx
+        url: jdbc:mysql://xxx/seat-order
+        username: xxx
