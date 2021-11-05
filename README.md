@@ -14,10 +14,8 @@ projects.
 
 ## Sub-projects
 
-* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples)
-    - Easy to understand, high availability，Integration example
-      of  [Spring Cloud](https://github.com/spring-cloud)，[Seata](https://github.com/seata/seata)
-      ， [ShardingJdbc](https://github.com/apache/shardingsphere)， [MyBatisPlus](https://github.com/baomidou/mybatis-plus)。
+* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.
+  com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples)Easy to understand, high availability，Integration example of  [Spring Cloud](https://github.com/spring-cloud)，[Seata](https://github.com/seata/seata),[ShardingJdbc](https://github.com/apache/shardingsphere),[MyBatisPlus](https://github.com/baomidou/mybatis-plus).
 * [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) -
   Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example
@@ -49,13 +47,7 @@ projects.
   example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud)
   and [Alibaba Nacos](https://github.com/alibaba/nacos/)
 * [saga](https://github.com/seata/seata-samples/tree/master/saga) - Saga mode distributed transaction demo projects
-* [dubbo-multiple-datasource-mybatis-plus](https://github.com/seata/seata-samples/tree/master/dubbo-multiple-datasource-mybatis-plus)
-    - Integration example of [Seata](https://github.com/Seata)
-      and [Spring Boot](https://github.com/spring-projects/spring-boot/)
-        - [Apache Dubbo](https://github.com/apache/dubbo)
-          with [dynamic](https://github.com/baomidou/dynamic-datasource-spring-boot-starter) multiple datasource
-          and [MyBatisPlus](https://github.com/baomidou/mybatis-plus)
-          and [Alibaba Nacos](https://github.com/alibaba/nacos/)
+* [dubbo-multiple-datasource-mybatis-plus](https://github.com/seata/seata-samples/tree/master/dubbo-multiple-datasource-mybatis-plus) Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) [Apache Dubbo](https://github.com/apache/dubbo) with  [dynamic](https://github.com/baomidou/dynamic-datasource-spring-boot-starter) multiple datasource and [MyBatisPlus](https://github.com/baomidou/mybatis-plus) and [Alibaba Nacos](https://github.com/alibaba/nacos/)
 
 ## Guide
 
