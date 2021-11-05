@@ -1,5 +1,9 @@
 package io.seata.sample.service;
 
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
 import io.seata.core.context.RootContext;
 import io.seata.sample.TestDatas;
 import io.seata.sample.feign.OrderFeignClient;
@@ -10,9 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.util.Map;
 
 @Service
 public class BusinessService {
@@ -57,7 +58,8 @@ public class BusinessService {
         jdbcTemplate.update("delete from order_tbl");
         jdbcTemplate.update("delete from stock_tbl");
         jdbcTemplate.update("insert into account_tbl(user_id,money) values('" + TestDatas.USER_ID + "','10000') ");
-        jdbcTemplate.update("insert into stock_tbl(commodity_code,count) values('" + TestDatas.COMMODITY_CODE + "','100') ");
+        jdbcTemplate.update(
+            "insert into stock_tbl(commodity_code,count) values('" + TestDatas.COMMODITY_CODE + "','100') ");
     }
 
     public boolean validData(String userId, String commodityCode) {
@@ -67,8 +69,7 @@ public class BusinessService {
             return false;
         }
 
-        Map stockMap = jdbcTemplate.queryForMap(
-            "select * from stock_tbl where commodity_code='" + commodityCode + "'");
+        Map stockMap = jdbcTemplate.queryForMap("select * from stock_tbl where commodity_code='" + commodityCode + "'");
         if (Integer.parseInt(stockMap.get("count").toString()) < 0) {
             // 库存被扣减为负：库存不足
             return false;

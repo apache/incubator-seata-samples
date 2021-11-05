@@ -5,7 +5,7 @@ import io.seata.samples.integration.common.response.ObjectResponse;
 
 /**
  * @Author: lidong
- * @Description  库存服务
+ * @Description 库存服务
  * @Date Created in 2019/9/5 16:22
  */
 public interface StockDubboService {

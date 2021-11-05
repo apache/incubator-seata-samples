@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package io.seata.samples.tcc.starter;
 
 import java.util.HashMap;
@@ -49,10 +64,10 @@ public class LocalTccTransactionStarter {
     public static void main(String[] args) throws InterruptedException {
         applicationContext = new ClassPathXmlApplicationContext(new String[] {"spring/seata-tcc.xml"});
 
-        tccTransactionService = (TccTransactionService) applicationContext.getBean("tccTransactionService"   );
+        tccTransactionService = (TccTransactionService)applicationContext.getBean("tccTransactionService");
 
-        tccActionOne = (TccActionOneImpl) applicationContext.getBean("tccActionOne");
-        tccActionTwo = (TccActionTwoImpl) applicationContext.getBean("tccActionTwo");
+        tccActionOne = (TccActionOneImpl)applicationContext.getBean("tccActionOne");
+        tccActionTwo = (TccActionTwoImpl)applicationContext.getBean("tccActionTwo");
 
         //分布式事务提交demo
         transactionCommitDemo();
@@ -78,13 +93,13 @@ public class LocalTccTransactionStarter {
 
     private static void transactionRollbackDemo() throws InterruptedException {
         Map map = new HashMap(16);
-        try{
+        try {
             tccTransactionService.doTransactionRollback(map);
             Assert.isTrue(false, "分布式事务未回滚");
-        }catch (Throwable t) {
+        } catch (Throwable t) {
             Assert.isTrue(true, "分布式事务异常回滚");
         }
-        String txId = (String) map.get("xid");
+        String txId = (String)map.get("xid");
         Thread.sleep(1000L);
 
         Assert.isTrue("R".equals(ResultHolder.getActionOneResult(txId)), "tccActionOne commit failed");

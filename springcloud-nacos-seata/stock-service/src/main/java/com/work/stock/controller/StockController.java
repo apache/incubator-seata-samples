@@ -1,6 +1,5 @@
 package com.work.stock.controller;
 
-
 import com.work.stock.service.StockService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +25,9 @@ public class StockController {
 
     /**
      * 减库存
+     *
      * @param commodityCode 商品代码
-     * @param count 数量
+     * @param count         数量
      * @return
      */
     @RequestMapping(path = "/deduct")

@@ -25,6 +25,7 @@ public interface BalanceAction {
 
     /**
      * reduce
+     *
      * @param businessKey
      * @param amount
      * @param params
@@ -34,6 +35,7 @@ public interface BalanceAction {
 
     /**
      * compensateReduce
+     *
      * @param businessKey
      * @param params
      * @return

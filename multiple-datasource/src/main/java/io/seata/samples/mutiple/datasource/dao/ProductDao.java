@@ -1,6 +1,5 @@
 package io.seata.samples.mutiple.datasource.dao;
 
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -20,7 +19,6 @@ public interface ProductDao {
      */
     @Select("SELECT stock FROM product WHERE id = #{productId}")
     Integer getStock(@Param("productId") Long productId);
-
 
     /**
      * 扣减库存

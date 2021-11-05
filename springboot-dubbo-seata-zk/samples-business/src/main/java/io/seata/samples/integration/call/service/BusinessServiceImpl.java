@@ -16,23 +16,24 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Author: lidong
- * @Description  Dubbo业务发起方逻辑
+ * @Description Dubbo业务发起方逻辑
  * @Date Created in 2019/9/5 18:36
  */
 @Service
 @Slf4j
-public class BusinessServiceImpl implements BusinessService{
+public class BusinessServiceImpl implements BusinessService {
 
-    @Reference(version = "1.0.0", timeout=1200000)
+    @Reference(version = "1.0.0", timeout = 1200000)
     private StorageDubboService storageDubboService;
 
-    @Reference(version = "1.0.0", timeout=1200000)
+    @Reference(version = "1.0.0", timeout = 1200000)
     private OrderDubboService orderDubboService;
 
     boolean flag;
 
     /**
      * 处理业务逻辑 正常的业务逻辑
+     *
      * @Param:
      * @Return:
      */
@@ -88,7 +89,7 @@ public class BusinessServiceImpl implements BusinessService{
         orderDTO.setOrderAmount(businessDTO.getAmount());
         ObjectResponse<OrderDTO> response = orderDubboService.createOrder(orderDTO);
 
-//        打开注释测试事务发生异常后，全局回滚功能
+        //        打开注释测试事务发生异常后，全局回滚功能
         if (!flag) {
             throw new RuntimeException("测试抛异常后，分布式事务回滚！");
         }

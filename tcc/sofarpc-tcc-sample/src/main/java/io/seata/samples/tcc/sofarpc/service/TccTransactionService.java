@@ -24,14 +24,14 @@ public class TccTransactionService {
      * @return string string
      */
     @GlobalTransactional
-    public String doTransactionCommit(){
+    public String doTransactionCommit() {
         //第一个TCC 事务参与者
         boolean result = tccActionOne.prepare(null, 1);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         result = tccActionTwo.prepare(null, "two");
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
         return RootContext.getXID();
@@ -44,14 +44,14 @@ public class TccTransactionService {
      * @return the string
      */
     @GlobalTransactional
-    public String doTransactionRollback(Map map){
+    public String doTransactionRollback(Map map) {
         //第一个TCC 事务参与者
         boolean result = tccActionOne.prepare(null, 1);
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         result = tccActionTwo.prepare(null, "two");
-        if(!result){
+        if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
         map.put("xid", RootContext.getXID());

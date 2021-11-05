@@ -1,18 +1,18 @@
 package io.nutz.demo.dubbo.rpc;
 
+import io.nutz.demo.bean.Stock;
 import org.nutz.boot.NbApp;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 
-import io.nutz.demo.bean.Stock;
-
-@IocBean(create="init")
+@IocBean(create = "init")
 public class DemoFescarStockServiceLauncher {
-    
-@Inject Dao dao;
-    
+
+    @Inject
+    Dao dao;
+
     public void init() {
         dao.create(Stock.class, false);
         if (dao.count(Stock.class, Cnd.where("commodityCode", "=", "C00321")) == 0) {

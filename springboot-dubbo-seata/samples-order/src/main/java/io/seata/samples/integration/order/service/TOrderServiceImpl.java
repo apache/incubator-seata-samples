@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package io.seata.samples.integration.order.service;
 
 import java.util.UUID;
@@ -17,7 +32,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author heshouyou
@@ -31,8 +46,9 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
 
     /**
      * 创建订单
-     * @Param:  OrderDTO  订单对象
-     * @Return:  OrderDTO  订单对象
+     *
+     * @Param: OrderDTO  订单对象
+     * @Return: OrderDTO  订单对象
      */
     @Override
     public ObjectResponse<OrderDTO> createOrder(OrderDTO orderDTO) {
@@ -44,10 +60,10 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
         ObjectResponse objectResponse = accountDubboService.decreaseAccount(accountDTO);
 
         //生成订单号
-        orderDTO.setOrderNo(UUID.randomUUID().toString().replace("-",""));
+        orderDTO.setOrderNo(UUID.randomUUID().toString().replace("-", ""));
         //生成订单
         TOrder tOrder = new TOrder();
-        BeanUtils.copyProperties(orderDTO,tOrder);
+        BeanUtils.copyProperties(orderDTO, tOrder);
         tOrder.setCount(orderDTO.getOrderCount());
         tOrder.setAmount(orderDTO.getOrderAmount().doubleValue());
         try {

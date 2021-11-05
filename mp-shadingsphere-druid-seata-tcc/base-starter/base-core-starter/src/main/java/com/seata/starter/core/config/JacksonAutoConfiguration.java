@@ -1,3 +1,18 @@
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package com.seata.starter.core.config;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -22,9 +37,9 @@ import java.util.TimeZone;
 
 import static com.seata.starter.core.config.JacksonAutoConfiguration.SerializerFeature.*;
 
-
 /**
  * jackson全局序列化配置
+ *
  * @author xiangdongdong
  * @email boolean1135@gmail.com
  */
@@ -33,7 +48,7 @@ import static com.seata.starter.core.config.JacksonAutoConfiguration.SerializerF
 public class JacksonAutoConfiguration {
 
     public enum SerializerFeature {
-//        WriteNullListAsEmpty,
+        //        WriteNullListAsEmpty,
         WriteNullStringAsEmpty,
         WriteNullNumberAsZero,
         WriteNullBooleanAsFalse,
@@ -49,7 +64,7 @@ public class JacksonAutoConfiguration {
     public static class FastJsonSerializerFeatureCompatibleForJackson extends BeanSerializerModifier {
         final private JsonSerializer<Object> nullBooleanJsonSerializer;
         final private JsonSerializer<Object> nullNumberJsonSerializer;
-//        final private JsonSerializer<Object> nullListJsonSerializer;
+        //        final private JsonSerializer<Object> nullListJsonSerializer;
         final private JsonSerializer<Object> nullStringJsonSerializer;
         final private JsonSerializer<Object> nullMapJsonSerializer;
 
@@ -58,21 +73,25 @@ public class JacksonAutoConfiguration {
             for (SerializerFeature feature : features) {
                 config |= feature.mask;
             }
-            nullBooleanJsonSerializer = (config & WriteNullBooleanAsFalse.mask) != 0 ? new NullBooleanSerializer() : null;
+            nullBooleanJsonSerializer = (config & WriteNullBooleanAsFalse.mask) != 0 ? new NullBooleanSerializer()
+                : null;
             nullNumberJsonSerializer = (config & WriteNullNumberAsZero.mask) != 0 ? new NullNumberSerializer() : null;
-//            nullListJsonSerializer = (config & WriteNullListAsEmpty.mask) != 0 ? new NullListJsonSerializer() : null;
+            //            nullListJsonSerializer = (config & WriteNullListAsEmpty.mask) != 0 ? new
+            //           NullListJsonSerializer() : null;
             nullStringJsonSerializer = (config & WriteNullStringAsEmpty.mask) != 0 ? new NullStringSerializer() : null;
             nullMapJsonSerializer = (config & WriteNullMapAsEmpty.mask) != 0 ? new NullMapSerializer() : null;
         }
 
         @Override
-        public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
+        public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,
+                                                         List<BeanPropertyWriter> beanProperties) {
             for (BeanPropertyWriter writer : beanProperties) {
                 final JavaType javaType = writer.getType();
                 final Class<?> rawClass = javaType.getRawClass();
                 if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
-//                    writer.assignNullSerializer(nullListJsonSerializer);
-                } else if (Number.class.isAssignableFrom(rawClass) && (rawClass.getName().startsWith("java.lang") || rawClass.getName().startsWith("java.match"))) {
+                    //                    writer.assignNullSerializer(nullListJsonSerializer);
+                } else if (Number.class.isAssignableFrom(rawClass) && (rawClass.getName().startsWith("java.lang")
+                    || rawClass.getName().startsWith("java.match"))) {
                     writer.assignNullSerializer(nullNumberJsonSerializer);
                 } else if (BigDecimal.class.isAssignableFrom(rawClass)) {
                     writer.assignNullSerializer(nullNumberJsonSerializer);
@@ -152,14 +171,11 @@ public class JacksonAutoConfiguration {
         //simpleModule.addDeserializer(String.class, new XssStringJsonDeserializer());
         objectMapper.registerModule(simpleModule);
         // 兼容fastJson 的一些空值处理
-        SerializerFeature[] features = new SerializerFeature[]{
-//                WriteNullListAsEmpty,
-                WriteNullStringAsEmpty,
-                WriteNullNumberAsZero,
-                WriteNullBooleanAsFalse,
-                WriteNullMapAsEmpty
-        };
-        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new FastJsonSerializerFeatureCompatibleForJackson(features)));
+        SerializerFeature[] features = new SerializerFeature[] {
+            //                WriteNullListAsEmpty,
+            WriteNullStringAsEmpty, WriteNullNumberAsZero, WriteNullBooleanAsFalse, WriteNullMapAsEmpty};
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory()
+            .withSerializerModifier(new FastJsonSerializerFeatureCompatibleForJackson(features)));
         log.info("ObjectMapper [{}]", objectMapper);
         return objectMapper;
     }

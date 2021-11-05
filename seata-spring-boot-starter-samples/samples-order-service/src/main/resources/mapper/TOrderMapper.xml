@@ -7,22 +7,24 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="io.seata.samples.integration.order.entity.TOrder">
-        <id column="id" property="id" />
-        <result column="order_no" property="orderNo" />
-        <result column="user_id" property="userId" />
-        <result column="commodity_code" property="commodityCode" />
-        <result column="count" property="count" />
-        <result column="amount" property="amount" />
+        <id column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="user_id" property="userId"/>
+        <result column="commodity_code" property="commodityCode"/>
+        <result column="count" property="count"/>
+        <result column="amount" property="amount"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, order_no, user_id, commodity_code, count, amount
+        id
+        , order_no, user_id, commodity_code, count, amount
     </sql>
     <!--创建订单-->
     <insert id="createOrder" keyProperty="id" useGeneratedKeys="true"
             parameterType="io.seata.samples.integration.order.entity.TOrder">
-      insert into t_order values(null,#{order.orderNo},#{order.userId},#{order.commodityCode},${order.count},${order.amount})
+        insert into t_order
+        values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount})
     </insert>
 
 </mapper>

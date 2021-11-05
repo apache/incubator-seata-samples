@@ -8,7 +8,7 @@
 
 执行 `data.sql`
 
-### 启动 Seata Server 
+### 启动 Seata Server
 
 可以直接通过bash 脚本启动 Seata Server，也可以通过 Docker 镜像启动，但是 Docker 方式目前只支持使用 file 模式，不支持将 Seata-Server 注册到 Eureka 或 Nacos 等注册中心
 

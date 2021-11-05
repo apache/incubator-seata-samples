@@ -21,11 +21,11 @@
             http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd">
 
     <sofa:reference id="inventoryAction" interface="io.seata.samples.saga.action.InventoryAction">
-        <sofa:binding.bolt />
+        <sofa:binding.bolt/>
     </sofa:reference>
 
     <sofa:reference id="balanceAction" interface="io.seata.samples.saga.action.BalanceAction">
-        <sofa:binding.bolt />
+        <sofa:binding.bolt/>
     </sofa:reference>
 
 </beans>

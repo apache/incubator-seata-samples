@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.springboot.service.impl;
 
 import javax.transaction.Transactional;
@@ -35,26 +34,26 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AssignServiceImpl implements AssignService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AssignServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AssignServiceImpl.class);
 
-	@Autowired
-	private AssignRepository assignRepository;
+    @Autowired
+    private AssignRepository assignRepository;
 
-	@Reference(check = false)
+    @Reference(check = false)
     private io.seata.samples.springboot.service.AssetService assetService;
 
-	@Override
-	@Transactional
-	@GlobalTransactional
-	public AssetAssign increaseAmount(String id) {
-		LOGGER.info("Assign Service Begin ... xid: " + RootContext.getXID() + "\n");
-		AssetAssign assetAssign = assignRepository.findById(id).get();
-		assetAssign.setStatus("2");
-		assignRepository.save(assetAssign);
+    @Override
+    @Transactional
+    @GlobalTransactional
+    public AssetAssign increaseAmount(String id) {
+        LOGGER.info("Assign Service Begin ... xid: " + RootContext.getXID() + "\n");
+        AssetAssign assetAssign = assignRepository.findById(id).get();
+        assetAssign.setStatus("2");
+        assignRepository.save(assetAssign);
 
-		// remote call asset service
-		assetService.increase();
-		return assetAssign;
-	}
+        // remote call asset service
+        assetService.increase();
+        return assetAssign;
+    }
 
 }

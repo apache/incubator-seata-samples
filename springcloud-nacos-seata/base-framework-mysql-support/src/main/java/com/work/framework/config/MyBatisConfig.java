@@ -1,7 +1,9 @@
 package com.work.framework.config;
 
+import javax.sql.DataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
+
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import io.seata.rm.datasource.DataSourceProxy;
@@ -13,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-
-import javax.sql.DataSource;
 
 /**
  * Program Name: base-framework-mysql-support
@@ -54,6 +54,7 @@ public class MyBatisConfig {
 
     /**
      * 构造datasource代理对象，替换原来的datasource
+     *
      * @param druidDataSource
      * @return
      */
@@ -82,6 +83,7 @@ public class MyBatisConfig {
 
     /**
      * MP 自带分页插件
+     *
      * @return
      */
     @Bean

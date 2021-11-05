@@ -15,7 +15,7 @@
 ## 测试
 
 - 先后启动provider跟comsumer
-- 测试mp分页查询是否启用: http://127.0.0.1:28888/test/pageByProduct 
+- 测试mp分页查询是否启用: http://127.0.0.1:28888/test/pageByProduct
 - 测试事务回滚: http://127.0.0.1:28888/test/testRollback
 - 测试事务提交: http://127.0.0.1:28888/test/testCommit
 

@@ -8,7 +8,7 @@
        http://www.taobao.com/hsf/hsf.xsd" default-autowire="byName">
 
     <!-- seata 初始化 -->
-    <bean class="io.seata.spring.annotation.GlobalTransactionScanner" >
+    <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
         <constructor-arg value="hsf-tcc-sample"/>
         <constructor-arg value="my_test_tx_group"/>
     </bean>
@@ -31,11 +31,11 @@
 
 
     <!-- TCC 2个 服务订阅 -->
-    <hsf:consumer id="actionOne" interface="io.seata.edas.tcc.action.ActionOne"  version="1.0.0" />
-    <hsf:consumer id="actionTwo" interface="io.seata.edas.tcc.action.ActionTwo"  version="1.0.0" />
+    <hsf:consumer id="actionOne" interface="io.seata.edas.tcc.action.ActionOne" version="1.0.0"/>
+    <hsf:consumer id="actionTwo" interface="io.seata.edas.tcc.action.ActionTwo" version="1.0.0"/>
 
 
     <!-- 事务发起服务 -->
-    <bean id = "activityService" class = "io.seata.edas.tcc.activity.ActivityServiceImpl" />
+    <bean id="activityService" class="io.seata.edas.tcc.activity.ActivityServiceImpl"/>
 
 </beans>

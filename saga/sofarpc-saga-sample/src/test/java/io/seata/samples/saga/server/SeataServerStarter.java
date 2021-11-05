@@ -17,7 +17,6 @@ package io.seata.samples.saga.server;
 
 import java.io.IOException;
 
-import io.seata.core.store.StoreMode;
 import io.seata.server.Server;
 
 /**

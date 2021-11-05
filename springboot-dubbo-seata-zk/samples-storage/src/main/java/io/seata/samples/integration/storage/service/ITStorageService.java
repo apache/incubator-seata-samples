@@ -9,6 +9,7 @@ import io.seata.samples.integration.storage.entity.TStorage;
  * 仓库服务
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 public interface ITStorageService extends IService<TStorage> {

@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2019 Seata.io Group.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,9 +36,10 @@ public class DubboSagaTransactionStarter {
 
     public static void main(String[] args) {
 
-        AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[] {"spring/seata-saga.xml", "spring/seata-dubbo-reference.xml"});
+        AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+            new String[] {"spring/seata-saga.xml", "spring/seata-dubbo-reference.xml"});
 
-        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
+        StateMachineEngine stateMachineEngine = (StateMachineEngine)applicationContext.getBean("stateMachineEngine");
 
         transactionCommittedDemo(stateMachineEngine);
 
@@ -56,18 +57,22 @@ public class DubboSagaTransactionStarter {
         startParams.put("amount", new BigDecimal("100"));
 
         //sync test
-        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null, businessKey, startParams);
+        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null,
+            businessKey, startParams);
 
-        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()), "saga transaction execute failed. XID: " + inst.getId());
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
+            "saga transaction execute failed. XID: " + inst.getId());
         System.out.println("saga transaction commit succeed. XID: " + inst.getId());
 
         //async test
         businessKey = String.valueOf(System.currentTimeMillis());
-        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams, CALL_BACK);
+        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
+            CALL_BACK);
 
         waittingForFinish(inst);
 
-        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()), "saga transaction execute failed. XID: " + inst.getId());
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
+            "saga transaction execute failed. XID: " + inst.getId());
         System.out.println("saga transaction commit succeed. XID: " + inst.getId());
     }
 
@@ -80,39 +85,41 @@ public class DubboSagaTransactionStarter {
         startParams.put("mockReduceBalanceFail", "true");
 
         //sync test
-        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null, businessKey, startParams);
+        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null,
+            businessKey, startParams);
 
         //async test
         businessKey = String.valueOf(System.currentTimeMillis());
-        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams, CALL_BACK);
+        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
+            CALL_BACK);
 
         waittingForFinish(inst);
 
-        Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()), "saga transaction compensate failed. XID: " + inst.getId());
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
+            "saga transaction compensate failed. XID: " + inst.getId());
         System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
     }
-
 
     private static volatile Object lock = new Object();
     private static AsyncCallback CALL_BACK = new AsyncCallback() {
         @Override
         public void onFinished(ProcessContext context, StateMachineInstance stateMachineInstance) {
-            synchronized (lock){
+            synchronized (lock) {
                 lock.notifyAll();
             }
         }
 
         @Override
         public void onError(ProcessContext context, StateMachineInstance stateMachineInstance, Exception exp) {
-            synchronized (lock){
+            synchronized (lock) {
                 lock.notifyAll();
             }
         }
     };
 
-    private static void waittingForFinish(StateMachineInstance inst){
-        synchronized (lock){
-            if(ExecutionStatus.RU.equals(inst.getStatus())){
+    private static void waittingForFinish(StateMachineInstance inst) {
+        synchronized (lock) {
+            if (ExecutionStatus.RU.equals(inst.getStatus())) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {

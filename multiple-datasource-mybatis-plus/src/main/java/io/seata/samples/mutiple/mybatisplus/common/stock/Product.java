@@ -1,9 +1,9 @@
 package io.seata.samples.mutiple.mybatisplus.common.stock;
 
+import java.util.Date;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author HelloWood

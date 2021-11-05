@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.dubbo.service.impl;
 
 import io.seata.core.context.RootContext;
@@ -46,8 +45,8 @@ public class StockServiceImpl implements StockService {
     @Override
     public void deduct(String commodityCode, int count) {
         LOGGER.info("Stock Service Begin ... xid: " + RootContext.getXID());
-        LOGGER.info("Deducting inventory SQL: update stock_tbl set count = count - {} where commodity_code = {}",
-            count, commodityCode);
+        LOGGER.info("Deducting inventory SQL: update stock_tbl set count = count - {} where commodity_code = {}", count,
+            commodityCode);
 
         jdbcTemplate.update("update stock_tbl set count = count - ? where commodity_code = ?",
             new Object[] {count, commodityCode});
@@ -58,10 +57,12 @@ public class StockServiceImpl implements StockService {
     @Override
     public void batchDeduct(String commodityCode, int count) {
         LOGGER.info("Stock Service Begin ... xid: " + RootContext.getXID());
-        LOGGER.info("Deducting inventory SQL: update stock_tbl set count = count - {} where commodity_code = {}",
-                count, commodityCode);
+        LOGGER.info("Deducting inventory SQL: update stock_tbl set count = count - {} where commodity_code = {}", count,
+            commodityCode);
 
-        jdbcTemplate.batchUpdate("update stock_tbl set count = count - " + count + " where commodity_code = '" + commodityCode + "'", "update stock_tbl set count = count - " + count + " where commodity_code = '" + commodityCode + "'");
+        jdbcTemplate.batchUpdate(
+            "update stock_tbl set count = count - " + count + " where commodity_code = '" + commodityCode + "'",
+            "update stock_tbl set count = count - " + count + " where commodity_code = '" + commodityCode + "'");
         LOGGER.info("Stock Service End ... ");
 
     }

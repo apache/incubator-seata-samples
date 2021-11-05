@@ -26,7 +26,6 @@ public class OrderController {
     @Resource
     private StockFeignClient stockFeignClient;
 
-
     /**
      * 下单：插入订单表、扣减库存，模拟回滚
      *
@@ -50,7 +49,6 @@ public class OrderController {
         orderService.placeOrder("1", "product-2", 1);
         return true;
     }
-
 
     @RequestMapping("/placeOrder")
     public Boolean placeOrder(String userId, String commodityCode, Integer count) {

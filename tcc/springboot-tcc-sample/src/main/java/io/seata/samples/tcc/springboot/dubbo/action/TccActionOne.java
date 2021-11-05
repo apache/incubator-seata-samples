@@ -19,8 +19,7 @@ public interface TccActionOne {
      * @return the boolean
      */
     @TwoPhaseBusinessAction(name = "DubboTccActionOne", commitMethod = "commit", rollbackMethod = "rollback")
-    public boolean prepare(BusinessActionContext actionContext,
-                           @BusinessActionContextParameter(paramName = "a") int a);
+    public boolean prepare(BusinessActionContext actionContext, @BusinessActionContextParameter(paramName = "a") int a);
 
     /**
      * Commit boolean.

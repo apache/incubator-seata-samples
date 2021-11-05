@@ -1,12 +1,14 @@
 面我已经写过一篇[SpringBoot+Nacos+Seata实现Dubbo分布式事务管理](https://blog.csdn.net/u010046908/article/details/100536439)的文章，今天为什么还要写这篇呢，是因为好多公司还在用`Zookeeper`作为`Dubbo`的注册中心和配置中心在大规模使用，还没有完全迁移到`Nacos`上来，所以`Seata`的注册中心和配置也是支持`Zookeeper`，但是官方没有完整的使用教程，因此，写这篇主要为了帮助使用`Zookeeper`的用户也可以轻松使用`Seata`。
+
 ## 1.简介
->本文主要介绍SpringBoot2.1.5 + Dubbo 2.7.3 + Mybatis 3.4.2 + Zookeeper 3.4.14 +Seata 0.9.0整合来实现Dubbo分布式事务管理，使用Zookeeper 作为 Dubbo和Seata的注册中心和配置中心,使用 MySQL 数据库和 MyBatis来操作数据。
+
+> 本文主要介绍SpringBoot2.1.5 + Dubbo 2.7.3 + Mybatis 3.4.2 + Zookeeper 3.4.14 +Seata 0.9.0整合来实现Dubbo分布式事务管理，使用Zookeeper 作为 Dubbo和Seata的注册中心和配置中心,使用 MySQL 数据库和 MyBatis来操作数据。
 
 如果你还对`SpringBoot`、`Dubbo`、`Zookeeper`、`Seata`、` Mybatis` 不是很了解的话，这里我为大家整理个它们的官网网站，如下
 
 - SpringBoot：[https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
- - Dubbo：[http://dubbo.apache.org/en-us/](http://dubbo.apache.org/en-us/)
+- Dubbo：[http://dubbo.apache.org/en-us/](http://dubbo.apache.org/en-us/)
 
 - Zookeeper：[https://zookeeper.apache.org/](https://zookeeper.apache.org/)
 
@@ -17,10 +19,13 @@
 在这里我们就不一个一个介绍它们是怎么使用和原理，详细请学习官方文档，在这里我将开始对它们进行整合，完成一个简单的案例，来让大家了解`Seata`来实现`Dubbo`分布式事务管理的基本流程。
 
 ## 2.环境准备
+
 ## 2.1 下载Zookeeper并安装启动
+
 Zookeeper下载：[https://archive.apache.org/dist/zookeeper/zookeeper-3.4.14/](https://archive.apache.org/dist/zookeeper/zookeeper-3.4.14/)
 
-Zookeeper 快速入门：[http://zookeeper.apache.org/doc/r3.4.14/zookeeperStarted.html](http://zookeeper.apache.org/doc/r3.4.14/zookeeperStarted.html)
+Zookeeper
+快速入门：[http://zookeeper.apache.org/doc/r3.4.14/zookeeperStarted.html](http://zookeeper.apache.org/doc/r3.4.14/zookeeperStarted.html)
 
 在单机模式下启动`Zookeeper`非常简单。
 我们将下载的文件解压缩到指定目录如：`E:\tools\zookeeper-3.4.14`![在这里插入图片描述](https://img-blog.csdnimg.cn/20191021103212905.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
@@ -34,14 +39,24 @@ clientPort=2181
 dataDir=E:\\tools\\zookeeper-3.4.14\\data
 dataLogDir=E:\\tools\\zookeeper-3.4.14\\logs
 ```
+
 以上配置的详细说明如下：
 
 - `tickTime`：用于配置 ZooKeeper 中最小时间单位的长度，很多运行时的时间间隔都是使用 tickTime 的倍数来表示的。例如，ZooKeeper 中会话的最小超时时间默认是 2*tickTime。
-- `initLimit`：该参数有默认值: 10，即表示是参数 tickTime 值得10倍，必须配置，且需要配置一个正整数，不支持系统属性方式配置。该参数用于配置 Leader 服务器等待 Follower 启动，并完成数据同步的时间。Follwer 服务器再启动过程中，会与 Leader 建立连接并完成对数据的同步，从而确定自己对外提供服务的其实状态。Leader 服务器允许 Follower 在 initLimit 时间内完成这个工作。 通常情况下，运维人员不用太在意这个参数的配置，使用默认值即可。但如果随着 ZooKeeper 集群管理的数据量增大，Follower 服务器再启动的时候，从 Leader 上进行同步数据的时间也会相应变长，于是无法在较短的时间完成数据同步。因此，在这种情况下，有必要适当调大这个参数。
-- `syncLimit`:该参数有默认值: 5，即表示参数 tickTime 值得5倍，必须配置，且需要配置一个正整数，不支持系统属性配置。该参数用于配置 Leader 服务器和 Follower 服务器之间进行心跳检测的最大延时时间。在 ZooKeeper 集群运行过程中，Leader 服务器会与所有的 Follower 进行心跳检测来确定该服务器是否存活。如果 Leader 服务器再 syncLimit 时间内无法获取到 Follower 的心跳检测响应，那么 Leader 就会认为该 Follower 已经脱离了和自己的同步。通常情况下，运维人员使用该参数的默认值即可，但如果部署ZooKeeper 集群的网络环境质量较低（例如网络延时较大或丢包严重），那么可以适当调大这个参数。
-- `dataDir`: 该参数有默认值: dataDir，可以不配置，不支持系统属性方式配置。参数 dataLogDir 用于配置 ZooKeeper 服务器存储事务日志文件的目录。默认情况下，ZooKeeper 会将事务日志文件和快照数据存储在同一目录中，应该尽量将这两者的牧区区分开来。另外，如果条件允许，可以将事务日志的存储位置配置在一个单独的磁盘上。事务日志记录对于磁盘的性能要求非常高，为了保证数据的一致性，ZooKeeper 在返回客户端事务请求相应之前，必须将本次请求对应的事务日志写入到磁盘中。因此，事务日志写入的性能直接决定了 ZooKeeper 在处理事务请求时的吞吐。针对同一块磁盘的其他并发读写操作（例如 ZooKeeper 运行时日志输出和操作系统自身的读写等），尤其是数据快照操作，会极大地影响事务日志的写性能。因此尽量给事务日志的输出配置一个单独的磁盘或挂载点，将极大地提升 ZooKeeper 的整体性能。
+- `initLimit`：该参数有默认值: 10，即表示是参数 tickTime 值得10倍，必须配置，且需要配置一个正整数，不支持系统属性方式配置。该参数用于配置 Leader 服务器等待 Follower
+  启动，并完成数据同步的时间。Follwer 服务器再启动过程中，会与 Leader 建立连接并完成对数据的同步，从而确定自己对外提供服务的其实状态。Leader 服务器允许 Follower 在 initLimit 时间内完成这个工作。
+  通常情况下，运维人员不用太在意这个参数的配置，使用默认值即可。但如果随着 ZooKeeper 集群管理的数据量增大，Follower 服务器再启动的时候，从 Leader
+  上进行同步数据的时间也会相应变长，于是无法在较短的时间完成数据同步。因此，在这种情况下，有必要适当调大这个参数。
+- `syncLimit`:该参数有默认值: 5，即表示参数 tickTime 值得5倍，必须配置，且需要配置一个正整数，不支持系统属性配置。该参数用于配置 Leader 服务器和 Follower 服务器之间进行心跳检测的最大延时时间。在
+  ZooKeeper 集群运行过程中，Leader 服务器会与所有的 Follower 进行心跳检测来确定该服务器是否存活。如果 Leader 服务器再 syncLimit 时间内无法获取到 Follower 的心跳检测响应，那么
+  Leader 就会认为该 Follower 已经脱离了和自己的同步。通常情况下，运维人员使用该参数的默认值即可，但如果部署ZooKeeper 集群的网络环境质量较低（例如网络延时较大或丢包严重），那么可以适当调大这个参数。
+- `dataDir`: 该参数有默认值: dataDir，可以不配置，不支持系统属性方式配置。参数 dataLogDir 用于配置 ZooKeeper 服务器存储事务日志文件的目录。默认情况下，ZooKeeper
+  会将事务日志文件和快照数据存储在同一目录中，应该尽量将这两者的牧区区分开来。另外，如果条件允许，可以将事务日志的存储位置配置在一个单独的磁盘上。事务日志记录对于磁盘的性能要求非常高，为了保证数据的一致性，ZooKeeper
+  在返回客户端事务请求相应之前，必须将本次请求对应的事务日志写入到磁盘中。因此，事务日志写入的性能直接决定了 ZooKeeper 在处理事务请求时的吞吐。针对同一块磁盘的其他并发读写操作（例如 ZooKeeper
+  运行时日志输出和操作系统自身的读写等），尤其是数据快照操作，会极大地影响事务日志的写性能。因此尽量给事务日志的输出配置一个单独的磁盘或挂载点，将极大地提升 ZooKeeper 的整体性能。
 
-- `clientPort` :用于配置当前服务器对外的服务端口，客户端会通过该端口和 ZooKeeper 服务器创建连接，一般设置为2181。每台 ZooKeeper 都可以配置任意可用的端口，同时集群中的所有服务器不需要保持 clientPort 端口一致。该参数无默认值，必须配置。
+- `clientPort` :用于配置当前服务器对外的服务端口，客户端会通过该端口和 ZooKeeper 服务器创建连接，一般设置为2181。每台 ZooKeeper 都可以配置任意可用的端口，同时集群中的所有服务器不需要保持
+  clientPort 端口一致。该参数无默认值，必须配置。
 
 `dataLogDir`:存储日志的目录
 
@@ -50,6 +65,7 @@ dataLogDir=E:\\tools\\zookeeper-3.4.14\\logs
 ```shell
 bin/zkServer.cmd start
 ```
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191021104446797.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 这是时候`ZooKeeper` 服务就正常启动了。
 
@@ -58,8 +74,11 @@ bin/zkServer.cmd start
 ```shell
 bin/zkCli.cmd 
 ```
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191021104720936.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
+
 ## ZooKeeper -server host:port cmd args
+
 ```sql
    stat path [watch]
         set path data [version]
@@ -83,25 +102,30 @@ bin/zkCli.cmd
         close
         connect host:port
 ```
+
 我们是用`ls`查询节点情况
 
 ```bash
 ls /
 ```
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191021104916700.png)
 默认有一个`zookeeoer`节点。
+
 ## 2.2 下载seata0.9.0 并安装启动
 
 #### 2.2.1 在 [Seata Release](https://github.com/seata/seata/releases/tag/v0.9.0) 下载最新版的 Seata Server 并解压得到如下目录：
+
 ```shell
 .
 ├──bin
 ├──conf
 └──lib
 ```
+
 #### 2.2.2 修改 conf/registry.conf 和file.conf配置，
-目前seata支持如下的file、nacos 、apollo、zk、consul的注册中心和配置中心。这里我们以`zk` 为例。
-将 type 改为 zk
+
+目前seata支持如下的file、nacos 、apollo、zk、consul的注册中心和配置中心。这里我们以`zk` 为例。 将 type 改为 zk
 
 ```shell
 registry {
@@ -135,10 +159,11 @@ config {
 }
 
 ```
+
 - serverAddr = "127.0.0.1:2181"   ：zk 的地址
 - cluster = "default"  ：集群设置为默认 `default`
--  session.timeout = 6000 ：会话的超时时间
- - connect.timeout = 2000：连接的超时时间
+- session.timeout = 6000 ：会话的超时时间
+- connect.timeout = 2000：连接的超时时间
 
 file.conf 配置
 
@@ -284,8 +309,8 @@ support {
   }
 }
 ```
-主要修改了`store.mode`为`db`,还有数据库相关的配置
 
+主要修改了`store.mode`为`db`,还有数据库相关的配置
 
 #### 2.2.3 修改 conf/nacos-config.txt配置为zk-config.properties
 
@@ -351,8 +376,10 @@ metrics.exporter-prometheus-port=9898
 client.report.retry.count=5
 service.disableGlobalTransaction=false
 ```
+
 这里主要修改了如下几项：
-- store.mode :存储模式 默认file  这里我修改为db 模式 ，并且需要三个表`global_table`、`branch_table`和`lock_table`
+
+- store.mode :存储模式 默认file 这里我修改为db 模式 ，并且需要三个表`global_table`、`branch_table`和`lock_table`
 - store.db.driver-class-name： 默认没有，会报错。添加了 `com.mysql.jdbc.Driver`
 - store.db.datasource=dbcp ：数据源 dbcp
 - store.db.db-type=mysql : 存储数据库的类型为`mysql`
@@ -410,6 +437,7 @@ CREATE TABLE `branch_table` (
 
 
 ```
+
 `lock_table`的表结构
 
 ```
@@ -428,11 +456,10 @@ create table `lock_table` (
 ```
 
 #### 2.2.4 将 Seata 配置添加到 Zookeeper 中
-用于官方只提供了nacos的脚本配置。我这用java实现了将 Seata 配置添加到 Zookeeper 中。
-我这里参考了`ZookeeperConfiguration`的源码实现的导入到zk的初始化代码。
+
+用于官方只提供了nacos的脚本配置。我这用java实现了将 Seata 配置添加到 Zookeeper 中。 我这里参考了`ZookeeperConfiguration`的源码实现的导入到zk的初始化代码。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191021121251985.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
-通过查看以上源代码我们可以看出
-zk模式下数据的存储格式。并且使用的zk的永久节点存储。
+通过查看以上源代码我们可以看出 zk模式下数据的存储格式。并且使用的zk的永久节点存储。
 
 ###### 2.4.2.1.创建根节点，其中根节点为`/config`
 
@@ -453,6 +480,7 @@ public ZookeeperConfiguration() {
 
     }
 ```
+
 ###### 2.4.2.2添加配置的方法
 
 ```java
@@ -581,8 +609,8 @@ l-session-size, transport.type, store.db.max-conn, transport.thread-factory.shar
 e-boss-worker, transport.thread-factory.server-executor-thread-prefix, metrics.r
 egistry-type, transport.heartbeat, transport.shutdown.wait, store.db.min-conn]
 ```
-所有的配置都已经导入成功。
 
+所有的配置都已经导入成功。
 
 #### 2.2.5 启动 Seata Server
 
@@ -592,6 +620,7 @@ egistry-type, transport.heartbeat, transport.shutdown.wait, store.db.min-conn]
  cd ..
 bin/seata-server.bat -m db
 ```
+
 这时候在 zookeeper 的我们在客户端可以使使用命令查询节点
 
 ```shell
@@ -600,8 +629,11 @@ registry    zookeeper   config
 [zk: localhost:2181(CONNECTED) 4] ls /registry/zk/default
 [192.168.10.108:8091]
 ```
+
 看到这，seata server就已经搭建成功
+
 ## 3 案例分析
+
 参考官网中用户购买商品的业务逻辑。整个业务逻辑由4个微服务提供支持：
 
 - 库存服务：扣除给定商品的存储数量。
@@ -613,7 +645,9 @@ registry    zookeeper   config
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905111031350.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 
 ## 3.1  github地址
+
 springboot-dubbo-seata：[https://github.com/lidong1665/springboot-dubbo-seata-zk](https://github.com/lidong1665/springboot-dubbo-seata-zk)
+
 - samples-common ：公共模块
 
 - samples-account ：用户账号模块
@@ -623,7 +657,6 @@ springboot-dubbo-seata：[https://github.com/lidong1665/springboot-dubbo-seata-z
 - samples-storage ：库存模块
 
 - samples-business ：业务模块
-
 
 #### 3.2 账户服务：AccountDubboService
 
@@ -641,6 +674,7 @@ public interface AccountDubboService {
     ObjectResponse decreaseAccount(AccountDTO accountDTO);
 }
 ```
+
 #### 3.3 订单服务：OrderDubboService
 
 ```java
@@ -657,7 +691,8 @@ public interface OrderDubboService {
     ObjectResponse<OrderDTO> createOrder(OrderDTO orderDTO);
 }
 ```
-#### 3.4  库存服务：StorageDubboService
+
+#### 3.4 库存服务：StorageDubboService
 
 ```java
 /**
@@ -675,7 +710,7 @@ public interface StorageDubboService {
 
 ```
 
-#### 3.5 业务服务：BusinessService 
+#### 3.5 业务服务：BusinessService
 
 ```java
 
@@ -698,6 +733,7 @@ public interface BusinessService {
 业务逻辑的具体实现主要体现在 订单服务的实现和业务服务的实现
 
 订单服务的实现
+
 ```java
 @Service
 public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> implements ITOrderService {
@@ -748,6 +784,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
 ```
 
 整个业务的实现逻辑
+
 ```java
 @Service
 @Slf4j
@@ -801,10 +838,12 @@ public class BusinessServiceImpl implements BusinessService{
     }
 }
 ```
+
 ## 3.6 使用seata的分布式事务解决方案处理dubbo的分布式事务
+
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905113350848.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9saWRvbmcxNjY1LmJsb2cuY3Nkbi5uZXQ=,size_16,color_FFFFFF,t_70)
 
-我们只需要在业务处理的方法`handleBusiness`添加一个注解 `@GlobalTransactional` 
+我们只需要在业务处理的方法`handleBusiness`添加一个注解 `@GlobalTransactional`
 
 ```java
 @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata-example")
@@ -813,13 +852,16 @@ public class BusinessServiceImpl implements BusinessService{
     
     }
 ```
+
 - `timeoutMills`: 超时时间
 - `name ` ：事务名称
 
 ## 3.7 准备数据库
+
 注意: MySQL必须使用`InnoDB engine`.
 
-创建数据库  并导入数据库脚本
+创建数据库 并导入数据库脚本
+
 ```sql
 DROP DATABASE IF EXISTS seata;
 CREATE DATABASE seata;
@@ -915,6 +957,7 @@ SET FOREIGN_KEY_CHECKS=1;
 这里为了简化我将这个三张表创建到一个库中,使用是三个数据源来实现。
 
 ## 3.8 我们以账号服务`samples-account`为例 ，分析需要注意的配置项目
+
 ### 3.8.1 引入的依赖
 
 ```xml
@@ -1117,14 +1160,15 @@ SET FOREIGN_KEY_CHECKS=1;
 
 
 ```
+
 注意：
+
 - `seata-all`: 这个是seata 所需的主要依赖。
 - `dubbo-spring-boot-starter`:   springboot dubbo的依赖。
 
 其他的就不一一介绍，其他的一目了然，就知道是干什么的。
-  
- ### 3.8.2  application.properties配置
- 
+
+### 3.8.2  application.properties配置
 
 ```properties
 server.port=8102
@@ -1152,8 +1196,11 @@ spring.datasource.password=123456
 #=====================================mybatis config======================================
 mybatis.mapper-locations=classpath*:/mapper/*.xml
 ```
+
 ### 3.8.3 registry.conf（zk的配置）
- ##### registry.conf的配置
+
+##### registry.conf的配置
+
 ```conf
 registry {
   # file 、nacos 、eureka、redis、zk
@@ -1307,6 +1354,7 @@ public class SeataAutoConfig {
 }
 
 ```
+
 其中:
 
 ```
@@ -1315,6 +1363,7 @@ public class SeataAutoConfig {
         return new GlobalTransactionScanner("account-gts-seata-example", "account-service-seata-service-group");
     }
 ```
+
 `GlobalTransactionScanner`: 初始化全局的事务扫描器
 
 ```
@@ -1328,9 +1377,11 @@ public class SeataAutoConfig {
         this(applicationId, txServiceGroup, DEFAULT_MODE);
     }
 ```
+
 - applicationId ：为应用id 这里我传入的是`account-gts-seata-example`
 - txServiceGroup: 默认server的分组 这里我传入的是`account-service-seata-service-group` 这个和我们前面在nacos 配置的是保存一致。
-- DEFAULT_MODE：默认的事务模式 为[AT_MODE](https://github.com/seata/seata/wiki/AT-Mode) + [MT_MODE](https://github.com/seata/seata/wiki/MT-Mode)
+- DEFAULT_MODE：默认的事务模式 为[AT_MODE](https://github.com/seata/seata/wiki/AT-Mode)
+    + [MT_MODE](https://github.com/seata/seata/wiki/MT-Mode)
 
 ### 3.8.6 AccountExampleApplication 启动类的配置
 
@@ -1359,21 +1410,22 @@ public class AccountExampleApplication {
 
 - `@EnableDubbo`等同于 `@DubboComponentScan`和 `@EnableDubboConfig`组合
 
- - `@DubboComponentScan` 扫描 classpaths 下类中添加了 `@Service` 和 `@Reference` 将自动注入到spring beans中。
- - @EnableDubboConfig 扫描的dubbo的外部化配置。
+- `@DubboComponentScan` 扫描 classpaths 下类中添加了 `@Service` 和 `@Reference` 将自动注入到spring beans中。
+- @EnableDubboConfig 扫描的dubbo的外部化配置。
 
 ## 4 启动所有的sample模块
+
 启动 `samples-account`、`samples-order`、`samples-storage`、`samples-business`
 
 并且在zk的客户端查看注册情况
 
-
-
 我们可以看到上面的服务都已经注册成功。
 
 ## 5 测试
+
 ### 5. 1 发送一个下单请求
-使用postman 发送 ：[http://localhost:8104/business/dubbo/buy](http://localhost:8104/business/dubbo/buy) 
+
+使用postman 发送 ：[http://localhost:8104/business/dubbo/buy](http://localhost:8104/business/dubbo/buy)
 
 参数：
 
@@ -1386,6 +1438,7 @@ public class AccountExampleApplication {
     "amount":"100"
 }
 ```
+
 返回
 
 ```json
@@ -1395,6 +1448,7 @@ public class AccountExampleApplication {
     "data": null
 }
 ```
+
 这时候控制台：
 
 ```
@@ -1409,11 +1463,12 @@ public class AccountExampleApplication {
 2019-10-21 12:04:57.473  INFO 12780 --- [nio-8104-exec-1] i.s.s.i.c.service.BusinessServiceImpl    : 开始全局事务，XID = 192.168.10.108:8091:2025358030
 2019-10-21 12:05:04.280  INFO 12780 --- [nio-8104-exec-1] i.seata.tm.api.DefaultGlobalTransaction  : [192.168.10.108:8091:2025358030] commit status:Committed
 ```
+
 事务提交成功，
 
 我们来看一下数据库数据变化
 
-t_account 
+t_account
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905122211274.png)
 t_order
 
@@ -1424,6 +1479,7 @@ t_storage
 数据没有问题。
 
 ### 5.2 测试回滚
+
 我们`samples-business`将`BusinessServiceImpl`的`handleBusiness2` 下面的代码去掉注释
 
 ```
@@ -1431,7 +1487,8 @@ if (!flag) {
   throw new RuntimeException("测试抛异常后，分布式事务回滚！");
 }
 ```
-使用postman 发送 ：[http://localhost:8104/business/dubbo/buy2](http://localhost:8104/business/dubbo/buy2) 
+
+使用postman 发送 ：[http://localhost:8104/business/dubbo/buy2](http://localhost:8104/business/dubbo/buy2)
 
 .响应结果：
 
@@ -1444,6 +1501,7 @@ if (!flag) {
     "path": "/business/dubbo/buy"
 }
 ```
+
 控制台
 
 ```shell

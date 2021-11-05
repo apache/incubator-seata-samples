@@ -1,36 +1,36 @@
 eureka:
-    instance:
-        hostname: localhost
-        prefer-ip-address: true
-    client:
-        serviceUrl:
-            defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
 feign:
-    hystrix:
-        enabled: false
-    client:
-        config:
-            default:
-                connectTimeout: 60000
-                readTimeout: 60000
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
 logging:
-    level:
-        io:
-            seata: info
+  level:
+    io:
+      seata: info
 mybatis:
-    mapperLocations: classpath:mapper/*.xml
-    typeAliasesPackage: io.seata.sample.entity
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: io.seata.sample.entity
 server:
-    port: 8180
+  port: 8180
 spring:
-    application:
-        name: order-server
-    cloud:
-        alibaba:
-            seata:
-                tx-service-group: my_test_tx_group
-    datasource:
-        driver-class-name: com.mysql.jdbc.Driver
-        password: xxx
-        url: jdbc:mysql://xxx/seat-order
-        username: xxx
+  application:
+    name: order-server
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: xxx
+    url: jdbc:mysql://xxx/seat-order
+    username: xxx

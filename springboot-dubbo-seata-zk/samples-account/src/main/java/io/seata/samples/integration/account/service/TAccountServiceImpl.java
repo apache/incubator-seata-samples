@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * * @author lidong
+ *
  * @since 2019-09-04
  */
 @Service
@@ -23,7 +24,7 @@ public class TAccountServiceImpl extends ServiceImpl<TAccountMapper, TAccount> i
     public ObjectResponse decreaseAccount(AccountDTO accountDTO) {
         int account = baseMapper.decreaseAccount(accountDTO.getUserId(), accountDTO.getAmount().doubleValue());
         ObjectResponse<Object> response = new ObjectResponse<>();
-        if (account > 0){
+        if (account > 0) {
             response.setStatus(RspStatusEnum.SUCCESS.getCode());
             response.setMessage(RspStatusEnum.SUCCESS.getMessage());
             return response;

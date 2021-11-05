@@ -1,5 +1,5 @@
 /*
- *  Copyright 1999-2018 Alibaba Group Holding Ltd.
+ *  Copyright 1999-2021 Seata.io Group.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package io.seata.samples.dubbo.service.impl;
 
 import java.sql.Connection;
@@ -63,15 +62,17 @@ public class OrderServiceImpl implements OrderService {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        LOGGER.info("Order Service SQL: insert into order_tbl (user_id, commodity_code, count, money) values ({}, {}, {}, {})" ,userId ,commodityCode ,orderCount ,orderMoney );
+        LOGGER.info(
+            "Order Service SQL: insert into order_tbl (user_id, commodity_code, count, money) values ({}, {}, {}, {})",
+            userId, commodityCode, orderCount, orderMoney);
 
         jdbcTemplate.update(new PreparedStatementCreator() {
 
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement pst = con.prepareStatement(
-                        "insert into order_tbl (user_id, commodity_code, count, money) values (?, ?, ?, ?)",
-                        PreparedStatement.RETURN_GENERATED_KEYS);
+                    "insert into order_tbl (user_id, commodity_code, count, money) values (?, ?, ?, ?)",
+                    PreparedStatement.RETURN_GENERATED_KEYS);
                 pst.setObject(1, order.userId);
                 pst.setObject(2, order.commodityCode);
                 pst.setObject(3, order.count);

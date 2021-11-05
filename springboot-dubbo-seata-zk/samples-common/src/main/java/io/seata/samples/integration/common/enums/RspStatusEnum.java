@@ -7,19 +7,19 @@ package io.seata.samples.integration.common.enums;
  * @Description
  * @Date Created in 2019/1/14 10:18
  */
-public enum  RspStatusEnum {
+public enum RspStatusEnum {
     /**
      * SUCCESS
      */
-    SUCCESS(200,"成功"),
+    SUCCESS(200, "成功"),
     /**
      * Fail rsp status enum.
      */
-    FAIL(999,"失败"),
+    FAIL(999, "失败"),
     /**
      * Exception rsp status enum.
      */
-    EXCEPTION(500,"系统异常");
+    EXCEPTION(500, "系统异常");
 
     private int code;
 

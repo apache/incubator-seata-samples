@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface StockFeignClient {
 
     @GetMapping("/deduct")
-    void deduct(@RequestParam("commodityCode") String commodityCode,
-                @RequestParam("count") Integer count);
+    void deduct(@RequestParam("commodityCode") String commodityCode, @RequestParam("count") Integer count);
 
 }

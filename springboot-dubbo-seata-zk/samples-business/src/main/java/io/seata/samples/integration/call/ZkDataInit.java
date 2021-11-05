@@ -1,16 +1,16 @@
 package io.seata.samples.integration.call;
 
-import lombok.extern.slf4j.Slf4j;
-import org.I0Itec.zkclient.ZkClient;
-import org.apache.zookeeper.CreateMode;
-import org.springframework.util.ResourceUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
+
+import lombok.extern.slf4j.Slf4j;
+import org.I0Itec.zkclient.ZkClient;
+import org.apache.zookeeper.CreateMode;
+import org.springframework.util.ResourceUtils;
 
 /**
  *
@@ -38,7 +38,7 @@ public class ZkDataInit {
             Set<Object> keys = properties.keySet();//返回属性key的集合
             for (Object key : keys) {
                 boolean b = putConfig(key.toString(), properties.get(key).toString());
-                log.info(key.toString() + "=" + properties.get(key)+"result="+b);
+                log.info(key.toString() + "=" + properties.get(key) + "result=" + b);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,7 +46,6 @@ public class ZkDataInit {
     }
 
     /**
-     *
      * @param dataId
      * @param content
      * @return

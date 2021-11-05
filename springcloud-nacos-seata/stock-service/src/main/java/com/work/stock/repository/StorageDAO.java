@@ -1,6 +1,5 @@
 package com.work.stock.repository;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.work.stock.entity.Stock;
 import org.apache.ibatis.annotations.Mapper;
