@@ -16,6 +16,8 @@
 
 package io.seata.samples.dubbo.service.impl;
 
+import java.util.Random;
+
 import io.seata.core.context.RootContext;
 import io.seata.samples.dubbo.service.BusinessService;
 import io.seata.samples.dubbo.service.OrderService;
@@ -36,16 +38,19 @@ public class BusinessServiceImpl implements BusinessService {
 
     private StorageService storageService;
     private OrderService orderService;
+    private Random random = new Random();
 
     @Override
     @GlobalTransactional(timeoutMills = 300000, name = "dubbo-demo-tx")
     public void purchase(String userId, String commodityCode, int orderCount) {
         LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
         storageService.deduct(commodityCode, orderCount);
-        // double deduct
-        storageService.batchDeduct(commodityCode, orderCount);
+        // just test batch update
+        //storageService.batchDeduct(commodityCode, orderCount);
         orderService.create(userId, commodityCode, orderCount);
-        //throw new RuntimeException("xxx");
+        if (random.nextBoolean()) {
+            throw new RuntimeException("random exception mock!");
+        }
 
     }
 
