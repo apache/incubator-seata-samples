@@ -1,7 +1,7 @@
 package com.work.order.service;
 
 import com.work.order.feign.AccountFeignClient;
-import com.work.order.feign.StorageFeignClient;
+import com.work.order.feign.StockFeignClient;
 import com.work.order.model.Order;
 import com.work.order.repository.OrderDAO;
 import io.seata.spring.annotation.GlobalTransactional;
@@ -26,7 +26,7 @@ public class OrderService {
     @Resource
     private AccountFeignClient accountFeignClient;
     @Resource
-    private StorageFeignClient storageFeignClient;
+    private StockFeignClient stockFeignClient;
     @Resource
     private OrderDAO orderDAO;
 
@@ -48,7 +48,7 @@ public class OrderService {
                 .setCount(count)
                 .setMoney(orderMoney);
         orderDAO.insert(order);
-        storageFeignClient.deduct(commodityCode, count);
+        stockFeignClient.deduct(commodityCode, count);
 
     }
 

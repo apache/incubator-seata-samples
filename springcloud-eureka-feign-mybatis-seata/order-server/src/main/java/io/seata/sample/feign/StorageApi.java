@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @author IT云清
  */
-@FeignClient(value = "storage-server")
-public interface StorageApi {
+@FeignClient(value = "stock-server")
+public interface StockApi {
 
     /**
      * 扣减库存
@@ -16,6 +16,6 @@ public interface StorageApi {
      * @param count
      * @return
      */
-    @GetMapping(value = "/storage/decrease")
+    @GetMapping(value = "/stock/decrease")
     String decrease(@RequestParam("productId") Long productId, @RequestParam("count") Integer count);
 }

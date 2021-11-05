@@ -35,11 +35,11 @@
     <!-- <dubbo:registry address="nacos://127.0.0.1:8848"/> -->
 
     <dubbo:reference id="orderService" check="false" interface="io.seata.samples.dubbo.service.OrderService"/>
-    <dubbo:reference id="storageService" check="false" interface="io.seata.samples.dubbo.service.StorageService"/>
+    <dubbo:reference id="stockService" check="false" interface="io.seata.samples.dubbo.service.StockService"/>
 
     <bean id="business" class="io.seata.samples.dubbo.service.impl.BusinessServiceImpl">
         <property name="orderService" ref="orderService"/>
-        <property name="storageService" ref="storageService"/>
+        <property name="stockService" ref="stockService"/>
     </bean>
 
     <bean class="io.seata.spring.annotation.GlobalTransactionScanner">

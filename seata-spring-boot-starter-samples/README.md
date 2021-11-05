@@ -99,7 +99,7 @@ transport.thread-factory.worker-thread-size=8
 transport.shutdown.wait=3
 service.vgroup_mapping.order-service-seata-service-group=default
 service.vgroup_mapping.account-service-seata-service-group=default
-service.vgroup_mapping.storage-service-seata-service-group=default
+service.vgroup_mapping.stock-service-seata-service-group=default
 service.vgroup_mapping.business-service-seata-service-group=default
 service.enableDegrade=false
 service.disable=false
@@ -158,7 +158,7 @@ client.support.spring.datasource.autoproxy=true
 - store.db.password=cwj887766@@ :数据库的密码
 - service.vgroup_mapping.order-service-seata-service-group=default
 - service.vgroup_mapping.account-service-seata-service-group=default
-- service.vgroup_mapping.storage-service-seata-service-group=default
+- service.vgroup_mapping.stock-service-seata-service-group=default
 - service.vgroup_mapping.business-service-seata-service-group=default
 - client.support.spring.datasource.autoproxy=true 开启数据源自动代理
 
@@ -279,7 +279,7 @@ springboot-dubbo-seata：[https://github.com/lidong1665/spring-cloud-learning-ex
 
 - samples-order ：订单模块
 
-- samples-storage ：库存模块
+- samples-stock ：库存模块
 
 - samples-business ：业务模块
 
@@ -316,7 +316,7 @@ public interface OrderDubboService {
     ObjectResponse<OrderDTO> createOrder(OrderDTO orderDTO);
 }
 ```
-#### 3.4  库存服务：StorageDubboService
+#### 3.4  库存服务：StockDubboService
 
 ```java
 /**
@@ -324,12 +324,12 @@ public interface OrderDubboService {
  * @Description  库存服务
  * @Date Created in 2019/9/5 16:22
  */
-public interface StorageDubboService {
+public interface StockDubboService {
 
     /**
      * 扣减库存
      */
-    ObjectResponse decreaseStorage(CommodityDTO commodityDTO);
+    ObjectResponse decreaseStock(CommodityDTO commodityDTO);
 }
 
 ```
@@ -413,7 +413,7 @@ public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> impleme
 public class BusinessServiceImpl implements BusinessService{
 
     @Reference(version = "1.0.0")
-    private StorageDubboService storageDubboService;
+    private StockDubboService stockDubboService;
 
     @Reference(version = "1.0.0")
     private OrderDubboService orderDubboService;
@@ -435,7 +435,7 @@ public class BusinessServiceImpl implements BusinessService{
         CommodityDTO commodityDTO = new CommodityDTO();
         commodityDTO.setCommodityCode(businessDTO.getCommodityCode());
         commodityDTO.setCount(businessDTO.getCount());
-        ObjectResponse storageResponse = storageDubboService.decreaseStorage(commodityDTO);
+        ObjectResponse stockResponse = stockDubboService.decreaseStock(commodityDTO);
         //2、创建订单
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setUserId(businessDTO.getUserId());
@@ -449,7 +449,7 @@ public class BusinessServiceImpl implements BusinessService{
 //            throw new RuntimeException("测试抛异常后，分布式事务回滚！");
 //        }
 
-        if (storageResponse.getStatus() != 200 || response.getStatus() != 200) {
+        if (stockResponse.getStatus() != 200 || response.getStatus() != 200) {
             throw new DefaultException(RspStatusEnum.FAIL);
         }
 
@@ -516,10 +516,10 @@ CREATE TABLE `t_order` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for t_storage
+-- Table structure for t_stock
 -- ----------------------------
-DROP TABLE IF EXISTS `t_storage`;
-CREATE TABLE `t_storage` (
+DROP TABLE IF EXISTS `t_stock`;
+CREATE TABLE `t_stock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_code` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -529,9 +529,9 @@ CREATE TABLE `t_storage` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of t_storage
+-- Records of t_stock
 -- ----------------------------
-INSERT INTO `t_storage` VALUES ('1', 'C201901140001', '水杯', '1000');
+INSERT INTO `t_stock` VALUES ('1', 'C201901140001', '水杯', '1000');
 
 -- ----------------------------
 -- Table structure for undo_log
@@ -566,7 +566,7 @@ SET FOREIGN_KEY_CHECKS=1;
 +-------------------------+
 | t_account               |
 | t_order                 |
-| t_storage               |
+| t_stock               |
 | undo_log                |
 +-------------------------+
 ```
@@ -598,7 +598,7 @@ SET FOREIGN_KEY_CHECKS=1;
         <module>samples-common</module>
         <module>samples-account</module>
         <module>samples-order</module>
-        <module>samples-storage</module>
+        <module>samples-stock</module>
         <module>samples-business</module>
     </modules>
 
@@ -980,7 +980,7 @@ public class AccountExampleApplication {
  - @EnableDubboConfig 扫描的dubbo的外部化配置。
 
 ## 4 启动所有的sample模块
-启动 `samples-account`、`samples-order`、`samples-storage`、`samples-business`
+启动 `samples-account`、`samples-order`、`samples-stock`、`samples-business`
 
 并且在nocos的控制台查看注册情况: http://192.168.10.200:8848/nacos/#/serviceManagement
 
@@ -1033,7 +1033,7 @@ t_account
 t_order
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905122302472.png)
-t_storage
+t_stock
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190905122326182.png)
 数据没有问题。
@@ -1170,7 +1170,7 @@ java.lang.RuntimeException: 测试抛异常后，分布式事务回滚！
 
 ```bash
 2020-01-08 11:05:31.478  INFO 24100 --- [:20888-thread-2] i.s.common.loader.EnhancedServiceLoader  : load ContextCore[null] extension by class[io.seata.core.context.ThreadLocalContextCore]
-2020-01-08 11:05:31.478  INFO 24100 --- [:20888-thread-2] i.s.s.i.s.dubbo.StorageDubboServiceImpl  : 全局事务id ：192.168.10.103:8091:2032180177
+2020-01-08 11:05:31.478  INFO 24100 --- [:20888-thread-2] i.s.s.i.s.dubbo.StockDubboServiceImpl  : 全局事务id ：192.168.10.103:8091:2032180177
 2020-01-08 11:05:32.097  INFO 24100 --- [:20888-thread-2] i.s.common.loader.EnhancedServiceLoader  : load LoadBalance[null] extension by class[io.seata.discovery.loadbalance.RandomLoadBalance]
 2020-01-08 11:05:33.130  WARN 24100 --- [:20888-thread-2] i.s.common.loader.EnhancedServiceLoader  : load [io.seata.rm.datasource.undo.parser.ProtostuffUndoLogParser] class fail. io/protostuff/runtime/RuntimeEnv
 2020-01-08 11:05:33.131  INFO 24100 --- [:20888-thread-2] i.s.common.loader.EnhancedServiceLoader  : load UndoLogParser[jackson] extension by class[io.seata.rm.datasource.undo.parser.JacksonUndoLogParser]

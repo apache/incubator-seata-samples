@@ -17,7 +17,7 @@
     <modules>
         <module>sbm-account-service</module>
         <module>sbm-order-service</module>
-        <module>sbm-storage-service</module>
+        <module>sbm-stock-service</module>
         <module>sbm-business-service</module>
         <module>sbm-common-service</module>
     </modules>

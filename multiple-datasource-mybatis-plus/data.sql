@@ -30,10 +30,10 @@ CREATE TABLE seata_order.undo_log
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8
 ;
-# Storage
-DROP DATABASE IF EXISTS seata_storage;
-CREATE DATABASE seata_storage;
-CREATE TABLE seata_storage.product
+# Stock
+DROP DATABASE IF EXISTS seata_stock;
+CREATE DATABASE seata_stock;
+CREATE TABLE seata_stock.product
 (
     id               INT(11) NOT NULL AUTO_INCREMENT,
     price            DOUBLE   DEFAULT NULL,
@@ -43,9 +43,9 @@ CREATE TABLE seata_storage.product
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8;
-INSERT INTO seata_storage.product (id, price, stock)
+INSERT INTO seata_stock.product (id, price, stock)
 VALUES (1, 5, 10);
-CREATE TABLE seata_storage.undo_log
+CREATE TABLE seata_stock.undo_log
 (
     id            BIGINT(20)   NOT NULL AUTO_INCREMENT,
     branch_id     BIGINT(20)   NOT NULL,

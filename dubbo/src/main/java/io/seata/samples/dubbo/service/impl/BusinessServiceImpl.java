@@ -21,7 +21,7 @@ import java.util.Random;
 import io.seata.core.context.RootContext;
 import io.seata.samples.dubbo.service.BusinessService;
 import io.seata.samples.dubbo.service.OrderService;
-import io.seata.samples.dubbo.service.StorageService;
+import io.seata.samples.dubbo.service.StockService;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessService.class);
 
-    private StorageService storageService;
+    private StockService stockService;
     private OrderService orderService;
     private Random random = new Random();
 
@@ -44,9 +44,9 @@ public class BusinessServiceImpl implements BusinessService {
     @GlobalTransactional(timeoutMills = 300000, name = "dubbo-demo-tx")
     public void purchase(String userId, String commodityCode, int orderCount) {
         LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
-        storageService.deduct(commodityCode, orderCount);
+        stockService.deduct(commodityCode, orderCount);
         // just test batch update
-        //storageService.batchDeduct(commodityCode, orderCount);
+        //stockService.batchDeduct(commodityCode, orderCount);
         orderService.create(userId, commodityCode, orderCount);
         if (random.nextBoolean()) {
             throw new RuntimeException("random exception mock!");
@@ -55,12 +55,12 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     /**
-     * Sets storage service.
+     * Sets stock service.
      *
-     * @param storageService the storage service
+     * @param stockService the stock service
      */
-    public void setStorageService(StorageService storageService) {
-        this.storageService = storageService;
+    public void setStockService(StockService stockService) {
+        this.stockService = stockService;
     }
 
     /**

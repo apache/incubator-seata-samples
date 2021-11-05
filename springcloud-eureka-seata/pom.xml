@@ -14,7 +14,7 @@
     <modules>
         <module>bussiness</module>
         <module>account</module>
-        <module>storage</module>
+        <module>stock</module>
         <module>order</module>
         <module>eureka</module>
     </modules>

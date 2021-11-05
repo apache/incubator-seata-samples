@@ -11,7 +11,7 @@
         <module>nutzboot-dubbo-fescar-web</module>
         <module>nutzboot-dubbo-fescar-order</module>
         <module>nutzboot-dubbo-fescar-account</module>
-        <module>nutzboot-dubbo-fescar-storage</module>
+        <module>nutzboot-dubbo-fescar-stock</module>
     </modules>
   <properties>
       <seata.version>0.4.2</seata.version> <!--禁止改动此版本,无对应starter-->

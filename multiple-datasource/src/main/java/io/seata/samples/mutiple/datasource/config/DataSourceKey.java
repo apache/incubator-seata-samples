@@ -13,9 +13,9 @@ public enum DataSourceKey {
      */
     ORDER,
     /**
-     * Storage data source key.
+     * Stock data source key.
      */
-    STORAGE,
+    STOCK,
     /**
      * Pay data source key.
      */

@@ -35,8 +35,8 @@ seata:0.8
 demo分为四个项目，单独启动。
 
 - eureka:作为注册中心
-- order:订单服务，用户下单后，会创建一个订单添加在order数据库，同时会扣减库存storage，扣减账户account;
-- storage:库存服务，用户扣减库存；
+- order:订单服务，用户下单后，会创建一个订单添加在order数据库，同时会扣减库存sto，扣减账户account;
+- stock:库存服务，用户扣减库存；
 - account:账户服务，用于扣减账户余额；
 
 order服务关键代码如下：
@@ -47,7 +47,7 @@ order服务关键代码如下：
         //本地方法 创建订单
         orderDao.create(order);
         //远程方法 扣减库存
-        storageApi.decrease(order.getProductId(),order.getCount());
+        stockApi.decrease(order.getProductId(),order.getCount());
         //远程方法 扣减账户余额  可在accountServiceImpl中模拟异常
         accountApi.decrease(order.getUserId(),order.getMoney());
     }
@@ -289,7 +289,7 @@ public class DataSourceConfiguration {
 ### 6.启动测试
 - 1.启动eureka;
 - 2.启动seata-server;
-- 3.启动order,storage,account服务;
+- 3.启动order,stock,account服务;
 - 4.访问：http://localhost:8180/order/create?userId=1&productId=1&count=10&money=100
 
 然后可以模拟正常情况，异常情况，超时情况等，观察数据库即可。
@@ -308,12 +308,12 @@ public class DataSourceConfiguration {
 2019-09-06 15:44:35.297  INFO 53904 --- [atch_RMROLE_6_8] io.seata.rm.AbstractRMHandler            : Branch committing: 192.168.158.133:8091:2021468859 2021468861 jdbc:mysql://116.62.62.26/seat-order null
 2019-09-06 15:44:35.297  INFO 53904 --- [atch_RMROLE_6_8] io.seata.rm.AbstractRMHandler            : Branch commit result: PhaseTwo_Committed
 ```
-##### 2.storage
+##### 2.stock
 ```java
-2019-09-06 15:44:33.776  INFO 9704 --- [nio-8082-exec-1] c.j.storage.service.StorageServiceImpl   : ------->扣减库存开始
-2019-09-06 15:44:34.030  INFO 9704 --- [nio-8082-exec-1] c.j.storage.service.StorageServiceImpl   : ------->扣减库存结束
-2019-09-06 15:44:35.422  INFO 9704 --- [atch_RMROLE_5_8] i.s.core.rpc.netty.RmMessageListener     : onMessage:xid=192.168.158.133:8091:2021468859,branchId=2021468864,branchType=AT,resourceId=jdbc:mysql://116.62.62.26/seat-storage,applicationData=null
-2019-09-06 15:44:35.423  INFO 9704 --- [atch_RMROLE_5_8] io.seata.rm.AbstractRMHandler            : Branch committing: 192.168.158.133:8091:2021468859 2021468864 jdbc:mysql://116.62.62.26/seat-storage null
+2019-09-06 15:44:33.776  INFO 9704 --- [nio-8082-exec-1] c.j.stock.service.StockServiceImpl   : ------->扣减库存开始
+2019-09-06 15:44:34.030  INFO 9704 --- [nio-8082-exec-1] c.j.stock.service.StockServiceImpl   : ------->扣减库存结束
+2019-09-06 15:44:35.422  INFO 9704 --- [atch_RMROLE_5_8] i.s.core.rpc.netty.RmMessageListener     : onMessage:xid=192.168.158.133:8091:2021468859,branchId=2021468864,branchType=AT,resourceId=jdbc:mysql://116.62.62.26/seat-stock,applicationData=null
+2019-09-06 15:44:35.423  INFO 9704 --- [atch_RMROLE_5_8] io.seata.rm.AbstractRMHandler            : Branch committing: 192.168.158.133:8091:2021468859 2021468864 jdbc:mysql://116.62.62.26/seat-stock null
 2019-09-06 15:44:35.423  INFO 9704 --- [atch_RMROLE_5_8] io.seata.rm.AbstractRMHandler            : Branch commit result: PhaseTwo_Committed
 ```
 
@@ -346,8 +346,8 @@ public class DataSourceConfiguration {
     }
 ```
 ### 9.调用成环
-前面的调用链为order->storage->account;
-这里测试的成环是指order->storage->account->order，
+前面的调用链为order->stock->account;
+这里测试的成环是指order->stock->account->order，
 这里的account服务又会回头去修改order在前面添加的数据。
 经过测试，是支持此种场景的。
 ```java

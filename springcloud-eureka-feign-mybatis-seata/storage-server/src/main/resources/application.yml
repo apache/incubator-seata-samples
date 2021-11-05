@@ -16,7 +16,7 @@ server:
     port: 8182
 spring:
     application:
-        name: storage-server
+        name: stock-server
     cloud:
         alibaba:
             seata:
@@ -24,5 +24,5 @@ spring:
     datasource:
         driver-class-name: com.mysql.jdbc.Driver
         password: xxx
-        url: jdbc:mysql://xxx/seat-storage
+        url: jdbc:mysql://xxx/seat-stock
         username: xxx

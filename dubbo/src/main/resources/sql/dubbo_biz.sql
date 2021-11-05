@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `storage_tbl`;
-CREATE TABLE `storage_tbl` (
+DROP TABLE IF EXISTS `stock_tbl`;
+CREATE TABLE `stock_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `commodity_code` varchar(255) DEFAULT NULL,
   `count` int(11) DEFAULT 0,

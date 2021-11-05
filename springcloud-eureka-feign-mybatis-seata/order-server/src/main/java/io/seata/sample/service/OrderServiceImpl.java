@@ -3,7 +3,7 @@ package io.seata.sample.service;
 import io.seata.sample.dao.OrderDao;
 import io.seata.sample.entity.Order;
 import io.seata.sample.feign.AccountApi;
-import io.seata.sample.feign.StorageApi;
+import io.seata.sample.feign.StockApi;
 import io.seata.spring.annotation.GlobalTransactional;
 import java.math.BigDecimal;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderDao orderDao;
     @Autowired
-    private StorageApi storageApi;
+    private StockApi stockApi;
     @Autowired
     private AccountApi accountApi;
 
@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService{
         orderDao.create(order);
 
         //远程方法 扣减库存
-        storageApi.decrease(order.getProductId(),order.getCount());
+        stockApi.decrease(order.getProductId(),order.getCount());
 
         //远程方法 扣减账户余额
 

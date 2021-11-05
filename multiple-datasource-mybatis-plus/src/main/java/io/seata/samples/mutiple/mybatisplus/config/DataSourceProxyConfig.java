@@ -24,9 +24,9 @@ public class DataSourceProxyConfig {
         return new DruidDataSource();
     }
 
-    @Bean("originStorage")
-    @ConfigurationProperties(prefix = "spring.datasource.storage")
-    public DataSource dataSourceStorage() {
+    @Bean("originStock")
+    @ConfigurationProperties(prefix = "spring.datasource.stock")
+    public DataSource dataSourceStock() {
         return new DruidDataSource();
     }
 
@@ -41,8 +41,8 @@ public class DataSourceProxyConfig {
         return new DataSourceProxy(dataSource);
     }
 
-    @Bean(name = "storage")
-    public DataSourceProxy storageDataSourceProxy(@Qualifier("originStorage") DataSource dataSource) {
+    @Bean(name = "stock")
+    public DataSourceProxy stockDataSourceProxy(@Qualifier("originStock") DataSource dataSource) {
         return new DataSourceProxy(dataSource);
     }
 
@@ -53,14 +53,14 @@ public class DataSourceProxyConfig {
 
     @Bean("dynamicDataSource")
     public DataSource dynamicDataSource(@Qualifier("order") DataSource dataSourceOrder,
-                                        @Qualifier("storage") DataSource dataSourceStorage,
+                                        @Qualifier("stock") DataSource dataSourceStock,
                                         @Qualifier("pay") DataSource dataSourcePay) {
 
         DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource();
 
         Map<Object, Object> dataSourceMap = new HashMap<>(3);
         dataSourceMap.put(DataSourceKey.ORDER.name(), dataSourceOrder);
-        dataSourceMap.put(DataSourceKey.STORAGE.name(), dataSourceStorage);
+        dataSourceMap.put(DataSourceKey.STOCK.name(), dataSourceStock);
         dataSourceMap.put(DataSourceKey.PAY.name(), dataSourcePay);
 
         dynamicRoutingDataSource.setDefaultTargetDataSource(dataSourceOrder);
