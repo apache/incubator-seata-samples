@@ -16,12 +16,10 @@
 package io.seata.samples.business.client;
 
 import io.seata.core.context.RootContext;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Slf4j
 @Component
 public class StockClient {
 
@@ -34,8 +32,7 @@ public class StockClient {
         try {
             restTemplate.getForEntity(url, Void.class);
         } catch (Exception e) {
-            log.error("deduct url {} ,error:", url, e);
-            throw new RuntimeException();
+            throw new RuntimeException(String.format("deduct url %s ,error:",url),e);
         }
     }
 }
