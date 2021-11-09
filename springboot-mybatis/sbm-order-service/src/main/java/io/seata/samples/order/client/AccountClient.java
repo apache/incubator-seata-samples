@@ -17,12 +17,10 @@ package io.seata.samples.order.client;
 
 import java.math.BigDecimal;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Slf4j
 @Component
 public class AccountClient {
 
@@ -34,8 +32,7 @@ public class AccountClient {
         try {
             restTemplate.getForEntity(url, Void.class);
         } catch (Exception e) {
-            log.error("debit url {} ,error:", url, e);
-            throw new RuntimeException();
+            throw new RuntimeException(String.format("debit url %s ,error:",url),e);
         }
     }
 }
