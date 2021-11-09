@@ -15,12 +15,10 @@
  */
 package io.seata.samples.business.client;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Slf4j
 @Component
 public class OrderClient {
 
@@ -33,8 +31,7 @@ public class OrderClient {
         try {
             restTemplate.getForEntity(url, Void.class);
         } catch (Exception e) {
-            log.error("create url {} ,error:", url);
-            throw new RuntimeException();
+            throw new RuntimeException(String.format("create url %s ,error:", url));
         }
     }
 }
