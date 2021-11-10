@@ -26,7 +26,7 @@
         <dubbo-boot.version>0.2.1.RELEASE</dubbo-boot.version>
         <nacos.version>0.2.1.RELEASE</nacos.version>
         <nacos-config-spring-boot.version>0.2.1</nacos-config-spring-boot.version>
-        <lombok.version>1.16.4</lombok.version>
+        <lombok.version>1.18.8</lombok.version>
         <springboot.version>2.0.8.RELEASE</springboot.version>
         <!--<sharding-sphere.version>4.0.0-RC2-SNAPSHOT</sharding-sphere.version>-->
         <sharding-sphere.version>4.0.0-RC2</sharding-sphere.version>
