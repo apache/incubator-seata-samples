@@ -31,7 +31,7 @@
         <mybatis-plus.version>2.3</mybatis-plus.version>
         <nacos.version>0.2.3</nacos.version>
         <lombok.version>1.18.8</lombok.version>
-        <dubbo.version>2.7.3</dubbo.version>
+        <dubbo.version>2.7.13</dubbo.version>
         <seata.version>1.1.0</seata.version>
         <netty.version>4.1.42.Final</netty.version>
     </properties>
