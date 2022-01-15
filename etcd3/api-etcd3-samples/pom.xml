@@ -29,11 +29,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
+
+        <!-- Etcd3 客户端依赖 -->
         <dependency>
             <groupId>io.etcd</groupId>
             <artifactId>jetcd-core</artifactId>
-            <version>0.6.1</version>
         </dependency>
+
     </dependencies>
 
 </project>

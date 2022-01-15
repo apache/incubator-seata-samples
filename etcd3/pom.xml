@@ -14,5 +14,18 @@
     </modules>
     <artifactId>etcd3</artifactId>
 
+    <properties>
+        <jetcd.client.version>0.3.0</jetcd.client.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.etcd</groupId>
+                <artifactId>jetcd-core</artifactId>
+                <version>${jetcd.client.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

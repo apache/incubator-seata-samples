@@ -34,9 +34,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * The type Bussiness.
- *
- * @author jimin.jm @alibaba-inc.com
- * @date 2019 /08/21 使用api 构建 单体应用多数据源分布式事务 非spring环境
+ * @author xiaochangbai
+ * @date 2022/1/15
  */
 public class Bussiness {
 
@@ -65,7 +64,7 @@ public class Bussiness {
 
         //init seata; only once
         String applicationId = "seata-server";
-        String txServiceGroup = "my_test_tx_group";
+        String txServiceGroup = "default_tx_group";
         TMClient.init(applicationId, txServiceGroup);
         RMClient.init(applicationId, txServiceGroup);
 
@@ -97,7 +96,7 @@ public class Bussiness {
             tx.rollback();
             throw exx;
         }
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(3);
 
     }
 }

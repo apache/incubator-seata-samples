@@ -19,9 +19,8 @@ import java.sql.SQLException;
 
 /**
  * The interface Account service.
- *
- * @author jimin.jm @alibaba-inc.com
- * @date 2019 /08/21
+ * @author xiaochangbai
+ * @date 2022/1/15
  */
 public interface AccountService extends DataResetService {
     /**

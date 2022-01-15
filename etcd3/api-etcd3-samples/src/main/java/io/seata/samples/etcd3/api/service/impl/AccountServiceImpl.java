@@ -25,9 +25,8 @@ import java.sql.SQLException;
 
 /**
  * The type Account service.
- *
- * @author jimin.jm @alibaba-inc.com
- * @date 2019 /08/21
+ * @author xiaochangbai
+ * @date 2022/1/15
  */
 public class AccountServiceImpl extends AbstractDataCheck implements AccountService {
 
