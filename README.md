@@ -14,8 +14,7 @@ projects.
 
 ## Sub-projects
 
-* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.
-  com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples)Easy to understand, high availability，Integration example of  [Spring Cloud](https://github.com/spring-cloud)，[Seata](https://github.com/seata/seata),[ShardingJdbc](https://github.com/apache/shardingsphere),[MyBatisPlus](https://github.com/baomidou/mybatis-plus).
+* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples)Easy to understand, high availability，Integration example of  [Spring Cloud](https://github.com/spring-cloud)，[Seata](https://github.com/seata/seata),[ShardingJdbc](https://github.com/apache/shardingsphere),[MyBatisPlus](https://github.com/baomidou/mybatis-plus).
 * [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) -
   Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata
 * [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example
