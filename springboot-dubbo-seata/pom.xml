@@ -46,7 +46,7 @@
         <dubbo-registry-nacos.version>0.0.2</dubbo-registry-nacos.version>
         <lombok.version>1.16.22</lombok.version>
         <spring.version>5.0.8.RELEASE</spring.version>
-        <dubbo.version>2.6.7</dubbo.version>
+        <dubbo.version>2.6.9</dubbo.version>
         <nacos-client.verison>1.0.0</nacos-client.verison>
     </properties>
 
