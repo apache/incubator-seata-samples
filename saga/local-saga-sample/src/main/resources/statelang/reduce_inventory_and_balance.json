@@ -40,7 +40,10 @@
       "CompensateState": "CompensateReduceBalance",
       "Input": [
         "$.[businessKey]",
-        "$.[amount]"
+        "$.[amount]",
+        {
+          "throwException": "$.[mockReduceBalanceFail]"
+        }
       ],
       "Output": {
         "compensateReduceBalanceResult": "$.#root"
