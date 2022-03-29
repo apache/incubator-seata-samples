@@ -29,7 +29,7 @@
     <dubbo:registry address="nacos://127.0.0.1:8848?username=nacos&amp;password=nacos" group="SEATA_GROUP"/>
     <dubbo:reference id="orderService" check="false"
                      interface="io.seata.samples.nacos.service.OrderService" protocol="dubbo"/>
-    <dubbo:reference id="stockService" check="true"
+    <dubbo:reference id="stockService" check="false"
                      interface="io.seata.samples.nacos.service.StockService" protocol="dubbo"/>
 
     <bean id="business" class="io.seata.samples.nacos.service.impl.BusinessServiceImpl">
