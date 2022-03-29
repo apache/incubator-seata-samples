@@ -1,31 +1,32 @@
-DROP TABLE IF EXISTS `stock_tbl`;
-CREATE TABLE `stock_tbl`
-(
-    `id`             int(11) NOT NULL AUTO_INCREMENT,
-    `commodity_code` varchar(255) DEFAULT NULL,
-    `count`          int(11) DEFAULT 0,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY (`commodity_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- seata.account_tbl definition
+
+CREATE TABLE `account_tbl` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `money` int DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
-DROP TABLE IF EXISTS `order_tbl`;
-CREATE TABLE `order_tbl`
-(
-    `id`             int(11) NOT NULL AUTO_INCREMENT,
-    `user_id`        varchar(255) DEFAULT NULL,
-    `commodity_code` varchar(255) DEFAULT NULL,
-    `count`          int(11) DEFAULT 0,
-    `money`          int(11) DEFAULT 0,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- seata.order_tbl definition
+
+CREATE TABLE `order_tbl` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) DEFAULT NULL,
+  `commodity_code` varchar(255) DEFAULT NULL,
+  `count` int DEFAULT '0',
+  `money` int DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
-DROP TABLE IF EXISTS `account_tbl`;
-CREATE TABLE `account_tbl`
-(
-    `id`      int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` varchar(255) DEFAULT NULL,
-    `money`   int(11) DEFAULT 0,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- seata.stock_tbl definition
+
+CREATE TABLE `stock_tbl` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `commodity_code` varchar(255) DEFAULT NULL,
+  `count` int DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `commodity_code` (`commodity_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
