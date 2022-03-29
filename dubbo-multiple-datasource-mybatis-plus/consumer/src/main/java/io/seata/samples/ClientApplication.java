@@ -28,7 +28,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, MybatisPlusAutoConfiguration.class})
-@EnableDubbo(scanBasePackages = {"io.seata.samples.service"})
+@EnableDubbo(scanBasePackages = {"io.seata.samples.service","io.seata.samples.controller"})
 public class ClientApplication {
     public static void main(String[] args) {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));

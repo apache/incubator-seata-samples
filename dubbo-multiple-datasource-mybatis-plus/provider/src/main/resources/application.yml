@@ -35,6 +35,7 @@ dubbo:
   registry:
     id: my-registry
     address: nacos://127.0.0.1:8848
+    group: SEATA_GROUP
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   typeAliasesPackage: io.seata.samples.entity

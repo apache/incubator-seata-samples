@@ -24,6 +24,7 @@ dubbo:
   registry:
     id: my-registry
     address: nacos://127.0.0.1:8848
+    group: SEATA_GROUP
 server:
   port: 28888
   max-http-header-size: 8192
