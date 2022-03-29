@@ -2,7 +2,7 @@ spring:
   application:
     name: test-consumer
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/test?userSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
@@ -18,12 +18,12 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 dubbo:
+  application:
+    qos-enable: false
+    name: test-consumer
   registry:
     id: my-registry
     address: nacos://127.0.0.1:8848
-  application:
-    name: test-consumer
-    qos-enable: false
 server:
   port: 28888
   max-http-header-size: 8192

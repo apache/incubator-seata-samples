@@ -15,9 +15,10 @@
  */
 package io.seata.samples.controller;
 
-import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,9 +43,9 @@ import io.seata.samples.service.IProductService;
 public class TestController {
 
     private final static Logger logger = LoggerFactory.getLogger(TestController.class);
-    @Reference(version = "1.0.0", timeout = 60000)
+    @Autowired
     DemoService demoService;
-    @Reference(version = "1.0.0", timeout = 60000)
+    @DubboReference(version = "1.0.0", timeout = 60000,check = false)
     private IProductService productService;
 
     /**
