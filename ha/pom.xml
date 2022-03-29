@@ -27,7 +27,8 @@
     <artifactId>seata-samples-HA</artifactId>
     <name>seata-samples-HA ${project.version}</name>
     <properties>
-        <dubbo.version>2.7.15</dubbo.version>
+        <!-- 2.7.15 会有BUG -->
+        <dubbo.version>2.7.14</dubbo.version>
         <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
     </properties>
 
@@ -54,7 +55,10 @@
             <artifactId>dubbo-registry-nacos</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba.spring</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
