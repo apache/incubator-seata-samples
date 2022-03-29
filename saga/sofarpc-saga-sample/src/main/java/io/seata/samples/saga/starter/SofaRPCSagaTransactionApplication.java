@@ -39,12 +39,7 @@ import org.springframework.util.Assert;
 @ImportResource("classpath:spring/*.xml")
 public class SofaRPCSagaTransactionApplication {
 
-    private static TestingServer server;
-
     public static void main(String[] args) throws Exception {
-        //mock zk server
-        mockZKServer();
-
         ApplicationContext applicationContext = SpringApplication.run(SofaRPCSagaTransactionApplication.class, args);
 
         StateMachineEngine stateMachineEngine = (StateMachineEngine)applicationContext.getBean("stateMachineEngine");
@@ -135,11 +130,5 @@ public class SofaRPCSagaTransactionApplication {
                 }
             }
         }
-    }
-
-    private static void mockZKServer() throws Exception {
-        //Mock zk server，作为 dubbo 配置中心
-        server = new TestingServer(2181, true);
-        server.start();
     }
 }
