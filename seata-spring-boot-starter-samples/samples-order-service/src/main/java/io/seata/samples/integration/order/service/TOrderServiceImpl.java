@@ -10,6 +10,7 @@ import io.seata.samples.integration.common.enums.RspStatusEnum;
 import io.seata.samples.integration.common.response.ObjectResponse;
 import io.seata.samples.integration.order.entity.TOrder;
 import io.seata.samples.integration.order.mapper.TOrderMapper;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TOrderServiceImpl extends ServiceImpl<TOrderMapper, TOrder> implements ITOrderService {
 
-    @Reference(version = "1.0.0")
+    @DubboReference(version = "1.0.0",check = false)
     private AccountDubboService accountDubboService;
 
     /**
