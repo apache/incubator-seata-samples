@@ -70,7 +70,7 @@
         <module>springboot-dubbo-seata</module>
         <module>tcc</module>
         <module>springcloud-jpa-seata</module>
-        <module>nutzboot-dubbo-fescar</module>
+        <module>nutzboot-dubbo-seata</module>
         <module>ha</module>
         <module>springcloud-eureka-seata</module>
         <module>multiple-datasource</module>
