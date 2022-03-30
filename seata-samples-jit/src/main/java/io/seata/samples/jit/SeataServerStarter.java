@@ -24,8 +24,7 @@ public class SeataServerStarter extends AbstractStarter {
 
     @Override
     protected void start0(String[] args) throws Exception {
-        Server server = new Server();
-        server.main(args);
+        Server.main(args);
         System.out.println("started seata");
         new ApplicationKeeper().keep();
     }
