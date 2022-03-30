@@ -17,6 +17,12 @@
   -->
 <configuration debug="false">
 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method:%L -%msg%n</Pattern>
+        </encoder>
+    </appender>
+
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
