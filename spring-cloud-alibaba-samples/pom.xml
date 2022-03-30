@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
-    <parent>
-        <groupId>io.seata</groupId>
-        <artifactId>seata-samples</artifactId>
-        <version>1.1.0</version>
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>io.seata</groupId>-->
+<!--        <artifactId>seata-samples</artifactId>-->
+<!--        <version>1.1.0</version>-->
+<!--    </parent>-->
 
     <groupId>io.seata</groupId>
     <artifactId>spring-cloud-alibaba-samples</artifactId>
@@ -23,27 +23,39 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
-        <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.7.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
         <lombok.version>1.18.8</lombok.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sikpTests>true</sikpTests>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <seata.version>1.4.2</seata.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.spring</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>1.0.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.4.RELEASE</version>
+                <version>2.2.13.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
-            <!--Spring Cloud-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -51,6 +63,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <!--Spring Cloud Alibaba-->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
@@ -64,6 +77,12 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.28</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
