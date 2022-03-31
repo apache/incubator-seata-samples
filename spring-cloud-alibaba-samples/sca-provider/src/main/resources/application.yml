@@ -1,6 +1,8 @@
 server:
   port: 18080
 
+logger:
+  level: debug
 dubbo:
   scan:
     # dubbo 服务扫描基准包
@@ -11,8 +13,7 @@ dubbo:
     # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
     port: -1
   registry:
-    # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://localhost
+    address: nacos://127.0.0.1:8848
   cloud:
     subscribed-services: ""
 

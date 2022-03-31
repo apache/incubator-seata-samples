@@ -19,25 +19,31 @@ import io.seata.samples.sca.common.domain.TbUser;
 import io.seata.samples.sca.common.dubbo.api.UserService;
 import io.seata.samples.sca.provider.mapper.TbUserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Description:
  * author: yu.hb
  * Date: 2019-11-01
  */
-@Service
+@DubboService
 @Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     private TbUserMapper userMapper;
 
+    @Transactional
     @Override
     public void add(TbUser user) {
         log.info("add user:{}", user);
 
         user.setName("provider");
         userMapper.insert(user);
+
+        // test seata globalTransactional
+        throw new RuntimeException("");
     }
 }
