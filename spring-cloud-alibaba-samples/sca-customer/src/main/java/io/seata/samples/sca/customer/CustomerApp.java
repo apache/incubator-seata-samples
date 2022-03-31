@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by yu.hb on 2019-10-30
@@ -29,6 +30,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients // 扫描 @FeignClient 注解
 @MapperScan("io.seata.samples.sca.customer.mapper")
+@EnableTransactionManagement
 public class CustomerApp {
 
     public static void main(String[] args) {
