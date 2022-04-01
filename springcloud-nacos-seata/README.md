@@ -35,7 +35,7 @@ registry {
   type = "nacos"
 
   nacos {
-    serverAddr = "192.168.21.89"
+    serverAddr = "127.0.0.1"
     namespace = ""
     cluster = "default"
   }
@@ -44,7 +44,7 @@ config {
   # file、nacos 、apollo、zk、consul、etcd3
   type = "nacos"
   nacos {
-    serverAddr = "192.168.21.89"
+    serverAddr = "127.0.0.1"
     namespace = ""
     cluster = "default"
   }
@@ -72,7 +72,7 @@ service.vgroup_mapping.order-service-group=default
 ~~~shell
 # 初始化seata 的nacos配置
 cd conf
-sh nacos-config.sh 192.168.21.89
+sh nacos-config.sh 127.0.0.1
 
 # 启动seata-server
 cd bin
@@ -169,11 +169,11 @@ INSERT INTO seata_stock.stock_tbl (id, commodity_code, count) VALUES (2, 'produc
 
 1. 分布式事务成功，模拟正常下单、扣库存
 
-   localhost:9091/order/placeOrder/commit
+   localhost:18081/order/placeOrder/commit
 
 2. 分布式事务失败，模拟下单成功、扣库存失败，最终同时回滚
 
-   localhost:9091/order/placeOrder/rollback 
+   localhost:18081/order/placeOrder/rollback 
 
 
 
