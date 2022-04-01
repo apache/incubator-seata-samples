@@ -5,6 +5,7 @@
         <groupId>io.seata</groupId>
         <artifactId>nutzboot-dubbo-seata</artifactId>
         <version>1.1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>nutzboot-dubbo-seata-stock</artifactId>
     <dependencies>
