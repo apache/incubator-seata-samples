@@ -48,4 +48,10 @@ public interface InventoryAction {
 运行 [LocalSagaTransactionStarter](https://github.com/seata/seata-samples/blob/master/saga/local-saga-sample/src/main/java/io/seata/samples/saga/starter/LocalSagaTransactionStarter.java)
 , 启动 demo工程；
 
+可配置 statelang/reduce_inventory_and_balance.json 里面 
+去掉 就是事务提交
+
+ReduceBalance -> Input -> {throwException": "$.[mockReduceBalanceFail]"}
+
 内含Saga 事务提交场景和Saga事务回滚场景的演示；
+

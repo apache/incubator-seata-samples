@@ -100,7 +100,7 @@ public class LocalSagaTransactionStarter {
 
         waittingForFinish(inst);
 
-        Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
             "saga transaction compensate failed. XID: " + inst.getId());
         System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
     }

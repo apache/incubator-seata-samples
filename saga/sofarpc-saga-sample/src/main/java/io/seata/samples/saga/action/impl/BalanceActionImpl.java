@@ -31,8 +31,11 @@ public class BalanceActionImpl implements BalanceAction {
 
     @Override
     public boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params) {
-        if (params != null && "true".equals(params.get("throwException"))) {
-            throw new RuntimeException("reduce balance failed");
+        if(params != null) {
+            Object throwException = params.get("throwException");
+            if (throwException != null && "true".equals(throwException.toString())) {
+                throw new RuntimeException("reduce balance failed");
+            }
         }
         LOGGER.info("reduce balance succeed, amount: " + amount + ", businessKey:" + businessKey);
         return true;
@@ -40,8 +43,11 @@ public class BalanceActionImpl implements BalanceAction {
 
     @Override
     public boolean compensateReduce(String businessKey, Map<String, Object> params) {
-        if (params != null && "true".equals(params.get("throwException"))) {
-            throw new RuntimeException("compensate reduce balance failed");
+        if(params != null) {
+            Object throwException = params.get("throwException");
+            if (throwException != null && "true".equals(throwException.toString())) {
+                throw new RuntimeException("compensate reduce balance failed");
+            }
         }
         LOGGER.info("compensate reduce balance succeed, businessKey:" + businessKey);
         return true;
