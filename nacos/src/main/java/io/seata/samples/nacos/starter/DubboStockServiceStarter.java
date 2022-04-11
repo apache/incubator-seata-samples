@@ -30,7 +30,7 @@ public class DubboStockServiceStarter {
      */
     public static void main(String[] args) {
         ClassPathXmlApplicationContext stockContext = new ClassPathXmlApplicationContext(
-            new String[] {"spring/dubbo-stock-service.xml"});
+            new String[] {"spring/dubbo-storage-service.xml"});
         stockContext.getBean("service");
         JdbcTemplate stockJdbcTemplate = (JdbcTemplate)stockContext.getBean("jdbcTemplate");
         stockJdbcTemplate.update("delete from stock_tbl where commodity_code = 'C00321'");
