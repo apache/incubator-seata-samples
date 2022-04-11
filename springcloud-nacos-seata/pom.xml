@@ -103,6 +103,14 @@
             <artifactId>seata-spring-boot-starter</artifactId>
             <version>1.4.2</version>
         </dependency>
+
+        <!--feign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

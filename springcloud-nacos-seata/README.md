@@ -4,7 +4,7 @@
 
 demo中使用的相关版本号，具体请看代码。如果搭建个人demo不成功，验证是否是由版本导致，由于目前这几个项目更新比较频繁，版本稍有变化便会出现许多奇怪问题
 
-* seata 0.8.0
+* seata 1.4.2
 * spring-cloud-alibaba-seata 2.1.0.RELEASE
 * spring-cloud-starter-alibaba-nacos-discovery 0.2.1.RELEASE
 * springboot 2.0.6.RELEASE
@@ -16,11 +16,11 @@ demo中使用的相关版本号，具体请看代码。如果搭建个人demo不
 
 ### 1.1 Nacos-server
 
-版本为nacos-server-1.1.3，demo采用本地单机部署方式，请参考 [Nacos 快速开始](https://nacos.io/zh-cn/docs/quick-start.html)
+版本为nacos-server-2.0.4，demo采用本地单机部署方式，请参考 [Nacos 快速开始](https://nacos.io/zh-cn/docs/quick-start.html)
 
 ### 1.2 Seata-server
 
-seata-server为release版本0.8.0，demo采用本地单机部署，从此处下载 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases)
+seata-server为release版本1.4.2，demo采用本地单机部署，从此处下载 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases)
 并解压
 
 #### 1.2.1 修改conf/registry.conf 配置
@@ -169,11 +169,11 @@ INSERT INTO seata_stock.stock_tbl (id, commodity_code, count) VALUES (2, 'produc
 
 1. 分布式事务成功，模拟正常下单、扣库存
 
-   localhost:18081/order/placeOrder/commit
+   localhost:9091/order/placeOrder/commit
 
 2. 分布式事务失败，模拟下单成功、扣库存失败，最终同时回滚
 
-   localhost:18081/order/placeOrder/rollback 
+   localhost:9091/order/placeOrder/rollback 
 
 
 
