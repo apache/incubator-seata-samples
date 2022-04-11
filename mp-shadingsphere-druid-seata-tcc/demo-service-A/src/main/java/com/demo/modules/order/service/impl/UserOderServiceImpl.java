@@ -54,6 +54,7 @@ public class UserOderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder>
         userOrder.setId(id);
         userOrderTccAction.geneOrder(userOrder, id);
 
+        // 校验 事务回滚
         int a = 1 / 0;
     }
 }

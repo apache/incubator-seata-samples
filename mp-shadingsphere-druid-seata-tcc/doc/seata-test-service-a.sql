@@ -4,7 +4,7 @@
  Source Server         : mysql_188_master
  Source Server Type    : MySQL
  Source Server Version : 50733
- Source Host           : 192.168.1.188:3307
+ Source Host           : 127.0.0.1:3307
  Source Schema         : seata-test-service-a
 
  Target Server Type    : MySQL
