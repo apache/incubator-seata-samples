@@ -13,27 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.sca.common.domain;
+package io.seata.samples.sca.customer.mapper;
 
-import java.io.Serializable;
+import io.seata.samples.sca.common.domain.TbDemo;
+import io.seata.samples.sca.common.domain.TbUser;
 
-import lombok.Data;
+public interface TbDemoMapper {
+    int deleteByPrimaryKey(Integer id);
 
-@Data
-public class TbUser implements Serializable {
-    /**
-     *
-     */
-    private Integer id;
+    int insert(TbUser record);
 
-    /**
-     *
-     */
-    private String name;
+    int insertSelective(TbDemo record);
 
-    /**
-     *
-     */
-    private Integer age;
+    TbUser selectByPrimaryKey(Integer id);
 
+    int updateByPrimaryKeySelective(TbDemo record);
+
+    int updateByPrimaryKey(TbDemo record);
 }
