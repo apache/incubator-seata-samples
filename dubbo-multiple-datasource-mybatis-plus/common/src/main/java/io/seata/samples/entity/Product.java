@@ -44,6 +44,8 @@ public class Product implements Serializable {
 
     private Integer stock;
 
+    private Integer accountId;
+
     private LocalDateTime lastUpdateTime;
 
 }

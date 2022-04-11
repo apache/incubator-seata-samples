@@ -10,17 +10,17 @@ spring:
       datasource:
         master_1:
           url: jdbc:mysql://127.0.0.1:3306/test_pay?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-          driver-class-name: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: 123456
         master_2:
           url: jdbc:mysql://127.0.0.1:3306/test_order?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-          driver-class-name: com.mysql.jdbc.Driver
+          driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: 123456
         master_3:
-          url: jdbc:mysql://127.0.0.1:3306/test_stock?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/test_storage?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
           password: 123456
 dubbo:
@@ -35,6 +35,7 @@ dubbo:
   registry:
     id: my-registry
     address: nacos://127.0.0.1:8848
+    group: SEATA_GROUP
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   typeAliasesPackage: io.seata.samples.entity
