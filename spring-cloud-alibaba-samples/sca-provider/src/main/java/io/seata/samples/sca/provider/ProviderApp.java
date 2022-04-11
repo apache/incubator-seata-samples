@@ -19,6 +19,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by yu.hb on 2019-10-30
@@ -26,6 +27,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @MapperScan("io.seata.samples.sca.provider.mapper")
+@EnableTransactionManagement
 public class ProviderApp {
 
     public static void main(String[] args) {

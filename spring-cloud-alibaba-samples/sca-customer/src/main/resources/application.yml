@@ -3,17 +3,24 @@ server:
 
 dubbo:
   registry:
-    # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://localhost
+    address: nacos://127.0.0.1:8848
   cloud:
     subscribed-services: sca-provider
   consumer:
     check: false
+  protocol.port: 20881
+  application:
+    qos-enable: false
 
 spring:
+  application:
+    name: sca-customer
+  main:
+    # Spring Boot 2.1 需要设定
+    allow-bean-definition-overriding: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.186.128:3306/yuhb-test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: root
     password: 123456
 
@@ -25,7 +32,7 @@ spring:
     alibaba:
       seata:
         # Seata 事务组名称，对应file.conf文件中 vgroup_mapping.sca-customer-seata-tx-service-group
-        tx-service-group: sca-customer-seata-tx-service-group
+        tx-service-group: my_test_tx_group
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

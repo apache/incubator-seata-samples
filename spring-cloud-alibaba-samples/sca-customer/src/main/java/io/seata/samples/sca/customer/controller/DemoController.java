@@ -16,13 +16,16 @@
 package io.seata.samples.sca.customer.controller;
 
 import io.seata.core.context.RootContext;
+import io.seata.samples.sca.common.domain.TbDemo;
 import io.seata.samples.sca.common.domain.TbUser;
 import io.seata.samples.sca.common.dubbo.api.UserService;
-import io.seata.samples.sca.customer.mapper.TbUserMapper;
+import io.seata.samples.sca.customer.mapper.TbDemoMapper;
+import io.seata.samples.sca.customer.service.TbDemoService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,35 +45,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Slf4j
-public class UserController {
-
-    @Reference
-    private UserService userService;
+public class DemoController {
 
     @Autowired
-    private TbUserMapper userMapper;
+    TbDemoService demoService;
 
     /**
      * seata 全局事务控制
      *
-     * @param user
+     * @param demo
      */
     @PostMapping("/seata/user/add")
-    @GlobalTransactional(rollbackFor = Exception.class) // 开启全局事务
-    public void add(@RequestBody TbUser user) {
-        log.info("globalTransactional begin, Xid:{}", RootContext.getXID());
-        // local save
-        localSave(user);
-
-        // call provider save
-        userService.add(user);
-
-        // test seata globalTransactional
-        throw new RuntimeException();
-    }
-
-    private void localSave(TbUser user) {
-        user.setName("customer");
-        userMapper.insertSelective(user);
+    public void add(@RequestBody TbDemo demo) {
+        demoService.save(demo);
     }
 }
