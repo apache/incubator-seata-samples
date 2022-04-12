@@ -25,6 +25,7 @@ import io.seata.saga.proctrl.ProcessContext;
 import io.seata.saga.statelang.domain.ExecutionStatus;
 import io.seata.saga.statelang.domain.StateMachineInstance;
 import io.seata.samples.saga.ApplicationKeeper;
+import org.apache.curator.test.TestingServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -38,8 +39,7 @@ import org.springframework.util.Assert;
 @ImportResource("classpath:spring/*.xml")
 public class SofaRPCSagaTransactionApplication {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws Exception {
         ApplicationContext applicationContext = SpringApplication.run(SofaRPCSagaTransactionApplication.class, args);
 
         StateMachineEngine stateMachineEngine = (StateMachineEngine)applicationContext.getBean("stateMachineEngine");
@@ -98,7 +98,7 @@ public class SofaRPCSagaTransactionApplication {
 
         waittingForFinish(inst);
 
-        Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
             "saga transaction compensate failed. XID: " + inst.getId());
         System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
     }
