@@ -36,7 +36,7 @@
         <base-core-starter.version>1.0.0-SNAPSHOT</base-core-starter.version>
         <base-jdbc-starter.version>1.0.0-SNAPSHOT</base-jdbc-starter.version>
         <base-transaction-starter.version>1.0.0-SNAPSHOT</base-transaction-starter.version>
-        <fastjson.version>1.2.75</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <druid.version>1.1.22</druid.version>
         <postgresql.version>42.2.6</postgresql.version>
