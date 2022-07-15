@@ -64,6 +64,12 @@
     </properties>
     <modules>
         <module>dubbo</module>
+        <module>seata-server-deploy</module>
+        <module>at-sample</module>
+        <module>tcc-sample</module>
+        <module>saga-sample</module>
+        <module>xa-sample</module>
+        <module>seata-best-practices</module>
         <!-- <module>springboot</module> -->
         <!-- <module>nacos</module> -->
         <!-- <module>springboot-dubbo-seata</module> -->
