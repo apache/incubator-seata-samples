@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<packaging>pom</packaging>
+<modules>
+    <module>inventory</module>
+    <module>order</module>
+    <module>account</module>
+    <module>business</module>
+</modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.2.RELEASE</version>
+        <relativePath/>
+    </parent>
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>org.seata</groupId>
+<artifactId>seata-springcloud-consul-sample</artifactId>
+<version>1.0-SNAPSHOT</version>
+
+<properties>
+    <springboot.verison>2.4.2.RELEASE</springboot.verison>
+    <java.version>1.8</java.version>
+    <mybatis.version>2.1.5</mybatis.version>
+    <tk-mapper.version>4.1.5</tk-mapper.version>
+    <seata.version>1.3.0</seata.version>
+</properties>
+
+<dependencyManagement>
+    <dependencies>
+        <!--Mybatis通用Mapper-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+            <version>${tk-mapper.version}</version>
+        </dependency>
+
+        <!--SpringCloud-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>Hoxton.SR9</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+        <!--Spring Alibaba Cloud-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+            <version>2.2.1.RELEASE</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
+</project>

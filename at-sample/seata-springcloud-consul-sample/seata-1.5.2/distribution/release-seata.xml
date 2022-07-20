@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~  Copyright 1999-2019 Seata.io Group.
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+<assembly>
+    <id>server-${project.version}</id>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <formats>
+        <format>dir</format>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <includes>
+                <include>plugins/**</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <includes>
+                <include>bin/*</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+
+        <fileSet>
+            <includes>
+                <include>logs/**</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>../server/src/main/resources/logback/</directory>
+            <outputDirectory>conf/logback/</outputDirectory>
+            <includes>
+                <include>**/*.xml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>../ext/apm-seata-skywalking-plugin/target/ext/skywalking-agent/</directory>
+            <outputDirectory>ext/apm-skywalking/</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>../server/target/lib/</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+
+        <fileSet>
+            <directory>../script/</directory>
+            <outputDirectory>script</outputDirectory>
+            <includes>
+                <include>**/server/</include>
+                <include>**/logstash/</include>
+                <include>**/config-center/</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <file>
+            <source>Dockerfile</source>
+            <destName>Dockerfile</destName>
+        </file>
+
+        <file>
+            <source>LICENSE-BIN</source>
+            <destName>LICENSE</destName>
+        </file>
+
+        <file>
+            <source>../server/target/seata-server.jar</source>
+            <outputDirectory>target/</outputDirectory>
+        </file>
+
+        <file>
+            <source>../server/src/main/resources/application.yml</source>
+            <outputDirectory>conf/</outputDirectory>
+        </file>
+        <file>
+            <source>../server/src/main/resources/application.example.yml</source>
+            <outputDirectory>conf/</outputDirectory>
+        </file>
+
+        <file>
+            <source>../server/src/main/resources/logback-spring.xml</source>
+            <outputDirectory>conf/</outputDirectory>
+        </file>
+    </files>
+
+    <moduleSets>
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>io.seata:seata-server</include>
+            </includes>
+        </moduleSet>
+    </moduleSets>
+</assembly>

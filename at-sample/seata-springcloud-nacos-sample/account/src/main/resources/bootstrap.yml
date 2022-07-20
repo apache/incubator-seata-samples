@@ -1,0 +1,53 @@
+server:
+  port: 6760
+spring:
+  application:
+    name: account-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/seata_samples?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        register-enabled: true
+        namespace:
+      config:
+        server-addr: 127.0.0.1:8848
+        enabled: true
+        file-extension: yaml
+        namespace:
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping的后缀对应
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroup-mapping:
+      account-service-tx-group: "default"
+  config:
+    type: nacos
+    # 需要和server在同一个注册中心下
+    nacos:
+      namespace:
+      serverAddr: 127.0.0.1:8848
+      # 需要server端(registry和config)、nacos配置client端(registry和config)保持一致
+      group: SEATA_GROUP
+      username: "nacos"
+      password: "nacos"
+  registry:
+    type: nacos
+    nacos:
+      # 需要和server端保持一致，即server在nacos中的名称，默认为seata-server
+      application: seata-server
+      server-addr: 127.0.0.1:8848
+      group: SEATA_GROUP
+      namespace:
+      username: "nacos"
+      password: "nacos"
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
