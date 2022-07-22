@@ -10,9 +10,10 @@
         <module>business</module>
     </modules>
     <parent>
-        <artifactId>at-sample</artifactId>
-        <groupId>io.seata</groupId>
-        <version>1.1.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.2.RELEASE</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

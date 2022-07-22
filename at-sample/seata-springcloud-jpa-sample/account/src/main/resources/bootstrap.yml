@@ -1,20 +1,23 @@
 server:
-  port: 6770
+  port: 6760
 spring:
   application:
-    name: order-service
+    name: account-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
     url: jdbc:mysql://127.0.0.1:3306/seata_samples?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-  cloud:
-    consul:
-      discovery:
-        service-name: ${spring.application.name}
-        heartbeat:
-          enabled: true
 
+eureka:
+  instance:
+    instance-id: account-service
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
 
 seata:
   enabled: true
@@ -23,16 +26,13 @@ seata:
   tx-service-group: ${spring.application.name}-tx-group
   service:
     vgroup-mapping:
-      order-service-tx-group: "default"
-    grouplist:
-      default: 127.0.0.1:9080
-#  config:
-#    type: consul
-#    consul:
-#      server-addr: 127.0.0.1:8500
+      account-service-tx-group: "default"
+
   registry:
-    consul:
-      server-addr: 127.0.0.1:8500
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+      weight: 1
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml

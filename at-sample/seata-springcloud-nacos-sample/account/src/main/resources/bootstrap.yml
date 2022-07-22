@@ -29,7 +29,7 @@ seata:
     vgroup-mapping:
       account-service-tx-group: "default"
   config:
-    type: nacos
+    type: file
     # 需要和server在同一个注册中心下
     nacos:
       namespace:

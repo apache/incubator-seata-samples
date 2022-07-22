@@ -3,13 +3,16 @@ server:
 spring:
   application:
     name: business-service
+eureka:
+  instance:
+    instance-id: business-service
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
 
-  cloud:
-    consul:
-      discovery:
-        service-name: ${spring.application.name}
-        heartbeat:
-          enabled: true
 seata:
   enabled: true
   application-id: ${spring.application.name}
@@ -18,10 +21,9 @@ seata:
   service:
     vgroup-mapping:
       business-service-tx-group: "default"
-    grouplist:
-      default: 127.0.0.1:9080
-
 
   registry:
-    consul:
-      server-addr: 127.0.0.1:8500
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+      eight: 1

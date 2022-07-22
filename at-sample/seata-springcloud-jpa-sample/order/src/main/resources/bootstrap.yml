@@ -8,13 +8,16 @@ spring:
     username: root
     password: root
     url: jdbc:mysql://127.0.0.1:3306/seata_samples?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-  cloud:
-    consul:
-      discovery:
-        service-name: ${spring.application.name}
-        heartbeat:
-          enabled: true
 
+eureka:
+  instance:
+    instance-id: order-service
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
 
 seata:
   enabled: true
@@ -24,15 +27,12 @@ seata:
   service:
     vgroup-mapping:
       order-service-tx-group: "default"
-    grouplist:
-      default: 127.0.0.1:9080
-#  config:
-#    type: consul
-#    consul:
-#      server-addr: 127.0.0.1:8500
+
   registry:
-    consul:
-      server-addr: 127.0.0.1:8500
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+      weight: 1
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml

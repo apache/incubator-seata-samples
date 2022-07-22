@@ -24,7 +24,8 @@ seata:
   service:
     vgroup-mapping:
       account-service-tx-group: "default"
-
+    grouplist:
+      default: 127.0.0.1:9080
   registry:
     consul:
       server-addr: 127.0.0.1:8500

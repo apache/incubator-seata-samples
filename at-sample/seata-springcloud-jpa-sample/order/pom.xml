@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.seata</groupId>
-        <artifactId>seata-springcloud-consul-sample</artifactId>
+        <artifactId>seata-springcloud-jpa-sample</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.seata.business</groupId>
-    <artifactId>business-service</artifactId>
+    <groupId>com.seata.order</groupId>
+    <artifactId>order-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>business-service</name>
+    <name>order-service</name>
+    <description>订单服务</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -34,14 +35,10 @@
             <scope>test</scope>
         </dependency>
 
-        <!--consul作为注册中心和配置中心-->
+        <!--eureka注册中心-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
         <!--seata-->
@@ -61,6 +58,16 @@
             <version>1.3.0</version>
         </dependency>
 
+        <!--jpa-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
         <!--openfeign-->
         <dependency>
