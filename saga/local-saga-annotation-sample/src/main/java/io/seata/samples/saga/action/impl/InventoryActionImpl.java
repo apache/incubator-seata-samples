@@ -15,7 +15,9 @@
  */
 package io.seata.samples.saga.action.impl;
 
+import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.samples.saga.action.InventoryAction;
+import io.seata.samples.saga.action.ResultHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,14 +29,17 @@ public class InventoryActionImpl implements InventoryAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryActionImpl.class);
 
     @Override
-    public boolean reduce(String businessKey, int count) {
+    public boolean reduce(BusinessActionContext actionContext, String businessKey, int count) {
         LOGGER.info("reduce inventory succeed, count: " + count + ", businessKey:" + businessKey);
+        ResultHolder.setActionTwoResult(actionContext.getXid(), "T");
         return true;
     }
 
     @Override
-    public boolean compensateReduce(String businessKey) {
-        LOGGER.info("compensate reduce inventory succeed, businessKey:" + businessKey);
+    public boolean compensateReduce(BusinessActionContext actionContext) {
+        String xid = actionContext.getXid();
+        System.out.println("Inventory compensate Reduce, xid:" + xid);
+        ResultHolder.setActionTwoResult(xid, "R");
         return true;
     }
 }

@@ -34,6 +34,10 @@
         <module>local-saga-annotation-sample</module>
     </modules>
 
+    <properties>
+        <seata.all.version>1.6.0-SNAPSHOT</seata.all.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
         </dependencies>
@@ -67,7 +71,7 @@
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
-            <version>${seata.version}</version>
+            <version>${seata.all.version}</version>
         </dependency>
         <dependency>
             <groupId>io.seata</groupId>

@@ -48,11 +48,11 @@ public class SagaAnnotationTransactionService {
 
         String businessKey = String.valueOf(System.currentTimeMillis());
         
-        boolean result = balanceAction.reduce(businessKey, new BigDecimal("100"), null);
+        boolean result = balanceAction.reduce(null, businessKey, new BigDecimal("100"), null);
         if (!result) {
             throw new RuntimeException("balanceAction failed.");
         }
-        result = inventoryAction.reduce(businessKey, 10);
+        result = inventoryAction.reduce(null, businessKey, 10);
         if (!result) {
             throw new RuntimeException("inventoryAction failed.");
         }
@@ -70,11 +70,11 @@ public class SagaAnnotationTransactionService {
         Map<String, Object> startParams = new HashMap<>(3);
         String businessKey = String.valueOf(System.currentTimeMillis());
 
-        boolean result = balanceAction.reduce(businessKey, new BigDecimal("100"), null);
+        boolean result = balanceAction.reduce(null, businessKey, new BigDecimal("100"), null);
         if (!result) {
             throw new RuntimeException("balanceAction failed.");
         }
-        result = inventoryAction.reduce(businessKey, 10);
+        result = inventoryAction.reduce(null, businessKey, 10);
         if (!result) {
             throw new RuntimeException("inventoryAction failed.");
         }

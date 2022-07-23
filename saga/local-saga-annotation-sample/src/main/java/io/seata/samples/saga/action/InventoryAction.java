@@ -15,6 +15,7 @@
  */
 package io.seata.samples.saga.action;
 
+import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.saga.annotation.api.SagaTransactional;
 import io.seata.spring.annotation.LocalService;
 
@@ -30,13 +31,13 @@ public interface InventoryAction {
      * @param count
      * @return
      */
-    @SagaTransactional(name = "InventoryAction", compensationMethod = "compensateReduce", isDelayReport = true, useCommonFence = true)
-    boolean reduce(String businessKey, int count);
+    @SagaTransactional(name = "InventoryAction", compensationMethod = "compensateReduce", isDelayReport = true, useCommonFence = false)
+    boolean reduce(BusinessActionContext actionContext, String businessKey, int count);
 
     /**
      * increase
      *
      * @return
      */
-    boolean compensateReduce(String businessKey);
+    boolean compensateReduce(BusinessActionContext actionContext);
 }

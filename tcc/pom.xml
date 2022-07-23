@@ -36,6 +36,10 @@
         <module>hsf-tcc-sample</module>
     </modules>
 
+    <properties>
+        <seata.all.version>1.6.0-SNAPSHOT</seata.all.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <!-- dubbo -->
@@ -80,7 +84,7 @@
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-all</artifactId>
-            <version>${seata.version}</version>
+            <version>${seata.all.version}</version>
         </dependency>
         <dependency>
             <groupId>io.seata</groupId>

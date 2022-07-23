@@ -15,6 +15,7 @@
  */
 package io.seata.samples.saga.action;
 
+import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.saga.annotation.api.SagaTransactional;
 import io.seata.spring.annotation.LocalService;
 
@@ -35,16 +36,15 @@ public interface BalanceAction {
      * @param params
      * @return
      */
-    @SagaTransactional(name = "BalanceAction" , compensationMethod = "compensateReduce", isDelayReport = true, useCommonFence = true)
-    boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params);
+    @SagaTransactional(name = "BalanceAction" , compensationMethod = "compensateReduce", isDelayReport = true, useCommonFence = false)
+    boolean reduce(BusinessActionContext actionContext, String businessKey, BigDecimal amount, Map<String, Object> params);
 
     /**
      * compensateReduce
      *
-     * @param businessKey
-     * @param params
+     * @param actionContext
      * @return
      */
-    boolean compensateReduce(String businessKey, Map<String, Object> params);
+    boolean compensateReduce(BusinessActionContext actionContext);
 
 }

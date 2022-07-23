@@ -15,7 +15,9 @@
  */
 package io.seata.samples.saga.action.impl;
 
+import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.samples.saga.action.BalanceAction;
+import io.seata.samples.saga.action.ResultHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +32,7 @@ public class BalanceActionImpl implements BalanceAction {
     private static final Logger LOGGER = LoggerFactory.getLogger(BalanceActionImpl.class);
 
     @Override
-    public boolean reduce(String businessKey, BigDecimal amount, Map<String, Object> params) {
+    public boolean reduce(BusinessActionContext actionContext, String businessKey, BigDecimal amount, Map<String, Object> params) {
         if(params != null) {
             Object throwException = params.get("throwException");
             if (throwException != null && "true".equals(throwException.toString())) {
@@ -38,18 +40,15 @@ public class BalanceActionImpl implements BalanceAction {
             }
         }
         LOGGER.info("reduce balance succeed, amount: " + amount + ", businessKey:" + businessKey);
+        ResultHolder.setActionOneResult(actionContext.getXid(), "T");
         return true;
     }
 
     @Override
-    public boolean compensateReduce(String businessKey, Map<String, Object> params) {
-        if(params != null) {
-            Object throwException = params.get("throwException");
-            if (throwException != null && "true".equals(throwException.toString())) {
-                throw new RuntimeException("compensate reduce balance failed");
-            }
-        }
-        LOGGER.info("compensate reduce balance succeed, businessKey:" + businessKey);
+    public boolean compensateReduce(BusinessActionContext actionContext) {
+        String xid = actionContext.getXid();
+        System.out.println("Balance compensate Reduce, xid:" + xid);
+        ResultHolder.setActionOneResult(xid, "R");
         return true;
     }
 }
