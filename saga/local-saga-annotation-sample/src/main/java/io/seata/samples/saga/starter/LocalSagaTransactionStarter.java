@@ -97,8 +97,8 @@ public class LocalSagaTransactionStarter {
         String txId = (String)map.get("xid");
         Thread.sleep(1000L);
 
-        Assert.isTrue("R".equals(ResultHolder.getActionOneResult(txId)), "balanceAction commit failed");
-        Assert.isTrue("R".equals(ResultHolder.getActionTwoResult(txId)), "inventoryAction commit failed");
+        Assert.isTrue("R".equals(ResultHolder.getActionOneResult(txId)), "balanceAction rollback failed");
+        Assert.isTrue("R".equals(ResultHolder.getActionTwoResult(txId)), "inventoryAction rollback failed");
 
         System.out.println("transaction rollback demo finish.");
     }
