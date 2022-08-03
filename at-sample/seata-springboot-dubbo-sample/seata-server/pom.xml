@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!--
+          ~  Copyright 1999-2018 Alibaba Group Holding Ltd.
+          ~
+          ~  Licensed under the Apache License, Version 2.0 (the "License");
+          ~  you may not use this file except in compliance with the License.
+          ~  You may obtain a copy of the License at
+          ~
+          ~       http://www.apache.org/licenses/LICENSE-2.0
+          ~
+          ~  Unless required by applicable law or agreed to in writing, software
+          ~  distributed under the License is distributed on an "AS IS" BASIS,
+          ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+          ~  See the License for the specific language governing permissions and
+          ~  limitations under the License.
+          -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.2.RELEASE</version>
+    <relativePath/>
+</parent>
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.seata.server</groupId>
+<artifactId>seata-server</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+<name>seata-server</name>
+<description>seata-server</description>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--nacos注册中心和配置中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>2.2.1.RELEASE</version>
+        </dependency>
+
+        <!--seata-->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-server</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+<!--        &lt;!&ndash;openfeign&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
+<!--            <version>2.2.6.RELEASE</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.github.openfeign</groupId>-->
+<!--            <artifactId>feign-okhttp</artifactId>-->
+<!--            <version>10.2.3</version>-->
+<!--        </dependency>-->
+    </dependencies>
+</project>
