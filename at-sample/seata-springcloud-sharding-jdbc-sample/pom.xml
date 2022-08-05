@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.seata</groupId>
-    <artifactId>seata-springcloud-eureka-sample</artifactId>
+    <artifactId>seata-springcloud-sharding-jdbc-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

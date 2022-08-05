@@ -1,15 +1,37 @@
-package com.seata.inventory.mapper;
+/*
+ *  Copyright 1999-2021 Seata.io Group.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+package com.work.stock.repository;
 
-import com.seata.inventory.model.Inventory;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.work.stock.entity.Stock;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.common.Mapper;
 
-
+/**
+ * Program Name: springcloud-nacos-seata
+ * <p>
+ * Description:
+ * <p>
+ *
+ * @author zhangjianwei
+ * @version 1.0
+ * @date 2019/8/28 4:05 PM
+ */
+@Mapper
 @Repository
-public interface InventoryMapper  extends Mapper<Inventory> {
+public interface StockDAO extends BaseMapper<Stock> {
 
-    @Update("update inventory_tbl set count = count - #{count} where commodity_code = #{commodityCode}")
-    void deduct(@Param("commodityCode") String commodityCode , @Param("count") int count);
 }

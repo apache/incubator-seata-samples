@@ -1,0 +1,38 @@
+server:
+  port: 6760
+spring:
+  application:
+    name: account-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/seata_samples?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+
+eureka:
+  instance:
+    instance-id: account-service
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping的后缀对应
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroup-mapping:
+      account-service-tx-group: "default"
+
+  registry:
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+      weight: 1
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml

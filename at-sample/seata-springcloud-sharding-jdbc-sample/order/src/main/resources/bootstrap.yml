@@ -1,0 +1,82 @@
+server:
+  port: 6770
+spring:
+  application:
+    name: order-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/seata_samples?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/seata_samples?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+        password: root
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+      ds1:
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://192.168.71.129:3306/seata_samples
+        password: root
+        type: com.zaxxer.hikari.HikariDataSource
+        username: root
+
+    props:
+      sql-show: true
+    rules:
+      sharding:
+        key-generators:
+          snowflake:
+            props:
+              worker-id: 666
+            type: SNOWFLAKE
+        sharding-algorithms:
+          database-inline:
+            props:
+              algorithm-expression: ds$->{id % 3}
+            type: INLINE
+        tables:
+          order_tbl:
+            database-strategy:
+              standard:
+                sharding-algorithm-name: database-inline
+                sharding-column: id
+            key-generate-strategy:
+              column: id
+    sharding:
+      default-key-generate-strategy:
+        xxx: snowflake
+
+eureka:
+  instance:
+    instance-id: order-service
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping的后缀对应
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroup-mapping:
+      order-service-tx-group: "default"
+
+  registry:
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+      weight: 1
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
+
