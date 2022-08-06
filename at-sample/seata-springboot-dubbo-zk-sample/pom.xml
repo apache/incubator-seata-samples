@@ -157,8 +157,6 @@
             <artifactId>spring-context-support</artifactId>
             <version>1.0.2</version>
         </dependency>
-
-
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

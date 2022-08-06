@@ -112,7 +112,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
-<!--                <version>${dubbo.version}</version>-->
+                <!--                <version>${dubbo.version}</version>-->
                 <version>2.6.5</version>
             </dependency>
 
@@ -174,7 +174,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo-config-spring</artifactId>
-<!--            <version>${dubbo.version}</version>-->
+            <!--            <version>${dubbo.version}</version>-->
             <version>2.6.5</version>
         </dependency>
         <dependency>

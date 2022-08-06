@@ -52,8 +52,8 @@ seata:
       business-service-tx-group: "default"  # TC 集群（必须与seata-server保持一致）
     enable-degrade: false # 降级开关
     disable-global-transaction: false # 禁用全局事务（默认false）
-#    grouplist:
-#      default: 127.0.0.1:8091
+  #    grouplist:
+  #      default: 127.0.0.1:8091
   transport:
     shutdown:
       wait: 3
@@ -72,19 +72,19 @@ seata:
     compressor: none
     enable-client-batch-send-request: true # 客户端事务消息请求是否批量合并发送（默认true）
   registry:
-#    file:
-#      name: file.conf
+    #    file:
+    #      name: file.conf
     type: nacos
     nacos:
       server-addr: localhost:8848
       namespace:
-#      cluster: default
+      #      cluster: default
       group: SEATA_GROUP
       username: nacos
       password: nacos
   config:
-#    file:
-#      name: file.conf
+    #    file:
+    #      name: file.conf
     type: file
     nacos:
       namespace:

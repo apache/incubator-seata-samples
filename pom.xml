@@ -101,7 +101,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
+            <version>${spring.version}1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
