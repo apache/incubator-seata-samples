@@ -1,0 +1,29 @@
+server:
+  port: 6750
+spring:
+  application:
+    name: business-service
+eureka:
+  instance:
+    instance-id: business-service
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与服务端nacos-config.txt中service.vgroup_mapping的后缀对应
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroup-mapping:
+      business-service-tx-group: "default"
+
+  registry:
+    type: eureka
+    eureka:
+      service-url: http://localhost:8761/eureka
+      eight: 1
