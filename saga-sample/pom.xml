@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~  Copyright 1999-2018 Alibaba Group Holding Ltd.
+  ~  Copyright 1999-2019 Seata.io Group.
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -23,36 +23,22 @@
         <version>1.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>tcc-sample</artifactId>
+    <artifactId>saga-sample</artifactId>
     <version>1.1.0</version>
     <packaging>pom</packaging>
-    <name>tcc-sample ${project.version}</name>
+    <name>saga-sample ${project.version}</name>
     <modules>
-        <module>dubbo-tcc-sample</module>
-        <module>local-tcc-sample</module>
-        <module>sofarpc-tcc-sample</module>
-        <module>transfer-tcc-sample</module>
-        <module>springboot-tcc-sample</module>
-        <module>hsf-tcc-sample</module>
+        <module>local-saga-sample</module>
+        <module>sofarpc-saga-sample</module>
+        <module>dubbo-saga-sample</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-            <!-- dubbo -->
-            <dependency>
-                <groupId>com.alibaba.spring</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>1.0.11</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <!-- 解决高版本jdk启动报错：https://github.com/apache/dubbo/issues/6879 -->
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -86,12 +72,6 @@
             <groupId>io.seata</groupId>
             <artifactId>seata-server</artifactId>
             <version>${seata.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -101,17 +81,26 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.9</version>
+            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-access</artifactId>
-            <version>1.1.11</version>
+            <version>1.1.7</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.210</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
     </dependencies>
 
