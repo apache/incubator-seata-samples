@@ -24,7 +24,7 @@
     <version>1.1.0</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.4.2</seata.version>
+        <seata.version>1.5.2</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -63,28 +63,29 @@
         <javax.annotation-api.version>1.3.1</javax.annotation-api.version>
     </properties>
     <modules>
+        <module>at-sample</module>
         <module>dubbo</module>
-        <!-- <module>springboot</module> -->
-        <!-- <module>nacos</module> -->
-        <!-- <module>springboot-dubbo-seata</module> -->
-        <!-- <module>tcc</module> -->
-        <!-- <module>springcloud-jpa-seata</module> -->
-        <!-- <module>nutzboot-dubbo-fescar</module> -->
-        <!-- <module>ha</module> -->
-        <!-- <module>springcloud-eureka-seata</module> -->
-        <!-- <module>multiple-datasource</module> -->
-        <!-- <module>springboot-mybatis</module> -->
-        <!-- <module>springcloud-nacos-seata</module> -->
-        <!-- <module>api</module> -->
-        <!-- <module>springboot-shardingsphere-seata</module> -->
-        <!-- <module>multiple-datasource-mybatis-plus</module> -->
-        <!-- <module>saga</module> -->
-        <!-- <module>spring-cloud-alibaba-samples</module> -->
-        <!-- <module>seata-spring-boot-starter-samples</module> -->
-        <!-- <module>springboot-dubbo-seata-zk</module> -->
-        <!-- <module>seata-xa</module> -->
-        <!-- <module>seata-samples-jit</module> -->
-        <!-- <module>springcloud-seata-sharding-jdbc-mybatis-plus-samples</module> --> 
+        <module>springboot</module>
+        <module>nacos</module>
+        <module>springboot-dubbo-seata</module>
+        <module>tcc-sample</module>
+        <module>springcloud-jpa-seata</module>
+        <module>nutzboot-dubbo-fescar</module>
+        <module>ha</module>
+        <module>springcloud-eureka-seata</module>
+        <module>multiple-datasource</module>
+        <module>springboot-mybatis</module>
+        <module>springcloud-nacos-seata</module>
+        <module>api</module>
+        <module>springboot-shardingsphere-seata</module>
+        <module>multiple-datasource-mybatis-plus</module>
+        <module>saga-sample</module>
+        <module>spring-cloud-alibaba-samples</module>
+        <module>seata-spring-boot-starter-samples</module>
+        <module>springboot-dubbo-seata-zk</module>
+        <module>xa-sample</module>
+        <module>seata-samples-jit</module>
+        <module>springcloud-seata-sharding-jdbc-mybatis-plus-samples</module>
     </modules>
 
     <dependencies>
