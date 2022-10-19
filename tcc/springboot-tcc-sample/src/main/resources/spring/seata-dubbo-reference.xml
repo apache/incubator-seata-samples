@@ -23,7 +23,7 @@
 
     <dubbo:application name="tcc-sample-reference"/>
     <!--使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry address="N/A"/>
     <!--<dubbo:registry address="multicast://224.5.6.7:1234?unicast=false" />-->
 
     <dubbo:protocol name="dubbo" port="-1"/>
@@ -38,11 +38,11 @@
 
     <!-- 第一个TCC参与者 服务订阅 -->
     <dubbo:reference id="tccActionOne" interface="io.seata.samples.tcc.springboot.dubbo.action.TccActionOne"
-                     check="false" lazy="true"/>
+                     check="false" lazy="true" url="dubbo://127.0.0.1:20880"/>
 
     <!-- 第二个TCC参与者 服务订阅 -->
     <dubbo:reference id="tccActionTwo" interface="io.seata.samples.tcc.springboot.dubbo.action.TccActionTwo"
-                     check="false" lazy="true"/>
+                     check="false" lazy="true" url="dubbo://127.0.0.1:20880"/>
 
 
 </beans>
