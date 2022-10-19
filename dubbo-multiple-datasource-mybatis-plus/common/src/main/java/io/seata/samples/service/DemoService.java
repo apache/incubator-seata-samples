@@ -34,6 +34,5 @@ public interface DemoService {
      * @return
      * @throws TransactionException
      */
-    @GlobalTransactional
     public Object testCommit() throws TransactionException;
 }

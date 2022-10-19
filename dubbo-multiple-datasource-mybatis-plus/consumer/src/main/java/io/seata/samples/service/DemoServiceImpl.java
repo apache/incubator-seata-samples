@@ -13,13 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.service.impl;
+package io.seata.samples.service;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.dubbo.config.annotation.Service;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,25 +32,22 @@ import io.seata.core.exception.TransactionException;
 import io.seata.samples.entity.Account;
 import io.seata.samples.entity.Orders;
 import io.seata.samples.entity.Product;
-import io.seata.samples.service.DemoService;
-import io.seata.samples.service.IAccountService;
-import io.seata.samples.service.IOrdersService;
-import io.seata.samples.service.IProductService;
 import io.seata.spring.annotation.GlobalTransactional;
 import io.seata.tm.api.GlobalTransactionContext;
+import org.springframework.stereotype.Service;
 
 /**
  * @author 陈健斌
  * @date 2019/12/05
  */
-@Service(version = "1.0.0", interfaceClass = DemoService.class, timeout = 60000)
+@Service
 public class DemoServiceImpl implements DemoService {
     private final static Logger logger = LoggerFactory.getLogger(DemoServiceImpl.class);
-    @Autowired
+    @DubboReference(version = "1.0.0", timeout = 60000, check = false)
     private IAccountService accountService;
-    @Autowired
+    @DubboReference(version = "1.0.0", timeout = 60000, check = false)
     private IOrdersService ordersService;
-    @Autowired
+    @DubboReference(version = "1.0.0", timeout = 60000, check = false)
     private IProductService productService;
     private Lock lock = new ReentrantLock();
 
