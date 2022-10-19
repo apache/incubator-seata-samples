@@ -33,7 +33,7 @@ spring:
   cloud:
     sentinel:
       transport:
-        dashboard: 192.168.1.188:8858
+        dashboard: 172.0.0.1:8858
         clientIp: 192.168.1.117
   main:
     allow-bean-definition-overriding: true
@@ -55,22 +55,22 @@ spring:
       master:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.1.188:3307/seata-test-service-a?characterEncoding=utf-8
+        url: jdbc:mysql://172.0.0.1:3306/seata-test-service-a?characterEncoding=utf-8
         username: root
-        password: 123456789
+        password: 123456
       # 从数据源
       slave01:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.1.188:3307/seata-test-service-a?characterEncoding=utf-8
+        url: jdbc:mysql://172.0.0.1:3306:3306/seata-test-service-a?characterEncoding=utf-8
         username: root
-        password: 123456789
+        password: 123456
       slave02:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.1.188:3307/seata-test-service-a?characterEncoding=utf-8
+        url: jdbc:mysql://172.0.0.1:3306/seata-test-service-a?characterEncoding=utf-8
         username: root
-        password: 123456789
+        password: 123456
     masterslave:
       # 读写分离配置
       load-balance-algorithm-type: round_robin
@@ -109,7 +109,7 @@ seata:
     type: nacos
     nacos:
       namespace:
-      serverAddr: 192.168.1.188:8848
+      serverAddr: 172.0.0.1:8848
       group: SEATA_GROUP
       userName: "nacos"
       password: "nacos"
@@ -117,7 +117,7 @@ seata:
     type: nacos
     nacos:
       application: seata-server
-      server-addr: 192.168.1.188:8848
+      server-addr: 172.0.0.1:8848
       namespace:
       userName: "nacos"
       password: "nacos"
