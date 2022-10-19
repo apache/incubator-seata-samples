@@ -85,6 +85,7 @@
         <!-- <module>seata-xa</module> -->
         <!-- <module>seata-samples-jit</module> -->
         <!-- <module>springcloud-seata-sharding-jdbc-mybatis-plus-samples</module> --> 
+        <!-- <module>etcd3</module> --> 
     </modules>
 
     <dependencies>
