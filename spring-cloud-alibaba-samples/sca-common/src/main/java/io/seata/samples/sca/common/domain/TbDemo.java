@@ -13,27 +13,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.service;
+package io.seata.samples.sca.common.domain;
 
-import io.seata.core.exception.TransactionException;
-import io.seata.spring.annotation.GlobalTransactional;
+import lombok.Data;
 
-/**
- * @author 陈健斌
- * @date 2019/12/05
- */
-public interface DemoService {
+import java.io.Serializable;
+
+@Data
+public class TbDemo implements Serializable {
+    /**
+     *
+     */
+    private Integer id;
 
     /**
-     * @return
-     * @throws TransactionException
+     *
      */
-    public Object testRollback() throws TransactionException;
+    private String name;
 
     /**
-     * @return
-     * @throws TransactionException
+     *
      */
-    @GlobalTransactional
-    public Object testCommit() throws TransactionException;
+    private Integer age;
+
 }

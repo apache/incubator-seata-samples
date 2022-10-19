@@ -11,7 +11,7 @@
             <value>org.h2.Driver</value>
         </property>
         <property name="url">
-            <value>jdbc:h2:~/transfer_db/transfer_to_db</value>
+            <value>jdbc:h2:~/transfer_db/transfer_to_db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE</value>
         </property>
         <property name="username">
             <value>sa</value>

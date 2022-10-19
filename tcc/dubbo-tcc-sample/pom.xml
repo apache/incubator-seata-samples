@@ -102,6 +102,12 @@
             <artifactId>seata-samples-jit</artifactId>
             <version>1.1.0</version>
         </dependency>
+
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba.spring</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -19,9 +19,11 @@ import java.sql.SQLException;
 
 import io.seata.samples.tcc.transfer.activity.TransferService;
 import io.seata.samples.tcc.transfer.dao.AccountDAO;
+import io.seata.samples.tcc.transfer.domains.Account;
 import io.seata.samples.tcc.transfer.env.TransferDataPrepares;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * 发起转账
@@ -128,17 +130,15 @@ public class TransferApplication {
      * @param accountDAO
      * @param accountNo
      * @param expectedAmount
-     * @throws SQLException
      */
-    private static void checkAmount(AccountDAO accountDAO, String accountNo, double expectedAmount)
-        throws SQLException {
+    private static void checkAmount(AccountDAO accountDAO, String accountNo, double expectedAmount) {
         try {
-            //            Account account = accountDAO.getAccount(accountNo);
-            //            Assert.isTrue(account != null, "账户不存在");
-            //            double amount = account.getAmount();
-            //            double freezedAmount = account.getFreezedAmount();
-            //            Assert.isTrue(expectedAmount == amount, "账户余额校验失败");
-            //            Assert.isTrue(freezedAmount == 0, "账户冻结余额校验失败");
+            Account account = accountDAO.getAccount(accountNo);
+            Assert.isTrue(account != null, "账户不存在");
+            double amount = account.getAmount();
+            double freezedAmount = account.getFreezedAmount();
+            Assert.isTrue(expectedAmount == amount, "账户余额校验失败");
+            Assert.isTrue(freezedAmount == 0, "账户冻结余额校验失败");
         } catch (Throwable t) {
             t.printStackTrace();
         }

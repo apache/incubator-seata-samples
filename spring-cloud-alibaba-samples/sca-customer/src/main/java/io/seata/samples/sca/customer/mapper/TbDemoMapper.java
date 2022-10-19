@@ -15,18 +15,19 @@
  */
 package io.seata.samples.sca.customer.mapper;
 
+import io.seata.samples.sca.common.domain.TbDemo;
 import io.seata.samples.sca.common.domain.TbUser;
 
-public interface TbUserMapper {
+public interface TbDemoMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(TbUser record);
 
-    int insertSelective(TbUser record);
+    int insertSelective(TbDemo record);
 
     TbUser selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(TbUser record);
+    int updateByPrimaryKeySelective(TbDemo record);
 
-    int updateByPrimaryKey(TbUser record);
+    int updateByPrimaryKey(TbDemo record);
 }

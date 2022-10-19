@@ -1,6 +1,8 @@
 server:
   port: 18080
 
+logger:
+  level: debug
 dubbo:
   scan:
     # dubbo 服务扫描基准包
@@ -11,8 +13,7 @@ dubbo:
     # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
     port: -1
   registry:
-    # 挂载到 Spring Cloud 注册中心
-    address: spring-cloud://localhost
+    address: nacos://127.0.0.1:8848
   cloud:
     subscribed-services: ""
 
@@ -23,8 +24,8 @@ spring:
     # Spring Boot 2.1 需要设定
     allow-bean-definition-overriding: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.186.128:3306/yuhb-test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: root
     password: 123456
 
@@ -35,9 +36,11 @@ spring:
       # Nacos 服务发现与注册配置
       discovery:
         server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
     alibaba:
       seata:
-        tx-service-group: sca-provider-seata-tx-service-group
+        tx-service-group: my_test_tx_group
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

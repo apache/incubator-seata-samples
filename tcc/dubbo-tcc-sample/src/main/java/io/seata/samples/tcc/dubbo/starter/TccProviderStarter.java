@@ -17,6 +17,7 @@ package io.seata.samples.tcc.dubbo.starter;
 
 import io.seata.samples.jit.AbstractStarter;
 import io.seata.samples.jit.ApplicationKeeper;
+import org.apache.curator.test.TestingServer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -26,14 +27,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author ppf
  */
 public class TccProviderStarter extends AbstractStarter {
+
+    private static TestingServer server;
+    
     public static void main(String[] args) throws Exception {
         new TccProviderStarter().start0(args);
     }
 
     @Override
     protected void start0(String[] args) throws Exception {
+        //mock zk server
+        mockZKServer();
+        
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
             new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml"});
         new ApplicationKeeper().keep();
+    }
+
+    private static void mockZKServer() throws Exception {
+        //Mock zk server，作为 transfer 配置中心
+        server = new TestingServer(2181, true);
+        server.start();
     }
 }

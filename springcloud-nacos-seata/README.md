@@ -4,7 +4,7 @@
 
 demo中使用的相关版本号，具体请看代码。如果搭建个人demo不成功，验证是否是由版本导致，由于目前这几个项目更新比较频繁，版本稍有变化便会出现许多奇怪问题
 
-* seata 0.8.0
+* seata 1.4.2
 * spring-cloud-alibaba-seata 2.1.0.RELEASE
 * spring-cloud-starter-alibaba-nacos-discovery 0.2.1.RELEASE
 * springboot 2.0.6.RELEASE
@@ -16,11 +16,11 @@ demo中使用的相关版本号，具体请看代码。如果搭建个人demo不
 
 ### 1.1 Nacos-server
 
-版本为nacos-server-1.1.3，demo采用本地单机部署方式，请参考 [Nacos 快速开始](https://nacos.io/zh-cn/docs/quick-start.html)
+版本为nacos-server-2.0.4，demo采用本地单机部署方式，请参考 [Nacos 快速开始](https://nacos.io/zh-cn/docs/quick-start.html)
 
 ### 1.2 Seata-server
 
-seata-server为release版本0.8.0，demo采用本地单机部署，从此处下载 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases)
+seata-server为release版本1.4.2，demo采用本地单机部署，从此处下载 [https://github.com/seata/seata/releases](https://github.com/seata/seata/releases)
 并解压
 
 #### 1.2.1 修改conf/registry.conf 配置
@@ -35,7 +35,7 @@ registry {
   type = "nacos"
 
   nacos {
-    serverAddr = "192.168.21.89"
+    serverAddr = "127.0.0.1"
     namespace = ""
     cluster = "default"
   }
@@ -44,7 +44,7 @@ config {
   # file、nacos 、apollo、zk、consul、etcd3
   type = "nacos"
   nacos {
-    serverAddr = "192.168.21.89"
+    serverAddr = "127.0.0.1"
     namespace = ""
     cluster = "default"
   }
@@ -72,7 +72,7 @@ service.vgroup_mapping.order-service-group=default
 ~~~shell
 # 初始化seata 的nacos配置
 cd conf
-sh nacos-config.sh 192.168.21.89
+sh nacos-config.sh 127.0.0.1
 
 # 启动seata-server
 cd bin

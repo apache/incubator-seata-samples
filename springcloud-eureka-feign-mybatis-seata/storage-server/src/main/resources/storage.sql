@@ -8,5 +8,5 @@ CREATE TABLE `stock`
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `seat-stock`.`stock` (`id`, `product_id`, `total`, `used`, `residue`)
+INSERT INTO `stock` (`id`, `product_id`, `total`, `used`, `residue`)
 VALUES ('1', '1', '100', '0', '100');

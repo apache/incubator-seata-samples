@@ -39,8 +39,8 @@
         <netty4.version>4.1.42.Final</netty4.version>
         <org.springframework.spring.version>2.5.6.SEC03</org.springframework.spring.version>
         <junit.version>4.13.1</junit.version>
-        <dubbo.version>2.7.13</dubbo.version>
-        <fastjson.version>1.2.67</fastjson.version>
+        <dubbo.version>2.7.15</dubbo.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <config.version>1.2.1</config.version>
         <slf4j-api.version>1.7.22</slf4j-api.version>
         <logback-classic.version>1.2.0</logback-classic.version>
@@ -52,40 +52,40 @@
         <dubbo.registry.nacos>0.0.2</dubbo.registry.nacos>
         <spring-context-support.version>1.0.6</spring-context-support.version>
         <testng.version>6.4</testng.version>
-        <protobuf.version>3.7.1</protobuf.version>
+        <protobuf.version>3.16.3</protobuf.version>
         <spring.version>5.1.3.RELEASE</spring.version>
         <mysql-connector.version>5.1.44</mysql-connector.version>
         <curator.version>4.2.0</curator.version>
         <guava.version>27.0.1-jre</guava.version>
-        <jackson.version>2.9.10.8</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <druid.version>1.1.12</druid.version>
         <jakarta-annotation-api.version>1.3.5</jakarta-annotation-api.version>
         <javax.annotation-api.version>1.3.1</javax.annotation-api.version>
     </properties>
     <modules>
         <module>dubbo</module>
-        <module>springboot</module>
-        <module>nacos</module>
-        <module>springboot-dubbo-seata</module>
-        <module>tcc</module>
-        <module>springcloud-jpa-seata</module>
-        <module>nutzboot-dubbo-fescar</module>
-        <module>ha</module>
-        <module>springcloud-eureka-seata</module>
-        <module>multiple-datasource</module>
-        <module>springboot-mybatis</module>
-        <module>springcloud-nacos-seata</module>
-        <module>api</module>
-        <module>springboot-shardingsphere-seata</module>
-        <module>multiple-datasource-mybatis-plus</module>
-        <module>saga</module>
-        <module>spring-cloud-alibaba-samples</module>
-        <module>seata-spring-boot-starter-samples</module>
-        <module>springboot-dubbo-seata-zk</module>
-        <module>seata-xa</module>
-        <module>seata-samples-jit</module>
-        <module>springcloud-seata-sharding-jdbc-mybatis-plus-samples</module>
-        <module>etcd3</module>
+        <!-- <module>springboot</module> -->
+        <!-- <module>nacos</module> -->
+        <!-- <module>springboot-dubbo-seata</module> -->
+        <!-- <module>tcc</module> -->
+        <!-- <module>springcloud-jpa-seata</module> -->
+        <!-- <module>nutzboot-dubbo-fescar</module> -->
+        <!-- <module>ha</module> -->
+        <!-- <module>springcloud-eureka-seata</module> -->
+        <!-- <module>multiple-datasource</module> -->
+        <!-- <module>springboot-mybatis</module> -->
+        <!-- <module>springcloud-nacos-seata</module> -->
+        <!-- <module>api</module> -->
+        <!-- <module>springboot-shardingsphere-seata</module> -->
+        <!-- <module>multiple-datasource-mybatis-plus</module> -->
+        <!-- <module>saga</module> -->
+        <!-- <module>spring-cloud-alibaba-samples</module> -->
+        <!-- <module>seata-spring-boot-starter-samples</module> -->
+        <!-- <module>springboot-dubbo-seata-zk</module> -->
+        <!-- <module>seata-xa</module> -->
+        <!-- <module>seata-samples-jit</module> -->
+        <!-- <module>springcloud-seata-sharding-jdbc-mybatis-plus-samples</module> --> 
+        <!-- <module>etcd3</module> --> 
     </modules>
 
     <dependencies>

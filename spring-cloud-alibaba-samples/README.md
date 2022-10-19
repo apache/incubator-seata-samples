@@ -5,6 +5,8 @@
 * 启动 Nacos server <br>
   [Nacos Server 下载地址](https://github.com/alibaba/nacos/releases)
 
+需要2.0以上
+
 > 下载最新版本Nacos Server, 本地启动Nacos
 
 * 启动Seata Server <br>
