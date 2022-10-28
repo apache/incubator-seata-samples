@@ -72,8 +72,7 @@ public class DataSourceUtil {
      * @throws SQLException the sql exception
      */
     public static Connection getConnection(String name) throws SQLException {
-        DATA_SOURCE_MAP.computeIfAbsent(name, s -> getDataSource(name));
-        return DATA_SOURCE_MAP.get(name).getConnection();
+        return DATA_SOURCE_MAP.computeIfAbsent(name, s -> getDataSource(name)).getConnection();
     }
 
     /**
