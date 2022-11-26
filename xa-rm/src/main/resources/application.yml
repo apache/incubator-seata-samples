@@ -1,0 +1,25 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: xa-rm
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: default_tx_group
+  service:
+    vgroup-mapping:
+      default_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+  config:
+    type: file
+  registry:
+    type: file
+  data-source-proxy-mode: XA
+  enable-auto-data-source-proxy: true
+logging:
+  level:
+    root: info
+  file:
+    path: ${user.home}/logs/${spring.application.name}

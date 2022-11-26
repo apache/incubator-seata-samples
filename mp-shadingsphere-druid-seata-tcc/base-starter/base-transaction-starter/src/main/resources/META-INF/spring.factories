@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.seata.starter.transaction.config.MybatisPlusAutoConfig,\
-  com.seata.starter.transaction.config.SeataConfig
