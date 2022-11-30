@@ -37,6 +37,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class TmApplicationTests {
 
     @Test
-    void contextLoads() {}
+    void contextLoads() {
+    }
 
 }

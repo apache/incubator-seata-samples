@@ -24,7 +24,7 @@
     <version>1.6.0-SNAPSHOT</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.4.2</seata.version>
+        <seata.version>1.6.0-SNAPSHOT</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -38,11 +38,18 @@
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <spring-boot.version>2.5.14</spring-boot.version>
         <spring-framework.version>5.3.20</spring-framework.version>
+        <druid.starter.version>1.2.15</druid.starter.version>
+        <mapper.version>4.2.2</mapper.version>
+        <mybatis.starter.version>2.2.2</mybatis.starter.version>
+        <hutool.version>5.8.9</hutool.version>
+        <fastjson.version>1.2.83</fastjson.version>
+
     </properties>
     <modules>
         <module>tm</module>
         <module>at-rm</module>
         <module>xa-rm</module>
+        <module>common</module>
     </modules>
 
     <dependencyManagement>
@@ -79,6 +86,51 @@
                 <groupId>io.seata</groupId>
                 <artifactId>seata-all</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata.samples</groupId>
+                <artifactId>common</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata.samples</groupId>
+                <artifactId>at-rm</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata.samples</groupId>
+                <artifactId>tm</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata.samples</groupId>
+                <artifactId>xa-rm</artifactId>
+                <version>${version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mapper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

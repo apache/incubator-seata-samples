@@ -8,26 +8,30 @@
         <version>1.6.0-SNAPSHOT</version>
     </parent>
     <groupId>io.seata.samples</groupId>
-    <artifactId>xa-rm</artifactId>
+    <artifactId>common</artifactId>
     <version>1.6.0-SNAPSHOT</version>
-    <name>xa-rm</name>
-    <description>xa-rm</description>
+    <name>common</name>
+    <description>common</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring-boot-starter</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

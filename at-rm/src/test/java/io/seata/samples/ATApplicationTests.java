@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ATApplicationTests {
 
     @Test
-    void contextLoads() {}
+    void contextLoads() {
+    }
 
 }
