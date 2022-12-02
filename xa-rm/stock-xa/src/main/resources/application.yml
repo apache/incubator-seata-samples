@@ -1,8 +1,13 @@
 server:
-  port: 8082
+  port: 1003
 spring:
   application:
-    name: xa-rm
+    name: stock-xa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.95.143.87:3306/seata?autoReconnect=true&failOverReadOnly=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    username: test
+    password: 123456
 seata:
   enabled: true
   application-id: ${spring.application.name}

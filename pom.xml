@@ -85,7 +85,7 @@
             <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-all</artifactId>
-                <version>${project.version}</version>
+                <version>1.6.0-RC1</version>
             </dependency>
             <dependency>
                 <groupId>io.seata.samples</groupId>
