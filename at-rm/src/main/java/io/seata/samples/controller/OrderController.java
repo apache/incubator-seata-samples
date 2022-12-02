@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
@@ -39,5 +41,18 @@ public class OrderController {
         return this.stockService.getStockById(stockId);
     }
 
+    @PostMapping("/createOrUpdate")
+    public Integer insertOrUpdate(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount, @RequestParam String note, HttpServletRequest request) {
+        return this.orderService.createOrUpdateOrder(id, accountId, orderNumber, stockId, quantity, note);
+    }
 
+    @PostMapping("/createOrUpdate2")
+    public Integer createOrUpdateOrder2(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam BigDecimal amount, String note, HttpServletRequest request) {
+        return this.orderService.createOrUpdateOrder2(id, accountId, orderNumber, stockId, quantity, amount, note);
+    }
+
+    @PostMapping("/addOrUpdateStock")
+    public Boolean insertOrUpdate(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return this.orderService.addOrUpdateStock(quantity, price);
+    }
 }

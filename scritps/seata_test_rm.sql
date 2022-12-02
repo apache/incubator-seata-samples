@@ -9,10 +9,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `sys_order`;
 CREATE TABLE `sys_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_number` bigint(20)  NULl ,
   `account_id` bigint(20) NOT NULL DEFAULT '-1',
   `stock_id` bigint(20) NOT NULL DEFAULT '-1',
   `quantity` bigint(20) NOT NULL DEFAULT '1',
   `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `note` varchar(100) NULL ,
+  UNIQUE KEY `ux_account_number` (`order_number`) USING BTREE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
@@ -20,9 +23,9 @@ CREATE TABLE `sys_order` (
 -- Records of sys_order
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_order` VALUES (8, 1, 1, 10000, 10.00);
-INSERT INTO `sys_order` VALUES (12, 1, 1, 10, 10.00);
-INSERT INTO `sys_order` VALUES (15, 1, 1, 10, 10.00);
+INSERT INTO `sys_order` VALUES (8, 1,1, 1, 10000, 10.00,null);
+INSERT INTO `sys_order` VALUES (12, 2,1, 1, 10, 10.00,'note');
+INSERT INTO `sys_order` VALUES (15, 3,1, 1, 10, 10.00,'order');
 COMMIT;
 
 -- ----------------------------

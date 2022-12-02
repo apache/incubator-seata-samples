@@ -97,4 +97,76 @@ public class BuyServiceImpl implements BuyService {
             .form(params)
             .header(RootContext.KEY_XID, RootContext.getXID()).execute().body(), Long.class);
     }
+
+
+    @Override
+    @GlobalTransactional
+    public Integer createOrUpdateOrder(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success) {
+        String url = "http://127.0.0.1:8081/api/order/createOrUpdate";
+        String body = callService(url, id, accountId, orderNumber, stockId, quantity, amount, note);
+        Integer result = JSON.parseObject(body, Integer.class);
+        if (!success) {
+            throw new RuntimeException("testing roll back");
+        }
+        return result;
+    }
+
+
+    @Override
+    public Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price, boolean success) {
+        Map<String, Object> params = new HashMap<>(8);
+        params.put("stockId", stockId);
+        params.put("price", price);
+        params.put("quantity", quantity);
+        String body = HttpRequest.post("http://127.0.0.1:8081/api/order/insertOrUpdateStock2")
+                .form(params)
+                .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
+        Boolean result = JSON.parseObject(body, Boolean.class);
+        if (!success) {
+            throw new RuntimeException("testing roll back");
+        }
+        return result;
+    }
+
+    @Override
+    public Boolean createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success) {
+        String url = "http://127.0.0.1:8081/api/order/createOrUpdate2";
+        String body = callService(url, id, accountId, orderNumber, stockId, quantity, amount, note);
+        Boolean result = JSON.parseObject(body, Boolean.class);
+        if (!success) {
+            throw new RuntimeException("testing roll back");
+        }
+        return result;
+    }
+
+    @GlobalTransactional
+    @Override
+    public Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price, boolean success) {
+        Map<String, Object> params = new HashMap<>(8);
+        params.put("price", price);
+        params.put("quantity", quantity);
+        String body = HttpRequest.post("http://127.0.0.1:8081/api/order/addOrUpdateStock")
+                .form(params)
+                .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
+        Boolean result = JSON.parseObject(body, Boolean.class);
+        if (!success) {
+            throw new RuntimeException("testing roll back");
+        }
+        return result;
+    }
+
+    private String callService(String url, Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note) {
+        Map<String, Object> params = new HashMap<>(8);
+        params.put("id", id);
+        params.put("accountId", accountId);
+        params.put("orderNumber", orderNumber);
+        params.put("stockId", stockId);
+        params.put("quantity", quantity);
+        params.put("note", note);
+        params.put("amount", amount);
+        String body = HttpRequest.post(url)
+                .form(params)
+                .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
+        return body;
+    }
 }
