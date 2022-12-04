@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.seata.samples.mapper.OrderMapper">
+
+
+    <insert id="createOrUpdateBatchOrder" parameterType="list">
+        INSERT sys_order (id,order_number,account_id,stock_id,quantity,amount,note)
+        VALUES
+        <foreach collection="orders" item="item" separator=",">
+            (
+                #{item.id},
+                #{item.orderNumber},
+                #{item.accountId},
+                #{item.stockId},
+                #{item.quantity},
+                #{item.amount},
+                #{item.note}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE `amount`=VALUES(`amount`), `quantity`=VALUES(`quantity`)
+    </insert>
+</mapper>

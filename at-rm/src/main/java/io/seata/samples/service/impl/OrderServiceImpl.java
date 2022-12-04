@@ -16,6 +16,7 @@
 package io.seata.samples.service.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import io.seata.core.context.RootContext;
 import io.seata.samples.bean.Order;
@@ -23,6 +24,7 @@ import io.seata.samples.bean.Stock;
 import io.seata.samples.mapper.OrderMapper;
 import io.seata.samples.mapper.StockMapper;
 import io.seata.samples.service.OrderService;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
@@ -69,4 +71,21 @@ public class OrderServiceImpl implements OrderService {
     public Boolean updateOrder(Long accountId, Long orderId, Long stockId, Long quantity) {
         return this.orderMapper.updateOrder(accountId, orderId, stockId, quantity) > 0;
     }
+
+    @Override
+    public Integer createOrUpdateOrder(Long id, Long orderNumber, Long accountId, Long stockId, Long quantity, String note) {
+        return this.orderMapper.createOrUpdateOrder(id, orderNumber, accountId, stockId, quantity, note);
+    }
+
+    @Override
+    public Integer createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note) {
+        return this.orderMapper.createOrUpdateOrder2(id, orderNumber, accountId, stockId, quantity, amount, note);
+    }
+
+
+    @Override
+    public Integer createOrUpdateBatchOrder(List<Order> orders) {
+        return orderMapper.createOrUpdateBatchOrder(orders);
+    }
+
 }

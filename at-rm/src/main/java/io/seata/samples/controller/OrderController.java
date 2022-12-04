@@ -17,14 +17,14 @@ package io.seata.samples.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import io.seata.samples.bean.Order;
 import io.seata.samples.bean.Stock;
 import io.seata.samples.service.OrderService;
 import io.seata.samples.service.StockService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/order")
@@ -52,6 +52,21 @@ public class OrderController {
     @GetMapping("/queryStock")
     public Stock queryStock(@RequestParam Long stockId, HttpServletRequest request) {
         return this.stockService.getStockById(stockId);
+    }
+
+    @PostMapping("/createOrUpdate")
+    public Integer insertOrUpdate(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount,@RequestParam(required = false) String note, HttpServletRequest request) {
+        return this.orderService.createOrUpdateOrder(id, accountId, orderNumber, stockId, quantity, note);
+    }
+
+    @PostMapping("/createOrUpdate2")
+    public Integer createOrUpdateOrder2(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam BigDecimal amount, String note, HttpServletRequest request) {
+        return this.orderService.createOrUpdateOrder2(id, accountId, orderNumber, stockId, quantity, amount, note);
+    }
+
+    @PostMapping("/createOrUpdateBatch")
+    public Integer createOrUpdateBatch(@RequestBody List<Order> orders, HttpServletRequest request) {
+        return this.orderService.createOrUpdateBatchOrder(orders);
     }
 
 
