@@ -30,6 +30,8 @@ public class Order implements Serializable {
     private Long stockId;
     private Long quantity;
     private BigDecimal amount;
+    private Long orderNumber;
+    private String note;
 
     public Long getId() {
         return id;
@@ -74,6 +76,22 @@ public class Order implements Serializable {
     public Order setAmount(BigDecimal amount) {
         this.amount = amount;
         return this;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Long getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Long orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     @Override

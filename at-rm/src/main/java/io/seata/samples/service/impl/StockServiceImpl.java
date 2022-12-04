@@ -20,6 +20,8 @@ import io.seata.samples.mapper.StockMapper;
 import io.seata.samples.service.StockService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class StockServiceImpl implements StockService {
     private final StockMapper stockMapper;
@@ -34,5 +36,15 @@ public class StockServiceImpl implements StockService {
             throw new IllegalArgumentException("stock id should not be null");
         }
         return this.stockMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price) {
+        return this.stockMapper.addOrUpdateStock(quantity, price);
+    }
+
+    @Override
+    public Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price) {
+        return this.stockMapper.addOrUpdateStock2(stockId, quantity, price);
     }
 }

@@ -22,13 +22,13 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface OrderMapper extends MyMapper<Order> {
     @Update({"<script>",
         "UPDATE sys_order so JOIN sys_stock ss ON ss.id=so.stock_id SET so.quantity=#{quantity} WHERE so.id=#{orderId} AND so.account_id=#{accountId} AND so.stock_id=#{stockId}",
         "</script>"})
     int updateOrder(@Param("accountId") Long accountId, @Param("orderId") Long orderId, @Param("stockId") Long stockId, @Param("quantity") Long quantity);
-
 
 
     @Insert({"<script>",
@@ -47,5 +47,5 @@ public interface OrderMapper extends MyMapper<Order> {
     Integer createOrUpdateOrder2(@Param("id") Long id, @Param("orderNumber") Long orderNumber, @Param("accountId")  Long accountId, @Param("stockId") Long stockId, @Param("quantity") Long quantity, @Param("amount")BigDecimal amount, @Param("note") String note);
 
 
-
+    Integer createOrUpdateBatchOrder(@Param("orders") List<Order> orders);
 }

@@ -17,13 +17,12 @@ package io.seata.samples.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import io.seata.samples.bean.Order;
 import io.seata.samples.service.BuyService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/buy")
@@ -56,12 +55,12 @@ public class BuyController {
     }
 
     @PostMapping("/createOrUpdateOrderSuccess")
-    public Integer createOrUpdateOrderSuccess(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount, @RequestParam String note, HttpServletRequest request) {
+    public Integer createOrUpdateOrderSuccess(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount, @RequestParam(required = false) String note, HttpServletRequest request) {
         return this.buyService.createOrUpdateOrder(id, accountId, orderNumber, stockId, quantity, amount, note, true);
     }
 
     @PostMapping("/createOrUpdateOrderFail")
-    public Integer createOrUpdateOrderFail(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount, @RequestParam String note, HttpServletRequest request) {
+    public Integer createOrUpdateOrderFail(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount, @RequestParam(required = false) String note, HttpServletRequest request) {
         return this.buyService.createOrUpdateOrder(id, accountId, orderNumber, stockId, quantity, amount, note, false);
     }
 
@@ -70,8 +69,29 @@ public class BuyController {
         return this.buyService.createOrUpdateOrder2(id, accountId, orderNumber, stockId, quantity, amount, note, true);
     }
 
+    @PostMapping("/createOrUpdateBatchOrderSuccess")
+    public Integer createOrUpdateBatchOrderSuccess(@RequestBody List<Order> orders, HttpServletRequest request) {
+        return this.buyService.createOrUpdateBatchOrderSuccess(orders, true);
+    }
+
+    @PostMapping("/createOrUpdateBatchOrderFail")
+    public Integer createOrUpdateBatchOrderFail(@RequestBody List<Order> orders, HttpServletRequest request) {
+        return this.buyService.createOrUpdateBatchOrderSuccess(orders, false);
+    }
+
     @PostMapping("/addOrUpdateStockSuccess")
     public Boolean addOrUpdateStockSuccess(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
         return buyService.addOrUpdateStock(quantity, price, true);
     }
+
+    @PostMapping("/addOrUpdateStockSuccess2")
+    public Boolean addOrUpdateStockSuccess2(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return buyService.addOrUpdateStock2(stockId, quantity, price, true);
+    }
+
+    @PostMapping("/addOrUpdateStockFail2")
+    public Boolean addOrUpdateStockFail2(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return buyService.addOrUpdateStock2(stockId, quantity, price, false);
+    }
+
 }

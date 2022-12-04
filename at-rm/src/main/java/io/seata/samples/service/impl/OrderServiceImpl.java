@@ -16,6 +16,7 @@
 package io.seata.samples.service.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import io.seata.core.context.RootContext;
 import io.seata.samples.bean.Order;
@@ -81,13 +82,10 @@ public class OrderServiceImpl implements OrderService {
         return this.orderMapper.createOrUpdateOrder2(id, orderNumber, accountId, stockId, quantity, amount, note);
     }
 
-    @Override
-    public Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price) {
-        return this.stockMapper.addOrUpdateStock(quantity, price);
-    }
 
     @Override
-    public Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price) {
-        return this.stockMapper.addOrUpdateStock2(stockId, quantity, price);
+    public Integer createOrUpdateBatchOrder(List<Order> orders) {
+        return orderMapper.createOrUpdateBatchOrder(orders);
     }
+
 }

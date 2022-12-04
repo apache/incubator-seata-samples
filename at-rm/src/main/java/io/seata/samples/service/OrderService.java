@@ -15,7 +15,10 @@
  */
 package io.seata.samples.service;
 
+import io.seata.samples.bean.Order;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface OrderService {
     Long createOrder(Long accountId, Long stockId, Long quantity);
@@ -26,8 +29,5 @@ public interface OrderService {
 
     Integer createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note);
 
-    Boolean addOrUpdateStock( BigDecimal quantity,BigDecimal price);
-
-    Boolean addOrUpdateStock2(Long stockId ,BigDecimal quantity,BigDecimal price);
-
+    Integer createOrUpdateBatchOrder(List<Order> orders);
 }
