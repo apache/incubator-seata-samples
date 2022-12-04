@@ -15,12 +15,14 @@
  */
 package io.seata.samples.controller;
 
-import io.seata.samples.TestDatas;
-import io.seata.samples.service.BusinessXAService;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.seata.samples.TestDatas;
+import io.seata.samples.service.BusinessXAService;
 
 @RestController
 public class BusinessXAController {
@@ -28,6 +30,7 @@ public class BusinessXAController {
     private BusinessXAService businessService;
 
     @RequestMapping(value = "/xa/purchase", method = RequestMethod.GET, produces = "application/json")
+    @GlobalTransactional
     public String purchase() {
         int orderCount = 1;
         try {

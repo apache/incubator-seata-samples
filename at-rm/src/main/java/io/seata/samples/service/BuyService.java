@@ -15,10 +15,10 @@
  */
 package io.seata.samples.service;
 
-import io.seata.samples.bean.Order;
-
 import java.math.BigDecimal;
 import java.util.List;
+
+import io.seata.samples.bean.Order;
 
 public interface BuyService {
     Boolean placeOrder(Long accountId, Long stockId, Long quantity, boolean success);

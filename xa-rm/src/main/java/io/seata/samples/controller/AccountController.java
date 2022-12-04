@@ -13,9 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.xa.controller;
+package io.seata.samples.controller;
 
-import io.seata.samples.xa.service.AccountService;
+import io.seata.samples.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

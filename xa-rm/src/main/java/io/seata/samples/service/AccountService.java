@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.xa.service;
+package io.seata.samples.service;
 
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;

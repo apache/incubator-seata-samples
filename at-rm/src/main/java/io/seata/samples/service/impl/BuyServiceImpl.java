@@ -21,9 +21,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import cn.hutool.http.HttpRequest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
+import cn.hutool.http.HttpRequest;
 import io.seata.core.context.RootContext;
 import io.seata.samples.bean.Account;
 import io.seata.samples.bean.Order;
@@ -31,12 +39,6 @@ import io.seata.samples.bean.Stock;
 import io.seata.samples.mapper.AccountMapper;
 import io.seata.samples.service.BuyService;
 import io.seata.spring.annotation.GlobalTransactional;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import tk.mybatis.mapper.entity.Example;
 
 @Service

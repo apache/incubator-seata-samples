@@ -43,6 +43,7 @@
         <mybatis.starter.version>2.2.2</mybatis.starter.version>
         <hutool.version>5.8.9</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
+        <mysql.version>8.0.31</mysql.version>
 
     </properties>
     <modules>
@@ -76,6 +77,11 @@
                 </exclusions>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>

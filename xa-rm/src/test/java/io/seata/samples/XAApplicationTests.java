@@ -13,17 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.xa;
+package io.seata.samples;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@EnableTransactionManagement
-@SpringBootApplication
-public class AccountXAApplication {
+@SpringBootTest
+class XAApplicationTests {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AccountXAApplication.class, args);
+    @Test
+    void contextLoads() {
     }
+
 }

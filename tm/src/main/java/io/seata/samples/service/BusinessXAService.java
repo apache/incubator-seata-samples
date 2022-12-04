@@ -15,22 +15,25 @@
  */
 package io.seata.samples.service;
 
-import cn.hutool.http.HttpRequest;
-import com.alibaba.fastjson.JSON;
-import io.seata.core.context.RootContext;
-import io.seata.samples.TestDatas;
-import io.seata.samples.bean.Stock;
-import io.seata.spring.annotation.GlobalTransactional;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson.JSON;
+
+import cn.hutool.http.HttpRequest;
+import io.seata.core.context.RootContext;
+import io.seata.samples.TestDatas;
+import io.seata.samples.bean.Stock;
+import io.seata.spring.annotation.GlobalTransactional;
 
 @Service
 public class BusinessXAService {
