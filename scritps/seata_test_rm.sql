@@ -2,6 +2,15 @@
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+-- ----------------------------
+-- Table structure for sys_account
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_account`;
+CREATE TABLE `sys_account` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `balance` decimal(10,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for sys_order

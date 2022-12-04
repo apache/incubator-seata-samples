@@ -80,12 +80,12 @@
             <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>
                 <artifactId>seata-all</artifactId>
-                <version>${project.version}</version>
+                <version>${seata.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata.samples</groupId>
