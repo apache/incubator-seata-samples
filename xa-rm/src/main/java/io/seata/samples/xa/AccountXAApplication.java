@@ -13,12 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples;
+package io.seata.samples.xa;
 
-public class TestDatas {
-    public static final long USER_ID = 100000L;
-    public static final long STOCK_ID = 100000L;
-    public static final long INIT_BALANCE = 1000L;
-    public static final long STOCK_QUANTITY = 100L;
-    public static final long STOCK_PRICE = 10L;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@EnableTransactionManagement
+@SpringBootApplication
+public class AccountXAApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AccountXAApplication.class, args);
+    }
 }

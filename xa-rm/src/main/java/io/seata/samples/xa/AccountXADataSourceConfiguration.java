@@ -13,12 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples;
+package io.seata.samples.xa;
 
-public class TestDatas {
-    public static final long USER_ID = 100000L;
-    public static final long STOCK_ID = 100000L;
-    public static final long INIT_BALANCE = 1000L;
-    public static final long STOCK_QUANTITY = 100L;
-    public static final long STOCK_PRICE = 10L;
+import com.alibaba.druid.pool.DruidDataSource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AccountXADataSourceConfiguration {
+
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DruidDataSource druidDataSource() {
+        return new DruidDataSource();
+    }
 }
