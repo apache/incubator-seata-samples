@@ -19,6 +19,5 @@ seata:
 logging:
   level:
     root: info
-    io.seata.samples.mapper: TRACE
   file:
     path: ${user.home}/logs/${spring.application.name}

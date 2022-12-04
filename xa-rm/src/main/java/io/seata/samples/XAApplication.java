@@ -25,4 +25,5 @@ public class XAApplication {
         SpringApplication.run(XAApplication.class, args);
     }
 
+
 }

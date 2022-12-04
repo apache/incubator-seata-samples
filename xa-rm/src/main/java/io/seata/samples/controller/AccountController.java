@@ -16,25 +16,32 @@
 package io.seata.samples.controller;
 
 import io.seata.samples.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Map;
 
 @RestController
+@RequestMapping("/api/account")
 public class AccountController {
-    @Autowired
+
+    @Resource
     private AccountService accountService;
 
-    @PostMapping("/xa/account/reduce")
-    public Boolean create(@RequestParam Long accountId, @RequestParam Long orderMoney) {
-        return this.accountService.reduce(accountId, orderMoney);
+    @PostMapping("/reduce")
+    public Boolean reduce(@RequestParam Long accountId, @RequestParam BigDecimal money) {
+        return this.accountService.reduce(accountId, money);
     }
 
-    @GetMapping("/xa/account/hang")
-    public Boolean hang(){
-        System.out.println("hanging");
-        return true;
+    @PostMapping("/increase")
+    public Boolean increase(@RequestParam Long accountId, @RequestParam BigDecimal money) {
+        return this.accountService.increase(accountId, money);
     }
+
+    @GetMapping("/getOne")
+    public Map<String, Object> getOne(@RequestParam Long accountId) {
+        return this.accountService.getOne(accountId);
+    }
+
 }

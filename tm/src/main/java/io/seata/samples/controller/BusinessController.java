@@ -15,34 +15,35 @@
  */
 package io.seata.samples.controller;
 
+import io.seata.samples.bean.Order;
+import io.seata.samples.service.BuyService;
+import io.seata.samples.service.BusinessXAService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.bind.annotation.*;
-
-import io.seata.samples.bean.Order;
-import io.seata.samples.service.BuyService;
 
 @RestController
 @RequestMapping("/api/buy")
-public class BuyController {
-    private final BuyService buyService;
+public class BusinessController {
+    @Resource
+    private BusinessXAService businessService;
 
-    public BuyController(BuyService buyService) {
-        this.buyService = buyService;
+    @Resource
+    private BuyService buyService;
+
+
+    @RequestMapping(value = "/purchase", method = RequestMethod.GET, produces = "application/json")
+    public boolean purchase(long accountId, long stockId) {
+        return businessService.purchase(accountId, stockId, 1);
     }
 
-
-    @PostMapping("/placeOrderSuccess")
-    public Boolean placeOrderSuccess(@RequestParam Long accountId, @RequestParam Long stockId, @RequestParam Long quantity, HttpServletRequest request) {
-        return this.buyService.placeOrder(accountId, stockId, quantity, true);
-    }
-
-    @PostMapping("/placeOrderFail")
-    public Boolean placeOrderFail(@RequestParam Long accountId, @RequestParam Long stockId, @RequestParam Long quantity, HttpServletRequest request) {
-        return this.buyService.placeOrder(accountId, stockId, quantity, false);
+    @PostMapping("/increaseAccountMoney")
+    public Boolean increaseAccountMoney(@RequestParam Long accountId, @RequestParam BigDecimal money) {
+        return this.buyService.increaseAccountMoney(accountId,money);
     }
 
     @PostMapping("/updateOrderSuccess")
@@ -94,5 +95,4 @@ public class BuyController {
     public Boolean addOrUpdateStockFail2(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
         return buyService.addOrUpdateStock2(stockId, quantity, price, false);
     }
-
 }

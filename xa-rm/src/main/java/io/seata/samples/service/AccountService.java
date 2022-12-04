@@ -15,13 +15,20 @@
  */
 package io.seata.samples.service;
 
+import com.alibaba.fastjson.JSON;
 import io.seata.core.context.RootContext;
+import io.seata.samples.TestDatas;
+import io.seata.samples.bean.Account;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
+import java.util.Map;
 
 @Service
 public class AccountService {
@@ -30,17 +37,46 @@ public class AccountService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @PostConstruct
+    public void initData() {
+        jdbcTemplate.update("delete from sys_account");
+        jdbcTemplate.update("delete from sys_order");
+        jdbcTemplate.update("delete from sys_stock");
+        jdbcTemplate.update(
+                "insert into sys_account(id,balance) values( " + TestDatas.USER_ID + "," + TestDatas.INIT_BALANCE + ")");
+        jdbcTemplate.update(
+                "insert into sys_stock(id,quantity,price) values(" + TestDatas.STOCK_ID + "," + TestDatas.STOCK_QUANTITY
+                        + "," + TestDatas.STOCK_PRICE + ")");
+    }
+
     @GlobalTransactional
-    public boolean reduce(long accountId, long money) {
+    public boolean reduce(long accountId, BigDecimal money) {
         String xid = RootContext.getXID();
         LOGGER.info("reduce account balance in transaction: " + xid);
-        jdbcTemplate.update("update sys_account set balance = balance - ? where id = ?", new Object[] {money, accountId});
-        long balance = jdbcTemplate.queryForObject("select balance from sys_account where id = ?",
-            new Object[] {accountId}, Long.class);
-        LOGGER.info("balance after transaction: " + balance);
-        if (balance < 0) {
+        int result = jdbcTemplate.update("update sys_account set balance = balance - ? where id = ? and balance >= ?",
+            new Object[] {money, accountId, money});
+        if (result <= 0) {
             throw new RuntimeException("Not Enough Money ...");
         }
         return true;
     }
+
+    @GlobalTransactional
+    public boolean increase(long accountId, BigDecimal money) {
+        String xid = RootContext.getXID();
+        LOGGER.info("reduce account balance in transaction: " + xid);
+        int result = jdbcTemplate.update("update sys_account set balance = balance + ? where id = ?",
+            new Object[] {money, accountId});
+        if (result <= 0) {
+            throw new RuntimeException("Not Enough Money ...");
+        }
+        return true;
+    }
+
+    public Map<String, Object> getOne(long accountId) {
+        Map<String, Object> account = jdbcTemplate.queryForMap("select * from sys_account where id = ?",
+                accountId);
+        return account;
+    }
+
 }

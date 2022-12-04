@@ -56,11 +56,11 @@ seata:
     type: file
   registry:
     type: file
-  data-source-proxy-mode: AT
+  data-source-proxy-mode: XA
   enable-auto-data-source-proxy: true
 logging:
   level:
     root: info
-    io.seata.samples.mapper: TRACE
+    io.seata.samples.service: TRACE
   file:
     path: ${user.home}/logs/${spring.application.name}
