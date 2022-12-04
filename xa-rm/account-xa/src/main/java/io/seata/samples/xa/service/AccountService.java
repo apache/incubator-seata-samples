@@ -15,17 +15,17 @@ public class AccountService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @Transactional
+    @GlobalTransactional
     public boolean reduce(long accountId, long money) {
         String xid = RootContext.getXID();
         LOGGER.info("reduce account balance in transaction: " + xid);
         jdbcTemplate.update("update sys_account set balance = balance - ? where id = ?", new Object[] {money, accountId});
-//        long balance = jdbcTemplate.queryForObject("select balance from sys_account where id = ?",
-//            new Object[] {accountId}, Long.class);
-//        LOGGER.info("balance after transaction: " + balance);
-//        if (balance < 0) {
-//            throw new RuntimeException("Not Enough Money ...");
-//        }
+        long balance = jdbcTemplate.queryForObject("select balance from sys_account where id = ?",
+            new Object[] {accountId}, Long.class);
+        LOGGER.info("balance after transaction: " + balance);
+        if (balance < 0) {
+            throw new RuntimeException("Not Enough Money ...");
+        }
         return true;
     }
 }

@@ -24,7 +24,7 @@
     <version>1.6.0-SNAPSHOT</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.6.0-RC1</seata.version>
+        <seata.version>1.6.0-SNAPSHOT</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

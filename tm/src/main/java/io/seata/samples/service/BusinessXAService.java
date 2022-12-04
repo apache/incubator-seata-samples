@@ -4,7 +4,9 @@ import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import io.seata.core.context.RootContext;
 import io.seata.samples.TestDatas;
+import io.seata.samples.bean.Stock;
 import io.seata.spring.annotation.GlobalTransactional;
+import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,9 @@ import java.util.Map;
     public void purchase(long accountId, long stockId, long quantity) {
         String xid = RootContext.getXID();
         LOGGER.info("New Transaction Begins: " + xid);
-        boolean stockResult = deductStock(stockId, quantity);
+        boolean stockResult = reduceAccount(accountId,stockId, quantity);
         if (!stockResult) {
-            throw new RuntimeException("库存服务调用失败,事务回滚!");
+            throw new RuntimeException("账号服务调用失败,事务回滚!");
         }
         boolean orderResult = createOrder(accountId, stockId, quantity);
         if (!orderResult) {
@@ -35,7 +37,7 @@ import java.util.Map;
         }
     }
 
-//    @PostConstruct
+    @PostConstruct
     public void initData() {
         jdbcTemplate.update("delete from sys_account");
         jdbcTemplate.update("delete from sys_order");
@@ -47,12 +49,28 @@ import java.util.Map;
                 + "," + TestDatas.STOCK_PRICE + ")");
     }
 
-    private boolean deductStock(long stockId, long quantity) {
+    private boolean reduceAccount(long accountId,long stockId, long quantity) {
+        Stock stock = getStock(stockId);
+        if (stock == null) {
+            throw new RuntimeException("stock can't be found,please check stock id");
+        }
+        if (stock.getQuantity() < quantity) {
+            throw new RuntimeException("insufficient stock quantity");
+        }
+        BigDecimal amount = stock.getPrice().multiply(BigDecimal.valueOf(quantity));
+        Map<String, Object> params = new HashMap<>(8);
+        params.put("accountId", accountId);
+        params.put("orderMoney", amount);
+        return JSON.parseObject(HttpRequest.post("http://127.0.0.1:1001/xa/account/reduce").form(params)
+            .header(RootContext.KEY_XID, RootContext.getXID()).execute().body(), Boolean.class);
+    }
+
+    private Stock getStock(Long stockId) {
         Map<String, Object> params = new HashMap<>(8);
         params.put("stockId", stockId);
-        params.put("quantity", quantity);
-        return JSON.parseObject(HttpRequest.post("http://127.0.0.1:1003/xa/stock/deduct").form(params)
-            .header(RootContext.KEY_XID, RootContext.getXID()).execute().body(), Boolean.class);
+        return JSON.parseObject(HttpRequest.get("http://127.0.0.1:8081/api/order/queryStock")
+            .form(params)
+            .header(RootContext.KEY_XID, RootContext.getXID()).execute().body(), Stock.class);
     }
 
     private boolean createOrder(long accountId, long stockId, long quantity) {
@@ -60,7 +78,7 @@ import java.util.Map;
         params.put("accountId", accountId);
         params.put("stockId", stockId);
         params.put("quantity", quantity);
-        return JSON.parseObject(HttpRequest.post("http://127.0.0.1:1002/xa/order/create").form(params)
+        return JSON.parseObject(HttpRequest.post("http://127.0.0.1:8081/api/order/create").form(params)
             .header(RootContext.KEY_XID, RootContext.getXID()).execute().body(), Boolean.class);
     }
 }
