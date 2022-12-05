@@ -19,6 +19,12 @@
         <dependency>
             <groupId>io.seata.samples</groupId>
             <artifactId>common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>tk.mybatis</groupId>
+                    <artifactId>mapper-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
