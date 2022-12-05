@@ -21,71 +21,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import cn.hutool.http.HttpRequest;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import io.seata.core.context.RootContext;
-import io.seata.samples.bean.Account;
-import io.seata.samples.bean.Order;
-import io.seata.samples.bean.Stock;
-import io.seata.samples.mapper.AccountMapper;
-import io.seata.samples.service.BuyService;
-import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import tk.mybatis.mapper.entity.Example;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+import cn.hutool.http.HttpRequest;
+import io.seata.core.context.RootContext;
+import io.seata.samples.bean.Order;
+import io.seata.samples.bean.Stock;
+import io.seata.samples.service.BuyService;
+import io.seata.spring.annotation.GlobalTransactional;
 
 @Service
 public class BuyServiceImpl implements BuyService {
-    private final AccountMapper accountMapper;
     private final RestTemplate restTemplate;
 
-    public BuyServiceImpl(AccountMapper accountMapper,RestTemplate restTemplate) {
-        this.accountMapper = accountMapper;
+    public BuyServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    @GlobalTransactional(name = "re")
     @Override
-    public Boolean placeOrder(Long accountId, Long stockId, Long quantity, boolean success) {
-        if (Objects.isNull(accountId) || Objects.isNull(stockId) || Objects.isNull(quantity)) {
-            throw new IllegalArgumentException("required parameters should not be null");
-        }
-
-        Stock stock = getStock(stockId);
-        if (stock == null) {
-            throw new RuntimeException("stock can't be found,please check stock id");
-        }
-        if (stock.getQuantity() < quantity) {
-            throw new RuntimeException("insufficient stock quantity");
-        }
-        BigDecimal amount = stock.getPrice().multiply(BigDecimal.valueOf(quantity));
-
-        Example example = new Example(Account.class);
-        example.setForUpdate(true);
-        example.createCriteria()
-            .andEqualTo("id", accountId);
-        Account account = this.accountMapper.selectOneByExample(example);
-        if (account.getBalance().compareTo(amount) < 0) {
-            throw new RuntimeException("insufficient balance");
-        }
-        account.setBalance(account.getBalance().subtract(amount));
-        this.accountMapper.updateByPrimaryKeySelective(account);
-
-
-        Long orderId = createOrder(accountId, stockId, quantity);
-        if (!success) {
-            throw new RuntimeException("testing roll back");
-        }
-        return orderId != null;
-    }
-
     @GlobalTransactional
-    @Override
     public Boolean updateOrder(Long accountId, Long stockId, Long quantity, Long orderId, boolean success) {
         if (Objects.isNull(accountId) || Objects.isNull(stockId) || Objects.isNull(quantity) || Objects.isNull(orderId)) {
             throw new IllegalArgumentException("required parameters should not be null");
@@ -165,6 +127,21 @@ public class BuyServiceImpl implements BuyService {
             throw new RuntimeException("testing roll back");
         }
         return rows;
+    }
+
+    @Override
+    @GlobalTransactional
+    public Boolean increaseAccountMoney(Long accountId, BigDecimal money) {
+        Map<String, Object> params = new HashMap<>(8);
+        params.put("accountId", accountId);
+        params.put("money", money);
+        String body = HttpRequest.post("http://127.0.0.1:8082/api/account/increase").form(params)
+            .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
+        Boolean result = JSON.parseObject(body, Boolean.class);
+        if (!result) {
+            throw new RuntimeException("testing roll back");
+        }
+        return result;
     }
 
     @GlobalTransactional

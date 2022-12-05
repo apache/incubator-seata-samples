@@ -15,23 +15,19 @@
  */
 package io.seata.samples.service;
 
-import io.seata.samples.bean.Order;
-
 import java.math.BigDecimal;
 import java.util.List;
 
+import io.seata.samples.bean.Order;
+import io.seata.spring.annotation.GlobalTransactional;
+
 public interface BuyService {
-    Boolean placeOrder(Long accountId, Long stockId, Long quantity, boolean success);
 
     Boolean updateOrder(Long accountId, Long stockId, Long quantity, Long orderId, boolean success);
-
     Integer createOrUpdateOrder(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success);
-
     Boolean createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success);
-
     Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price, boolean success);
-
     Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price, boolean success);
-
     Integer createOrUpdateBatchOrderSuccess(List<Order> orders,boolean success);
+    Boolean increaseAccountMoney(Long accountId, BigDecimal money);
 }

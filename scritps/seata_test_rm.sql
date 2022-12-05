@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS `sys_account`;
 CREATE TABLE `sys_account` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
@@ -24,6 +26,8 @@ CREATE TABLE `sys_order` (
   `quantity` bigint(20) NOT NULL DEFAULT '1',
   `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `note` varchar(100) NULL ,
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   UNIQUE KEY `ux_account_number` (`order_number`) USING BTREE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
@@ -45,6 +49,8 @@ CREATE TABLE `sys_stock` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `quantity` bigint(20) NOT NULL DEFAULT '0',
   `price` decimal(10,2) DEFAULT '0.00',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 

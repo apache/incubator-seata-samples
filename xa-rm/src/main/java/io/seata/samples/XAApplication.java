@@ -13,19 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.xa;
+package io.seata.samples;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Configuration
-public class AccountXADataSourceConfiguration {
+@SpringBootApplication
+public class XAApplication {
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DruidDataSource druidDataSource() {
-        return new DruidDataSource();
+    public static void main(String[] args) {
+        SpringApplication.run(XAApplication.class, args);
     }
+
+
 }

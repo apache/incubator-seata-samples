@@ -1,13 +1,48 @@
 server:
-  port: 1001
+  port: 8082
 spring:
   application:
-    name: account-xa
+    name: xa-rm
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/seata?autoReconnect=true&failOverReadOnly=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
-    username: seata
-    password: seata
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/seata-samples?autoReconnect=true&failOverReadOnly=false&useSSL=false&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      username: seata
+      password: seata
+      initialSize: 50
+      minIdle: 50
+      maxActive: 100
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      filters: stat,wall
+      maxPoolPreparedStatementPerConnectionSize: 20
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=500
+      useGlobalDataSourceStat: true
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: io.seata.samples.bean
+  configuration:
+    cacheEnabled: true
+    lazyLoadingEnabled: false
+    aggressiveLazyLoading: false
+    multipleResultSetsEnabled: true
+    useColumnLabel: true
+    useGeneratedKeys: true
+    autoMappingBehavior: FULL
+    defaultExecutorType: SIMPLE
+    defaultStatementTimeout: 25000
+    mapUnderscoreToCamelCase: true
+    logImpl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+mapper:
+  mappers: io.seata.samples.utils.MyMapper
+  not-empty: false
+  identity: MYSQL
 seata:
   enabled: true
   application-id: ${spring.application.name}
@@ -26,5 +61,6 @@ seata:
 logging:
   level:
     root: info
+    io.seata.samples.service: TRACE
   file:
     path: ${user.home}/logs/${spring.application.name}

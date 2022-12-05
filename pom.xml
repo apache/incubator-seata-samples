@@ -24,7 +24,7 @@
     <version>1.6.0-SNAPSHOT</version>
     <name>seata-samples ${project.version}</name>
     <properties>
-        <seata.version>1.6.0-SNAPSHOT</seata.version>
+        <seata.version>${project.version}</seata.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -43,6 +43,7 @@
         <mybatis.starter.version>2.2.2</mybatis.starter.version>
         <hutool.version>5.8.9</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
+        <mysql.version>8.0.31</mysql.version>
 
     </properties>
     <modules>
@@ -76,6 +77,11 @@
                 </exclusions>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.seata</groupId>

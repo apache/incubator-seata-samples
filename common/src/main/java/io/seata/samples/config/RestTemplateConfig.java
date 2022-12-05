@@ -13,10 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.mapper;
+package io.seata.samples.config;
 
-import io.seata.samples.bean.Account;
-import io.seata.samples.utils.MyMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
-public interface AccountMapper extends MyMapper<Account> {
+@Configuration
+public class RestTemplateConfig {
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }

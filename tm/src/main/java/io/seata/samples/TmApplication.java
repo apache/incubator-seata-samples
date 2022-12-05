@@ -25,5 +25,4 @@ public class TmApplication {
         SpringApplication.run(TmApplication.class, args);
     }
 
-
 }
