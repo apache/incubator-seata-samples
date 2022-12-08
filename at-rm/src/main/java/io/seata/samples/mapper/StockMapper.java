@@ -33,5 +33,5 @@ public interface StockMapper extends MyMapper<Stock> {
     @Insert({"<script>",
             "INSERT sys_stock VALUES (#{stockId},#{quantity},#{price}) on duplicate key update quantity=#{quantity}",
             "</script>"})
-    Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price);
+    Integer addOrUpdateStock2(@Param("stockId")Long stockId,@Param("quantity") BigDecimal quantity,@Param("price") BigDecimal price);
 }

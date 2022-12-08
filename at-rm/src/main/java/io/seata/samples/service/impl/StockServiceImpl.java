@@ -39,12 +39,12 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price) {
+    public Boolean addOrUpdateStockFail(BigDecimal quantity, BigDecimal price) {
         return this.stockMapper.addOrUpdateStock(quantity, price);
     }
 
     @Override
-    public Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price) {
+    public Integer addOrUpdateStockSuccess(Long stockId, BigDecimal quantity, BigDecimal price) {
         return this.stockMapper.addOrUpdateStock2(stockId, quantity, price);
     }
 }

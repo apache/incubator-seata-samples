@@ -42,9 +42,15 @@ public interface OrderMapper extends MyMapper<Order> {
     @Insert({"<script>",
             "INSERT sys_order " +
                     "VALUES (#{id},#{orderNumber},#{accountId},#{stockId},#{quantity},#{amount},#{note}) " +
-                    "on duplicate key update quantity=#{quantity}  ",
+                    "on duplicate key update quantity=#{quantity},note=#{note} ",
             "</script>"})
-    Integer createOrUpdateOrder2(@Param("id") Long id, @Param("orderNumber") Long orderNumber, @Param("accountId")  Long accountId, @Param("stockId") Long stockId, @Param("quantity") Long quantity, @Param("amount")BigDecimal amount, @Param("note") String note);
+    Integer createOrUpdateOrder2(@Param("id") Long id,
+                                 @Param("orderNumber") Long orderNumber,
+                                 @Param("accountId")  Long accountId,
+                                 @Param("stockId") Long stockId,
+                                 @Param("quantity") Long quantity,
+                                 @Param("amount")BigDecimal amount,
+                                 @Param("note") String note);
 
 
     Integer createOrUpdateBatchOrder(@Param("orders") List<Order> orders);

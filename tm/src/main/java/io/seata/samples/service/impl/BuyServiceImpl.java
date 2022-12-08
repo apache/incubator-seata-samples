@@ -100,10 +100,10 @@ public class BuyServiceImpl implements BuyService {
 
     @GlobalTransactional
     @Override
-    public Boolean createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success) {
+    public Integer createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success) {
         String url = "http://127.0.0.1:8081/api/order/createOrUpdate2";
         String body = callService(url, id, accountId, orderNumber, stockId, quantity, amount, note);
-        Boolean result = JSON.parseObject(body, Boolean.class);
+        Integer result = JSON.parseObject(body, Integer.class);
         if (!success) {
             throw new RuntimeException("testing roll back");
         }
@@ -146,14 +146,14 @@ public class BuyServiceImpl implements BuyService {
 
     @GlobalTransactional
     @Override
-    public Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price, boolean success) {
+    public String addOrUpdateStockFail(BigDecimal quantity, BigDecimal price, boolean success) {
         Map<String, Object> params = new HashMap<>(8);
         params.put("price", price);
         params.put("quantity", quantity);
-        String body = HttpRequest.post("http://127.0.0.1:8081/api/stock/addOrUpdateStock")
+        String body = HttpRequest.post("http://127.0.0.1:8081/api/stock/addOrUpdateStockFail")
                 .form(params)
                 .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
-        Boolean result = JSON.parseObject(body, Boolean.class);
+        String result = JSON.parseObject(body, String.class);
         if (!success) {
             throw new RuntimeException("testing roll back");
         }
@@ -162,15 +162,15 @@ public class BuyServiceImpl implements BuyService {
 
     @GlobalTransactional
     @Override
-    public Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price, boolean success) {
+    public Integer addOrUpdateStock(Long stockId, BigDecimal quantity, BigDecimal price, boolean success) {
         Map<String, Object> params = new HashMap<>(8);
         params.put("stockId", stockId);
         params.put("price", price);
         params.put("quantity", quantity);
-        String body = HttpRequest.post("http://127.0.0.1:8081/api/stock/insertOrUpdateStock2")
+        String body = HttpRequest.post("http://127.0.0.1:8081/api/stock/addOrUpdateStockSuccess")
                 .form(params)
                 .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
-        Boolean result = JSON.parseObject(body, Boolean.class);
+        Integer result = JSON.parseObject(body, Integer.class);
         if (!success) {
             throw new RuntimeException("testing roll back");
         }

@@ -25,9 +25,9 @@ public interface BuyService {
 
     Boolean updateOrder(Long accountId, Long stockId, Long quantity, Long orderId, boolean success);
     Integer createOrUpdateOrder(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success);
-    Boolean createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success);
-    Boolean addOrUpdateStock(BigDecimal quantity, BigDecimal price, boolean success);
-    Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price, boolean success);
+    Integer createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note, boolean success);
+    String addOrUpdateStockFail(BigDecimal quantity, BigDecimal price, boolean success);
+    Integer addOrUpdateStock(Long stockId, BigDecimal quantity, BigDecimal price, boolean success);
     Integer createOrUpdateBatchOrderSuccess(List<Order> orders,boolean success);
     Boolean increaseAccountMoney(Long accountId, BigDecimal money);
 }
