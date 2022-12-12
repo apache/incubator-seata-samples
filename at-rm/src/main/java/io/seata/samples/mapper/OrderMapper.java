@@ -36,7 +36,7 @@ public interface OrderMapper extends MyMapper<Order> {
                     "VALUES (#{id},#{orderNumber},#{accountId},#{stockId},#{quantity},#{note}) " +
                     "on duplicate key update quantity=#{quantity}  ",
             "</script>"})
-    Integer  createOrUpdateOrder(@Param("id") Long id,@Param("orderNumber") Long orderNumber,@Param("accountId")  Long accountId, @Param("stockId") Long stockId, @Param("quantity") Long quantity,@Param("note") String note);
+    Integer createOrUpdateOrder(@Param("id") Long id, @Param("orderNumber") Long orderNumber, @Param("accountId") Long accountId, @Param("stockId") Long stockId, @Param("quantity") Long quantity, @Param("note") String note);
 
 
     @Insert({"<script>",
@@ -46,10 +46,10 @@ public interface OrderMapper extends MyMapper<Order> {
             "</script>"})
     Integer createOrUpdateOrder2(@Param("id") Long id,
                                  @Param("orderNumber") Long orderNumber,
-                                 @Param("accountId")  Long accountId,
+                                 @Param("accountId") Long accountId,
                                  @Param("stockId") Long stockId,
                                  @Param("quantity") Long quantity,
-                                 @Param("amount")BigDecimal amount,
+                                 @Param("amount") BigDecimal amount,
                                  @Param("note") String note);
 
 

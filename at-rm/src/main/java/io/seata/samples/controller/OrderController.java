@@ -55,7 +55,7 @@ public class OrderController {
     }
 
     @PostMapping("/createOrUpdate")
-    public Integer insertOrUpdate(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount,@RequestParam(required = false) String note, HttpServletRequest request) {
+    public Integer insertOrUpdate(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam(required = false) BigDecimal amount, @RequestParam(required = false) String note, HttpServletRequest request) {
         return this.orderService.createOrUpdateOrder(id, accountId, orderNumber, stockId, quantity, note);
     }
 

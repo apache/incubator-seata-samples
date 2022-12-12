@@ -38,7 +38,7 @@ public class StockController {
     @PostMapping("/addOrUpdateStockFail")
     public String insertOrUpdate(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
         this.stockService.addOrUpdateStockFail(quantity, price);
-        return null ;
+        return null;
     }
 
 

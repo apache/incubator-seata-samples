@@ -24,5 +24,5 @@ public interface StockService {
 
     Boolean addOrUpdateStockFail(BigDecimal quantity, BigDecimal price);
 
-    Integer addOrUpdateStockSuccess(Long stockId , BigDecimal quantity, BigDecimal price);
+    Integer addOrUpdateStockSuccess(Long stockId, BigDecimal quantity, BigDecimal price);
 }

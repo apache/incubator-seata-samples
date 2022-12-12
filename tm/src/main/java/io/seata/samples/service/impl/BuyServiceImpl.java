@@ -136,7 +136,7 @@ public class BuyServiceImpl implements BuyService {
         params.put("accountId", accountId);
         params.put("money", money);
         String body = HttpRequest.post("http://127.0.0.1:8082/api/account/increase").form(params)
-            .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
+                .header(RootContext.KEY_XID, RootContext.getXID()).execute().body();
         Boolean result = JSON.parseObject(body, Boolean.class);
         if (!result) {
             throw new RuntimeException("testing roll back");
