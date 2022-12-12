@@ -25,7 +25,7 @@ public interface OrderService {
 
     Boolean updateOrder(Long accountId, Long orderId, Long stockId, Long quantity);
 
-    Integer createOrUpdateOrder(Long id, Long orderNumber, Long accountId, Long stockId, Long quantity,String note);
+    Integer createOrUpdateOrder(Long id, Long orderNumber, Long accountId, Long stockId, Long quantity, String note);
 
     Integer createOrUpdateOrder2(Long id, Long accountId, Long orderNumber, Long stockId, Long quantity, BigDecimal amount, String note);
 

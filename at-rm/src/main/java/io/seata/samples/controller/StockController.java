@@ -35,14 +35,15 @@ public class StockController {
     }
 
 
-    @PostMapping("/addOrUpdateStock")
-    public Boolean insertOrUpdate(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
-        return this.stockService.addOrUpdateStock(quantity, price);
+    @PostMapping("/addOrUpdateStockFail")
+    public String insertOrUpdate(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        this.stockService.addOrUpdateStockFail(quantity, price);
+        return null;
     }
 
 
-    @PostMapping("/addOrUpdateStock2")
-    public Boolean insertOrUpdate(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
-        return this.stockService.addOrUpdateStock2(stockId, quantity, price);
+    @PostMapping("/addOrUpdateStockSuccess")
+    public Integer insertOrUpdate(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return this.stockService.addOrUpdateStockSuccess(stockId, quantity, price);
     }
 }

@@ -27,11 +27,11 @@ public interface StockMapper extends MyMapper<Stock> {
     @Insert({"<script>",
             "INSERT sys_stock (quantity,price) VALUES (#{quantity},#{price}) on duplicate key update quantity=#{quantity}  ",
             "</script>"})
-    Boolean addOrUpdateStock(@Param("quantity") BigDecimal quantity,@Param("price") BigDecimal price);
+    Boolean addOrUpdateStock(@Param("quantity") BigDecimal quantity, @Param("price") BigDecimal price);
 
 
     @Insert({"<script>",
             "INSERT sys_stock VALUES (#{stockId},#{quantity},#{price}) on duplicate key update quantity=#{quantity}",
             "</script>"})
-    Boolean addOrUpdateStock2(Long stockId, BigDecimal quantity, BigDecimal price);
+    Integer addOrUpdateStock2(@Param("stockId") Long stockId, @Param("quantity") BigDecimal quantity, @Param("price") BigDecimal price);
 }

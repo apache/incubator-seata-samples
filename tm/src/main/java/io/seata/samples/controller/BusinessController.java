@@ -37,7 +37,7 @@ public class BusinessController {
 
 
     @RequestMapping(value = "/purchase", method = RequestMethod.GET, produces = "application/json")
-    public boolean purchase(long accountId, long stockId) {
+    public boolean purchase(@RequestParam long accountId,@RequestParam long stockId) {
         return businessService.purchase(accountId, stockId, 1);
     }
 
@@ -67,7 +67,7 @@ public class BusinessController {
     }
 
     @PostMapping("/createOrUpdateOrderSuccess2")
-    public Boolean createOrUpdateOrderSuccess2(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam BigDecimal amount, @RequestParam String note, HttpServletRequest request) {
+    public Integer createOrUpdateOrderSuccess2(@RequestParam Long id, @RequestParam Long accountId, @RequestParam Long orderNumber, @RequestParam Long stockId, @RequestParam Long quantity, @RequestParam BigDecimal amount, @RequestParam String note, HttpServletRequest request) {
         return this.buyService.createOrUpdateOrder2(id, accountId, orderNumber, stockId, quantity, amount, note, true);
     }
 
@@ -81,18 +81,18 @@ public class BusinessController {
         return this.buyService.createOrUpdateBatchOrderSuccess(orders, false);
     }
 
-    @PostMapping("/addOrUpdateStockSuccess")
-    public Boolean addOrUpdateStockSuccess(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
-        return buyService.addOrUpdateStock(quantity, price, true);
-    }
-
-    @PostMapping("/addOrUpdateStockSuccess2")
-    public Boolean addOrUpdateStockSuccess2(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
-        return buyService.addOrUpdateStock2(stockId, quantity, price, true);
-    }
-
     @PostMapping("/addOrUpdateStockFail2")
-    public Boolean addOrUpdateStockFail2(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
-        return buyService.addOrUpdateStock2(stockId, quantity, price, false);
+    public String addOrUpdateStockFail2(@RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return buyService.addOrUpdateStockFail(quantity, price, true);
+    }
+
+    @PostMapping("/addOrUpdateStockSuccess")
+    public Integer addOrUpdateStockSuccess2(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return buyService.addOrUpdateStock(stockId, quantity, price, true);
+    }
+
+    @PostMapping("/addOrUpdateStockFail")
+    public Integer addOrUpdateStockFail(@RequestParam Long stockId, @RequestParam BigDecimal quantity, @RequestParam BigDecimal price) {
+        return buyService.addOrUpdateStock(stockId, quantity, price, false);
     }
 }

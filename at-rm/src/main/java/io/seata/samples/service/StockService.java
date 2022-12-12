@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 public interface StockService {
     Stock getStockById(Long id);
 
-    Boolean addOrUpdateStock( BigDecimal quantity,BigDecimal price);
+    Boolean addOrUpdateStockFail(BigDecimal quantity, BigDecimal price);
 
-    Boolean addOrUpdateStock2(Long stockId ,BigDecimal quantity,BigDecimal price);
+    Integer addOrUpdateStockSuccess(Long stockId, BigDecimal quantity, BigDecimal price);
 }
