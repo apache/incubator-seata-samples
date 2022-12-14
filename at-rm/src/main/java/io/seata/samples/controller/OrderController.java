@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import io.seata.samples.bean.Order;
 import io.seata.samples.bean.Stock;
-import io.seata.samples.service.OrderService;
-import io.seata.samples.service.StockService;
+import io.seata.samples.client.service.OrderService;
+import io.seata.samples.client.service.StockService;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;

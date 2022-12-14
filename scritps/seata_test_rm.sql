@@ -36,7 +36,7 @@ CREATE TABLE `sys_order` (
 -- Records of sys_order
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_order` VALUES (8, 1,1, 1, 10000, 10.00,null);
+INSERT INTO `sys_order`(order_number,account_id,stock_id,quantity,amount,note) VALUES (8, 1,1, 1, 10000, 10.00,null);
 INSERT INTO `sys_order` VALUES (12, 2,1, 1, 10, 10.00,'note');
 INSERT INTO `sys_order` VALUES (15, 3,1, 1, 10, 10.00,'order');
 COMMIT;

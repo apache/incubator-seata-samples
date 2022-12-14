@@ -15,10 +15,10 @@
  */
 package io.seata.samples.controller;
 
-import io.seata.samples.service.AccountService;
+import io.seata.samples.client.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -26,7 +26,7 @@ import java.util.Map;
 @RequestMapping("/api/account")
 public class AccountController {
 
-    @Resource
+    @Autowired
     private AccountService accountService;
 
     @PostMapping("/reduce")

@@ -21,3 +21,15 @@ logging:
     root: info
   file:
     path: ${user.home}/logs/${spring.application.name}
+dubbo:
+  application:
+    id: dubbo-tm
+    name: dubbo-tm
+    qosEnable: false
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20882
+  registry:
+    id: dubbo-seata-examples-registry
+    address: multicast://224.0.0.1:1234?unicast=false

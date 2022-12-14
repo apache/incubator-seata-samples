@@ -13,16 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.seata.samples.service;
-
-import io.seata.samples.bean.Stock;
+package io.seata.samples.client.service;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
-public interface StockService {
-    Stock getStockById(Long id);
+public interface AccountService {
 
-    Boolean addOrUpdateStockFail(BigDecimal quantity, BigDecimal price);
+    boolean reduce(long accountId, BigDecimal money);
 
-    Integer addOrUpdateStockSuccess(Long stockId, BigDecimal quantity, BigDecimal price);
+    boolean increase(long accountId, BigDecimal money);
+
+    Map<String, Object> getOne(long accountId);
+
 }

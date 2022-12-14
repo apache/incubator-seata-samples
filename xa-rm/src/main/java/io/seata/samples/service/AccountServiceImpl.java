@@ -15,11 +15,11 @@
  */
 package io.seata.samples.service;
 
-import com.alibaba.fastjson.JSON;
 import io.seata.core.context.RootContext;
 import io.seata.samples.TestDatas;
-import io.seata.samples.bean.Account;
+import io.seata.samples.client.service.AccountService;
 import io.seata.spring.annotation.GlobalTransactional;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,9 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 @Service
-public class AccountService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class);
+@DubboService(timeout = 5000)
+public class AccountServiceImpl implements AccountService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(io.seata.samples.client.service.AccountService.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

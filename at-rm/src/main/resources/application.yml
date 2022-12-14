@@ -64,3 +64,17 @@ logging:
     io.seata.samples.mapper: TRACE
   file:
     path: ${user.home}/logs/${spring.application.name}
+
+#====================================Dubbo config===============================================
+dubbo:
+  application:
+    id: dubbo-at-rm
+    name: dubbo-at-rm
+    qosEnable: false
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 20880
+  registry:
+    id: dubbo-seata-examples-registry
+    address: multicast://224.0.0.1:1234?unicast=false

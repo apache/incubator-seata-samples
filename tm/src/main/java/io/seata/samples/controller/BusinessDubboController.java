@@ -16,8 +16,9 @@
 package io.seata.samples.controller;
 
 import io.seata.samples.bean.Order;
+import io.seata.samples.service.BusinessXADubboService;
 import io.seata.samples.client.service.BuyService;
-import io.seata.samples.service.BusinessXAService;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,12 +28,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/buy")
-public class BusinessController {
+@RequestMapping("/api/dubbo/buy")
+public class BusinessDubboController {
     @Resource
-    private BusinessXAService businessService;
+    private BusinessXADubboService businessService;
 
-    @Resource
+    @DubboReference
     private BuyService buyService;
 
 

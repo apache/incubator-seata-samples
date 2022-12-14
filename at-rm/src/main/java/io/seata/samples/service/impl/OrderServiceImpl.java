@@ -18,18 +18,18 @@ package io.seata.samples.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
-import io.seata.core.context.RootContext;
 import io.seata.samples.bean.Order;
 import io.seata.samples.bean.Stock;
 import io.seata.samples.mapper.OrderMapper;
 import io.seata.samples.mapper.StockMapper;
-import io.seata.samples.service.OrderService;
-import io.seata.spring.annotation.GlobalTransactional;
+import io.seata.samples.client.service.OrderService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 @Service
+@DubboService(timeout = 5000)
 public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final StockMapper stockMapper;

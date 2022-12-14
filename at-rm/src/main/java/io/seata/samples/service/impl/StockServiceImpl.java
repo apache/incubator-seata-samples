@@ -17,12 +17,14 @@ package io.seata.samples.service.impl;
 
 import io.seata.samples.bean.Stock;
 import io.seata.samples.mapper.StockMapper;
-import io.seata.samples.service.StockService;
+import io.seata.samples.client.service.StockService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
+@DubboService(timeout = 5000)
 public class StockServiceImpl implements StockService {
     private final StockMapper stockMapper;
 

@@ -15,7 +15,7 @@
  */
 package io.seata.samples.controller;
 
-import io.seata.samples.service.StockService;
+import io.seata.samples.client.service.StockService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

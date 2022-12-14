@@ -35,7 +35,7 @@ import cn.hutool.http.HttpRequest;
 import io.seata.core.context.RootContext;
 import io.seata.samples.bean.Order;
 import io.seata.samples.bean.Stock;
-import io.seata.samples.service.BuyService;
+import io.seata.samples.client.service.BuyService;
 import io.seata.spring.annotation.GlobalTransactional;
 
 @Service

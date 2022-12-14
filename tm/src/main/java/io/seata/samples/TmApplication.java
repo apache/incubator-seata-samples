@@ -15,10 +15,12 @@
  */
 package io.seata.samples;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
+@EnableDubbo(scanBasePackages = "io.seata.samples")
 public class TmApplication {
 
     public static void main(String[] args) {
