@@ -36,9 +36,9 @@ CREATE TABLE `sys_order` (
 -- Records of sys_order
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_order` VALUES (8, 1,1, 1, 10000, 10.00,null);
-INSERT INTO `sys_order` VALUES (12, 2,1, 1, 10, 10.00,'note');
-INSERT INTO `sys_order` VALUES (15, 3,1, 1, 10, 10.00,'order');
+INSERT INTO `sys_order`(`id`, `order_number`, `account_id`, `stock_id`, `quantity`, `amount`, `note`) VALUES (8, 1,1, 1, 10000, 10.00,null);
+INSERT INTO `sys_order`(`id`, `order_number`, `account_id`, `stock_id`, `quantity`, `amount`, `note`) VALUES (12, 2,1, 1, 10, 10.00,'note');
+INSERT INTO `sys_order`(`id`, `order_number`, `account_id`, `stock_id`, `quantity`, `amount`, `note`) VALUES (15, 3,1, 1, 10, 10.00,'order');
 COMMIT;
 
 -- ----------------------------
@@ -58,7 +58,7 @@ CREATE TABLE `sys_stock` (
 -- Records of sys_stock
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_stock` VALUES (1, 969, 1.00);
+INSERT INTO `sys_stock`(`id`, `quantity`, `price`) VALUES (1, 969, 1.00);
 COMMIT;
 
 -- ----------------------------
