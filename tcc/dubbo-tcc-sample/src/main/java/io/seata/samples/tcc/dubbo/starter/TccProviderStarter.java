@@ -15,6 +15,11 @@
  */
 package io.seata.samples.tcc.dubbo.starter;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import io.seata.samples.jit.AbstractStarter;
 import io.seata.samples.jit.ApplicationKeeper;
 import org.apache.curator.test.TestingServer;
@@ -40,8 +45,32 @@ public class TccProviderStarter extends AbstractStarter {
         mockZKServer();
         
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-            new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml"});
+            new String[] {"spring/seata-tcc-provider.xml", "spring/seata-dubbo-provider.xml", "db/provider-commom-fence-datasource.xml"});
+
+        // create fence log table
+        DataSource dataSource = (DataSource) applicationContext.getBean("seataTCCFenceDataSource");
+        this.createFenceLogTableSql(dataSource);
+
         new ApplicationKeeper().keep();
+    }
+
+    private void createFenceLogTableSql(DataSource dataSource) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `tcc_fence_log`\n" +
+                "(\n" +
+                "    `xid`           VARCHAR(128)  NOT NULL COMMENT 'global id',\n" +
+                "    `branch_id`     BIGINT        NOT NULL COMMENT 'branch id',\n" +
+                "    `action_name`   VARCHAR(64)   NOT NULL COMMENT 'action name',\n" +
+                "    `status`        TINYINT       NOT NULL COMMENT 'status(tried:1;committed:2;rollbacked:3;suspended:4)',\n" +
+                "    `gmt_create`    DATETIME(3)   NOT NULL COMMENT 'create time',\n" +
+                "    `gmt_modified`  DATETIME(3)   NOT NULL COMMENT 'update time',\n" +
+                "    PRIMARY KEY (`xid`, `branch_id`),\n" +
+                "    KEY `idx_gmt_modified` (`gmt_modified`),\n" +
+                "    KEY `idx_status` (`status`)\n" +
+                ") ;");
+        stmt.close();
+        connection.close();
     }
 
     private static void mockZKServer() throws Exception {

@@ -40,7 +40,7 @@ public class TccConsumerStarter extends AbstractStarter {
     @Override
     protected void start0(String[] args) throws Exception {
         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-            new String[] {"spring/seata-tcc.xml", "spring/seata-dubbo-reference.xml"});
+            new String[] {"spring/seata-tcc-reference.xml", "spring/seata-dubbo-reference.xml"});
         tccTransactionService = (TccTransactionService)applicationContext.getBean("tccTransactionService");
 
         //分布式事务提交demo
