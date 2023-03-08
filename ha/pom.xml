@@ -28,7 +28,7 @@
     <name>seata-samples-HA ${project.version}</name>
     <properties>
         <!-- 2.7.15 会有BUG -->
-        <dubbo.version>2.7.14</dubbo.version>
+        <dubbo.version>2.7.21</dubbo.version>
         <dubbo.registry.nacos.version>0.0.2</dubbo.registry.nacos.version>
     </properties>
 
