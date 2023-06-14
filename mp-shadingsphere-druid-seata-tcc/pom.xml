@@ -29,7 +29,7 @@
         <knife4j-spring-ui.version>2.0.4</knife4j-spring-ui.version>
         <hutool-all.version>5.3.8</hutool-all.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.3.RELEASE</spring-cloud-alibaba.version>
         <base-common.version>1.0.0-SNAPSHOT</base-common.version>
