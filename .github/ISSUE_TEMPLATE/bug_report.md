@@ -7,32 +7,48 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+---
+name: Bug Report    
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+about: If you would like to report an issue to Apache Seata(incubating), please use this template.
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+---
+<!-- Please do not use this issue template to report security vulnerabilities but refer to our [security policy](https://github.com/apache/incubator-seata/security/policy). -->
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+- [ ] I have searched the [issues](https://github.com/apache/incubator-seata-samples/issues) of this repository and believe that this is not a duplicate.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+### Ⅰ. Issue Description
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
 
-**Additional context**
-Add any other context about the problem here.
+### Ⅱ. Describe what happened
+
+  If there is an exception, please attach the exception trace:
+
+```
+Just paste your stack trace here!
+```
+
+
+### Ⅲ. Describe what you expected to happen
+
+
+### Ⅳ. How to reproduce it (as minimally and precisely as possible)
+
+1. xxx
+2. xxx
+3. xxx
+
+Minimal yet complete reproducer code (or URL to code):
+
+
+
+### Ⅴ. Anything else we need to know?
+
+
+### Ⅵ. Environment:
+
+- JDK version(e.g. `java -version`):
+- Seata client/server version:  
+- Database version:
+- OS(e.g. `uname -a`):
+- Others:
