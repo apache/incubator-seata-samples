@@ -1,0 +1,16 @@
+github:
+  description: "Apache Seata(incubating) Samples for Java"
+  homepage: https://seata.apache.org/
+  enabled_merge_buttons:
+    squash:  true
+    merge:   false
+    rebase:  false
+  dependabot_alerts:  true
+  dependabot_updates: false
+  protected_branches:
+    master: {}
+  notifications:
+    commits: notifications@seata.apache.org
+    issues: dev@seata.apache.org
+    pullrequests: dev@seata.apache.org
+    discussions: notifications@seata.apache.org
