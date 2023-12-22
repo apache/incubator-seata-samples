@@ -9,8 +9,8 @@ github:
   dependabot_updates: false
   protected_branches:
     master: {}
-  notifications:
-    commits: notifications@seata.apache.org
-    issues: dev@seata.apache.org
-    pullrequests: dev@seata.apache.org
-    discussions: notifications@seata.apache.org
+notifications:
+  commits: notifications@seata.apache.org
+  issues: dev@seata.apache.org
+  pullrequests: dev@seata.apache.org
+  discussions: notifications@seata.apache.org
