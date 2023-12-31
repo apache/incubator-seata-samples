@@ -20,16 +20,28 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-autowire="byName">
 
-    <!-- fescar bean scanner -->
-    <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
-        <constructor-arg value="tcc-sample"/>
-        <constructor-arg value="my_test_tx_group"/>
+    <bean id="seataTCCFenceDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName">
+            <value>org.h2.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;</value>
+        </property>
+        <property name="username">
+            <value>fence</value>
+        </property>
+        <property name="password">
+            <value></value>
+        </property>
     </bean>
 
-    <bean id="tccActionOneImpl" class="io.seata.samples.tcc.dubbo.action.impl.TccActionOneImpl"/>
+    <bean id="seataTCCFenceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="seataTCCFenceDataSource"/>
+    </bean>
 
-    <bean id="tccActionTwoImpl" class="io.seata.samples.tcc.dubbo.action.impl.TccActionTwoImpl"/>
-
-    <bean id="tccTransactionService" class="io.seata.samples.tcc.dubbo.service.TccTransactionService"/>
+    <bean class="io.seata.rm.fence.SpringFenceConfig">
+        <constructor-arg ref="seataTCCFenceDataSource"/>
+        <constructor-arg ref="seataTCCFenceTransactionManager"/>
+    </bean>
 
 </beans>

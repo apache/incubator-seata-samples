@@ -15,6 +15,10 @@
  */
 package io.seata.samples.tcc.starter;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,13 +65,17 @@ public class LocalTccTransactionStarter {
      * @param args the input arguments
      * @throws InterruptedException the interrupted exception
      */
-    public static void main(String[] args) throws InterruptedException {
-        applicationContext = new ClassPathXmlApplicationContext(new String[] {"spring/seata-tcc.xml"});
+    public static void main(String[] args) throws InterruptedException, SQLException {
+        applicationContext = new ClassPathXmlApplicationContext(new String[] {"spring/seata-tcc.xml","db/provider-commom-fence-datasource.xml"});
 
         tccTransactionService = (TccTransactionService)applicationContext.getBean("tccTransactionService");
 
         tccActionOne = (TccActionOneImpl)applicationContext.getBean("tccActionOne");
         tccActionTwo = (TccActionTwoImpl)applicationContext.getBean("tccActionTwo");
+
+        // create fence log table
+        DataSource dataSource = (DataSource) applicationContext.getBean("seataTCCFenceDataSource");
+        createFenceLogTableSql(dataSource);
 
         //分布式事务提交demo
         transactionCommitDemo();
@@ -106,6 +114,25 @@ public class LocalTccTransactionStarter {
         Assert.isTrue("R".equals(ResultHolder.getActionTwoResult(txId)), "tccActionTwo commit failed");
 
         System.out.println("transaction rollback demo finish.");
+    }
+
+    private static void createFenceLogTableSql(DataSource dataSource) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS `tcc_fence_log`\n" +
+                "(\n" +
+                "    `xid`           VARCHAR(128)  NOT NULL COMMENT 'global id',\n" +
+                "    `branch_id`     BIGINT        NOT NULL COMMENT 'branch id',\n" +
+                "    `action_name`   VARCHAR(64)   NOT NULL COMMENT 'action name',\n" +
+                "    `status`        TINYINT       NOT NULL COMMENT 'status(tried:1;committed:2;rollbacked:3;suspended:4)',\n" +
+                "    `gmt_create`    DATETIME(3)   NOT NULL COMMENT 'create time',\n" +
+                "    `gmt_modified`  DATETIME(3)   NOT NULL COMMENT 'update time',\n" +
+                "    PRIMARY KEY (`xid`, `branch_id`),\n" +
+                "    KEY `idx_gmt_modified` (`gmt_modified`),\n" +
+                "    KEY `idx_status` (`status`)\n" +
+                ") ;");
+        stmt.close();
+        connection.close();
     }
 
 }

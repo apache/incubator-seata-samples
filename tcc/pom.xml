@@ -36,6 +36,11 @@
         <module>hsf-tcc-sample</module>
     </modules>
 
+    <properties>
+        <seata.version.2.x>2.0.0-SNAPSHOT</seata.version.2.x>
+        <commons-dbcp.version>1.2.2</commons-dbcp.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <!-- dubbo -->
@@ -43,6 +48,12 @@
                 <groupId>com.alibaba.spring</groupId>
                 <artifactId>spring-context-support</artifactId>
                 <version>1.0.11</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>${commons-dbcp.version}</version>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
