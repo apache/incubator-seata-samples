@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>org.apache.seata</groupId>
+    <artifactId>springboot-dubbo-seata</artifactId>
+    <version>2.0.0</version>
+    <name>springboot-dubbo-seata</name>
+    <description>springboot-dubbo-seata</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>springboot-dubbo-seata-common</module>
+		<module>springboot-dubbo-seata-storage</module>
+		<module>springboot-dubbo-seata-account</module>
+		<module>springboot-dubbo-seata-order</module>
+		<module>springboot-dubbo-seata-business</module>
+    </modules>
+
+    <properties>
+        <java.version>8</java.version>
+    </properties>
+</project>

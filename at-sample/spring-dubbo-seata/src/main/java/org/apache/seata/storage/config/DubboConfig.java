@@ -37,7 +37,9 @@ public class DubboConfig {
 
     @Bean
     public ApplicationConfig applicationConfig() {
-        return new ApplicationConfig(applicationId);
+        ApplicationConfig applicationConfig = new ApplicationConfig(applicationId);
+        applicationConfig.setQosEnable(false);
+        return applicationConfig;
     }
 
     @Bean
