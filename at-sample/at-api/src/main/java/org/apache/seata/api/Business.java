@@ -25,7 +25,7 @@ import io.seata.tm.api.GlobalTransactionContext;
 import org.apache.seata.api.service.OrderService;
 import org.apache.seata.api.service.impl.AccountServiceImpl;
 import org.apache.seata.api.service.impl.OrderServiceImpl;
-import org.apache.seata.api.service.impl.StockServiceImpl;
+import org.apache.seata.api.service.impl.StorageServiceImpl;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
@@ -77,7 +77,7 @@ public class Business {
         int commodityCount = 100;
         int money = 999;
         AccountServiceImpl accountService = new AccountServiceImpl();
-        StockServiceImpl stockService = new StockServiceImpl();
+        StorageServiceImpl stockService = new StorageServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         orderService.setAccountService(accountService);
 

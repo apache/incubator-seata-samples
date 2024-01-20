@@ -61,4 +61,5 @@ Thumbs.db
 
 */.idea/
 */.mvn/
+*/**/.mvn/
 */target/

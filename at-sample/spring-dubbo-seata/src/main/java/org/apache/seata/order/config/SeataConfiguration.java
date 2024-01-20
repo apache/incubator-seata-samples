@@ -14,23 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.api.service;
+package org.apache.seata.order.config;
 
-import java.sql.SQLException;
+import io.seata.spring.annotation.GlobalTransactionScanner;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
- * The interface Stock service.
- *
- * @author jimin.jm @alibaba-inc.com
- * @date 2019 /08/21
+ * Seata Config
  */
-public interface StockService extends DataResetService {
+@Configuration
+@PropertySource("classpath:application.properties")
+public class SeataConfiguration {
+
+    @Value("${spring.application.name}")
+    private String applicationId;
+
     /**
-     * Deduct.
+     * 注册一个StatViewServlet
      *
-     * @param commodityCode the commodity code
-     * @param count         the count
-     * @throws SQLException the sql exception
+     * @return global transaction scanner
      */
-    void deduct(String commodityCode, int count) throws SQLException;
+    @Bean
+    public GlobalTransactionScanner globalTransactionScanner() {
+        return new GlobalTransactionScanner(applicationId, "my_test_tx_group");
+    }
+
 }

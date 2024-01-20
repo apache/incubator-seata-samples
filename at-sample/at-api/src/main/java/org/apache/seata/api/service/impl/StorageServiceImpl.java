@@ -17,7 +17,7 @@
 package org.apache.seata.api.service.impl;
 
 import org.apache.seata.api.service.AbstractDataCheck;
-import org.apache.seata.api.service.StockService;
+import org.apache.seata.api.service.StorageService;
 import org.apache.seata.api.utils.DataSourceUtil;
 
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ import java.sql.SQLException;
  * @author jimin.jm @alibaba-inc.com
  * @date 2019 /08/21
  */
-public class StockServiceImpl extends AbstractDataCheck implements StockService {
+public class StorageServiceImpl extends AbstractDataCheck implements StorageService {
     /**
      * The constant DB_KEY.
      */

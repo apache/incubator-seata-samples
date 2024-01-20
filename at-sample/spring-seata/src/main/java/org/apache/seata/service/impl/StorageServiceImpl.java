@@ -16,7 +16,7 @@
 package org.apache.seata.service.impl;
 
 import io.seata.core.context.RootContext;
-import org.apache.seata.service.StockService;
+import org.apache.seata.service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,9 +30,9 @@ import javax.annotation.Resource;
  * @author jimin.jm @alibaba-inc.com
  */
 @Service
-public class StockServiceImpl implements StockService {
+public class StorageServiceImpl implements StorageService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StockService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StorageService.class);
 
     @Resource
     private JdbcTemplate jdbcTemplate;

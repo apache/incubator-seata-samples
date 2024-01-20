@@ -17,44 +17,34 @@
 package org.apache.seata.service.impl;
 
 import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
-
-import org.apache.seata.service.BusinessService;
-import org.apache.seata.service.OrderService;
-import org.apache.seata.service.StorageService;
-
+import org.apache.seata.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Random;
 
 /**
- * The type Business service.
+ * The type Account service.
  *
  * @author jimin.jm @alibaba-inc.com
  */
 @Service
-public class BusinessServiceImpl implements BusinessService {
+public class AccountServiceImpl implements AccountService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BusinessService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountService.class);
 
     @Resource
-    private StorageService storageService;
-    @Resource
-    private OrderService orderService;
-    private final Random random = new Random();
+    private JdbcTemplate jdbcTemplate;
 
     @Override
-    @GlobalTransactional(timeoutMills = 300000, name = "spring-seata-tx")
-    public void purchase(String userId, String commodityCode, int orderCount) {
-        LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
-        storageService.deduct(commodityCode, orderCount);
-        orderService.create(userId, commodityCode, orderCount);
-        if (random.nextBoolean()) {
-            throw new RuntimeException("random exception mock!");
-        }
-    }
+    public void debit(String userId, int money) {
+        LOGGER.info("Account Service ... xid: " + RootContext.getXID());
+        LOGGER.info("Deducting balance SQL: update account_tbl set money = money - {} where user_id = {}", money,
+                userId);
 
+        jdbcTemplate.update("update account_tbl set money = money - ? where user_id = ?", money, userId);
+        LOGGER.info("Account Service End ... ");
+    }
 }
