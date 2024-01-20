@@ -32,13 +32,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DubboConsumerConfiguration {
 
+    public static final String CONSUMER_APP_NAME = "seata-saga-consumer";
+
     @DubboReference(id = "balanceAction")
     private BalanceAction balanceAction;
 
     @DubboReference(id = "inventoryAction")
     private InventoryAction inventoryAction;
 
-    public static final String CONSUMER_APP_NAME = "seata-saga-consumer";
     @Bean
     public ApplicationConfig applicationConfig() {
         ApplicationConfig applicationConfig = new ApplicationConfig(CONSUMER_APP_NAME);

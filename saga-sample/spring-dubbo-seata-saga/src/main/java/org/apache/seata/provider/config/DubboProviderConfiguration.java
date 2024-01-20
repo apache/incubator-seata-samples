@@ -19,25 +19,21 @@ package org.apache.seata.provider.config;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ProtocolConfig;
 import org.apache.dubbo.config.RegistryConfig;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author wangte
  * Create At 2024/1/20
  */
 @Configuration
-@PropertySource("classpath:application.properties")
 public class DubboProviderConfiguration {
 
-    @Value("${spring.application.name}")
-    private String applicationId;
+    public static final String PROVIDER_APP_NAME = "seata-saga-provider";
 
     @Bean
     public ApplicationConfig applicationConfig() {
-        ApplicationConfig applicationConfig = new ApplicationConfig(applicationId);
+        ApplicationConfig applicationConfig = new ApplicationConfig(PROVIDER_APP_NAME);
         applicationConfig.setQosEnable(false);
         return applicationConfig;
     }

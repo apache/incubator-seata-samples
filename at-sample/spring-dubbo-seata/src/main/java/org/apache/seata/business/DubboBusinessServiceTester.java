@@ -44,7 +44,7 @@ public class DubboBusinessServiceTester {
         Thread thread = new Thread(() -> businessService.purchase("U100001", "C00321", 2));
         thread.start();
 
-        //hold
+        //keep run
         Thread.currentThread().join();
     }
 

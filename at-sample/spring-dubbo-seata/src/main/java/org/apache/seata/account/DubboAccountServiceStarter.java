@@ -25,7 +25,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 
 @EnableAutoDataSourceProxy
-@EnableDubbo
+@EnableDubbo(scanBasePackages = {"org.apache.seata.account"})
 @ComponentScan(basePackages = {"org.apache.seata.account"})
 public class DubboAccountServiceStarter {
 
@@ -40,7 +40,7 @@ public class DubboAccountServiceStarter {
     public static void main(String[] args) throws InterruptedException {
         new AnnotationConfigApplicationContext(DubboAccountServiceStarter.class);
 
-        //hold
+        //keep run
         Thread.currentThread().join();
     }
 

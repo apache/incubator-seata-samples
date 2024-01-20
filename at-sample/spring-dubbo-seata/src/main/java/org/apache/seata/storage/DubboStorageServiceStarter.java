@@ -40,7 +40,7 @@ public class DubboStorageServiceStarter {
     public static void main(String[] args) throws InterruptedException {
         new AnnotationConfigApplicationContext(DubboStorageServiceStarter.class);
 
-        //hold
+        //keep run
         Thread.currentThread().join();
     }
 

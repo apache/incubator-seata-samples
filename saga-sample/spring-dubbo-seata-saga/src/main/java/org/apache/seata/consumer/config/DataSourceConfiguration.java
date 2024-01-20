@@ -18,7 +18,6 @@ package org.apache.seata.consumer.config;
 
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.h2.jdbcx.JdbcDataSource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -30,19 +29,12 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfiguration {
 
-    @Value("${spring.datasource.url}")
-    private String url;
-    @Value("${spring.datasource.username}")
-    private String userName;
-    @Value("${spring.datasource.password}")
-    private String password;
-
     @Bean
     public DataSource dataSource() {
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
-        jdbcDataSource.setUser(userName);
-        jdbcDataSource.setPassword(password);
-        jdbcDataSource.setUrl(url);
+        jdbcDataSource.setUser("sa");
+        jdbcDataSource.setPassword("sa");
+        jdbcDataSource.setUrl("jdbc:h2:mem:seata_saga");
         return JdbcConnectionPool.create(jdbcDataSource);
     }
 

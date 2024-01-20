@@ -38,7 +38,7 @@ public class SagaTransactionStarter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
 
         StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
@@ -46,9 +46,6 @@ public class SagaTransactionStarter {
         transactionCommittedDemo(stateMachineEngine);
 
         transactionCompensatedDemo(stateMachineEngine);
-
-        //hold
-        Thread.currentThread().join();
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
