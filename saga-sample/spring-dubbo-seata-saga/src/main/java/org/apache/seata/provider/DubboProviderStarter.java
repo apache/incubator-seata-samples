@@ -18,6 +18,8 @@ package org.apache.seata.provider;
 
 import org.apache.curator.test.TestingServer;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -30,6 +32,8 @@ import java.io.IOException;
 @EnableDubbo(scanBasePackages = {"org.apache.seata.provider"})
 @ComponentScan(basePackages = {"org.apache.seata.provider"})
 public class DubboProviderStarter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DubboProviderStarter.class);
 
     private static TestingServer server;
 
@@ -45,8 +49,10 @@ public class DubboProviderStarter {
         }));
 
         mockZKServer();
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(DubboProviderStarter.class);
-        System.out.printf("dubbo provider spring context %s started", annotationConfigApplicationContext.getId());
+
+        new AnnotationConfigApplicationContext(DubboProviderStarter.class);
+
+        LOGGER.info("dubbo provider started");
     }
 
     private static void mockZKServer() throws Exception {

@@ -21,6 +21,8 @@ import io.seata.saga.engine.StateMachineEngine;
 import io.seata.saga.proctrl.ProcessContext;
 import io.seata.saga.statelang.domain.ExecutionStatus;
 import io.seata.saga.statelang.domain.StateMachineInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
@@ -31,19 +33,17 @@ import java.util.Map;
 
 public class SagaTransactionStarter {
 
-    public static void main(String[] args) throws Exception {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
-        AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-            new String[] {"spring/seata-saga.xml"});
+    public static void main(String[] args) {
+        AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"spring/seata-saga.xml"});
+        applicationContext.start();
 
-        StateMachineEngine stateMachineEngine = (StateMachineEngine)applicationContext.getBean("stateMachineEngine");
+        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
 
         transactionCommittedDemo(stateMachineEngine);
 
         transactionCompensatedDemo(stateMachineEngine);
-
-        //hold
-        Thread.currentThread().join();
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
@@ -56,27 +56,27 @@ public class SagaTransactionStarter {
 
         //sync test
         StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null,
-            businessKey, startParams);
+                businessKey, startParams);
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
-            "saga transaction execute failed. XID: " + inst.getId());
-        System.out.println("saga transaction commit succeed. XID: " + inst.getId());
+                "saga transaction execute failed. XID: " + inst.getId());
+        LOGGER.info("saga transaction commit succeed. XID: " + inst.getId());
 
         inst = stateMachineEngine.getStateMachineConfig().getStateLogStore().getStateMachineInstanceByBusinessKey(
-            businessKey, null);
+                businessKey, null);
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
-            "saga transaction execute failed. XID: " + inst.getId());
+                "saga transaction execute failed. XID: " + inst.getId());
 
         //async test
         businessKey = String.valueOf(System.currentTimeMillis());
         inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
-            CALL_BACK);
+                CALL_BACK);
 
         waitingForFinish(inst);
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
-            "saga transaction execute failed. XID: " + inst.getId());
-        System.out.println("saga transaction commit succeed. XID: " + inst.getId());
+                "saga transaction execute failed. XID: " + inst.getId());
+        LOGGER.info("saga transaction commit succeed. XID: " + inst.getId());
     }
 
     private static void transactionCompensatedDemo(StateMachineEngine stateMachineEngine) {
@@ -87,20 +87,16 @@ public class SagaTransactionStarter {
         startParams.put("amount", new BigDecimal("100"));
         startParams.put("mockReduceBalanceFail", "true");
 
-        //sync test
-        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null,
-            businessKey, startParams);
-
         //async test
         businessKey = String.valueOf(System.currentTimeMillis());
-        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
-            CALL_BACK);
+        StateMachineInstance inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
+                CALL_BACK);
 
         waitingForFinish(inst);
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
-            "saga transaction compensate failed. XID: " + inst.getId());
-        System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
+                "saga transaction compensate failed. XID: " + inst.getId());
+        LOGGER.info("saga transaction compensate succeed. XID: " + inst.getId());
     }
 
     private static final Object LOCK = new Object();
@@ -127,7 +123,8 @@ public class SagaTransactionStarter {
                 try {
                     LOCK.wait();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    LOGGER.error("Thread was interrupted", e);
                 }
             }
         }

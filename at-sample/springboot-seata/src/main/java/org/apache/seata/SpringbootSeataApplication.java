@@ -19,7 +19,6 @@ public class SpringbootSeataApplication implements BeanFactoryAware {
 
 		Thread thread = new Thread(() -> businessService.purchase("U100001", "C00321", 2));
 		thread.start();
-		thread.join();
 
 		//keep run
 		Thread.currentThread().join();

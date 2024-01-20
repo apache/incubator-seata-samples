@@ -37,11 +37,15 @@ public class DubboBusinessServiceTester {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws InterruptedException {
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(DubboBusinessServiceTester.class);
 
         BusinessService businessService = annotationConfigApplicationContext.getBean(BusinessService.class);
-        businessService.purchase("U100001", "C00321", 2);
+        Thread thread = new Thread(() -> businessService.purchase("U100001", "C00321", 2));
+        thread.start();
+
+        //hold
+        Thread.currentThread().join();
     }
 
 }

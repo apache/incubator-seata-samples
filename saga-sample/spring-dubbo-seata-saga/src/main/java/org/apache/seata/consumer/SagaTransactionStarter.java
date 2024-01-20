@@ -22,6 +22,8 @@ import io.seata.saga.proctrl.ProcessContext;
 import io.seata.saga.statelang.domain.ExecutionStatus;
 import io.seata.saga.statelang.domain.StateMachineInstance;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.Assert;
@@ -33,6 +35,8 @@ import java.util.Map;
 @EnableDubbo(scanBasePackages = {"org.apache.seata.consumer"})
 @ComponentScan(basePackages = {"org.apache.seata.consumer"})
 public class SagaTransactionStarter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
     public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
@@ -61,7 +65,7 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
                 "saga transaction execute failed. XID: " + inst.getId());
-        System.out.println("saga transaction commit succeed. XID: " + inst.getId());
+        LOGGER.info("saga transaction commit succeed. XID: " + inst.getId());
 
         inst = stateMachineEngine.getStateMachineConfig().getStateLogStore().getStateMachineInstanceByBusinessKey(
                 businessKey, null);
@@ -77,7 +81,7 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
                 "saga transaction execute failed. XID: " + inst.getId());
-        System.out.println("saga transaction commit succeed. XID: " + inst.getId());
+        LOGGER.info("saga transaction commit succeed. XID: " + inst.getId());
     }
 
     private static void transactionCompensatedDemo(StateMachineEngine stateMachineEngine) {
@@ -101,7 +105,7 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
                 "saga transaction compensate failed. XID: " + inst.getId());
-        System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
+        LOGGER.info("saga transaction compensate succeed. XID: " + inst.getId());
     }
 
     private static final Object LOCK = new Object();
@@ -128,7 +132,8 @@ public class SagaTransactionStarter {
                 try {
                     LOCK.wait();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    LOGGER.error("Thread was interrupted", e);
                 }
             }
         }

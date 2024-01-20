@@ -32,19 +32,19 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class DubboConfiguration {
 
-    @Value("${spring.application.name}")
-    private String applicationId;
+    @Value("${spring.account.application.name}")
+    private String applicationName;
 
     @Bean
     public ApplicationConfig applicationConfig() {
-        ApplicationConfig applicationConfig = new ApplicationConfig(applicationId);
+        ApplicationConfig applicationConfig = new ApplicationConfig(applicationName);
         applicationConfig.setQosEnable(false);
         return applicationConfig;
     }
 
     @Bean
     public RegistryConfig registryConfig() {
-        RegistryConfig registryConfig = new RegistryConfig(applicationId);
+        RegistryConfig registryConfig = new RegistryConfig();
         registryConfig.setAddress("zookeeper://localhost:2181");
         return registryConfig;
     }

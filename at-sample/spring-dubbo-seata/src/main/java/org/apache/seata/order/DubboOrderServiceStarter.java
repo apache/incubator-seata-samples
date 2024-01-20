@@ -37,11 +37,10 @@ public class DubboOrderServiceStarter {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    public static void main(String[] args) throws Exception {
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(DubboOrderServiceStarter.class);
+    public static void main(String[] args) throws InterruptedException {
+        new AnnotationConfigApplicationContext(DubboOrderServiceStarter.class);
 
-
-        //keep run
+        //hold
         Thread.currentThread().join();
     }
 

@@ -61,8 +61,8 @@
     </bean>
 
 
-    <bean id="balanceAction" class="org.apache.seata.provider.action.impl.BalanceActionImpl"/>
+    <bean id="balanceAction" class="org.apache.seata.action.impl.BalanceActionImpl"/>
 
-    <bean id="inventoryAction" class="org.apache.seata.provider.action.impl.InventoryActionImpl"/>
+    <bean id="inventoryAction" class="org.apache.seata.action.impl.InventoryActionImpl"/>
 
 </beans>

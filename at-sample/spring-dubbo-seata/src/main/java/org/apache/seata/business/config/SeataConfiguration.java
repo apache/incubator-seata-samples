@@ -29,8 +29,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class SeataConfiguration {
 
-    @Value("${spring.application.name}")
-    private String applicationId;
+    @Value("${spring.business.application.name}")
+    private String applicationName;
 
     /**
      * 注册一个StatViewServlet
@@ -39,7 +39,7 @@ public class SeataConfiguration {
      */
     @Bean
     public GlobalTransactionScanner globalTransactionScanner() {
-        return new GlobalTransactionScanner(applicationId, "my_test_tx_group");
+        return new GlobalTransactionScanner(applicationName, "my_test_tx_group");
     }
 
 }
