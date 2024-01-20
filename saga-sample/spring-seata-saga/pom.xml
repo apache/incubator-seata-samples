@@ -59,10 +59,11 @@
             <version>2.13.5</version>
         </dependency>
 
+
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.42</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.1.210</version>
         </dependency>
     </dependencies>
 </project>
