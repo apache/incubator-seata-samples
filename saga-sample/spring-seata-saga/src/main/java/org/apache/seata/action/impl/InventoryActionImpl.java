@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.action.impl;
+package org.apache.seata.provider.action.impl;
 
-import org.apache.seata.action.InventoryAction;
+import org.apache.seata.provider.action.InventoryAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

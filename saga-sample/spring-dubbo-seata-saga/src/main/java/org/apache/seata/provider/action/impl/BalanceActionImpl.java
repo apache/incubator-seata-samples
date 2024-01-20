@@ -19,6 +19,7 @@ package org.apache.seata.provider.action.impl;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.seata.provider.action.BalanceAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author lorne.cl
  */
+@DubboService
 public class BalanceActionImpl implements BalanceAction {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BalanceActionImpl.class);

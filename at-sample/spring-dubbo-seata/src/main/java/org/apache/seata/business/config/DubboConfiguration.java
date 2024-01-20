@@ -30,7 +30,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-public class DubboConfig {
+public class DubboConfiguration {
 
     @Value("${spring.application.name}")
     private String applicationId;

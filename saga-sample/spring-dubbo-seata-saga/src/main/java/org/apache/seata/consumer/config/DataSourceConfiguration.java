@@ -14,26 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.provider.config;
+package org.apache.seata.consumer.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import org.h2.jdbcx.JdbcConnectionPool;
+import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import javax.sql.DataSource;
 
-/**
- * DataSource Configuration
- */
 @Configuration
-@PropertySource("classpath:application.properties")
 public class DataSourceConfiguration {
 
-    @Value("${spring.datasource.driverClassName}")
-    private String driverClassName;
     @Value("${spring.datasource.url}")
     private String url;
     @Value("${spring.datasource.username}")
@@ -43,16 +39,20 @@ public class DataSourceConfiguration {
 
     @Bean
     public DataSource dataSource() {
-        DruidDataSource druidDataSource = new DruidDataSource();
-        druidDataSource.setUsername(userName);
-        druidDataSource.setPassword(password);
-        druidDataSource.setUrl(url);
-        druidDataSource.setDriverClassName(driverClassName);
-        return druidDataSource;
+        JdbcDataSource jdbcDataSource = new JdbcDataSource();
+        jdbcDataSource.setUser(userName);
+        jdbcDataSource.setPassword(password);
+        jdbcDataSource.setUrl(url);
+        return JdbcConnectionPool.create(jdbcDataSource);
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
+    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+        dataSourceInitializer.setDataSource(dataSource);
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+        resourceDatabasePopulator.addScript(new ClassPathResource("sql/h2_init.sql"));
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+        return dataSourceInitializer;
     }
 }

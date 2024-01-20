@@ -14,36 +14,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.order.config;
+package org.apache.seata.consumer.config;
 
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ProtocolConfig;
 import org.apache.dubbo.config.RegistryConfig;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.apache.seata.provider.action.BalanceAction;
+import org.apache.seata.provider.action.InventoryAction;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * @author wangte
  * Create At 2024/1/20
  */
 @Configuration
-@PropertySource("classpath:application.properties")
-public class DubboConfig {
+public class DubboConsumerConfiguration {
 
-    @Value("${spring.application.name}")
-    private String applicationId;
+    @DubboReference(id = "balanceAction")
+    private BalanceAction balanceAction;
 
+    @DubboReference(id = "inventoryAction")
+    private InventoryAction inventoryAction;
+
+    public static final String CONSUMER_APP_NAME = "seata-saga-consumer";
     @Bean
     public ApplicationConfig applicationConfig() {
-        ApplicationConfig applicationConfig = new ApplicationConfig(applicationId);
+        ApplicationConfig applicationConfig = new ApplicationConfig(CONSUMER_APP_NAME);
         applicationConfig.setQosEnable(false);
         return applicationConfig;
     }
+
     @Bean
     public RegistryConfig registryConfig() {
-        RegistryConfig registryConfig = new RegistryConfig(applicationId);
+        RegistryConfig registryConfig = new RegistryConfig();
         registryConfig.setAddress("zookeeper://localhost:2181");
         return registryConfig;
     }
@@ -52,7 +57,8 @@ public class DubboConfig {
     public ProtocolConfig protocolConfig() {
         ProtocolConfig protocolConfig = new ProtocolConfig();
         protocolConfig.setName("dubbo");
-        protocolConfig.setPort(20883);
+        protocolConfig.setPort(20882);
         return protocolConfig;
     }
+
 }

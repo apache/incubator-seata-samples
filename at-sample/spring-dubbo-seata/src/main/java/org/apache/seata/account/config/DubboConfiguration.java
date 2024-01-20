@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.storage.config;
+package org.apache.seata.account.config;
 
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ProtocolConfig;
@@ -30,7 +30,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-public class DubboConfig {
+public class DubboConfiguration {
 
     @Value("${spring.application.name}")
     private String applicationId;
@@ -53,7 +53,7 @@ public class DubboConfig {
     public ProtocolConfig protocolConfig() {
         ProtocolConfig protocolConfig = new ProtocolConfig();
         protocolConfig.setName("dubbo");
-        protocolConfig.setPort(20882);
+        protocolConfig.setPort(20881);
         return protocolConfig;
     }
 }

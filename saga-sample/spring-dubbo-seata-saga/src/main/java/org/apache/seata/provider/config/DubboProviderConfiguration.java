@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.account.config;
+package org.apache.seata.provider.config;
 
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.ProtocolConfig;
@@ -30,7 +30,7 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-public class DubboConfig {
+public class DubboProviderConfiguration {
 
     @Value("${spring.application.name}")
     private String applicationId;
@@ -44,7 +44,7 @@ public class DubboConfig {
 
     @Bean
     public RegistryConfig registryConfig() {
-        RegistryConfig registryConfig = new RegistryConfig(applicationId);
+        RegistryConfig registryConfig = new RegistryConfig();
         registryConfig.setAddress("zookeeper://localhost:2181");
         return registryConfig;
     }

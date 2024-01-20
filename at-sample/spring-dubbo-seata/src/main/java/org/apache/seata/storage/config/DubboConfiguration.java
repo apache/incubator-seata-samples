@@ -14,32 +14,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.provider.config;
+package org.apache.seata.storage.config;
 
-import io.seata.spring.annotation.GlobalTransactionScanner;
+import org.apache.dubbo.config.ApplicationConfig;
+import org.apache.dubbo.config.ProtocolConfig;
+import org.apache.dubbo.config.RegistryConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
- * Seata Config
+ * @author wangte
+ * Create At 2024/1/20
  */
 @Configuration
 @PropertySource("classpath:application.properties")
-public class SeataConfiguration {
+public class DubboConfiguration {
 
     @Value("${spring.application.name}")
     private String applicationId;
 
-    /**
-     * 注册一个StatViewServlet
-     *
-     * @return global transaction scanner
-     */
     @Bean
-    public GlobalTransactionScanner globalTransactionScanner() {
-        return new GlobalTransactionScanner(applicationId, "my_test_tx_group");
+    public ApplicationConfig applicationConfig() {
+        ApplicationConfig applicationConfig = new ApplicationConfig(applicationId);
+        applicationConfig.setQosEnable(false);
+        return applicationConfig;
     }
 
+    @Bean
+    public RegistryConfig registryConfig() {
+        RegistryConfig registryConfig = new RegistryConfig(applicationId);
+        registryConfig.setAddress("zookeeper://localhost:2181");
+        return registryConfig;
+    }
+
+    @Bean
+    public ProtocolConfig protocolConfig() {
+        ProtocolConfig protocolConfig = new ProtocolConfig();
+        protocolConfig.setName("dubbo");
+        protocolConfig.setPort(20882);
+        return protocolConfig;
+    }
 }

@@ -14,32 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.provider.config;
+package org.apache.seata.provider.action.impl;
 
-import io.seata.spring.annotation.GlobalTransactionScanner;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.apache.dubbo.config.annotation.DubboService;
+import org.apache.seata.provider.action.InventoryAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * Seata Config
+ * @author lorne.cl
  */
-@Configuration
-@PropertySource("classpath:application.properties")
-public class SeataConfiguration {
+@DubboService
+public class InventoryActionImpl implements InventoryAction {
 
-    @Value("${spring.application.name}")
-    private String applicationId;
+    private static final Logger LOGGER = LoggerFactory.getLogger(InventoryActionImpl.class);
 
-    /**
-     * 注册一个StatViewServlet
-     *
-     * @return global transaction scanner
-     */
-    @Bean
-    public GlobalTransactionScanner globalTransactionScanner() {
-        return new GlobalTransactionScanner(applicationId, "my_test_tx_group");
+    @Override
+    public boolean reduce(String businessKey, int count) {
+        LOGGER.info("reduce inventory succeed, count: " + count + ", businessKey:" + businessKey);
+        return true;
     }
 
+    @Override
+    public boolean compensateReduce(String businessKey) {
+        LOGGER.info("compensate reduce inventory succeed, businessKey:" + businessKey);
+        return true;
+    }
 }
