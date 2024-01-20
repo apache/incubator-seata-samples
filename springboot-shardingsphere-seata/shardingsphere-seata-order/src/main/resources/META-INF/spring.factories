@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.seata.samples.shardingsphere.config.MybatisPlusConfig,\
-io.seata.samples.shardingsphere.config.MybatisPlusAutoConfig
