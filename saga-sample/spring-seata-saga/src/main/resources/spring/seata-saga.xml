@@ -27,7 +27,7 @@
     <bean id="dataSource" class="org.h2.jdbcx.JdbcConnectionPool" destroy-method="dispose">
         <constructor-arg>
             <bean class="org.h2.jdbcx.JdbcDataSource">
-                <property name="URL" value="jdbc:h2:mem:seata_saga"/>
+                <property name="URL" value="jdbc:h2:mem:seata_saga;DB_CLOSE_ON_EXIT=FALSE"/>
                 <property name="user" value="sa"/>
                 <property name="password" value="sa"/>
             </bean>
@@ -61,8 +61,8 @@
     </bean>
 
 
-    <bean id="inventoryAction" class="org.apache.seata.action.impl.BalanceActionImpl"/>
+    <bean id="balanceAction" class="org.apache.seata.action.impl.BalanceActionImpl"/>
 
-    <bean id="balanceAction" class="org.apache.seata.action.impl.InventoryActionImpl"/>
+    <bean id="inventoryAction" class="org.apache.seata.action.impl.InventoryActionImpl"/>
 
 </beans>

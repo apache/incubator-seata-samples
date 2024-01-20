@@ -98,7 +98,7 @@ public class SagaTransactionStarter {
 
         waitingForFinish(inst);
 
-        Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
+        Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
             "saga transaction compensate failed. XID: " + inst.getId());
         System.out.println("saga transaction compensate succeed. XID: " + inst.getId());
     }
