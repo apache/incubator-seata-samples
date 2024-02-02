@@ -69,9 +69,6 @@ public class TccTransactionService {
 
     /**
      * Do transaction rollback string.
-     *
-     * @param map the map
-     * @return the string
      */
     @GlobalTransactional
     public void doTransactionRollback() {
