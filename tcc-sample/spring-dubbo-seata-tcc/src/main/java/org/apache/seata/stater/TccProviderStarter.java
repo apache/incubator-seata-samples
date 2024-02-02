@@ -43,7 +43,7 @@ public class TccProviderStarter {
         //mock zk server
         mockZKServer();
 
-        new ClassPathXmlApplicationContext("spring/seata-tcc.xml", "spring/seata-dubbo-provider.xml");
+        new ClassPathXmlApplicationContext( "spring/seata-dubbo-provider.xml");
         //keep run
         Thread.currentThread().join();
     }

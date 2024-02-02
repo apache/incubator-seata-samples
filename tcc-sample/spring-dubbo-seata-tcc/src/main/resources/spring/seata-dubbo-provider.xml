@@ -24,7 +24,12 @@
        http://code.alibabatech.com/schema/dubbo
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
 
-    <dubbo:application name="tcc-sample">
+    <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
+        <constructor-arg value="tcc-sample-provider"/>
+        <constructor-arg value="my_test_tx_group"/>
+    </bean>
+
+    <dubbo:application name="tcc-sample-provider">
         <dubbo:parameter key="qos.enable" value="false"/>
     </dubbo:application>
     <!--使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper-->
@@ -34,6 +39,11 @@
     <dubbo:protocol name="dubbo" port="-1"/>
 
     <dubbo:provider timeout="10000" threads="10" threadpool="fixed" loadbalance="roundrobin"/>
+
+
+    <bean id="tccActionOneImpl" class="org.apache.seata.action.impl.TccActionOneImpl"/>
+
+    <bean id="tccActionTwoImpl" class="org.apache.seata.action.impl.TccActionTwoImpl"/>
 
     <!-- 第一个TCC 参与者服务发布 -->
     <dubbo:service interface="org.apache.seata.action.TccActionOne" ref="tccActionOneImpl"/>
