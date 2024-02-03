@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
  * @author jimin.jm @alibaba-inc.com
  * @date 2019 /08/21 使用api 构建 单体应用多数据源分布式事务 非spring环境
  */
-public class Business {
+public class BusinessService {
 
     /**
      * The entry point of application.
@@ -46,6 +46,7 @@ public class Business {
      * @param args the input arguments
      * @throws SQLException         the sql exception
      * @throws TransactionException the transaction exception
+     * @throws InterruptedException the interrupted exception
      */
     public static void main(String[] args) throws SQLException, TransactionException, InterruptedException {
         // init tm client and rm client, only once
