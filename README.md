@@ -1,57 +1,34 @@
-<img src="https://github.com/seata/seata-samples/blob/master/doc/img/seata.png"  height="100" width="426">
+# samples code specification
 
-# Seata Samples
+##  Directory Structure
 
-Samples for Seata. This project contains several sub-projects, each of which is an example of integration with other
-projects.
+The first and second levels are more of a directory
 
-[![Build Status](https://travis-ci.org/seata/seata-samples.svg?branch=master)](https://travis-ci.org/seata/seata-samples)
-![license](https://img.shields.io/github/license/seata/seata-samples.svg)
+Top level: seata-samples
 
-> Friendly note: because the project depends on too much, all Maven modules are commented out  by default.
->
-> You can modify [`pom.xml`](https://github.com/seata/seata-samples/blob/master/pom.xml).
+Second layer: at-sample, tcc-sample, saga-sample, xa-sample
 
-## Related repository
+Third floor, The third layer is the specific sample and the naming convention is as follows:
 
-* [Seata](https://github.com/seata/seata) - The Seata core project
+## naming
 
-## Sub-projects
+naming with framework: spring-nacos-seata, springboot-naocs-zk-seata ...
 
-* [springcloud-seata-sharding-jdbc-mybatis-plus-samples](https://github.com/wilbur-ltf/seata-samples/tree/master/springcloud-seata-sharding-jdbc-mybatis-plus-samples)Easy to understand, high availability，Integration example of  [Spring Cloud](https://github.com/spring-cloud)，[Seata](https://github.com/seata/seata),[ShardingJdbc](https://github.com/apache/shardingsphere),[MyBatisPlus](https://github.com/baomidou/mybatis-plus).
-* [spring-cloud-alibaba-samples](https://github.com/seata/seata-samples/tree/master/spring-cloud-alibaba-samples) -
-  Spring Cloud Alibaba + Nacos + Dubbo + OpenFeign + Sentinel + Seata
-* [dubbo](https://github.com/seata/seata-samples/tree/master/dubbo) - Integration example
-  of [Seata](https://github.com/seata/seata) and [Apache Dubbo](https://github.com/apache/dubbo)
-* [springboot](https://github.com/seata/seata-samples/tree/master/springboot) - Integration example
-  of [Seata](https://github.com/seata/seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/)
-* [nacos](https://github.com/seata/seata-samples/tree/master/nacos) - Integration example
-  of [Seata](https://github.com/alibaba/fescar)、 [Apache Dubbo](https://github.com/apache/dubbo)
-  and [Alibaba Nacos](https://github.com/alibaba/nacos/)
-* [springboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/springboot-dubbo-seata) - Integration
-  example of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo)
-  and [Spring Boot](https://github.com/spring-projects/spring-boot/)
-* [nutzboot-dubbo-seata](https://github.com/seata/seata-samples/tree/master/nutzboot-dubbo-fescar) - Integration example
-  of [Seata](https://github.com/seata/seata)、 [Apache Dubbo](https://github.com/apache/dubbo)
-  and [NutzBoot](https://github.com/nutzam/nutzboot/)
-* [springcloud-jpa-seata](https://github.com/seata/seata-samples/tree/master/springcloud-jpa-seata) - Integration
-  example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud) and JPA
-* [spring-boot-multiple-datasource](./multiple-datasource) - Integration example of [Seata](https://github.com/Seata)
-  and [Spring Boot](https://github.com/spring-projects/spring-boot/) with multiple datasource and MyBatis
-* [springboot-mybatis](https://github.com/seata/seata-samples/tree/master/springboot-mybatis) - Integration example
-  of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/)
-  and [Mybatis](https://github.com/mybatis/mybatis-3)
-* [api](https://github.com/seata/seata-samples/tree/master/api) - Non-Spring environment uses api to build Seata
-  distributed transactions
-* [spring-boot-multiple-datasource-mybatis-plus](./multiple-datasource-mybatis-plus) - Integration example
-  of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) with multiple
-  datasource and [MyBatisPlus](https://github.com/baomidou/mybatis-plus)
-* [springcloud-nacos-seata](https://github.com/seata/seata-samples/tree/master/springcloud-nacos-seata) - Integration
-  example of [Seata](https://github.com/Seata) and [Spring Cloud](https://github.com/spring-cloud)
-  and [Alibaba Nacos](https://github.com/alibaba/nacos/)
-* [saga](https://github.com/seata/seata-samples/tree/master/saga) - Saga mode distributed transaction demo projects
-* [dubbo-multiple-datasource-mybatis-plus](https://github.com/seata/seata-samples/tree/master/dubbo-multiple-datasource-mybatis-plus) Integration example of [Seata](https://github.com/Seata) and [Spring Boot](https://github.com/spring-projects/spring-boot/) [Apache Dubbo](https://github.com/apache/dubbo) with  [dynamic](https://github.com/baomidou/dynamic-datasource-spring-boot-starter) multiple datasource and [MyBatisPlus](https://github.com/baomidou/mybatis-plus) and [Alibaba Nacos](https://github.com/alibaba/nacos/)
+## dependency
 
-## Guide
+pom: The dependencies of each sample should be independent and should not depend on the dependencies of the parent pom of seata samples.
 
-- [Quick integration with Spring Cloud](./doc/quick-integration-with-spring-cloud.md)
+
+
+# samples transaction model
+https://seata.apache.org/docs/user/quickstart/
+
+## start sequence
+
+1、account
+
+2、storage
+
+3、order
+
+4、business
