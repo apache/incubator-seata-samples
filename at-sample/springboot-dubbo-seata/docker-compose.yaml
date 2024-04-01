@@ -1,0 +1,70 @@
+version: "3.9"
+services:
+  account:
+    hostname: account
+    image: springboot-dubbo-seata-account:0.0.1
+    restart: on-failure
+    depends_on:
+      - seata-server
+      - zookeeper
+      - mysql
+  business:
+    hostname: business
+    image: springboot-dubbo-seata-business:0.0.1
+    restart: on-failure
+    depends_on:
+      - account
+      - order
+      - storage
+  order:
+    hostname: order
+    image: springboot-dubbo-seata-order:0.0.1
+    restart: on-failure
+    depends_on:
+      - seata-server
+      - zookeeper
+      - mysql
+  storage:
+    hostname: storage
+    image: springboot-dubbo-seata-storage:0.0.1
+    restart: on-failure
+    depends_on:
+      - seata-server
+      - zookeeper
+      - mysql
+  mysql:
+    hostname: businessmysql
+    image: mysql:5.7
+    volumes:
+      - ./sqlsh:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: storage
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    #    ports:
+    #      - "3307:3306"
+    networks:
+      - host
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+  seata-server:
+    image: seataio/seata-server:${latest-release-version}
+    hostname: seata-server
+    ports:
+      - "7091:7091"
+      - "8091:8091"
+    environment:
+      - SEATA_PORT=8091
+      - STORE_MODE=file
+  zookeeper:
+    hostname: zookeeper
+    image: zookeeper:3.7.1
+
+
+networks:
+  host:

@@ -1,0 +1,100 @@
+e2e:
+  scene_name: at-springboot-dubbo-seata
+  # 后期考虑扩展成通用基础设施一键配置
+  inherit:
+    name: at-common
+  # retry config
+  retry:
+    max: 5
+    interval: 10s
+    total_timeout: 20m
+  # 多服务配置, 有一个test模块用于触发测试，其余皆为provider
+  modules:
+    # 划分为不同的模块后续可以做功能扩展
+    consumers:
+      # docker service name
+      - name: springboot-dubbo-seata-business
+        # 这里可以加一些插件实现不同功能
+        # docker service 下的参数，这样写是为了方便后续扩展解耦
+        docker_service:
+          network_mode: host
+          restart: on-failure
+          container_name: test
+          depends_on:
+            springboot-dubbo-seata-account:
+              condition: service_started
+            springboot-dubbo-seata-storage:
+              condition: service_started
+            springboot-dubbo-seata-order:
+              condition: service_started
+    providers:
+      - name: springboot-dubbo-seata-account
+        docker_service:
+          network_mode: host
+          restart: on-failure
+          depends_on:
+            zookeeper:
+              condition: service_healthy
+            mysql:
+              condition: service_healthy
+      - name: springboot-dubbo-seata-order
+        docker_service:
+          network_mode: host
+          restart: on-failure
+          depends_on:
+            zookeeper:
+              condition: service_healthy
+            mysql:
+              condition: service_healthy
+      - name: springboot-dubbo-seata-storage
+        docker_service:
+          network_mode: host
+          restart: on-failure
+          depends_on:
+            zookeeper:
+              condition: service_healthy
+            mysql:
+              condition: service_healthy
+    infrastructures:
+      - name: mysql
+        docker_service:
+          image: mysql:5.7
+          ports:
+            - "3307:3306"
+          volumes:
+            - ./e2e-files/sqlsh:/docker-entrypoint-initdb.d
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: seata
+            MYSQL_USER: user
+            MYSQL_PASSWORD: 123456
+          healthcheck:
+            test: '[ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]'
+            interval: 5s
+            timeout: 10s
+            retries: 10
+      - name: seata-server
+        docker_service:
+          image: seataio/seata-server:2.0.0
+          ports:
+            - "7091:7091"
+            - "8091:8091"
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+      - name: zookeeper
+        docker_service:
+          image: zookeeper:3.5.7
+          ports:
+            - "2181:2181"
+          healthcheck:
+            test: '[ "CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "|", "grep", "imok" ]'
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+  cases:
+    - name: normal test
+      invoke: 'docker exec test curl http://127.0.0.1:9991/testCreate'
+      verify: './e2e-files/expected.yaml'
