@@ -26,12 +26,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
 import java.util.Objects;
 
 @DubboService
+@Component
 public class OrderServiceImpl implements OrderService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
