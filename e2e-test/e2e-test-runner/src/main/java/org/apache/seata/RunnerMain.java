@@ -13,7 +13,7 @@ public class RunnerMain {
         SkyWalkingController skyWalkingController = new SkyWalkingController();
         skyWalkingController.setE2eDir(ConfigConstants.SCENE_DIR);
         if (args != null && args.length == 1) {
-            skyWalkingController.setE2eDir(args[1]);
+            skyWalkingController.setE2eDir(args[0]);
         }
         skyWalkingController.runE2ETests();
     }

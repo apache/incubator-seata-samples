@@ -1,0 +1,1 @@
+go install github.com/apache/skywalking-infra-e2e/cmd/e2e@latest

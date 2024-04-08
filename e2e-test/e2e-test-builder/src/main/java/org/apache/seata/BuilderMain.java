@@ -12,7 +12,7 @@ public class BuilderMain {
         E2EBuilder e2EBuilder = new E2EBuilder();
         e2EBuilder.setRootPath("./");
         if (args != null && args.length == 1) {
-            e2EBuilder.setRootPath(args[1]);
+            e2EBuilder.setRootPath(args[0]);
         }
         e2EBuilder.buildSeataE2ETest();
     }

@@ -14,7 +14,6 @@ import java.io.IOException;
  */
 public class E2EBuilder {
     private String rootPath;
-    private static final Logger LOGGER = LoggerFactory.getLogger(E2EBuilder.class);
 
     public String getRootPath() {
         return rootPath;
