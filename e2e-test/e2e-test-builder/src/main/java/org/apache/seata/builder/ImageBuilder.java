@@ -34,7 +34,12 @@ public class ImageBuilder {
         LOGGER.info("Packaging Maven module: " + moduleDir.getPath());
         ProcessBuilder builder = new ProcessBuilder();
         builder.directory(moduleDir);
-        builder.command("mvn.cmd", "clean", "package");
+//        builder.command("mvn.cmd", "clean", "package");
+        if (System.getProperty("os.name").contains("Windows")) {
+            builder.command("mvn.cmd", "clean", "package");
+        } else {
+            builder.command("mvn", "clean", "package");
+        }
         Process process = builder.start();
         Utils.printProcessLog(LOGGER, process);
         int exitCode = process.waitFor();

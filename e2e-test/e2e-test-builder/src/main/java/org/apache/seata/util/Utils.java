@@ -14,8 +14,7 @@ import java.util.concurrent.Executors;
 public class Utils {
     public static void printProcessLog(Logger LOGGER, Process process) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        
-        // 分别为标准输出和错误输出创建并启动线程
+
         executor.submit(() -> printStream(LOGGER, process.getInputStream(), false));
         executor.submit(() -> printStream(LOGGER, process.getErrorStream(), true));
 
