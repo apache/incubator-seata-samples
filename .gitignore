@@ -52,6 +52,7 @@ target/
 /distribution/lib
 server/*root.*
 server/.root.*
+tmp/
 
 # system ignore
 .DS_Store
