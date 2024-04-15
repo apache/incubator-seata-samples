@@ -24,5 +24,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AccountFeignClient {
 
     @GetMapping("/debit")
-    String debit(@RequestParam("userId") String userId, @RequestParam("money") int money);
+    String debit(@RequestParam("xid") String xid, @RequestParam("userId") String userId, @RequestParam("money") int money);
 }

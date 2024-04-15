@@ -16,6 +16,7 @@
  */
 package org.apache.seata.controller;
 
+import io.seata.core.context.RootContext;
 import org.apache.seata.service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,8 @@ public class StockController {
     private StorageService storageService;
 
     @RequestMapping(value = "/deduct", method = RequestMethod.GET, produces = "application/json")
-    public String deduct(String commodityCode, int count) {
+    public String deduct(String xid, String commodityCode, int count) {
+        RootContext.bind(xid);
         try {
             storageService.deduct(commodityCode, count);
         } catch (Exception ex) {

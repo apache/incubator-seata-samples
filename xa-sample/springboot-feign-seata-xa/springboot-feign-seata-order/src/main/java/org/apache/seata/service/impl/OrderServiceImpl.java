@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         int orderMoney = calculate(commodityCode, orderCount);
 
         // 从账户余额扣款
-        accountFeignClient.debit(userId, orderMoney);
+        accountFeignClient.debit(RootContext.getXID(), userId, orderMoney);
 
         LOGGER.info(
                 "Order Service SQL: insert into order_tbl (user_id, commodity_code, count, money) values ({}, {}, {}, {})",

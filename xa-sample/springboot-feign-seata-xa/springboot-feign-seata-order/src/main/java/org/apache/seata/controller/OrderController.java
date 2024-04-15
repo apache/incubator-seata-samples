@@ -17,7 +17,7 @@
 package org.apache.seata.controller;
 
 import io.seata.core.context.RootContext;
-import org.apache.seata.service.AccountService;
+import org.apache.seata.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,24 +26,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-
 @RestController
-public class AccountController {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+public class OrderController {
+    public static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 
     @Resource
-    private AccountService accountService;
+    private OrderService orderService;
 
-    @RequestMapping(value = "/debit", method = RequestMethod.GET, produces = "application/json")
-    public String debit(String xid, String userId, int money) {
+    @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/json")
+    public String create(String xid, String userId, String commodityCode, int orderCount) {
         RootContext.bind(xid);
         try {
-            accountService.debit(userId, money);
+            orderService.create(userId, commodityCode, orderCount);
         } catch (Exception ex) {
-            LOGGER.error("debit err,", ex);
+            LOGGER.error("order err,", ex);
             return "FAIL";
         }
         return "SUCCESS";
     }
+
 }
