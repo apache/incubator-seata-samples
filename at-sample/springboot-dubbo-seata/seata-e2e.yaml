@@ -1,8 +1,5 @@
 e2e:
   scene_name: at-springboot-dubbo-seata
-  # 后期考虑扩展成通用基础设施一键配置
-  inherit:
-    name: at-common
   # retry config
   retry:
     max: 5
@@ -17,7 +14,7 @@ e2e:
         # 这里可以加一些插件实现不同功能
         # docker service 下的参数，这样写是为了方便后续扩展解耦
         docker_service:
-          network_mode: host
+          hostname: springboot-dubbo-seata-business
           restart: on-failure
           container_name: test
           depends_on:
@@ -27,40 +24,56 @@ e2e:
               condition: service_started
             springboot-dubbo-seata-order:
               condition: service_started
+          environment:
+            zookeeper.address: zookeeper
+            seata.address: seata
     providers:
       - name: springboot-dubbo-seata-account
         docker_service:
-          network_mode: host
+          hostname: springboot-dubbo-seata-account
           restart: on-failure
           depends_on:
             zookeeper:
               condition: service_healthy
             mysql:
               condition: service_healthy
+          environment:
+            zookeeper.address: zookeeper
+            mysql.address: mysqlAddress
+            seata.address: seata
       - name: springboot-dubbo-seata-order
         docker_service:
-          network_mode: host
+          hostname: springboot-dubbo-seata-order
           restart: on-failure
           depends_on:
             zookeeper:
               condition: service_healthy
             mysql:
               condition: service_healthy
+          environment:
+            zookeeper.address: zookeeper
+            mysql.address: mysqlAddress
+            seata.address: seata
       - name: springboot-dubbo-seata-storage
         docker_service:
-          network_mode: host
+          hostname: springboot-dubbo-seata-order
           restart: on-failure
           depends_on:
             zookeeper:
               condition: service_healthy
             mysql:
               condition: service_healthy
+          environment:
+            zookeeper.address: zookeeper
+            mysql.address: mysqlAddress
+            seata.address: seata
     infrastructures:
       - name: mysql
         docker_service:
+          hostname: mysqlAddress
           image: mysql:5.7
-          ports:
-            - "3307:3306"
+#          ports:
+#            - "3307:3306"
           volumes:
             - ./e2e-files/sqlsh:/docker-entrypoint-initdb.d
           restart: always
@@ -76,18 +89,20 @@ e2e:
             retries: 10
       - name: seata-server
         docker_service:
+          hostname: seata
           image: seataio/seata-server:2.0.0
-          ports:
-            - "7091:7091"
-            - "8091:8091"
+#          ports:
+#            - "7091:7091"
+#            - "8091:8091"
           environment:
             SEATA_PORT: 8091
             STORE_MODE: file
       - name: zookeeper
         docker_service:
+          hostname: zookeeper
           image: zookeeper:3.5.7
-          ports:
-            - "2181:2181"
+#          ports:
+#            - "2181:2181"
           healthcheck:
             test: '[ "CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "|", "grep", "imok" ]'
             interval: 30s
