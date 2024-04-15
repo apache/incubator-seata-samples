@@ -13,10 +13,10 @@ name: "E2E Test"
 
 on:
   push:
-    branches: [ e2e-demo ]
+    branches: [ master ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ e2e-demo ]
+    branches: [ master ]
 #
 jobs:
   prepareE2EFramework:
