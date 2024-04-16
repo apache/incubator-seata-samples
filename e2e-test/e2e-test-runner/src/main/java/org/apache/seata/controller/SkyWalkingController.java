@@ -38,6 +38,7 @@ public class SkyWalkingController {
                                 file.getName(), exitCode));
                     }
                 } catch (Exception e) {
+                    LOGGER.error("Running Seate e2e test by SkyWalking-E2E fail in: " + file.getPath());
                     e.printStackTrace();
                 }
             }
