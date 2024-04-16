@@ -46,7 +46,7 @@ jobs:
           ls
           echo "export PATH=$PATH:$(pwd)" >> $GITHUB_PATH
           mv linux e2e
-          chmod e2e 777
+          chmod 777 e2e
           e2e
 
       - name: Set up JDK 8
