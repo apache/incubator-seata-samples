@@ -20,7 +20,7 @@ on:
 #
 jobs:
   run_e2e:
-    name: E2E Test Prepare
+    name: Run E2E Test
     runs-on: ubuntu-latest
     steps:
       - name: Check out code into
