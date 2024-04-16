@@ -5,14 +5,14 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 TEST_DIR="$(dirname "$DIR")"
 PROJECT_DIR="$(dirname "$(dirname "$DIR")")"
 cd $TEST_DIR
-mvn clean package -DskipTests
+mvn clean install -DskipTests
 result=$?
 if [ $result -ne 0 ]; then
   echo "Build seata e2e-test failure"
   exit $result
 fi
 cd $TEST_DIR/e2e-test-runner
-mvn clean package -DskipTests
+mvn clean install -DskipTests
 result=$?
 if [ $result -ne 0 ]; then
   echo "Build seata e2e-test-runner failure"
