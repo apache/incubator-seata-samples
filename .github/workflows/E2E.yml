@@ -36,14 +36,17 @@ jobs:
         id: go
 
       - name: Build e2e framework
-        run: make linux
+        run: |
+          pwd
+          ls
+          make linux
 
       - name: Set current path as environment variable
         run: |
           echo "export CURRENT_PATH=$(pwd)" >> $GITHUB_ENV
 
-  prepareE2ETest:
-    name: Prepare E2E Test
+  RunE2ETest:
+    name: Run Seata E2E Test
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 8
@@ -55,6 +58,10 @@ jobs:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v3
 
-      - name: Run e2e tests
+      - name: prepare e2e tests
         run: | 
           cd e2e-test/scripts && bash prepare-test.sh
+
+      - name: run e2e tests
+        run: |
+          bash test-run.sh
