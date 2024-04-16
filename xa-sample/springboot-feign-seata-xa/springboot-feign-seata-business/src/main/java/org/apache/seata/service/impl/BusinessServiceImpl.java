@@ -47,8 +47,8 @@ public class BusinessServiceImpl implements BusinessService {
     @GlobalTransactional(timeoutMills = 300000, name = "springboot-feign-seata-xa")
     public void purchase(String userId, String commodityCode, int orderCount, boolean forceRollback) {
         LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
-        stockFeignClient.deduct(RootContext.getXID(), commodityCode, orderCount);
-        orderFeignClient.create(RootContext.getXID(), userId, commodityCode, orderCount);
+        stockFeignClient.deduct(commodityCode, orderCount);
+        orderFeignClient.create(userId, commodityCode, orderCount);
         if (forceRollback) {
             throw new RuntimeException("force rollback!");
         }

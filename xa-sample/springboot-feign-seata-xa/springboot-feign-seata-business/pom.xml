@@ -97,6 +97,12 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>3.1.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <version>2021.0.6.0</version>
+        </dependency>
     </dependencies>
 
     <build>

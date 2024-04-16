@@ -16,7 +16,6 @@
  */
 package org.apache.seata.controller;
 
-import io.seata.core.context.RootContext;
 import org.apache.seata.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +33,7 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(value = "/create", method = RequestMethod.GET, produces = "application/json")
-    public String create(String xid, String userId, String commodityCode, int orderCount) {
-        RootContext.bind(xid);
+    public String create(String userId, String commodityCode, int orderCount) {
         try {
             orderService.create(userId, commodityCode, orderCount);
         } catch (Exception ex) {

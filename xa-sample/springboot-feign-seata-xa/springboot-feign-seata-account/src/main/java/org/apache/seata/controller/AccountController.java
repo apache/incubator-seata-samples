@@ -16,7 +16,6 @@
  */
 package org.apache.seata.controller;
 
-import io.seata.core.context.RootContext;
 import org.apache.seata.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +35,7 @@ public class AccountController {
     private AccountService accountService;
 
     @RequestMapping(value = "/debit", method = RequestMethod.GET, produces = "application/json")
-    public String debit(String xid, String userId, int money) {
-        RootContext.bind(xid);
+    public String debit(String userId, int money) {
         try {
             accountService.debit(userId, money);
         } catch (Exception ex) {
