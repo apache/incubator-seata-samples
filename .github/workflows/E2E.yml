@@ -46,7 +46,7 @@ jobs:
           ls
           echo "export PATH=$PATH:$(pwd)" >> $GITHUB_PATH
           chmod 777 e2e
-          ./e2e
+          cp e2e /usr/local/bin
 
       - name: Set up JDK 8
         uses: actions/setup-java@v3
