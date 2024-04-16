@@ -26,9 +26,6 @@ jobs:
       - name: Clone skywalking e2e repository
         run: git clone https://github.com/apache/skywalking-infra-e2e.git skywalking-infra-e2e
 
-      - name: Navigate to cloned repository
-        run: cd skywalking-infra-e2e
-
       - name: Set up Go 1.18
         uses: actions/setup-go@v4
         with:
@@ -37,9 +34,7 @@ jobs:
 
       - name: Build e2e framework
         run: |
-          pwd
-          ls
-          make linux
+          cd skywalking-infra-e2e && make linux
 
       - name: Set current path as environment variable
         run: |
@@ -64,4 +59,4 @@ jobs:
 
       - name: run e2e tests
         run: |
-          bash test-run.sh
+          cd e2e-test/scripts && bash test-run.sh
