@@ -23,6 +23,9 @@ jobs:
     name: E2E Test Prepare
     runs-on: ubuntu-latest
     steps:
+      - name: Check out code into
+        uses: actions/checkout@v3
+
       - name: Clone skywalking e2e repository
         run: git clone https://github.com/apache/skywalking-infra-e2e.git skywalking-infra-e2e
 
@@ -50,7 +53,7 @@ jobs:
           distribution: 'zulu'
           java-version: 8
 
-      - name: Check out code into the Go module directory
+      - name: Check out code
         uses: actions/checkout@v3
 
       - name: prepare e2e tests
