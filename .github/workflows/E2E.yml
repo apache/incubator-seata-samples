@@ -48,6 +48,7 @@ jobs:
           source ~/.bashrc
           mv linux e2e
           ls
+          chmod 777 e2e
           ./e2e
 
       - name: Set up JDK 8
