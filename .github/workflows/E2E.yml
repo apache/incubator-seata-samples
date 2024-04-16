@@ -49,6 +49,11 @@ jobs:
           distribution: 'zulu'
           java-version: 8
 
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+
       - name: prepare and run e2e tests
         run: | 
           cd e2e-test/scripts && sh prepare-test.sh && sh test-run.sh
