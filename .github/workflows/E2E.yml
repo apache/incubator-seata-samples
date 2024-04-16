@@ -13,10 +13,10 @@ name: "E2E Test"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ e2e-demo ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ e2e-demo ]
 #
 jobs:
   prepareE2EFramework:
@@ -34,9 +34,6 @@ jobs:
         with:
           go-version: 1.18
         id: go
-
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v3
 
       - name: Build e2e framework
         run: make linux
