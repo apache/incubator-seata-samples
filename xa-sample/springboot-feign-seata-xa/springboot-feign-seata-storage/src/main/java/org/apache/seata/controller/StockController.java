@@ -39,7 +39,7 @@ public class StockController {
             storageService.deduct(commodityCode, count);
         } catch (Exception ex) {
             LOGGER.error("deduct err,", ex);
-            return "FAIL";
+            throw ex;
         }
         return "SUCCESS";
     }
