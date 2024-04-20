@@ -11,17 +11,18 @@
 #
 name: "E2E Test"
 
-on:
-  push:
-    branches: [ e2e-demo ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ e2e-demo ]
-#
+on: [ push,pull_request ]
+
 jobs:
   run_e2e:
-    name: Run E2E Test
-    runs-on: ubuntu-latest
+    name: Run E2E Test ${{ matrix.java }}, ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        java: [ 8, 11 ]
+      fail-fast: false
+      max-parallel: 2
     steps:
       - name: Check out code into
         uses: actions/checkout@v3
@@ -46,11 +47,11 @@ jobs:
           chmod 777 e2e
           cp e2e /usr/local/bin
 
-      - name: Set up JDK 8
+      - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 8
+          java-version: ${{ matrix.java }}
 
       - name: prepare e2e tests
         run: | 
@@ -58,9 +59,4 @@ jobs:
 
       - name: run e2e tests
         run: |
-          cd e2e-test/scripts
-          sh test-run.sh
-#          if grep -q "ERROR failed to verify" e2e.log; then
-#            echo "failed to verify in e2e tests"
-#            exit 1
-#          fi
+          cd e2e-test/scripts && sh test-run.sh

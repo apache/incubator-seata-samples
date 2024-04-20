@@ -5,14 +5,13 @@ e2e:
     max: 5
     interval: 10s
     total_timeout: 20m
-  # 多服务配置, 有一个test模块用于触发测试，其余皆为provider
+  # services in docker-compose
   modules:
-    # 划分为不同的模块后续可以做功能扩展
+    # consume services
     consumers:
       # docker service name
-      - name: springboot-dubbo-seata-business
-        # 这里可以加一些插件实现不同功能
-        # docker service 下的参数，这样写是为了方便后续扩展解耦
+      - name: springboot-dubbo-seata-business # this name should be the same as module name, it is indicated to be builded as an image
+        # service params in a service of docker-compose service
         docker_service:
           hostname: springboot-dubbo-seata-business
           restart: on-failure
@@ -27,6 +26,7 @@ e2e:
           environment:
             zookeeper.address: zookeeper
             seata.address: seata
+    # provider service
     providers:
       - name: springboot-dubbo-seata-account
         docker_service:
@@ -67,6 +67,7 @@ e2e:
             zookeeper.address: zookeeper
             mysql.address: mysqlAddress
             seata.address: seata
+    # infrastructure services
     infrastructures:
       - name: mysql
         docker_service:
@@ -109,9 +110,12 @@ e2e:
             timeout: 10s
             retries: 3
 
+  # cases to verify
   cases:
     - name: rollback test
+      # how to invoke the case
       invoke: 'docker exec test curl http://127.0.0.1:9991/testRollback'
+      # the result of the case to expect be
       verify: './e2e-files/rollback.yaml'
 
     - name: commit test
