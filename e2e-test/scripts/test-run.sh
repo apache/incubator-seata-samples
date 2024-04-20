@@ -23,6 +23,7 @@ cp $TEST_DIR/e2e-test-runner/target/e2e-test-runner-*-jar-with-dependencies.jar 
 echo "start run seata test by skywalking e2e framework"
 pwd
 java -jar ./e2e-test-runner.jar ./tmp/scene-test
+result=$?
 if [ $result -ne 0 ]; then
   echo "run seata e2e-test-runner failure"
   exit $result

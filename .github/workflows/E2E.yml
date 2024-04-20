@@ -42,8 +42,6 @@ jobs:
       - name: Add script directory to PATH
         run: |
           cd skywalking-infra-e2e/bin/linux
-          pwd
-          ls
           echo "export PATH=$PATH:$(pwd)" >> $GITHUB_PATH
           chmod 777 e2e
           cp e2e /usr/local/bin
@@ -54,7 +52,15 @@ jobs:
           distribution: 'zulu'
           java-version: 8
 
-      - name: prepare and run e2e tests
+      - name: prepare e2e tests
         run: | 
-          cd e2e-test/scripts && sh prepare-test.sh && sh test-run.sh
-          echo $PATH
+          cd e2e-test/scripts && sh prepare-test.sh
+
+      - name: run e2e tests
+        run: |
+          cd e2e-test/scripts && sh test-run.sh
+          result=$?
+          if [ $result -ne 0 ]; then
+            echo "run seata e2e-test-runner failure"
+            exit $result
+          fi
