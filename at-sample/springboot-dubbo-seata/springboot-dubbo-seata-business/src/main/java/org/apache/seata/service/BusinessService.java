@@ -22,11 +22,20 @@ package org.apache.seata.service;
 public interface BusinessService {
 
     /**
-     * 用户订购商品
+     * 用户订购商品回滚
      *
      * @param userId        用户ID
      * @param commodityCode 商品编号
      * @param orderCount    订购数量
      */
-    void purchase(String userId, String commodityCode, int orderCount);
+    void purchaseRollback(String userId, String commodityCode, int orderCount);
+
+    /**
+     * 用户订购商品成功
+     *
+     * @param userId        用户ID
+     * @param commodityCode 商品编号
+     * @param orderCount    订购数量
+     */
+    void purchaseCommit(String userId, String commodityCode, int orderCount);
 }

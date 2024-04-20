@@ -110,6 +110,10 @@ e2e:
             retries: 3
 
   cases:
-    - name: normal test
-      invoke: 'docker exec test curl http://127.0.0.1:9991/testCreate'
-      verify: './e2e-files/expected.yaml'
+    - name: rollback test
+      invoke: 'docker exec test curl http://127.0.0.1:9991/testRollback'
+      verify: './e2e-files/rollback.yaml'
+
+    - name: commit test
+      invoke: 'docker exec test curl http://127.0.0.1:9991/testCommit'
+      verify: './e2e-files/commit.yaml'

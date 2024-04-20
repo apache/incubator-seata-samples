@@ -1,12 +1,8 @@
 package org.apache.seata.e2e;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.seata.service.BusinessService;
-import org.apache.seata.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.yaml.snakeyaml.Yaml;
 
@@ -23,8 +19,8 @@ public class E2EController {
     @Autowired
     private BusinessService businessService;
 
-    @GetMapping("testCreate")
-    public void testCreate(HttpServletResponse response) throws IOException {
+    @GetMapping("testRollback")
+    public void testRollback(HttpServletResponse response) throws IOException {
         Map<String, String> res = new HashMap<>();
         // 设置响应类型
         response.setContentType("text/yaml");
@@ -32,15 +28,29 @@ public class E2EController {
 
         Yaml yaml = new Yaml();
         try {
-            businessService.purchase("U100001", "C00321", 2);
+            businessService.purchaseRollback("U100001", "C00321", 2);
         } catch (Exception e) {
             e.printStackTrace();
-            res.put("res", "failed");
+            res.put("res", "rollback");
             String yamlStr = yaml.dump(res);
             response.getWriter().write(yamlStr);
             return;
         }
-        res.put("res", "success");
+        res.put("res", "commit");
+        String yamlStr = yaml.dump(res);
+        response.getWriter().write(yamlStr);
+    }
+
+    @GetMapping("testCommit")
+    public void testCommit(HttpServletResponse response) throws IOException {
+        Map<String, String> res = new HashMap<>();
+        // 设置响应类型
+        response.setContentType("text/yaml");
+        response.setCharacterEncoding("UTF-8");
+
+        Yaml yaml = new Yaml();
+        businessService.purchaseCommit("U100001", "C00321", 2);
+        res.put("res", "commit");
         String yamlStr = yaml.dump(res);
         response.getWriter().write(yamlStr);
     }

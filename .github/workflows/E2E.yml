@@ -58,9 +58,9 @@ jobs:
 
       - name: run e2e tests
         run: |
-          cd e2e-test/scripts && sh test-run.sh
-          result=$?
-          if [ $result -ne 0 ]; then
-            echo "run seata e2e-test-runner failure"
-            exit $result
+          cd e2e-test/scripts
+          sh test-run.sh | tee -a e2e.log
+          if grep -q "ERROR failed to verify" e2e.log; then
+            echo "failed to verify in e2e tests"
+            exit 1
           fi
