@@ -36,6 +36,7 @@ public class SkyWalkingController {
                     if (exitCode != 0) {
                         LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
                                 file.getName(), exitCode));
+                        System.exit(exitCode);
                     }
                 } catch (Exception e) {
                     LOGGER.error("Running Seate e2e test by SkyWalking-E2E fail in: " + file.getAbsolutePath());
