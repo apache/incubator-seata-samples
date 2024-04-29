@@ -32,6 +32,22 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
+        paths:
+          - 'at-sample/at-api'
+          - 'at-sample/dubbo-samples-seata'
+          - 'at-sample/spring-dubbo-seata'
+          - 'at-sample/spring-seata'
+          - 'at-sample/springboot-dubbo-seata'
+          - 'at-sample/springboot-mybatis-seata'
+          - 'at-sample/springboot-seata'
+          - 'at-sample/at-dao'
+          - 'at-sample/at-dao'
+          - 'at-sample/at-dao'
+          - 'saga-sample/spring-dubbo-seata-saga'
+          - 'saga-sample/spring-seata-saga'
+          - 'tcc-sample/spring-dubbo-seata-tcc'
+          - 'tcc-sample/springboot-sofarpc-seata-tcc'
+          - 'xa-sample/springboot-feign-seata-xa'
 
       # step 3
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
