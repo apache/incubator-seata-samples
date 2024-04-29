@@ -21,4 +21,15 @@ jobs:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
       - name: Test with Maven
-        run: mvn test -B --file pom.xml
+        run: |
+          directories=("at-sample" "saga-sample" "tcc-sample" "xa-sample")
+          for dir in "${directories[@]}"; do
+            for subdir in "$dir"/*; do
+              if [ -d "$subdir" ]; then
+                echo "Entering directory $subdir"
+                cd "$subdir"
+                mvn -B test
+                cd - > /dev/null
+              fi
+            done
+          done

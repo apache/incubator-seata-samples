@@ -67,7 +67,7 @@
     <dependency>
       <groupId>com.alipay.sofa</groupId>
       <artifactId>rpc-sofa-boot-starter</artifactId>
-      <version>5.5.3</version>
+      <version>5.12.0</version>
       <exclusions>
         <exclusion>
           <artifactId>spring-beans</artifactId>
