@@ -38,7 +38,7 @@ public class OrderController {
             orderService.create(userId, commodityCode, orderCount);
         } catch (Exception ex) {
             LOGGER.error("order err,", ex);
-            return "FAIL";
+            throw ex;
         }
         return "SUCCESS";
     }

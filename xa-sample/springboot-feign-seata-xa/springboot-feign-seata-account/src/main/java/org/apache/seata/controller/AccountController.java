@@ -40,7 +40,7 @@ public class AccountController {
             accountService.debit(userId, money);
         } catch (Exception ex) {
             LOGGER.error("debit err,", ex);
-            return "FAIL";
+            throw ex;
         }
         return "SUCCESS";
     }
