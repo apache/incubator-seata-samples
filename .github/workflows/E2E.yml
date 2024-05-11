@@ -36,9 +36,9 @@ jobs:
           go-version: 1.18
         id: go
 
-      - name: Build e2e framework
+      - name: Build e2e framework (use skywalking-infra-e2e v1.3.0)
         run: |
-          cd skywalking-infra-e2e && make linux
+          cd skywalking-infra-e2e && git checkout 1485ae03f0ad90496ad7626a5ae4a6a73a1f6296 && make linux
 
       - name: Add script directory to PATH
         run: |
