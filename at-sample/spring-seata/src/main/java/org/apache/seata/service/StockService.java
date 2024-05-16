@@ -19,7 +19,7 @@ package org.apache.seata.service;
 /**
  * The interface Stock service.
  */
-public interface StorageService {
+public interface StockService {
 
     /**
      * 扣减库存

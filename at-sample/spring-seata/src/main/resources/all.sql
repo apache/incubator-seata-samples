@@ -54,3 +54,6 @@ CREATE TABLE IF NOT EXISTS `undo_log`
     UNIQUE KEY `ux_undo_log` (`xid`, `branch_id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COMMENT ='AT transaction mode undo table';
 ALTER TABLE `undo_log` ADD INDEX `ix_log_created` (`log_created`);
+
+insert into account_tbl (user_id, money) values ('U100001', 10000);
+insert into stock_tbl (commodity_code, count) values ('C00321', 100);
