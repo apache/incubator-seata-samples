@@ -21,7 +21,7 @@ import io.seata.spring.annotation.GlobalTransactional;
 
 import org.apache.seata.service.BusinessService;
 import org.apache.seata.service.OrderService;
-import org.apache.seata.service.StorageService;
+import org.apache.seata.service.StockService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class BusinessServiceImpl implements BusinessService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessService.class);
 
     @Resource
-    private StorageService storageService;
+    private StockService stockService;
     @Resource
     private OrderService orderService;
     private final Random random = new Random();
@@ -50,7 +50,7 @@ public class BusinessServiceImpl implements BusinessService {
     @GlobalTransactional(timeoutMills = 300000, name = "spring-seata-tx")
     public void purchase(String userId, String commodityCode, int orderCount) {
         LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
-        storageService.deduct(commodityCode, orderCount);
+        stockService.deduct(commodityCode, orderCount);
         orderService.create(userId, commodityCode, orderCount);
         if (random.nextBoolean()) {
             throw new RuntimeException("random exception mock!");

@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private int calculate(String commodityId, int orderCount) {
-        return 200 * orderCount;
+        return 100 * orderCount;
     }
 
 }
