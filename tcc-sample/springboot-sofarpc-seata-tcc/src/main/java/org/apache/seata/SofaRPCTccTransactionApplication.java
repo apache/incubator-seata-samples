@@ -87,8 +87,6 @@ public class SofaRPCTccTransactionApplication {
 
         //wait rollback
         Thread.sleep(3000);
-        tccTransactionService.checkBranchTransaction(RootContext.getXID(),false);
-
 
         System.out.println("transaction rollback demo finish.");
     }
