@@ -66,7 +66,7 @@ public class BusinessService {
                 try {
                     reconnect = o.getClass().getDeclaredMethod("reconnect", String.class);
                     reconnect.setAccessible(true);
-                    reconnect.invoke(o, "default_tx_group");
+                    reconnect.invoke(o, "my_test_tx_group");
                 } catch (Exception e) {
                     throw new RuntimeException("reconnect failed!", e);
                 }
