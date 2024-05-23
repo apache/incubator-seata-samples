@@ -19,9 +19,12 @@ package org.apache.seata.action.impl;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import io.seata.rm.tcc.api.BusinessActionContext;
+import io.seata.rm.tcc.api.BusinessActionContextParameter;
+import io.seata.rm.tcc.api.TwoPhaseBusinessAction;
 import org.apache.seata.action.ResultHolder;
 import org.apache.seata.action.TccActionTwo;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -35,7 +38,8 @@ import java.util.List;
 public class TccActionTwoImpl implements TccActionTwo {
 
     @Override
-    public boolean prepare(BusinessActionContext actionContext, String b, List list) {
+    @TwoPhaseBusinessAction(name = "SofaTccActionTwo", commitMethod = "commit", rollbackMethod = "rollback")
+    public boolean prepare(BusinessActionContext actionContext, @BusinessActionContextParameter(paramName = "b") String b, @BusinessActionContextParameter(paramName = "c", index = 1) List list) {
         String xid = actionContext.getXid();
         System.out.println("TccActionTwo prepare, xid:" + xid + ", b:" + b + ", c:" + list.get(1));
         return true;
@@ -44,6 +48,8 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean commit(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
+        Assert.isTrue(actionContext.getActionContext("b") != null);
+        Assert.isTrue(actionContext.getActionContext("c") != null);
         System.out.println(
             "TccActionTwo commit, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
                 .getActionContext("c"));
@@ -54,6 +60,8 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean rollback(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
+        Assert.isTrue(actionContext.getActionContext("b") != null);
+        Assert.isTrue(actionContext.getActionContext("c") != null);
         System.out.println(
             "TccActionTwo rollback, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
                 .getActionContext("c"));
