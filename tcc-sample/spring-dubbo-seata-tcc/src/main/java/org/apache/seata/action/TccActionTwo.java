@@ -32,10 +32,7 @@ public interface TccActionTwo {
      * @param list          the list
      * @return the boolean
      */
-    @TwoPhaseBusinessAction(name = "DubboTccActionTwo", commitMethod = "commit", rollbackMethod = "rollback")
-    public boolean prepare(BusinessActionContext actionContext,
-                           @BusinessActionContextParameter(paramName = "b") String b,
-                           @BusinessActionContextParameter(paramName = "c", index = 1) List list);
+    boolean prepare(BusinessActionContext actionContext, String b, List list);
 
     /**
      * Commit boolean.

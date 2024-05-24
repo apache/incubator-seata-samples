@@ -17,7 +17,6 @@
 package org.apache.seata.stater;
 
 import io.seata.common.util.StringUtils;
-import io.seata.core.context.RootContext;
 import org.apache.seata.service.TccTransactionService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
@@ -44,9 +43,6 @@ public class TccConsumerStarter {
         System.out.println(txId);
         Assert.isTrue(StringUtils.isNotEmpty(txId), "事务开启失败");
 
-        //wait commit
-        Thread.sleep(3000);
-        tccTransactionService.checkBranchTransaction(txId,true);
         System.out.println("transaction commit demo finish.");
     }
 
@@ -60,7 +56,6 @@ public class TccConsumerStarter {
 
         //wait rollback
         Thread.sleep(3000);
-        tccTransactionService.checkBranchTransaction(RootContext.getXID(),false);
 
         System.out.println("transaction rollback demo finish.");
     }

@@ -29,8 +29,7 @@ public interface TccActionOne {
      * @param a             the a
      * @return the boolean
      */
-    @TwoPhaseBusinessAction(name = "SofaTccActionOne", commitMethod = "commit", rollbackMethod = "rollback")
-    boolean prepare(BusinessActionContext actionContext, @BusinessActionContextParameter(paramName = "a") int a);
+    boolean prepare(BusinessActionContext actionContext, int a);
 
     /**
      * Commit boolean.
