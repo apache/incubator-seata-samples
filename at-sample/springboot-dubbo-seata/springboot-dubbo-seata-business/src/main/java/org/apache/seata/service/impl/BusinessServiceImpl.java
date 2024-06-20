@@ -41,14 +41,25 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     @GlobalTransactional(timeoutMills = 300000, name = "spring-dubbo-tx")
-    public void purchase(String userId, String commodityCode, int orderCount) {
+    public void purchaseRollback(String userId, String commodityCode, int orderCount) {
         LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
         storageService.deduct(commodityCode, orderCount);
         // just test batch update
         //stockService.batchDeduct(commodityCode, orderCount);
         orderService.create(userId, commodityCode, orderCount);
-        if (random.nextBoolean()) {
-            throw new RuntimeException("random exception mock!");
-        }
+//        if (random.nextBoolean()) {
+//            throw new RuntimeException("random exception mock!");
+//        }
+        throw new RuntimeException("random exception mock!");
+    }
+
+    @Override
+    @GlobalTransactional(timeoutMills = 300000, name = "spring-dubbo-tx")
+    public void purchaseCommit(String userId, String commodityCode, int orderCount) {
+        LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
+        storageService.deduct(commodityCode, orderCount);
+        // just test batch update
+        //stockService.batchDeduct(commodityCode, orderCount);
+        orderService.create(userId, commodityCode, orderCount);
     }
 }

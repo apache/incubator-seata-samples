@@ -14,28 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.service;
+package org.apache.seata.model;
 
 /**
- * The interface Business service.
+ * @author jingliu_xiong@foxmail.com
  */
-public interface BusinessService {
+public class E2EWrapper {
+    private E2EConfig e2e;
 
-    /**
-     * 用户订购商品回滚
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseRollback(String userId, String commodityCode, int orderCount);
+    // Getters and Setters
+    public E2EConfig getE2e() {
+        return e2e;
+    }
 
-    /**
-     * 用户订购商品成功
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseCommit(String userId, String commodityCode, int orderCount);
+    public void setE2e(E2EConfig e2e) {
+        this.e2e = e2e;
+    }
 }

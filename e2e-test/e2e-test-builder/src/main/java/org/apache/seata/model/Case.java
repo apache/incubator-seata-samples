@@ -14,28 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.service;
+package org.apache.seata.model;
 
 /**
- * The interface Business service.
+ * @author jingliu_xiong@foxmail.com
  */
-public interface BusinessService {
+public class Case {
+    private String name;
+    private String invoke;
+    private String verify;
 
-    /**
-     * 用户订购商品回滚
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseRollback(String userId, String commodityCode, int orderCount);
+    public String getName() {
+        return name;
+    }
 
-    /**
-     * 用户订购商品成功
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseCommit(String userId, String commodityCode, int orderCount);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInvoke() {
+        return invoke;
+    }
+
+    public void setInvoke(String invoke) {
+        this.invoke = invoke;
+    }
+
+    public String getVerify() {
+        return verify;
+    }
+
+    public void setVerify(String verify) {
+        this.verify = verify;
+    }
 }
