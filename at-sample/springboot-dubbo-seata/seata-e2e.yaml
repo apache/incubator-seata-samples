@@ -1,0 +1,126 @@
+e2e:
+  scene_name: at-springboot-dubbo-seata
+  # retry config
+  retry:
+    max: 5
+    interval: 10s
+    total_timeout: 20m
+  # services in docker-compose
+  modules:
+    # consume services
+    consumers:
+      # docker service name
+      - name: springboot-dubbo-seata-business # this name should be the same as module name, it is indicated to be builded as an image
+        # service params in a service of docker-compose service
+        docker_service:
+          hostname: springboot-dubbo-seata-business
+          restart: on-failure
+          container_name: test
+          depends_on:
+            springboot-dubbo-seata-account:
+              condition: service_started
+            springboot-dubbo-seata-storage:
+              condition: service_started
+            springboot-dubbo-seata-order:
+              condition: service_started
+          environment:
+            zookeeper.address: zookeeper
+            seata.address: seata
+    # provider service
+    providers:
+      - name: springboot-dubbo-seata-account
+        docker_service:
+          hostname: springboot-dubbo-seata-account
+          restart: on-failure
+          depends_on:
+            zookeeper:
+              condition: service_healthy
+            mysql:
+              condition: service_healthy
+          environment:
+            zookeeper.address: zookeeper
+            mysql.address: mysqlAddress
+            mysql.user: user
+            seata.address: seata
+      - name: springboot-dubbo-seata-order
+        docker_service:
+          hostname: springboot-dubbo-seata-order
+          restart: on-failure
+          depends_on:
+            zookeeper:
+              condition: service_healthy
+            mysql:
+              condition: service_healthy
+          environment:
+            zookeeper.address: zookeeper
+            mysql.address: mysqlAddress
+            mysql.user: user
+            seata.address: seata
+      - name: springboot-dubbo-seata-storage
+        docker_service:
+          hostname: springboot-dubbo-seata-order
+          restart: on-failure
+          depends_on:
+            zookeeper:
+              condition: service_healthy
+            mysql:
+              condition: service_healthy
+          environment:
+            zookeeper.address: zookeeper
+            mysql.address: mysqlAddress
+            mysql.user: user
+            seata.address: seata
+    # infrastructure services
+    infrastructures:
+      - name: mysql
+        docker_service:
+          hostname: mysqlAddress
+          image: mysql:5.7
+#          ports:
+#            - "3307:3306"
+          volumes:
+            - ./e2e-files/sqlsh:/docker-entrypoint-initdb.d
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: seata
+            MYSQL_USER: user
+            MYSQL_PASSWORD: 123456
+          healthcheck:
+            test: '[ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]'
+            interval: 5s
+            timeout: 10s
+            retries: 10
+      - name: seata-server
+        docker_service:
+          hostname: seata
+          image: seataio/seata-server:2.0.0
+#          ports:
+#            - "7091:7091"
+#            - "8091:8091"
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+      - name: zookeeper
+        docker_service:
+          hostname: zookeeper
+          image: zookeeper:3.5.7
+#          ports:
+#            - "2181:2181"
+          healthcheck:
+            test: '[ "CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "|", "grep", "imok" ]'
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+  # cases to verify
+  cases:
+    - name: rollback test
+      # how to invoke the case
+      invoke: 'docker exec test curl http://127.0.0.1:9991/testRollback'
+      # the result of the case to expect be
+      verify: './e2e-files/rollback.yaml'
+
+    - name: commit test
+      invoke: 'docker exec test curl http://127.0.0.1:9991/testCommit'
+      verify: './e2e-files/commit.yaml'

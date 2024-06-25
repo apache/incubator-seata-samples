@@ -31,9 +31,9 @@ public class SpringbootDubboSeataBusinessApplication implements BeanFactoryAware
     public static void main(String[] args) throws Exception {
         SpringApplication.run(SpringbootDubboSeataBusinessApplication.class, args);
 
-        BusinessService businessService = BEAN_FACTORY.getBean(BusinessService.class);
-
-        businessService.purchase("U100001", "C00321", 2);
+//        BusinessService businessService = BEAN_FACTORY.getBean(BusinessService.class);
+//
+//        businessService.purchase("U100001", "C00321", 2);
     }
 
     @Override

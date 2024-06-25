@@ -14,28 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.service;
+package org.apache.seata.config;
 
 /**
- * The interface Business service.
+ * @author jingliu_xiong@foxmail.com
  */
-public interface BusinessService {
-
-    /**
-     * 用户订购商品回滚
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseRollback(String userId, String commodityCode, int orderCount);
-
-    /**
-     * 用户订购商品成功
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseCommit(String userId, String commodityCode, int orderCount);
+public class ConfigConstants {
+    public static final String IMAGE_DIR = "tmp/images";
+    public static final String SCENE_DIR = "tmp/scene-test";
+    public static final String SEATA_E2E_FILE = "seata-e2e.yaml";
+    public static final String E2E_FILES = "e2e-files";
+    public static final String COMPOSE_FILE = "docker-compose.yaml";
+    public static final String SKY_WALKING_E2E_FILE = "e2e.yaml";
+    public static final String IMAGE_VERSION = "0.0.1";
 }

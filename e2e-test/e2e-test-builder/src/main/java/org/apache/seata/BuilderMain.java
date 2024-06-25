@@ -14,28 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.service;
+package org.apache.seata;
+
+import org.apache.seata.builder.E2EBuilder;
+
+import java.io.IOException;
 
 /**
- * The interface Business service.
+ * @author jingliu_xiong@foxmail.com
  */
-public interface BusinessService {
-
-    /**
-     * 用户订购商品回滚
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseRollback(String userId, String commodityCode, int orderCount);
-
-    /**
-     * 用户订购商品成功
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseCommit(String userId, String commodityCode, int orderCount);
+public class BuilderMain {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        E2EBuilder e2EBuilder = new E2EBuilder();
+        e2EBuilder.setRootPath("./");
+        if (args != null && args.length == 1) {
+            e2EBuilder.setRootPath(args[0]);
+        }
+        e2EBuilder.buildSeataE2ETest();
+    }
 }

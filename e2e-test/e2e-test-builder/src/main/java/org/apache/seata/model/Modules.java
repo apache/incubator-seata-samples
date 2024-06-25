@@ -14,28 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.service;
+package org.apache.seata.model;
+
+import java.util.List;
 
 /**
- * The interface Business service.
+ * @author jingliu_xiong@foxmail.com
  */
-public interface BusinessService {
+public class Modules {
+    private List<Module> consumers;
+    private List<Module> providers;
+    private List<Module> infrastructures;
 
-    /**
-     * 用户订购商品回滚
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseRollback(String userId, String commodityCode, int orderCount);
+    public List<Module> getInfrastructures() {
+        return infrastructures;
+    }
 
-    /**
-     * 用户订购商品成功
-     *
-     * @param userId        用户ID
-     * @param commodityCode 商品编号
-     * @param orderCount    订购数量
-     */
-    void purchaseCommit(String userId, String commodityCode, int orderCount);
+    public void setInfrastructures(List<Module> infrastructures) {
+        this.infrastructures = infrastructures;
+    }
+
+    public List<Module> getConsumers() {
+        return consumers;
+    }
+
+    public void setConsumers(List<Module> consumers) {
+        this.consumers = consumers;
+    }
+
+    public List<Module> getProviders() {
+        return providers;
+    }
+
+    public void setProviders(List<Module> providers) {
+        this.providers = providers;
+    }
 }
