@@ -56,10 +56,10 @@ public class DataSourceUtil {
         String userNameKey = "jdbc." + name + ".username";
         String pwdKey = "jdbc." + name + ".password";
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, driverKey));
-        dataSource.setUrl(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, urlKey));
-        dataSource.setUsername(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, userNameKey));
-        dataSource.setPassword(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, pwdKey));
+        dataSource.setDriverClassName(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, driverKey));
+        dataSource.setUrl(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, urlKey));
+        dataSource.setUsername(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, userNameKey));
+        dataSource.setPassword(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, pwdKey));
         return new DataSourceProxy(dataSource);
     }
 

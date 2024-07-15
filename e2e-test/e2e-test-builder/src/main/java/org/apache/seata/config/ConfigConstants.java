@@ -27,4 +27,6 @@ public class ConfigConstants {
     public static final String COMPOSE_FILE = "docker-compose.yaml";
     public static final String SKY_WALKING_E2E_FILE = "e2e.yaml";
     public static final String IMAGE_VERSION = "0.0.1";
+    public static final String DOCKER_SERVICE_JAR_TYPE = "Jar";
+    public static final String DOCKER_SERVICE_APPLICATION_TYPE = "Application";
 }

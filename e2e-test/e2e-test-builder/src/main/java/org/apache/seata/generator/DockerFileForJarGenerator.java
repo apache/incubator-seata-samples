@@ -28,6 +28,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,21 +64,49 @@ public class DockerFileForJarGenerator {
         String tmpDir = ConfigConstants.IMAGE_DIR;
         File composeDir = new File(tmpDir);
         List<Module> modules = new ArrayList<>();
-        modules.addAll(e2EConfig.getModules().getConsumers());
-        modules.addAll(e2EConfig.getModules().getProviders());
+        if (e2EConfig.getModules().getConsumers() != null && e2EConfig.getModules().getConsumers().size() > 0) {
+            modules.addAll(e2EConfig.getModules().getConsumers());
+        }
+        if (e2EConfig.getModules().getProviders() != null && e2EConfig.getModules().getProviders().size() > 0) {
+            modules.addAll(e2EConfig.getModules().getProviders());
+        }
         for (Module module : modules) {
-            String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
-                    + module.getName()).getAbsolutePath();
-            try {
-                Map<String, Object> props = new HashMap<>();
-                props.put("sourceJar", module.getName() + ".jar");
-//                props.put("port", module.getPort());
-                cfg.getTemplate("jar-dockerFile.ftl")
-                        .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
-            } catch (TemplateException | IOException e) {
-                LOGGER.error(String.format("generate docker file %s fail", e2EConfig.getScene_name()
-                        + "-" + module.getName()), e);
+            if (ConfigConstants.DOCKER_SERVICE_JAR_TYPE.equals(module.getModuleType())) {
+                generateJarDcokerFiles(e2EConfig, composeDir, module);
+                continue;
             }
+            generateApplicationDcokerFiles(e2EConfig, composeDir, module);
+        }
+    }
+
+    private void generateApplicationDcokerFiles(E2EConfig e2EConfig, File composeDir, Module module) {
+        String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
+                + module.getName()).getAbsolutePath();
+        try {
+            Map<String, Object> props = new HashMap<>();
+            props.put("sourceJar", module.getName() + ".jar");
+            cfg.getTemplate("application-dockerFile.ftl")
+                    .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
+        } catch (TemplateException | IOException e) {
+            LOGGER.error(String.format("generate docker file %s fail", e2EConfig.getScene_name()
+                    + "-" + module.getName()), e);
+        }
+    }
+
+    private void generateJarDcokerFiles(E2EConfig e2EConfig, File composeDir, Module module) {
+        String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
+                + module.getName()).getAbsolutePath();
+        try {
+            Map<String, Object> props = new HashMap<>();
+            props.put("sourceJar", module.getName() + ".jar");
+            cfg.getTemplate("jar-dockerFile.ftl")
+                    .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
+            URL entryPoint = this.getClass().getClassLoader().getResource("sh/entrypoint.sh");
+            Path destPath = Paths.get(moduleComposeDir, "entrypoint.sh");
+            Files.copy(Paths.get(entryPoint.toURI()), destPath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (TemplateException | IOException | URISyntaxException e) {
+            LOGGER.error(String.format("generate docker file %s fail", e2EConfig.getScene_name()
+                    + "-" + module.getName()), e);
         }
     }
 }

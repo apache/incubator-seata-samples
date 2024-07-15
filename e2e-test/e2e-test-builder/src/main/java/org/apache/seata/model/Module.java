@@ -25,7 +25,16 @@ public class Module {
     private String invoke;
     private String port;
     private String expect;
+    private String moduleType;
     private DockerService docker_service;
+
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+    }
 
     public String getExpect() {
         return expect;

@@ -67,6 +67,7 @@ public class ImageBuilder {
         LOGGER.info("Building Docker image for maven parent module: " + parentModuleDir.getPath());
         File[] files = parentModuleDir.listFiles();
         if (files != null) {
+            if (isMaven)
             for (File file : files) {
                 if (file.isDirectory()) {
                     if (copyJarInMavenChildModule(file, e2EConfig) == null) {
@@ -84,8 +85,12 @@ public class ImageBuilder {
         String tmpDir = ConfigConstants.IMAGE_DIR;
         File composeDir = new File(tmpDir);
         List<Module> modules = new ArrayList<>();
-        modules.addAll(e2EConfig.getModules().getConsumers());
-        modules.addAll(e2EConfig.getModules().getProviders());
+        if (e2EConfig.getModules().getConsumers() != null && e2EConfig.getModules().getConsumers().size() > 0) {
+            modules.addAll(e2EConfig.getModules().getConsumers());
+        }
+        if (e2EConfig.getModules().getProviders() != null && e2EConfig.getModules().getProviders().size() > 0) {
+            modules.addAll(e2EConfig.getModules().getProviders());
+        }
         for (Module module : modules) {
             String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
                     + module.getName()).getAbsolutePath();
@@ -125,4 +130,6 @@ public class ImageBuilder {
         }
         return null;
     }
+
+
 }
