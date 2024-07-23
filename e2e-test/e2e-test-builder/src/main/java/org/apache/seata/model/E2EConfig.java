@@ -25,6 +25,15 @@ public class E2EConfig {
     private Retry retry;
     private Modules modules;
     private Case[] cases;
+    private Replace[] replace;
+
+    public Replace[] getReplace() {
+        return replace;
+    }
+
+    public void setReplace(Replace[] replace) {
+        this.replace = replace;
+    }
 
     public Case[] getCases() {
         return cases;

@@ -27,6 +27,8 @@ import java.sql.Statement;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import static org.apache.seata.api.BusinessService.isInE2ETest;
+
 /**
  * The type Data source util.
  *
@@ -56,10 +58,17 @@ public class DataSourceUtil {
         String userNameKey = "jdbc." + name + ".username";
         String pwdKey = "jdbc." + name + ".password";
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, driverKey));
-        dataSource.setUrl(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, urlKey));
-        dataSource.setUsername(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, userNameKey));
-        dataSource.setPassword(PropertiesUtil.getPropertieValueFilterByEnv(JDBC_PRO_PATH, pwdKey));
+        if (isInE2ETest()) {
+            dataSource.setDriverClassName(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, "e2e." + driverKey));
+            dataSource.setUrl(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, "e2e." + urlKey));
+            dataSource.setUsername(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, "e2e." + userNameKey));
+            dataSource.setPassword(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, "e2e." + pwdKey));
+        } else {
+            dataSource.setDriverClassName(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, driverKey));
+            dataSource.setUrl(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, urlKey));
+            dataSource.setUsername(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, userNameKey));
+            dataSource.setPassword(PropertiesUtil.getPropertieValue(JDBC_PRO_PATH, pwdKey));
+        }
         return new DataSourceProxy(dataSource);
     }
 

@@ -17,19 +17,8 @@ e2e:
           depends_on:
             mysql:
               condition: service_healthy
-            seata-server:
-              condition: service_healthy
           environment:
             E2E_ENV: true
-            jdbc.account.url: jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&serverTimezone=UTC
-            jdbc.account.username: user
-            jdbc.account.password: 123456
-            jdbc.stock.url: jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&serverTimezone=UTC
-            jdbc.stock.username: user
-            jdbc.stock.password: 123456
-            jdbc.order.url: jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&serverTimezone=UTC
-            jdbc.order.username: user
-            jdbc.order.password: 123456
     # infrastructure services
     infrastructures:
       - name: mysql
@@ -56,6 +45,11 @@ e2e:
           environment:
             SEATA_PORT: 8091
             STORE_MODE: file
+  replace:
+    - source: e2e-replace/jdbc.properties
+      dest:  src/main/resources/jdbc.properties
+    - source: e2e-replace/file.conf
+      dest:  src/main/resources/file.conf
 
   # cases to verify
   cases:

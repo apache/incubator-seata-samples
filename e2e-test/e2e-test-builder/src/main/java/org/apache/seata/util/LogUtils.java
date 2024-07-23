@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 /**
  * @author jingliu_xiong@foxmail.com
  */
-public class Utils {
+public class LogUtils {
     public static void printProcessLog(Logger LOGGER, Process process) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 

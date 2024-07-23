@@ -40,15 +40,6 @@ public class PropertiesUtil {
     }
 
     /**
-     * Gets propertie value filter by env. If env is not null, the key will be replaced by env.
-     *
-     * @return the propertie value filter by env
-     */
-    public static String getPropertieValueFilterByEnv(String path, String key) {
-        return System.getenv().getOrDefault("key", getPropertieValue(path, key, null));
-    }
-
-    /**
      * Gets propertie value.
      *
      * @param path         the path

@@ -33,6 +33,7 @@ import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -143,7 +144,11 @@ public class BusinessService {
     }
 
     public static boolean isInE2ETest() {
-        String env = System.getenv("E2E_ENV");
-        return env != null && env.equals("true");
+        Map<String, String> envs = System.getenv();
+        String env = envs.getOrDefault("E2E_ENV", "");
+        if ("".equals(env)) {
+            throw new RuntimeException("E2E_ENV is not set");
+        }
+        return "true".equals(env);
     }
 }
