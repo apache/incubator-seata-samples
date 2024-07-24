@@ -149,6 +149,6 @@ public class BusinessService {
         if ("".equals(env)) {
             throw new RuntimeException("E2E_ENV is not set");
         }
-        return "true".equals(env);
+        return "open".equals(env);
     }
 }

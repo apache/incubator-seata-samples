@@ -18,7 +18,7 @@ e2e:
             mysql:
               condition: service_healthy
           environment:
-            E2E_ENV: true
+            E2E_ENV: open
     # infrastructure services
     infrastructures:
       - name: mysql
