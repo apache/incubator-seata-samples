@@ -66,7 +66,9 @@ public class ImageBuilder {
                 }
             }
         }
-        Files.delete(dir);
+        if (dir.toFile().exists()) {
+            Files.delete(dir);
+        }
     }
 
     private void replaceFilesInModule(File moduleDir, E2EConfig e2EConfig) throws IOException {
