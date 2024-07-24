@@ -146,9 +146,6 @@ public class BusinessService {
     public static boolean isInE2ETest() {
         Map<String, String> envs = System.getenv();
         String env = envs.getOrDefault("E2E_ENV", "");
-        if ("".equals(env)) {
-            throw new RuntimeException("E2E_ENV is not set");
-        }
         return "open".equals(env);
     }
 }

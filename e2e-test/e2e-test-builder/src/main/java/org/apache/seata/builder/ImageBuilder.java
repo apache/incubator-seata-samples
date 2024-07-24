@@ -46,11 +46,11 @@ public class ImageBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImageBuilder.class);
 
     public void buildImage(E2EConfig e2EConfig, File moduleDir) throws IOException, InterruptedException {
+        replaceFilesInModule(moduleDir, e2EConfig);
         int exitCode = packageMavenParentModule(moduleDir);
+        revertFilesInModule(moduleDir, e2EConfig);
         if (exitCode == 0) {
-            replaceFilesInModule(moduleDir, e2EConfig);
             buildDockerImage(moduleDir, e2EConfig);
-            revertFilesInModule(moduleDir, e2EConfig);
         }
     }
 

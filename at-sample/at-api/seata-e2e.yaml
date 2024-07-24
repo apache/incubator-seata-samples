@@ -53,6 +53,6 @@ e2e:
 
   # cases to verify
   cases:
-    - name: normal test (commit or rollback)
+    - name: normal test rollback
       invoke: 'docker exec test cat result.yaml'
       verify: './e2e-files/rollback.yaml'
