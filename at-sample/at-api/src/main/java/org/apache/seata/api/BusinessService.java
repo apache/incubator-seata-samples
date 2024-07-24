@@ -129,7 +129,7 @@ public class BusinessService {
         if (isInE2ETest) {
             writeE2EResFile(outPutRes);
         }
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(100);
 
     }
 
