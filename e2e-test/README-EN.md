@@ -24,8 +24,9 @@ sh test-run.sh
 The test case config file is named `seata-e2e.yaml` and should be placed under the basedir of each project that needs testing.
 Under the basedir, create an `e2e-files` directory. Place the files that need to be mounted in the container during testing,
 as well as the expected verification results and other files used during the test, into this directory.
-This folder will be placed under the directory of the test case along with the construction of the test case.
-For specific usage examples, refer to `at-sample/springboot-dubbo-seata`.
+This folder will be placed under the directory of the test case along with the construction of the test case. 
+Supports the replacement of the original project file when building the image.
+For specific usage examples, refer to `at-sample/springboot-dubbo-seata` and `at-sample/at-api`.
 ### Test framework principles
 The Seata E2E framework identifies projects in the `samples` directory that require testing, builds Docker images, Docker-compose files,
 and files required for testing. It uses the E2E testing framework [apache/skywalking-infra-e2e](https://github.com/apache/skywalking-infra-e2e)
