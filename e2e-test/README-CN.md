@@ -12,7 +12,7 @@ sh prepare_skywalkingE2E.sh
 ```
 cd seata-samples
 cd e2e-test/scripts
-sh prepare_skywalkingE2E.sh
+sh prepare_test.sh
 ```
 ### 运行测试案例
 使用以下命令运行案例，该命令会在`seata-samples/tmp`下根据所有测试文件依次进行案例测试

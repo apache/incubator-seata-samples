@@ -11,7 +11,7 @@ Use the following command to build the image and test files. After building, the
 ```
 cd seata-samples
 cd e2e-test/scripts
-sh prepare_skywalkingE2E.sh
+sh prepare_test.sh
 ```
 ### Run test cases
 Use the following command to run the scenes. This command will sequentially execute scene tests based on all test files under `seata-samples/tmp`.
