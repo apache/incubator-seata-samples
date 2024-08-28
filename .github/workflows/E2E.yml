@@ -24,6 +24,12 @@ jobs:
       fail-fast: false
       max-parallel: 2
     steps:
+      - name: Check Docker Compose version v2
+        run: docker compose --version
+
+      - name: Check Docker Compose version v1
+        run: docker-compose --version
+
       - name: Check out code into
         uses: actions/checkout@v3
 
