@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-20.04 ]
+        os: [ ubuntu-24.04 ]
         java: [ 8, 11 ]
       fail-fast: false
       max-parallel: 2
