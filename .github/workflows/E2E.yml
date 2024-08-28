@@ -24,10 +24,16 @@ jobs:
       fail-fast: false
       max-parallel: 2
     steps:
-      - name: Check Docker Compose version v2
-        run: docker compose --version
+      - name: Uninstall Docker Compose v2
+        run: sudo rm -f /usr/local/bin/docker-compose
 
-      - name: Check Docker Compose version v1
+      - name: Install Docker Compose v1
+        run: |
+          DOCKER_COMPOSE_VERSION=1.29.2
+          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+
+      - name: Verify Docker Compose v1 installation
         run: docker-compose --version
 
       - name: Check out code into
