@@ -52,7 +52,7 @@ public class E2EBuilder {
                     if (configFile.exists()) {
                         E2EConfig e2EConfig = ConfigReader.readConfig(configFile);
                         ImageBuilder imageBuilder = new ImageBuilder();
-                        imageBuilder.BuildImage(e2EConfig, file);
+                        imageBuilder.buildImage(e2EConfig, file);
                         SceneBuilder sceneBuilder = new SceneBuilder();
                         sceneBuilder.buildScene(e2EConfig, file);
                     }

@@ -49,13 +49,17 @@ public class SceneBuilder {
     }
 
     private void initE2EConfigForSceneBuild(E2EConfig e2EConfig) {
-        for (Module provider : e2EConfig.getModules().getProviders()) {
-            provider.getDocker_service().setImage(
-                    provider.getName() + ":" + ConfigConstants.IMAGE_VERSION);
+        if (e2EConfig.getModules().getProviders() != null) {
+            for (Module provider : e2EConfig.getModules().getProviders()) {
+                provider.getDocker_service().setImage(
+                        provider.getName() + ":" + ConfigConstants.IMAGE_VERSION);
+            }
         }
-        for (Module consumer : e2EConfig.getModules().getConsumers()) {
-            consumer.getDocker_service().setImage(
-                    consumer.getName() + ":" + ConfigConstants.IMAGE_VERSION);
+        if (e2EConfig.getModules().getConsumers() != null) {
+            for (Module consumer : e2EConfig.getModules().getConsumers()) {
+                consumer.getDocker_service().setImage(
+                        consumer.getName() + ":" + ConfigConstants.IMAGE_VERSION);
+            }
         }
    }
 

@@ -16,7 +16,7 @@
  */
 package org.apache.seata.controller;
 
-import org.apache.seata.util.Utils;
+import org.apache.seata.util.LogUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public class SkyWalkingController {
                     builder.directory(file);
                     builder.command("e2e", "run");
                     Process process = builder.start();
-                    Utils.printProcessLog(LOGGER, process);
+                    LogUtils.printProcessLog(LOGGER, process);
                     int exitCode = process.waitFor();
                     if (exitCode != 0) {
                         LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",

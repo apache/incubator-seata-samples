@@ -12,7 +12,7 @@ sh prepare_skywalkingE2E.sh
 ```
 cd seata-samples
 cd e2e-test/scripts
-sh prepare_skywalkingE2E.sh
+sh prepare_test.sh
 ```
 ### 运行测试案例
 使用以下命令运行案例，该命令会在`seata-samples/tmp`下根据所有测试文件依次进行案例测试
@@ -23,8 +23,7 @@ sh test-run.sh
 ```
 ### 添加测试用例
 测试用例配置文件名为：`seata-e2e.yaml`，放在每个需要测试的工程basedir下。
-在basedir下创建`e2e-files`目录，将需在容器中挂载的文件，E2E测试的期待验证结果等测试期间使用的文件放入其中。该文件夹会随着构建测试案例时一起被放在该测试案例的相对目录下，方便使用。
-具体使用案例可见`at-sample/springboot-dubbo-seata`
+在basedir下创建`e2e-files`目录，将需在容器中挂载的文件，E2E测试的期待验证结果等测试期间使用的文件放入其中。支持构建镜像时进行原项目文件的替换。可配置具体使用案例可见`at-sample/springboot-dubbo-seata`和`at-sample/at-api`
 ### 测试框架原理
 seata e2e框架会将samples工程中需要测试的项目进行识别，构建docker镜像，docker-compose文件及测试所依赖的文件。并使用E2E测试框架[ apache/skywalking-infra-e2e](https://github.com/apache/skywalking-infra-e2e)根据所生成测试文件进行测试。目前已部署github action对所有测试用例进行自动测试。
 

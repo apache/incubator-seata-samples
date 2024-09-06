@@ -37,7 +37,6 @@ public class PropertiesUtil {
      */
     public static String getPropertieValue(String path, String key) {
         return getPropertieValue(path, key, null);
-
     }
 
     /**

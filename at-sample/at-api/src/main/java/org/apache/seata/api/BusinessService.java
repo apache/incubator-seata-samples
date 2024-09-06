@@ -28,8 +28,12 @@ import org.apache.seata.api.service.impl.OrderServiceImpl;
 import org.apache.seata.api.service.impl.StorageServiceImpl;
 import org.springframework.util.ReflectionUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,6 +56,8 @@ public class BusinessService {
         // init tm client and rm client, only once
         String applicationId = "api";
         String txServiceGroup = "my_test_tx_group";
+        String outPutRes = "";
+        boolean isInE2ETest = isInE2ETest();
         TMClient.init(applicationId, txServiceGroup);
         RMClient.init(applicationId, txServiceGroup);
 
@@ -106,16 +112,40 @@ public class BusinessService {
             //if data negative rollback else commit
             if (needCommit) {
                 tx.commit();
+                outPutRes = "{\"res\": \"commit\"}";
             } else {
                 System.out.println("rollback trx, cause: data negative, xid is " + tx.getXid());
                 tx.rollback();
+                outPutRes = "{\"res\": \"rollback\"}";
             }
         } catch (Exception exx) {
             System.out.println("rollback trx, cause: " + exx.getMessage() + " , xid is " + tx.getXid());
             tx.rollback();
+            if (isInE2ETest) {
+                writeE2EResFile(exx.getMessage());
+            }
             throw exx;
         }
-        TimeUnit.SECONDS.sleep(10);
+        if (isInE2ETest) {
+            writeE2EResFile(outPutRes);
+        }
+        TimeUnit.SECONDS.sleep(100);
 
+    }
+
+    private static void writeE2EResFile(String outPutRes) throws InterruptedException {
+        try {
+            Files.write(Paths.get("result.yaml"), outPutRes.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(outPutRes);
+        TimeUnit.MINUTES.sleep(2);
+    }
+
+    public static boolean isInE2ETest() {
+        Map<String, String> envs = System.getenv();
+        String env = envs.getOrDefault("E2E_ENV", "");
+        return "open".equals(env);
     }
 }
