@@ -4,11 +4,11 @@
     <parent>
         <groupId>org.apache.seata</groupId>
         <artifactId>e2e-test</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
     </parent>
     <groupId>org.apache.seata</groupId>
     <artifactId>e2e-test-builder</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <name>e2e-test-builder</name>
 
     <dependencies>
