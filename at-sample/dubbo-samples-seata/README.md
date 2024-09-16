@@ -89,7 +89,7 @@ password: 123456
 ```
 
 ### 步骤 3：启动Seata-Server
-- 本文使用的是Seata-Server V2.0.0版本。
+- 本文使用的是Seata-Server V2.1.0版本。
 
 请将下载的Seata-Server二进制包解压，并进入bin目录，然后执行以下命令即可启动Seata-Server。
 
