@@ -16,8 +16,8 @@
  */
 package org.apache.seata.service.impl;
 
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
+import org.apache.seata.core.context.RootContext;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.apache.seata.controller.TestData;
 import org.apache.seata.feign.OrderFeignClient;
 import org.apache.seata.feign.StockFeignClient;

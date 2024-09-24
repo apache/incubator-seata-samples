@@ -16,7 +16,7 @@
  */
 package org.apache.seata.business;
 
-import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
+import org.apache.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.seata.business.service.BusinessService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

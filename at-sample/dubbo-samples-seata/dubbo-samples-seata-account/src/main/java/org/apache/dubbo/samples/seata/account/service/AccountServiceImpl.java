@@ -17,7 +17,7 @@
 
 package org.apache.dubbo.samples.seata.account.service;
 
-import io.seata.core.context.RootContext;
+import org.apache.seata.core.context.RootContext;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.samples.seata.api.AccountService;
 import org.slf4j.Logger;

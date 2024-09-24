@@ -16,7 +16,7 @@
  */
 package org.apache.seata.service.impl;
 
-import io.seata.core.context.RootContext;
+import org.apache.seata.core.context.RootContext;
 import org.apache.seata.dao.OrderMapper;
 import org.apache.seata.model.Order;
 import org.apache.seata.service.AccountService;

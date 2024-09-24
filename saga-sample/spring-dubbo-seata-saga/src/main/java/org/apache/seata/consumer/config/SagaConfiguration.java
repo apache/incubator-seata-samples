@@ -1,10 +1,10 @@
 package org.apache.seata.consumer.config;
 
-import io.seata.saga.engine.StateMachineConfig;
-import io.seata.saga.engine.StateMachineEngine;
-import io.seata.saga.engine.config.DbStateMachineConfig;
-import io.seata.saga.engine.impl.ProcessCtrlStateMachineEngine;
-import io.seata.saga.rm.StateMachineEngineHolder;
+import org.apache.seata.saga.engine.StateMachineConfig;
+import org.apache.seata.saga.engine.StateMachineEngine;
+import org.apache.seata.saga.engine.config.DbStateMachineConfig;
+import org.apache.seata.saga.engine.impl.ProcessCtrlStateMachineEngine;
+import org.apache.seata.saga.rm.StateMachineEngineHolder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

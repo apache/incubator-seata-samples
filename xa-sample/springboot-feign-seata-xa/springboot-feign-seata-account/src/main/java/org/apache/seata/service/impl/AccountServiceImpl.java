@@ -16,7 +16,7 @@
  */
 package org.apache.seata.service.impl;
 
-import io.seata.core.context.RootContext;
+import org.apache.seata.core.context.RootContext;
 import org.apache.seata.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

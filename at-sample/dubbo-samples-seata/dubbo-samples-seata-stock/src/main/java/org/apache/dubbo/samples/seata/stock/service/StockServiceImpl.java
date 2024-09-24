@@ -17,7 +17,7 @@
 
 package org.apache.dubbo.samples.seata.stock.service;
 
-import io.seata.core.context.RootContext;
+import org.apache.seata.core.context.RootContext;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.samples.seata.api.StockService;
 import org.slf4j.Logger;
