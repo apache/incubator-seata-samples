@@ -16,7 +16,7 @@
  */
 package org.apache.seata;
 
-import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
+import org.apache.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.apache.seata.service.BusinessService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;

@@ -15,7 +15,7 @@
  */
 package org.apache.seata.service.impl;
 
-import io.seata.core.context.RootContext;
+import org.apache.seata.core.context.RootContext;
 import org.apache.seata.dao.StorageMapper;
 import org.apache.seata.model.Storage;
 import org.apache.seata.service.StorageService;

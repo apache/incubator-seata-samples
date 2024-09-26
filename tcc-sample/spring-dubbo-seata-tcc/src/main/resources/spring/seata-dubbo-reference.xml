@@ -25,7 +25,7 @@
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
 
 
-    <bean class="io.seata.spring.annotation.GlobalTransactionScanner">
+    <bean class="org.apache.seata.spring.annotation.GlobalTransactionScanner">
         <constructor-arg value="tcc-sample-reference"/>
         <constructor-arg value="my_test_tx_group"/>
     </bean>

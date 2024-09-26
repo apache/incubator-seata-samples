@@ -16,7 +16,7 @@
  */
 package org.apache.seata.account.config;
 
-import io.seata.spring.annotation.GlobalTransactionScanner;
+import org.apache.seata.spring.annotation.GlobalTransactionScanner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -17,7 +17,7 @@
 package org.apache.seata.api.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import io.seata.rm.datasource.DataSourceProxy;
+import org.apache.seata.rm.datasource.DataSourceProxy;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

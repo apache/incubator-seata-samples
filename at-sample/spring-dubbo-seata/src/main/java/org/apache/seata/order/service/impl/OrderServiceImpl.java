@@ -16,7 +16,7 @@
  */
 package org.apache.seata.order.service.impl;
 
-import io.seata.core.context.RootContext;
+import org.apache.seata.core.context.RootContext;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.seata.account.service.AccountService;

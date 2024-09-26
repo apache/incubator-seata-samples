@@ -16,12 +16,12 @@
  */
 package org.apache.seata.api;
 
-import io.seata.core.exception.TransactionException;
-import io.seata.core.rpc.netty.RmNettyRemotingClient;
-import io.seata.rm.RMClient;
-import io.seata.tm.TMClient;
-import io.seata.tm.api.GlobalTransaction;
-import io.seata.tm.api.GlobalTransactionContext;
+import org.apache.seata.core.exception.TransactionException;
+import org.apache.seata.core.rpc.netty.RmNettyRemotingClient;
+import org.apache.seata.rm.RMClient;
+import org.apache.seata.tm.TMClient;
+import org.apache.seata.tm.api.GlobalTransaction;
+import org.apache.seata.tm.api.GlobalTransactionContext;
 import org.apache.seata.api.service.OrderService;
 import org.apache.seata.api.service.impl.AccountServiceImpl;
 import org.apache.seata.api.service.impl.OrderServiceImpl;

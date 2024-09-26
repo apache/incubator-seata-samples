@@ -16,9 +16,8 @@
  */
 package org.apache.seata;
 
-import io.seata.common.util.StringUtils;
-import io.seata.core.context.RootContext;
 import org.apache.curator.test.TestingServer;
+import org.apache.seata.common.util.StringUtils;
 import org.apache.seata.service.TccTransactionService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

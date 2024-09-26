@@ -17,8 +17,8 @@
 package org.apache.seata.service;
 
 import com.alipay.sofa.runtime.spring.factory.ReferenceFactoryBean;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
+import org.apache.seata.core.context.RootContext;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.apache.seata.action.ResultHolder;
 import org.apache.seata.action.TccActionOne;
 import org.apache.seata.action.TccActionTwo;
