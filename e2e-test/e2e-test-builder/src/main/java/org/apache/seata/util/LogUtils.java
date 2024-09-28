@@ -31,7 +31,7 @@ public class LogUtils {
     public static void printProcessLog(Logger LOGGER, Process process) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(() -> printStream(LOGGER, process.getInputStream(), false));
-        executor.submit(() -> printStream(LOGGER, process.getErrorStream(), true));
+//        executor.submit(() -> printStream(LOGGER, process.getErrorStream(), true));
         executor.shutdown();
     }
 
