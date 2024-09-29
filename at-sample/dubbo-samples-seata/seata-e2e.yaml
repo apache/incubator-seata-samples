@@ -1,0 +1,105 @@
+e2e:
+  scene_name: at-dubbo-samples-seata
+  # retry config
+  retry:
+    max: 5
+    interval: 10s
+    total_timeout: 20m
+  # services in docker-compose
+  modules:
+    # consume services
+    consumers:
+      # docker service name
+      - name: dubbo-samples-seata-business # this name should be the same as module name, it is indicated to be builded as an image
+        # service params in a service of docker-compose service
+        docker_service:
+          hostname: dubbo-samples-seata-business
+          restart: on-failure
+          container_name: test
+          depends_on:
+            dubbo-samples-seata-account:
+              condition: service_started
+            dubbo-samples-seata-stock:
+              condition: service_started
+            dubbo-samples-seata-order:
+              condition: service_started
+          environment:
+            seata.address: seata
+    # provider service
+    providers:
+      - name: dubbo-samples-seata-account
+        docker_service:
+          hostname: dubbo-samples-seata-account
+          restart: on-failure
+          depends_on:
+            mysql:
+              condition: service_healthy
+          environment:
+            mysql.address: mysqlAddress
+            mysql.user: user
+            seata.address: seata
+      - name: dubbo-samples-seata-order
+        docker_service:
+          hostname: dubbo-samples-seata-order
+          restart: on-failure
+          depends_on:
+            mysql:
+              condition: service_healthy
+          environment:
+            mysql.address: mysqlAddress
+            mysql.user: user
+            seata.address: seata
+      - name: dubbo-samples-seata-stock
+        docker_service:
+          hostname: dubbo-samples-seata-order
+          restart: on-failure
+          depends_on:
+            mysql:
+              condition: service_healthy
+          environment:
+            mysql.address: mysqlAddress
+            mysql.user: user
+            seata.address: seata
+    # infrastructure services
+    infrastructures:
+      - name: mysql
+        docker_service:
+          hostname: mysqlAddress
+          image: mysql:5.7
+#          ports:
+#            - "3307:3306"
+          volumes:
+            - ./e2e-files/sqlsh:/docker-entrypoint-initdb.d
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: seata
+            MYSQL_USER: user
+            MYSQL_PASSWORD: 123456
+          healthcheck:
+            test: '[ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]'
+            interval: 5s
+            timeout: 10s
+            retries: 10
+      - name: seata-server
+        docker_service:
+          hostname: seata
+          image: apache/seata-server:2.1.0
+#          ports:
+#            - "7091:7091"
+#            - "8091:8091"
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+
+  # cases to verify
+  cases:
+    - name: rollback test
+      # how to invoke the case
+      invoke: 'docker exec test curl http://127.0.0.1:9999/test/rollback'
+      # the result of the case to expect be
+      verify: './e2e-files/rollback.yaml'
+
+    - name: commit test
+      invoke: 'docker exec test curl http://127.0.0.1:9999/test/commit'
+      verify: './e2e-files/commit.yaml'

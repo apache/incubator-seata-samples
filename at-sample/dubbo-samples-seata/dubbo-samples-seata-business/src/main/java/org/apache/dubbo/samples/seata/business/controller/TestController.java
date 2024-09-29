@@ -17,6 +17,7 @@
 
 package org.apache.dubbo.samples.seata.business.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import org.apache.dubbo.samples.seata.api.BusinessService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,18 +34,27 @@ public class TestController {
     }
 
     @GetMapping("/commit")
-    public String commit(@RequestParam String userId,@RequestParam String commodityCode,@RequestParam int orderCount){
+    public Object commit(@RequestParam(required = false, defaultValue = "ACC_001") String userId,
+                         @RequestParam(required = false, defaultValue = "STOCK_001") String commodityCode,
+                         @RequestParam(required = false, defaultValue = "1") int orderCount) {
+        JSONObject jsonObject = new JSONObject();
         this.businessService.purchaseCommit(userId,commodityCode,orderCount);
-        return "commit";
+        jsonObject.put("res", "commit");
+        return jsonObject;
     }
 
     @GetMapping("/rollback")
-    public String rollback(@RequestParam String userId,@RequestParam String commodityCode,@RequestParam int orderCount){
+    public Object rollback(@RequestParam(required = false, defaultValue = "ACC_001") String userId,
+                           @RequestParam(required = false, defaultValue = "STOCK_001") String commodityCode,
+                           @RequestParam(required = false, defaultValue = "1") int orderCount) {
+        JSONObject jsonObject = new JSONObject();
         try {
             this.businessService.purchaseRollback(userId,commodityCode,orderCount);
-            return "commit";
+            jsonObject.put("res", "rollback");
+            return jsonObject;
         }catch (Exception e){
-            return "rollback";
+            jsonObject.put("res", "rollback");
+            return jsonObject;
         }
     }
 }

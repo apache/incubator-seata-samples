@@ -30,18 +30,13 @@ import java.util.concurrent.Executors;
 public class LogUtils {
     public static void printProcessLog(Logger LOGGER, Process process) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.submit(() -> printStream(LOGGER, process.getInputStream(), false));
-        executor.submit(() -> printStream(LOGGER, process.getErrorStream(), true));
+        executor.submit(() -> printStream(LOGGER, process.getInputStream()));
         executor.shutdown();
     }
 
-    private static void printStream(Logger LOGGER, InputStream inputStream, boolean isError) {
+    private static void printStream(Logger LOGGER, InputStream inputStream) {
         new BufferedReader(new InputStreamReader(inputStream)).lines().forEach(line -> {
-            if (isError) {
-                LOGGER.warn(line);
-            } else {
-                LOGGER.info(line);
-            }
+            LOGGER.info(line);
         });
     }
 }
