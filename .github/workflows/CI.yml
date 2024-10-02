@@ -34,5 +34,5 @@ jobs:
             done
           done
       - name: SonarCloud
-        run: ./mvnw sonar:sonar -Pcoverage
+        run: mvn sonar:sonar -Pcoverage
 
