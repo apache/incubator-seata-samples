@@ -33,3 +33,6 @@ jobs:
               fi
             done
           done
+      - name: SonarCloud
+        run: ./mvnw sonar:sonar -Pcoverage
+
