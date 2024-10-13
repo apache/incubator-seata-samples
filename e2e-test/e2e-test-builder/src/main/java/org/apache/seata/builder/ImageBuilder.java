@@ -38,6 +38,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.apache.seata.util.LogUtils.printProcessLog;
+
 /**
  * @author jingliu_xiong@foxmail.com
  */
@@ -92,7 +94,6 @@ public class ImageBuilder {
     private int packageMavenParentModule(File moduleDir) throws IOException, InterruptedException {
         LOGGER.info("Packaging Maven module: " + moduleDir.getPath());
         ProcessBuilder builder = new ProcessBuilder();
-        builder.inheritIO();
         builder.directory(moduleDir);
 //        builder.command("mvn.cmd", "clean", "package");
         if (System.getProperty("os.name").contains("Windows")) {
@@ -101,6 +102,7 @@ public class ImageBuilder {
             builder.command("mvn", "clean", "package");
         }
         Process process = builder.start();
+        printProcessLog(LOGGER, process);
         int exitCode = process.waitFor();
         LOGGER.info(String.format("Maven module %s packaging finished with exit code %d", moduleDir, exitCode));
         return exitCode;
@@ -146,10 +148,10 @@ public class ImageBuilder {
             String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
                     + module.getName()).getAbsolutePath();
             ProcessBuilder builder = new ProcessBuilder();
-            builder.inheritIO();
             builder.directory(new File(moduleComposeDir));
             builder.command("docker", "build", "-t", String.format("%s:%s", module.getName(), "0.0.1"), ".");
             Process process = builder.start();
+            printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 LOGGER.warn(String.format("Docker image for module %s build failed with exit code %d", module.getName(), exitCode));
