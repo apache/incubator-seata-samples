@@ -12,6 +12,7 @@ e2e:
       - name: spring-seata
         docker_service:
           hostname: spring-seata
+          restart: on-failure
           container_name: test
           depends_on:
             mysql:
