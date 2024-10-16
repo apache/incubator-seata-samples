@@ -60,7 +60,6 @@ public class BusinessServiceTester {
             }
         });
         thread.start();
-        thread.join();
 
         //keep run
         Thread.currentThread().join();

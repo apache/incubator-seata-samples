@@ -1,5 +1,5 @@
 e2e:
-  scene_name: spring-seata
+  scene_name: at-spring-seata
   # retry config
   retry:
     max: 5
