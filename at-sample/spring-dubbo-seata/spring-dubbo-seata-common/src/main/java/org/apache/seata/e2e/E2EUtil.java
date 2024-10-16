@@ -16,7 +16,6 @@ public class E2EUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(outPutRes);
         try {
             TimeUnit.MINUTES.sleep(2);
         } catch (InterruptedException e) {
@@ -28,13 +27,5 @@ public class E2EUtil {
         Map<String, String> envs = System.getenv();
         String env = envs.getOrDefault("E2E_ENV", "");
         return "open".equals(env);
-    }
-
-    public static void waitForStart(int seconds) {
-        try {
-            TimeUnit.SECONDS.sleep(seconds);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

@@ -16,8 +16,9 @@
  */
 package org.apache.seata;
 
-import org.apache.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
+import org.apache.seata.e2e.E2EUtil;
 import org.apache.seata.service.BusinessService;
+import org.apache.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -46,7 +47,18 @@ public class BusinessServiceTester {
 
         BusinessService businessService = annotationConfigApplicationContext.getBean(BusinessService.class);
 
-        Thread thread = new Thread(() -> businessService.purchase("U100001", "C00321", 2));
+        Thread thread = new Thread(() -> {
+            try {
+                businessService.purchase("U100001", "C00321", 2);
+                if (E2EUtil.isInE2ETest()) {
+                    E2EUtil.writeE2EResFile("success");
+                }
+            } catch (Exception e) {
+                if (E2EUtil.isInE2ETest() && "random exception mock!".equals(e.getMessage())) {
+                    E2EUtil.writeE2EResFile("success");
+                }
+            }
+        });
         thread.start();
         thread.join();
 

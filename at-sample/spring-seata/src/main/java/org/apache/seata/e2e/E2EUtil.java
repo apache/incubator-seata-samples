@@ -16,7 +16,6 @@ public class E2EUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(outPutRes);
         try {
             TimeUnit.MINUTES.sleep(2);
         } catch (InterruptedException e) {
