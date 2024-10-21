@@ -34,5 +34,6 @@ jobs:
             done
           done
       - name: SonarCloud
-        run: mvn sonar:sonar -Pcoverage
+        run: mvn sonar:sonar -Pcoverage -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=apache -Dsonar.projectKey=apache_incubator-seata-samples
+
 
