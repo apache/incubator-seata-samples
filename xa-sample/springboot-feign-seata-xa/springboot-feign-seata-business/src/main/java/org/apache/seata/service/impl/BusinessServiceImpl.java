@@ -54,6 +54,23 @@ public class BusinessServiceImpl implements BusinessService {
         }
     }
 
+    @Override
+    @GlobalTransactional(timeoutMills = 300000, name = "springboot-feign-seata-xa-commit")
+    public void purchaseCommit(String userId, String commodityCode, int orderCount) {
+        LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
+        stockFeignClient.deduct(commodityCode, orderCount);
+        orderFeignClient.create(userId, commodityCode, orderCount);
+    }
+
+    @Override
+    @GlobalTransactional(timeoutMills = 300000, name = "springboot-feign-seata-xa-rollback")
+    public void purchaseRollback(String userId, String commodityCode, int orderCount) {
+        LOGGER.info("purchase begin ... xid: " + RootContext.getXID());
+        stockFeignClient.deduct(commodityCode, orderCount);
+        orderFeignClient.create(userId, commodityCode, orderCount);
+        throw new RuntimeException("force rollback!");
+    }
+
     @PostConstruct
     public void initData() {
         jdbcTemplate.update("delete from account_tbl");
