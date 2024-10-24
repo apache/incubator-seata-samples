@@ -30,4 +30,22 @@ public interface BusinessService {
      * @param forceRollback forceRollback
      */
     void purchase(String userId, String commodityCode, int orderCount, boolean forceRollback);
+
+    /**
+     * 用户订购商品 提交
+     *
+     * @param userId        用户ID
+     * @param commodityCode 商品编号
+     * @param orderCount    订购数量
+     */
+    void purchaseCommit(String userId, String commodityCode, int orderCount);
+
+    /**
+     * 用户订购商品 提交
+     *
+     * @param userId        用户ID
+     * @param commodityCode 商品编号
+     * @param orderCount    订购数量
+     */
+    void purchaseRollback(String userId, String commodityCode, int orderCount);
 }
