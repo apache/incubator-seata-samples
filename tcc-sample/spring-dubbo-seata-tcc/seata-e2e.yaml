@@ -1,5 +1,5 @@
 e2e:
-  scene_name: tcc-springboot-dubbo-seata-tcc
+  scene_name: tcc-spring-dubbo-seata-tcc
   # retry config
   retry:
     max: 5
