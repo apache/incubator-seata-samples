@@ -26,6 +26,9 @@ import org.springframework.util.Assert;
 
 import java.io.IOException;
 
+import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
+import static org.apache.seata.e2e.E2EUtil.writeE2EResFile;
+
 @SpringBootApplication
 public class SofaRPCTccTransactionApplication {
 
@@ -34,6 +37,11 @@ public class SofaRPCTccTransactionApplication {
     private static TccTransactionService tccTransactionService = null;
 
     public static void main(String[] args) throws Exception {
+        if (isInE2ETest()) {
+            // wait seata-server
+            Thread.sleep(10000);
+        }
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (server != null) {
                 try {
@@ -73,6 +81,10 @@ public class SofaRPCTccTransactionApplication {
         Thread.sleep(3000);
         tccTransactionService.checkBranchTransaction(txId,true);
 
+        if (isInE2ETest()) {
+            String res =  "{\"res\": \"commit\"}";
+            writeE2EResFile(res, "commit.yaml");
+        }
         System.out.println("transaction commit demo finish.");
     }
 
@@ -87,6 +99,10 @@ public class SofaRPCTccTransactionApplication {
         //wait rollback
         Thread.sleep(3000);
 
+        if (isInE2ETest()) {
+            String res =  "{\"res\": \"rollback\"}";
+            writeE2EResFile(res, "rollback.yaml");
+        }
         System.out.println("transaction rollback demo finish.");
     }
 }
