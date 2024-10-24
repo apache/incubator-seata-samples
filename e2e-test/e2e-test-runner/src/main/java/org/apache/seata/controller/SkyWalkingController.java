@@ -44,9 +44,11 @@ public class SkyWalkingController {
             if (file.isDirectory()) {
                 LOGGER.info("Running Seate e2e test by SkyWalking-E2E: " + file.getName());
                 if (0 != runTest(file)) {
-                    int secondTestCode = runTest(file);
-                    if (secondTestCode != 0) {
-                        System.exit(secondTestCode);
+                    for (int i = 0; i < 5; i++) {
+                        int onceTestCode = runTest(file);
+                        if (onceTestCode != 0) {
+                            System.exit(onceTestCode);
+                        }
                     }
                 }
             }
