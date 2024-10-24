@@ -43,23 +43,34 @@ public class SkyWalkingController {
         for (File file : e2eDir.listFiles()) {
             if (file.isDirectory()) {
                 LOGGER.info("Running Seate e2e test by SkyWalking-E2E: " + file.getName());
-                try {
-                    ProcessBuilder builder = new ProcessBuilder();
-                    builder.directory(file);
-                    builder.command("e2e", "run");
-                    Process process = builder.start();
-                    printProcessLog(LOGGER, process);
-                    int exitCode = process.waitFor();
-                    if (exitCode != 0) {
-                        LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
-                                file.getName(), exitCode));
-                        System.exit(exitCode);
+                if (0 != runTest(file)) {
+                    int secondTestCode = runTest(file);
+                    if (secondTestCode != 0) {
+                        System.exit(secondTestCode);
                     }
-                } catch (Exception e) {
-                    LOGGER.error("Running Seate e2e test by SkyWalking-E2E fail in: " + file.getAbsolutePath());
-                    e.printStackTrace();
                 }
             }
         }
+    }
+
+    private static int runTest(File file) {
+        try {
+            ProcessBuilder builder = new ProcessBuilder();
+            builder.directory(file);
+            builder.command("e2e", "run");
+            Process process = builder.start();
+            printProcessLog(LOGGER, process);
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
+                        file.getName(), exitCode));
+                return exitCode;
+            }
+        } catch (Exception e) {
+            LOGGER.error("Running Seate e2e test by SkyWalking-E2E fail in: " + file.getAbsolutePath());
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
