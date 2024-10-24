@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata;
+package org.apache.seata.consumer;
 
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.seata.saga.engine.AsyncCallback;
 import org.apache.seata.saga.engine.StateMachineEngine;
 import org.apache.seata.saga.proctrl.ProcessContext;
@@ -23,8 +24,8 @@ import org.apache.seata.saga.statelang.domain.ExecutionStatus;
 import org.apache.seata.saga.statelang.domain.StateMachineInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
@@ -34,17 +35,19 @@ import java.util.Map;
 import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
 import static org.apache.seata.e2e.E2EUtil.writeE2EResFile;
 
+@EnableDubbo(scanBasePackages = {"org.apache.seata.consumer"})
+@ComponentScan(basePackages = {"org.apache.seata.consumer"})
 public class SagaTransactionStarter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws InterruptedException {
         if (isInE2ETest()) {
             // wait seata-server
             Thread.sleep(5000);
         }
-        AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"spring/seata-saga.xml"});
-        applicationContext.start();
+
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
 
         StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
 
@@ -83,7 +86,6 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
                 "saga transaction execute failed. XID: " + inst.getId());
-
         if (isInE2ETest()) {
             String res =  "{\"res\": \"commit\"}";
             writeE2EResFile(res, "commit.yaml");
@@ -99,9 +101,13 @@ public class SagaTransactionStarter {
         startParams.put("amount", new BigDecimal("100"));
         startParams.put("mockReduceBalanceFail", "true");
 
+        //sync test
+        StateMachineInstance inst = stateMachineEngine.startWithBusinessKey("reduceInventoryAndBalance", null,
+                businessKey, startParams);
+
         //async test
         businessKey = String.valueOf(System.currentTimeMillis());
-        StateMachineInstance inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
+        inst = stateMachineEngine.startWithBusinessKeyAsync("reduceInventoryAndBalance", null, businessKey, startParams,
                 CALL_BACK);
 
         waitingForFinish(inst);
