@@ -23,7 +23,7 @@ e2e:
               condition: service_started
           environment:
             seata.address: seata
-            zookeeper.address: spring-seata-dubbo-saga-provider
+            zookeeper.address: zookeeper
             E2E_ENV: open
     # provider service
     providers:
@@ -38,7 +38,7 @@ e2e:
               condition: service_healthy
           environment:
             seata.address: seata
-            zookeeper.address: spring-seata-dubbo-saga-provider
+            zookeeper.address: zookeeper
             E2E_ENV: open
     # infrastructure services
     infrastructures:
