@@ -44,7 +44,7 @@ public class SagaTransactionStarter {
     public static void main(String[] args) throws InterruptedException {
         if (isInE2ETest()) {
             // wait seata-server
-            Thread.sleep(5000);
+            Thread.sleep(20000);
         }
 
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
