@@ -48,7 +48,7 @@ public class TccProviderStarter {
 
         if (isInE2ETest()) {
             // wait seata-server
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         }
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
         context.setValidating(false);  // 关闭 XML 验证
