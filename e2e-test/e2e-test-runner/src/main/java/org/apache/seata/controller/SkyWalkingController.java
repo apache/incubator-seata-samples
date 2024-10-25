@@ -32,7 +32,7 @@ import static org.apache.seata.util.LogUtils.printProcessLog;
  * @author jingliu_xiong@foxmail.com
  */
 public class SkyWalkingController {
-    public static final int RETRY_MAX_TIMES = 5;
+    public static final int RETRY_MAX_TIMES = 3;
     private static final Logger LOGGER = LoggerFactory.getLogger(SkyWalkingController.class);
     private String e2eDir;
 
