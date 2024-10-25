@@ -1,36 +1,37 @@
 e2e:
-  scene_name: at-springboot-dubbo-seata
+  scene_name: at-spring-dubbo-seata
   # retry config
   retry:
     max: 5
-    interval: 20s
+    interval: 10s
     total_timeout: 20m
   # services in docker-compose
   modules:
     # consume services
     consumers:
       # docker service name
-      - name: springboot-dubbo-seata-business # this name should be the same as module name, it is indicated to be builded as an image
+      - name: spring-dubbo-seata-business # this name should be the same as module name, it is indicated to be builded as an image
         # service params in a service of docker-compose service
         docker_service:
-          hostname: springboot-dubbo-seata-business
+          hostname: spring-dubbo-seata-business
           restart: on-failure
           container_name: test
           depends_on:
-            springboot-dubbo-seata-account:
+            spring-dubbo-seata-account:
               condition: service_started
-            springboot-dubbo-seata-storage:
+            spring-dubbo-seata-storage:
               condition: service_started
-            springboot-dubbo-seata-order:
+            spring-dubbo-seata-order:
               condition: service_started
           environment:
             zookeeper.address: zookeeper
             seata.address: seata
+            E2E_ENV: open
     # provider service
     providers:
-      - name: springboot-dubbo-seata-account
+      - name: spring-dubbo-seata-account
         docker_service:
-          hostname: springboot-dubbo-seata-account
+          hostname: spring-dubbo-seata-account
           restart: on-failure
           depends_on:
             zookeeper:
@@ -42,9 +43,10 @@ e2e:
             mysql.address: mysqlAddress
             mysql.user: user
             seata.address: seata
-      - name: springboot-dubbo-seata-order
+            E2E_ENV: open
+      - name: spring-dubbo-seata-order
         docker_service:
-          hostname: springboot-dubbo-seata-order
+          hostname: spring-dubbo-seata-order
           restart: on-failure
           depends_on:
             zookeeper:
@@ -56,9 +58,10 @@ e2e:
             mysql.address: mysqlAddress
             mysql.user: user
             seata.address: seata
-      - name: springboot-dubbo-seata-storage
+            E2E_ENV: open
+      - name: spring-dubbo-seata-storage
         docker_service:
-          hostname: springboot-dubbo-seata-order
+          hostname: spring-dubbo-seata-order
           restart: on-failure
           depends_on:
             zookeeper:
@@ -70,6 +73,7 @@ e2e:
             mysql.address: mysqlAddress
             mysql.user: user
             seata.address: seata
+            E2E_ENV: open
     # infrastructure services
     infrastructures:
       - name: mysql
@@ -113,14 +117,18 @@ e2e:
             timeout: 10s
             retries: 3
 
+  replace:
+    - source: e2e-replace/file.conf
+      dest: spring-dubbo-seata-account/src/main/resources/file.conf
+    - source: e2e-replace/file.conf
+      dest: spring-dubbo-seata-business/src/main/resources/file.conf
+    - source: e2e-replace/file.conf
+      dest: spring-dubbo-seata-order/src/main/resources/file.conf
+    - source: e2e-replace/file.conf
+      dest: spring-dubbo-seata-storage/src/main/resources/file.conf
+
   # cases to verify
   cases:
-    - name: rollback test
-      # how to invoke the case
-      invoke: 'docker exec test curl http://127.0.0.1:9991/testRollback'
-      # the result of the case to expect be
-      verify: './e2e-files/rollback.yaml'
-
-    - name: commit test
-      invoke: 'docker exec test curl http://127.0.0.1:9991/testCommit'
-      verify: './e2e-files/commit.yaml'
+    - name: normal test success
+      invoke: 'docker exec test cat result.yaml'
+      verify: './e2e-files/success.yaml'
