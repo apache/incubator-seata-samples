@@ -21,7 +21,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.apache.seata.util.LogUtils.printProcessLog;
 
@@ -44,7 +47,9 @@ public class SkyWalkingController {
     public void runE2ETests() {
         File e2eDir = new File(this.e2eDir);
         List<String> passedProjects = new ArrayList<>();
-        for (File file : e2eDir.listFiles()) {
+        File[] files = e2eDir.listFiles();
+        List<File> filterFiles = Arrays.stream(files).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        for (File file : filterFiles) {
             if (file.isDirectory()) {
                 LOGGER.info("Running Seate e2e test by SkyWalking-E2E: " + file.getName());
                 int onceTestCode = -1;
