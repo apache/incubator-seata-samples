@@ -50,8 +50,6 @@ public class TccProviderStarter {
         context.setValidating(false);  // 关闭 XML 验证
         context.setConfigLocation("classpath:spring/seata-dubbo-provider.xml");
         context.refresh();
-        //keep run
-        Thread.currentThread().join();
     }
 
     private static void mockZKServer() throws Exception {

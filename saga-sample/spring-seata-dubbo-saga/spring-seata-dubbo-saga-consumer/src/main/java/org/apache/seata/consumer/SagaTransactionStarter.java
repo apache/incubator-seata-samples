@@ -54,7 +54,6 @@ public class SagaTransactionStarter {
         transactionCommittedDemo(stateMachineEngine);
 
         transactionCompensatedDemo(stateMachineEngine);
-        Thread.currentThread().join();
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {

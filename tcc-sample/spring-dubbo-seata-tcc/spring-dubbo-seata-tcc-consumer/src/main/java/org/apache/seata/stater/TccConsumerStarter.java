@@ -47,9 +47,6 @@ public class TccConsumerStarter {
         transactionCommitDemo();
         //分布式事务回滚demo
         transactionRollbackDemo();
-
-        //keep run
-        Thread.currentThread().join();
     }
 
     private static void transactionCommitDemo() throws InterruptedException {
