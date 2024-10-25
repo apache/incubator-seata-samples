@@ -1,5 +1,5 @@
 e2e:
-  scene_name: at-api
+  scene_name: at-spring-seata
   # retry config
   retry:
     max: 5
@@ -9,9 +9,9 @@ e2e:
   modules:
     # provider service
     providers:
-      - name: at-api
+      - name: spring-seata
         docker_service:
-          hostname: at-api
+          hostname: spring-seata
           restart: on-failure
           container_name: test
           depends_on:
@@ -46,8 +46,8 @@ e2e:
             SEATA_PORT: 8091
             STORE_MODE: file
   replace:
-    - source: e2e-replace/jdbc.properties
-      dest:  src/main/resources/jdbc.properties
+    - source: e2e-replace/application.properties
+      dest:  src/main/resources/application.properties
     - source: e2e-replace/file.conf
       dest:  src/main/resources/file.conf
 
@@ -55,4 +55,4 @@ e2e:
   cases:
     - name: normal test success
       invoke: 'docker exec test cat result.yaml'
-      verify: './e2e-files/rollback.yaml'
+      verify: './e2e-files/success.yaml'

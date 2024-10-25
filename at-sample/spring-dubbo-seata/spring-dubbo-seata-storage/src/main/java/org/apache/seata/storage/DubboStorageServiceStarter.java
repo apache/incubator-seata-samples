@@ -14,25 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata;
+package org.apache.seata.storage;
 
-import org.apache.seata.e2e.E2EUtil;
-import org.apache.seata.service.BusinessService;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-/**
- * @author wangte
- * Create At 2024/1/20
- */
-@ComponentScan
-@Configuration
+
 @EnableAutoDataSourceProxy
-public class BusinessServiceTester {
+@EnableDubbo
+@ComponentScan(basePackages = {"org.apache.seata.storage"})
+public class DubboStorageServiceStarter {
 
     /**
      * Enable PropertySource placeHolder
@@ -42,25 +37,8 @@ public class BusinessServiceTester {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    public static void main(String[] args) throws Exception {
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(BusinessServiceTester.class);
-
-        BusinessService businessService = annotationConfigApplicationContext.getBean(BusinessService.class);
-
-        Thread thread = new Thread(() -> {
-            String res =  "{\"res\": \"success\"}";
-            try {
-                businessService.purchase("U100001", "C00321", 2);
-                if (E2EUtil.isInE2ETest()) {
-                    E2EUtil.writeE2EResFile(res);
-                }
-            } catch (Exception e) {
-                if (E2EUtil.isInE2ETest() && "random exception mock!".equals(e.getMessage())) {
-                    E2EUtil.writeE2EResFile(res);
-                }
-            }
-        });
-        thread.start();
+    public static void main(String[] args) throws InterruptedException {
+        new AnnotationConfigApplicationContext(DubboStorageServiceStarter.class);
 
         //keep run
         Thread.currentThread().join();

@@ -14,25 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata;
+package org.apache.seata.business;
 
-import org.apache.seata.e2e.E2EUtil;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.seata.service.BusinessService;
 import org.apache.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
-/**
- * @author wangte
- * Create At 2024/1/20
- */
-@ComponentScan
-@Configuration
+import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
+import static org.apache.seata.e2e.E2EUtil.writeE2EResFile;
+
 @EnableAutoDataSourceProxy
-public class BusinessServiceTester {
+@EnableDubbo
+@ComponentScan(basePackages = {"org.apache.seata.business"})
+public class DubboBusinessServiceTester {
 
     /**
      * Enable PropertySource placeHolder
@@ -42,28 +40,27 @@ public class BusinessServiceTester {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
-    public static void main(String[] args) throws Exception {
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(BusinessServiceTester.class);
+    public static void main(String[] args) throws InterruptedException {
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(DubboBusinessServiceTester.class);
 
         BusinessService businessService = annotationConfigApplicationContext.getBean(BusinessService.class);
-
         Thread thread = new Thread(() -> {
-            String res =  "{\"res\": \"success\"}";
+            businessService.purchase("U100001", "C00321", 2);});
+            String outPutRes = "{\"res\": \"success\"}";
             try {
                 businessService.purchase("U100001", "C00321", 2);
-                if (E2EUtil.isInE2ETest()) {
-                    E2EUtil.writeE2EResFile(res);
+                if (isInE2ETest()) {
+                    writeE2EResFile(outPutRes);
                 }
             } catch (Exception e) {
-                if (E2EUtil.isInE2ETest() && "random exception mock!".equals(e.getMessage())) {
-                    E2EUtil.writeE2EResFile(res);
+                if ("random exception mock!".equals(e.getMessage()) && isInE2ETest()) {
+                    writeE2EResFile(outPutRes);
                 }
+                throw new RuntimeException(e);
             }
-        });
         thread.start();
 
         //keep run
         Thread.currentThread().join();
     }
-
 }
