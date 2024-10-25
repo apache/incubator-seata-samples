@@ -32,10 +32,10 @@ public class TccConsumerStarter {
     }
 
     private void start0(String[] args) throws Exception {
-//        if (isInE2ETest()) {
-//            // wait seata-server
-//            Thread.sleep(5000);
-//        }
+        if (isInE2ETest()) {
+            // wait provider
+            Thread.sleep(3000);
+        }
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
         context.setValidating(false);  // 关闭 XML 验证
