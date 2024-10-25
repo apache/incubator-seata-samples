@@ -53,7 +53,7 @@ public class DubboProviderStarter {
         mockZKServer();
         if (isInE2ETest()) {
             // wait seata-server
-            Thread.sleep(10000);
+            Thread.sleep(150000);
         }
 
         new AnnotationConfigApplicationContext(DubboProviderStarter.class);
