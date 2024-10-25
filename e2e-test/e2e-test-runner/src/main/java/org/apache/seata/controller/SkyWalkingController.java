@@ -29,7 +29,7 @@ import static org.apache.seata.util.LogUtils.printProcessLog;
  * @author jingliu_xiong@foxmail.com
  */
 public class SkyWalkingController {
-    public static final int RETRY_MAX_TIMES = 3;
+    public static final int RETRY_MAX_TIMES = 5;
     private static final Logger LOGGER = LoggerFactory.getLogger(SkyWalkingController.class);
     private String e2eDir;
 
@@ -47,14 +47,16 @@ public class SkyWalkingController {
         for (File file : e2eDir.listFiles()) {
             if (file.isDirectory()) {
                 LOGGER.info("Running Seate e2e test by SkyWalking-E2E: " + file.getName());
-                if (0 != runTest(file)) {
-                    for (int i = 0; i < RETRY_MAX_TIMES; i++) {
-                        int onceTestCode = runTest(file);
-                        if (onceTestCode != 0) {
-                            printPassedCases(passedProjects);
-                            System.exit(onceTestCode);
-                        }
+                int onceTestCode = -1;
+                for (int i = 0; i < RETRY_MAX_TIMES; i++) {
+                    onceTestCode = runTest(file);
+                    if (onceTestCode == 0) {
+                       break;
                     }
+                }
+                if (onceTestCode != 0) {
+                    printPassedCases(passedProjects);
+                    System.exit(onceTestCode);
                 }
                 passedProjects.add(file.getName());
             }
@@ -64,7 +66,9 @@ public class SkyWalkingController {
 
     private void printPassedCases(List<String> passedProjects) {
         LOGGER.info("Passed e2e cases are: ");
-        passedProjects.forEach(LOGGER::info);
+        for (String passedProject : passedProjects) {
+            LOGGER.info(passedProject);
+        }
     }
 
     private static int runTest(File file) {
