@@ -19,8 +19,6 @@ package org.apache.seata.stater;
 import org.apache.curator.test.TestingServer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.IOException;
-
 import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
 
 public class TccProviderStarter {
@@ -32,19 +30,19 @@ public class TccProviderStarter {
     }
 
     protected void start0(String[] args) throws Exception {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (server != null) {
-                try {
-                    server.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }));
-
-
-        //mock zk server
-        mockZKServer();
+//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+//            if (server != null) {
+//                try {
+//                    server.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }));
+//
+//
+//        //mock zk server
+//        mockZKServer();
 
         if (isInE2ETest()) {
             // wait seata-server

@@ -22,8 +22,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.apache.seata.util.LogUtils.printProcessLog;
@@ -35,6 +36,14 @@ public class SkyWalkingController {
     public static final int RETRY_MAX_TIMES = 3;
     private static final Logger LOGGER = LoggerFactory.getLogger(SkyWalkingController.class);
     private String e2eDir;
+    private static final Map<Character, Integer> caseOrder = new HashMap<>();
+
+    public SkyWalkingController() {
+        caseOrder.put('a', 1);
+        caseOrder.put('x', 2);
+        caseOrder.put('t', 3);
+        caseOrder.put('s', 4);
+    }
 
     public String getE2eDir() {
         return e2eDir;
@@ -48,7 +57,15 @@ public class SkyWalkingController {
         File e2eDir = new File(this.e2eDir);
         List<String> passedProjects = new ArrayList<>();
         File[] files = e2eDir.listFiles();
-        List<File> filterFiles = Arrays.stream(files).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        // use this order to run saga test first, because saga test is easy to fail
+        List<File> filterFiles = Arrays.stream(files).sorted((a, b) -> {
+            int scoreA = caseOrder.getOrDefault(a.getName().charAt(0), 0);
+            int scoreB = caseOrder.getOrDefault(b.getName().charAt(0), 0);
+            if (scoreA == scoreB) {
+                return b.getName().compareTo(a.getName());
+            }
+            return scoreB - scoreA;
+        }).collect(Collectors.toList());
         for (File file : filterFiles) {
             if (file.isDirectory()) {
                 LOGGER.info("Running Seate e2e test by SkyWalking-E2E: " + file.getName());
