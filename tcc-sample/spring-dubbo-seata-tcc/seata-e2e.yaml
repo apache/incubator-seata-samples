@@ -3,7 +3,7 @@ e2e:
   # retry config
   retry:
     max: 5
-    interval: 20s
+    interval: 10s
     total_timeout: 20m
   # services in docker-compose
   modules:
