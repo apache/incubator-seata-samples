@@ -39,7 +39,7 @@ public class SofaRPCTccTransactionApplication {
     public static void main(String[] args) throws Exception {
         if (isInE2ETest()) {
             // wait seata-server
-            Thread.sleep(5000);
+            Thread.sleep(10000);
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
