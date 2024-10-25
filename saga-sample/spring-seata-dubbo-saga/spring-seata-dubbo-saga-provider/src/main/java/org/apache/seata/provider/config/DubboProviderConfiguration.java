@@ -44,7 +44,7 @@ public class DubboProviderConfiguration {
     public RegistryConfig registryConfig() {
         RegistryConfig registryConfig = new RegistryConfig();
         if (isInE2ETest()) {
-            registryConfig.setAddress("zookeeper://spring-dubbo-seata-saga-provider:2181");
+            registryConfig.setAddress("zookeeper://spring-seata-dubbo-saga-provider:2181");
         } else {
             registryConfig.setAddress("zookeeper://localhost:2181");
         }
