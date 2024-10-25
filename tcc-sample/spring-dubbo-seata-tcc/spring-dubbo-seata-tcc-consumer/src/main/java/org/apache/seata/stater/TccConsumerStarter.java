@@ -55,8 +55,8 @@ public class TccConsumerStarter {
     private static void transactionCommitDemo() throws InterruptedException {
         String txId = tccTransactionService.doTransactionCommit();
         System.out.println(txId);
-        //wait commit
-        Thread.sleep(3000);
+//        //wait commit
+//        Thread.sleep(3000);
 
         Assert.isTrue(StringUtils.isNotEmpty(txId), "事务开启失败");
 
@@ -75,8 +75,8 @@ public class TccConsumerStarter {
             Assert.isTrue(true, "分布式事务异常回滚");
         }
 
-        //wait rollback
-        Thread.sleep(3000);
+//        //wait rollback
+//        Thread.sleep(3000);
 
         if (isInE2ETest()) {
             String res =  "{\"res\": \"rollback\"}";

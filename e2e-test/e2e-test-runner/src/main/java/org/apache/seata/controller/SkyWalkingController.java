@@ -27,6 +27,7 @@ import static org.apache.seata.util.LogUtils.printProcessLog;
  * @author jingliu_xiong@foxmail.com
  */
 public class SkyWalkingController {
+    public static final int RETRY_MAX_TIMES = 3;
     private static final Logger LOGGER = LoggerFactory.getLogger(SkyWalkingController.class);
     private String e2eDir;
 
@@ -44,7 +45,7 @@ public class SkyWalkingController {
             if (file.isDirectory()) {
                 LOGGER.info("Running Seate e2e test by SkyWalking-E2E: " + file.getName());
                 if (0 != runTest(file)) {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < RETRY_MAX_TIMES; i++) {
                         int onceTestCode = runTest(file);
                         if (onceTestCode != 0) {
                             System.exit(onceTestCode);
