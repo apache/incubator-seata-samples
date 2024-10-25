@@ -7,10 +7,10 @@
         <version>2.1.0</version>
     </parent>
 
-    <artifactId>spring-dubbo-seata-saga-common</artifactId>
+    <artifactId>spring-seata-dubbo-saga-common</artifactId>
     <version>2.1.0</version>
-    <name>spring-dubbo-seata-tcc-common</name>
-    <description>spring-dubbo-seata-tcc-common</description>
+    <name>spring-seata-dubbo-tcc-common</name>
+    <description>spring-seata-dubbo-tcc-common</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

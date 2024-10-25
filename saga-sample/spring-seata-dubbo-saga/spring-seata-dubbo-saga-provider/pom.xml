@@ -7,10 +7,10 @@
         <version>2.1.0</version>
     </parent>
 
-    <artifactId>spring-dubbo-seata-saga-consumer</artifactId>
+    <artifactId>spring-seata-dubbo-saga-provider</artifactId>
     <version>2.1.0</version>
-    <name>spring-dubbo-seata-tcc-consumer</name>
-    <description>spring-dubbo-seata-tcc-consumer</description>
+    <name>spring-seata-dubbo-tcc-provider</name>
+    <description>spring-seata-dubbo-tcc-provider</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -101,7 +101,7 @@
 
         <dependency>
             <groupId>org.apache.seata</groupId>
-            <artifactId>spring-dubbo-seata-saga-common</artifactId>
+            <artifactId>spring-seata-dubbo-saga-common</artifactId>
             <version>2.1.0</version>
         </dependency>
     </dependencies>
@@ -122,7 +122,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.apache.seata.consumer.SagaTransactionStarter</mainClass>
+                                    <mainClass>org.apache.seata.provider.DubboProviderStarter</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
                                     <resource>META-INF/spring.handlers</resource>

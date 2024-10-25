@@ -28,9 +28,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-dubbo-seata-saga-consumer</module>
-        <module>spring-dubbo-seata-saga-provider</module>
-        <module>spring-dubbo-seata-saga-common</module>
+        <module>spring-seata-dubbo-saga-consumer</module>
+        <module>spring-seata-dubbo-saga-provider</module>
+        <module>spring-seata-dubbo-saga-common</module>
     </modules>
 
     <properties>

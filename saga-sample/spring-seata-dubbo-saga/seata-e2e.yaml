@@ -1,5 +1,5 @@
 e2e:
-  scene_name: saga-spring-dubbo-seata-saga
+  scene_name: saga-spring-seata-dubbo-saga
   # retry config
   retry:
     max: 5
@@ -10,33 +10,33 @@ e2e:
     # consume services
     consumers:
       # docker service name
-      - name: spring-dubbo-seata-saga-consumer # this name should be the same as module name, it is indicated to be builded as an image
+      - name: spring-seata-dubbo-saga-consumer # this name should be the same as module name, it is indicated to be builded as an image
         # service params in a service of docker-compose service
         docker_service:
-          hostname: spring-dubbo-seata-saga-consumer
+          hostname: spring-seata-dubbo-saga-consumer
           restart: on-failure
           container_name: test
           depends_on:
             seata-server:
               condition: service_started
-            spring-dubbo-seata-saga-provider:
+            spring-seata-dubbo-saga-provider:
               condition: service_started
           environment:
             seata.address: seata
-            zookeeper.address: spring-dubbo-seata-saga-provider
+            zookeeper.address: spring-seata-dubbo-saga-provider
             E2E_ENV: open
     # provider service
     providers:
-      - name: spring-dubbo-seata-saga-provider
+      - name: spring-seata-dubbo-saga-provider
         docker_service:
-          hostname: spring-dubbo-seata-saga-provider
+          hostname: spring-seata-dubbo-saga-provider
           restart: on-failure
           depends_on:
             seata-server:
               condition: service_started
           environment:
             seata.address: seata
-            zookeeper.address: spring-dubbo-seata-saga-provider
+            zookeeper.address: spring-seata-dubbo-saga-provider
             E2E_ENV: open
     # infrastructure services
     infrastructures:
@@ -53,9 +53,9 @@ e2e:
 
   replace:
     - source: e2e-replace/file.conf
-      dest: spring-dubbo-seata-saga-consumer/src/main/resources/file.conf
+      dest: spring-seata-dubbo-saga-consumer/src/main/resources/file.conf
     - source: e2e-replace/file.conf
-      dest: spring-dubbo-seata-saga-provider/src/main/resources/file.conf
+      dest: spring-seata-dubbo-saga-provider/src/main/resources/file.conf
 
   # cases to verify
   cases:
