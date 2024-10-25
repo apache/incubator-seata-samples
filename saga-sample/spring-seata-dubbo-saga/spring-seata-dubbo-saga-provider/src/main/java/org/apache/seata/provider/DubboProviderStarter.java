@@ -23,8 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import java.io.IOException;
-
 import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
 
 /**
@@ -40,17 +38,17 @@ public class DubboProviderStarter {
     private static TestingServer server;
 
     public static void main(String[] args) throws Exception {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (server != null) {
-                try {
-                    server.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }));
+//        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+//            if (server != null) {
+//                try {
+//                    server.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        }));
 
-        mockZKServer();
+//        mockZKServer();
         if (isInE2ETest()) {
             // wait seata-server
             Thread.sleep(5000);
@@ -59,6 +57,7 @@ public class DubboProviderStarter {
         new AnnotationConfigApplicationContext(DubboProviderStarter.class);
 
         LOGGER.info("dubbo provider started");
+        Thread.currentThread().join();
     }
 
     private static void mockZKServer() throws Exception {

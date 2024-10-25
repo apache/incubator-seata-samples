@@ -34,6 +34,8 @@ e2e:
           depends_on:
             seata-server:
               condition: service_started
+            zookeeper:
+              condition: service_healthy
           environment:
             seata.address: seata
             zookeeper.address: spring-seata-dubbo-saga-provider
@@ -50,6 +52,17 @@ e2e:
           environment:
             SEATA_PORT: 8091
             STORE_MODE: file
+      - name: zookeeper
+        docker_service:
+          hostname: zookeeper
+          image: zookeeper:3.8.4
+          #          ports:
+          #            - "2181:2181"
+          healthcheck:
+            test: '[ "CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "|", "grep", "imok" ]'
+            interval: 30s
+            timeout: 10s
+            retries: 3
 
   replace:
     - source: e2e-replace/file.conf
