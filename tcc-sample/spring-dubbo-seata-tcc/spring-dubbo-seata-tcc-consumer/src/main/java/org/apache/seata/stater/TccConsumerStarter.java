@@ -34,7 +34,7 @@ public class TccConsumerStarter {
     private void start0(String[] args) throws Exception {
         if (isInE2ETest()) {
             // wait seata-server
-            Thread.sleep(10000);
+            Thread.sleep(20000);
         }
 
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
