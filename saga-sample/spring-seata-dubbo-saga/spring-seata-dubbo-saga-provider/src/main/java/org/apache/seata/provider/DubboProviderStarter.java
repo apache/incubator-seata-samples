@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
+import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
+
 /**
  * @author wangte
  * Create At 2024/1/20
@@ -47,10 +49,10 @@ public class DubboProviderStarter {
 //        }));
 
 //        mockZKServer();
-//        if (isInE2ETest()) {
-//            // wait seata-server
-//            Thread.sleep(2000);
-//        }
+        if (isInE2ETest()) {
+            // wait seata-server
+            Thread.sleep(5000);
+        }
 
         new AnnotationConfigApplicationContext(DubboProviderStarter.class);
 
