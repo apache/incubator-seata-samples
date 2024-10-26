@@ -96,13 +96,13 @@ public class SkyWalkingController {
     private static int runTest(File file) {
         try {
             ProcessBuilder builder = new ProcessBuilder();
-            builder.inheritIO();
+//            builder.inheritIO();
             builder.directory(file);
-            builder.command("docker-compose", "up", "--timeout", "120");
+//            builder.command("docker-compose", "up", "--timeout", "120");
+            builder.command("e2e", "run");
             Process process = builder.start();
-//            printProcessLog(LOGGER, process);
+            printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
-            Thread.sleep(120000);
             if (exitCode != 0) {
                 LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
                         file.getName(), exitCode));

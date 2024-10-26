@@ -7,6 +7,7 @@ import org.apache.seata.saga.engine.impl.ProcessCtrlStateMachineEngine;
 import org.apache.seata.saga.rm.StateMachineEngineHolder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class SagaConfiguration {
 
     @Bean
+    @DependsOn("dataSource")
     public StateMachineConfig stateMachineConfig(DataSource dataSource) {
         DbStateMachineConfig dbStateMachineConfig = new DbStateMachineConfig();
         dbStateMachineConfig.setApplicationId("seata-saga-consumer");
@@ -42,7 +44,7 @@ public class SagaConfiguration {
     @Bean
     public StateMachineEngineHolder stateMachineEngineHolder(StateMachineEngine stateMachineEngine) {
         StateMachineEngineHolder stateMachineEngineHolder = new StateMachineEngineHolder();
-        stateMachineEngineHolder.setStateMachineEngine(stateMachineEngine);
+        StateMachineEngineHolder.setStateMachineEngine(stateMachineEngine);
         return stateMachineEngineHolder;
     }
 }
