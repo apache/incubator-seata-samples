@@ -14,22 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.stater;
+package org.apache.seata.provider;
 
 import org.apache.curator.test.TestingServer;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.IOException;
 
-public class TccProviderStarter {
+/**
+ * @author wangte
+ * Create At 2024/1/20
+ */
+@EnableDubbo(scanBasePackages = {"org.apache.seata.provider"})
+@ComponentScan(basePackages = {"org.apache.seata.provider"})
+public class DubboProviderStarter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DubboProviderStarter.class);
 
     private static TestingServer server;
 
     public static void main(String[] args) throws Exception {
-        new TccProviderStarter().start0(args);
-    }
-
-    protected void start0(String[] args) throws Exception {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (server != null) {
                 try {
@@ -40,16 +48,14 @@ public class TccProviderStarter {
             }
         }));
 
-        //mock zk server
         mockZKServer();
 
-        new ClassPathXmlApplicationContext( "spring/seata-dubbo-provider.xml");
-        //keep run
-        Thread.currentThread().join();
+        new AnnotationConfigApplicationContext(DubboProviderStarter.class);
+
+        LOGGER.info("dubbo provider started");
     }
 
     private static void mockZKServer() throws Exception {
-        //Mock zk server，作为 transfer 配置中心
         server = new TestingServer(2181, true);
         server.start();
     }

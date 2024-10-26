@@ -14,36 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.action;
+package org.apache.seata.provider.action;
 
-import org.apache.seata.rm.tcc.api.BusinessActionContext;
-import org.apache.seata.rm.tcc.api.BusinessActionContextParameter;
-import org.apache.seata.rm.tcc.api.TwoPhaseBusinessAction;
-
-public interface TccActionOne {
-
-    /**
-     * Prepare boolean.
-     *
-     * @param actionContext the action context
-     * @param a             the a
-     * @return the boolean
-     */
-    boolean prepare(BusinessActionContext actionContext,  int a);
+/**
+ * Inventory Actions
+ */
+public interface InventoryAction {
 
     /**
-     * Commit boolean.
+     * reduce
      *
-     * @param actionContext the action context
-     * @return the boolean
+     * @param count
+     * @return
      */
-    boolean commit(BusinessActionContext actionContext);
+    boolean reduce(String businessKey, int count);
 
     /**
-     * Rollback boolean.
+     * increase
      *
-     * @param actionContext the action context
-     * @return the boolean
+     * @return
      */
-    boolean rollback(BusinessActionContext actionContext);
+    boolean compensateReduce(String businessKey);
 }
