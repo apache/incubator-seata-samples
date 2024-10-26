@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class SagaConfiguration {
 
     @Bean
-    @DependsOn("dataSource")
+    @DependsOn({"dataSource", "dataSourceInitializer"})
     public StateMachineConfig stateMachineConfig(DataSource dataSource) {
         DbStateMachineConfig dbStateMachineConfig = new DbStateMachineConfig();
         dbStateMachineConfig.setApplicationId("seata-saga-consumer");
