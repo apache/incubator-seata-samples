@@ -57,9 +57,7 @@ public class SagaTransactionStarter {
         if (isInE2ETest()) {
             String res =  "{\"res\": \"commit\"}";
             writeE2EResFile(res, "commit.yaml");
-        }
-        if (isInE2ETest()) {
-            String res =  "{\"res\": \"rollback\"}";
+            res =  "{\"res\": \"rollback\"}";
             writeE2EResFile(res, "rollback.yaml");
         }
         //keep run
