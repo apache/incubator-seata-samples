@@ -37,11 +37,8 @@ public class TccConsumerStarter {
             Thread.sleep(5000);
         }
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext();
-        context.setValidating(false);  // 关闭 XML 验证
-        context.setConfigLocation("classpath:spring/seata-dubbo-reference.xml");
-        context.refresh();
-        tccTransactionService = (TccTransactionService)context.getBean("tccTransactionService");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/seata-dubbo-reference.xml");
+        tccTransactionService = (TccTransactionService)applicationContext.getBean("tccTransactionService");
 
         //分布式事务提交demo
         transactionCommitDemo();

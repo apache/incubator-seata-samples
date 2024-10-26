@@ -55,6 +55,8 @@ public class DubboProviderStarter {
         new AnnotationConfigApplicationContext(DubboProviderStarter.class);
 
         LOGGER.info("dubbo provider started");
+        //keep run
+        Thread.currentThread().join();
     }
 
     private static void mockZKServer() throws Exception {
