@@ -98,7 +98,7 @@ public class SkyWalkingController {
             ProcessBuilder builder = new ProcessBuilder();
             builder.inheritIO();
             builder.directory(file);
-            builder.command("docker-compose", "up", "--timeout 120");
+            builder.command("docker-compose", "up", "--timeout", "120");
             Process process = builder.start();
 //            printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
