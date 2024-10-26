@@ -42,10 +42,10 @@ public class SagaTransactionStarter {
     private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
     public static void main(String[] args) throws InterruptedException {
-        if (isInE2ETest()) {
-            // wait provider
-            Thread.sleep(10000);
-        }
+//        if (isInE2ETest()) {
+//            // wait provider
+//            Thread.sleep(10000);
+//        }
 
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
 
@@ -54,6 +54,9 @@ public class SagaTransactionStarter {
         transactionCommittedDemo(stateMachineEngine);
 
         transactionCompensatedDemo(stateMachineEngine);
+
+        //keep run
+        Thread.currentThread().join();
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
