@@ -54,6 +54,15 @@ public class SagaTransactionStarter {
         transactionCommittedDemo(stateMachineEngine);
 
         transactionCompensatedDemo(stateMachineEngine);
+        if (isInE2ETest()) {
+            String res =  "{\"res\": \"commit\"}";
+            writeE2EResFile(res, "commit.yaml");
+        }
+        if (isInE2ETest()) {
+            String res =  "{\"res\": \"rollback\"}";
+            writeE2EResFile(res, "rollback.yaml");
+        }
+        Thread.sleep(15000);
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
@@ -86,10 +95,10 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
                 "saga transaction execute failed. XID: " + inst.getId());
-        if (isInE2ETest()) {
-            String res =  "{\"res\": \"commit\"}";
-            writeE2EResFile(res, "commit.yaml");
-        }
+//        if (isInE2ETest()) {
+//            String res =  "{\"res\": \"commit\"}";
+//            writeE2EResFile(res, "commit.yaml");
+//        }
         LOGGER.info("saga transaction commit succeed. XID: " + inst.getId());
     }
 
@@ -114,10 +123,10 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
                 "saga transaction compensate failed. XID: " + inst.getId());
-        if (isInE2ETest()) {
-            String res =  "{\"res\": \"rollback\"}";
-            writeE2EResFile(res, "rollback.yaml");
-        }
+//        if (isInE2ETest()) {
+//            String res =  "{\"res\": \"rollback\"}";
+//            writeE2EResFile(res, "rollback.yaml");
+//        }
         LOGGER.info("saga transaction compensate succeed. XID: " + inst.getId());
     }
 

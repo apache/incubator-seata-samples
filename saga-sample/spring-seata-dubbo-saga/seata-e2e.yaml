@@ -2,8 +2,8 @@ e2e:
   scene_name: saga-spring-seata-dubbo-saga
   # retry config
   retry:
-    max: 5
-    interval: 15s
+    max: 6
+    interval: 10s
     total_timeout: 20m
   # services in docker-compose
   modules:
