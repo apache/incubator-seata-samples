@@ -62,6 +62,8 @@ public class SagaTransactionStarter {
             String res =  "{\"res\": \"rollback\"}";
             writeE2EResFile(res, "rollback.yaml");
         }
+        //keep run
+        Thread.currentThread().join();
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
