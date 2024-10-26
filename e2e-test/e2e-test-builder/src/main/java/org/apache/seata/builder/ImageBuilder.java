@@ -154,7 +154,7 @@ public class ImageBuilder {
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                LOGGER.warn(String.format("Docker image for module %s build failed with exit code %d", module.getName(), exitCode));
+                LOGGER.error(String.format("Docker image for module %s build failed with exit code %d", module.getName(), exitCode));
             }
         }
     }
