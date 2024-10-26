@@ -23,7 +23,7 @@ e2e:
               condition: service_started
           environment:
             seata.address: seata
-            zookeeper.address: zookeeper
+            zookeeper.address: zookeeperAddress
             E2E_ENV: open
     # provider service
     providers:
@@ -38,7 +38,7 @@ e2e:
               condition: service_healthy
           environment:
             seata.address: seata
-            zookeeper.address: zookeeper
+            zookeeper.address: zookeeperAddress
             E2E_ENV: open
     # infrastructure services
     infrastructures:
@@ -54,7 +54,7 @@ e2e:
             STORE_MODE: file
       - name: zookeeper
         docker_service:
-          hostname: zookeeper
+          hostname: zookeeperAddress
           image: zookeeper:3.8.4
           #          ports:
           #            - "2181:2181"

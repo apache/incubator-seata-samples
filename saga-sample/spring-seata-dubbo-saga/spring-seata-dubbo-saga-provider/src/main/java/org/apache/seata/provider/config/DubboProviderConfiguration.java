@@ -44,7 +44,7 @@ public class DubboProviderConfiguration {
     public RegistryConfig registryConfig() {
         RegistryConfig registryConfig = new RegistryConfig();
         if (isInE2ETest()) {
-            registryConfig.setAddress("zookeeper://zookeeper:2181");
+            registryConfig.setAddress("zookeeper://zookeeperAddress:2181");
         } else {
             registryConfig.setAddress("zookeeper://localhost:2181");
         }
