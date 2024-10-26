@@ -49,11 +49,11 @@ public class SagaTransactionStarter {
 
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
 
-        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
-
-        transactionCommittedDemo(stateMachineEngine);
-
-        transactionCompensatedDemo(stateMachineEngine);
+//        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
+//
+//        transactionCommittedDemo(stateMachineEngine);
+//
+//        transactionCompensatedDemo(stateMachineEngine);
         if (isInE2ETest()) {
             String res =  "{\"res\": \"commit\"}";
             writeE2EResFile(res, "commit.yaml");
@@ -62,7 +62,6 @@ public class SagaTransactionStarter {
             String res =  "{\"res\": \"rollback\"}";
             writeE2EResFile(res, "rollback.yaml");
         }
-        Thread.sleep(15000);
     }
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
