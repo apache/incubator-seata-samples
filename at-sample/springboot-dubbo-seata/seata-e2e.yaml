@@ -3,7 +3,7 @@ e2e:
   # retry config
   retry:
     max: 5
-    interval: 10s
+    interval: 20s
     total_timeout: 20m
   # services in docker-compose
   modules:
@@ -104,7 +104,7 @@ e2e:
       - name: zookeeper
         docker_service:
           hostname: zookeeper
-          image: zookeeper:3.5.7
+          image: zookeeper:3.8.4
 #          ports:
 #            - "2181:2181"
           healthcheck:
