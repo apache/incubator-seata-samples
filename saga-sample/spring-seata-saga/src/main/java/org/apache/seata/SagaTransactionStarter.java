@@ -31,11 +31,18 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
+import static org.apache.seata.e2e.E2EUtil.writeE2EResFile;
+
 public class SagaTransactionStarter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        if (isInE2ETest()) {
+            // wait seata-server
+            Thread.sleep(5000);
+        }
         AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext(new String[]{"spring/seata-saga.xml"});
         applicationContext.start();
 
@@ -76,6 +83,11 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getStatus()),
                 "saga transaction execute failed. XID: " + inst.getId());
+
+        if (isInE2ETest()) {
+            String res =  "{\"res\": \"commit\"}";
+            writeE2EResFile(res, "commit.yaml");
+        }
         LOGGER.info("saga transaction commit succeed. XID: " + inst.getId());
     }
 
@@ -96,6 +108,10 @@ public class SagaTransactionStarter {
 
         Assert.isTrue(ExecutionStatus.SU.equals(inst.getCompensationStatus()),
                 "saga transaction compensate failed. XID: " + inst.getId());
+        if (isInE2ETest()) {
+            String res =  "{\"res\": \"rollback\"}";
+            writeE2EResFile(res, "rollback.yaml");
+        }
         LOGGER.info("saga transaction compensate succeed. XID: " + inst.getId());
     }
 

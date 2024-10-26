@@ -1,0 +1,80 @@
+e2e:
+  scene_name: tcc-spring-dubbo-seata-tcc
+  # retry config
+  retry:
+    max: 5
+    interval: 10s
+    total_timeout: 20m
+  # services in docker-compose
+  modules:
+    # consume services
+    consumers:
+      # docker service name
+      - name: spring-dubbo-seata-tcc-consumer # this name should be the same as module name, it is indicated to be builded as an image
+        # service params in a service of docker-compose service
+        docker_service:
+          hostname: spring-dubbo-seata-tcc-consumer
+          restart: always
+          container_name: test
+          depends_on:
+            seata-server:
+              condition: service_started
+            spring-dubbo-seata-tcc-provider:
+              condition: service_started
+          environment:
+            seata.address: seata
+            zookeeper.address: zookeeper
+            E2E_ENV: open
+    # provider service
+    providers:
+      - name: spring-dubbo-seata-tcc-provider
+        docker_service:
+          hostname: spring-dubbo-seata-tcc-provider
+          restart: on-failure
+          depends_on:
+            seata-server:
+              condition: service_started
+            zookeeper:
+              condition: service_healthy
+          environment:
+            seata.address: seata
+            zookeeper.address: zookeeper
+            E2E_ENV: open
+    # infrastructure services
+    infrastructures:
+      - name: seata-server
+        docker_service:
+          hostname: seata
+          image: apache/seata-server:2.1.0
+#          ports:
+#            - "7091:7091"
+#            - "8091:8091"
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+      - name: zookeeper
+        docker_service:
+          hostname: zookeeper
+          image: zookeeper:3.8.4
+          #          ports:
+          #            - "2181:2181"
+          healthcheck:
+            test: '[ "CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "|", "grep", "imok" ]'
+            interval: 30s
+            timeout: 10s
+            retries: 3
+
+  replace:
+    - source: e2e-replace/file.conf
+      dest: spring-dubbo-seata-tcc-consumer/src/main/resources/file.conf
+    - source: e2e-replace/file.conf
+      dest: spring-dubbo-seata-tcc-provider/src/main/resources/file.conf
+
+  # cases to verify
+  cases:
+    - name: normal test rollback
+      invoke: 'docker exec test cat rollback.yaml'
+      verify: './e2e-files/rollback.yaml'
+    - name: normal test commit
+      invoke: 'docker exec test cat commit.yaml'
+      verify: './e2e-files/commit.yaml'

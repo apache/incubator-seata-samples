@@ -1,0 +1,43 @@
+e2e:
+  scene_name: saga-spring-seata-saga
+  # retry config
+  retry:
+    max: 5
+    interval: 10s
+    total_timeout: 10m
+  # services in docker-compose
+  modules:
+    # consumer service
+    consumers:
+      - name: spring-seata-saga
+        docker_service:
+          hostname: spring-seata-saga
+          restart: on-failure
+          container_name: test
+          depends_on:
+            seata-server:
+              condition: service_started
+          environment:
+            E2E_ENV: open
+            seata.address: seata
+    # infrastructure services
+    infrastructures:
+      - name: seata-server
+        docker_service:
+          hostname: seata
+          image: apache/seata-server:2.1.0
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+  replace:
+    - source: e2e-replace/file.conf
+      dest:  src/main/resources/file.conf
+
+  # cases to verify
+  cases:
+    - name: normal test rollback
+      invoke: 'docker exec test cat rollback.yaml'
+      verify: './e2e-files/rollback.yaml'
+    - name: normal test commit
+      invoke: 'docker exec test cat commit.yaml'
+      verify: './e2e-files/commit.yaml'
