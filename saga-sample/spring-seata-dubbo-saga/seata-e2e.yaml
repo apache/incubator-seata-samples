@@ -14,7 +14,7 @@ e2e:
         # service params in a service of docker-compose service
         docker_service:
           hostname: spring-seata-dubbo-saga-consumer
-          restart: on-failure
+          restart: always
           container_name: test
           depends_on:
             seata-server:
