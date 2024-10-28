@@ -65,6 +65,15 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
@@ -118,7 +127,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.10.0.2594</version>
+                <version>3.9.1.2184</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
