@@ -96,8 +96,8 @@ public class SkyWalkingController {
     private static int runTest(File file) {
         try {
             ProcessBuilder builder = new ProcessBuilder();
-//            builder.inheritIO();
             builder.directory(file);
+//            builder.inheritIO();
 //            builder.command("docker-compose", "up", "--timeout", "120");
             builder.command("e2e", "run");
             Process process = builder.start();
