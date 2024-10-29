@@ -1,0 +1,58 @@
+e2e:
+  scene_name: at-springboot-mybatis-seata
+  # retry config
+  retry:
+    max: 5
+    interval: 10s
+    total_timeout: 10m
+  # services in docker-compose
+  modules:
+    # provider service
+    providers:
+      - name: springboot-mybatis-seata
+        docker_service:
+          hostname: springboot-mybatis-seata
+          restart: on-failure
+          container_name: test
+          depends_on:
+            mysql:
+              condition: service_healthy
+          environment:
+            E2E_ENV: open
+    # infrastructure services
+    infrastructures:
+      - name: mysql
+        docker_service:
+          hostname: mysqlAddress
+          image: mysql:5.7
+          volumes:
+            - ./e2e-files/sqlsh:/docker-entrypoint-initdb.d
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: seata
+            MYSQL_USER: user
+            MYSQL_PASSWORD: 123456
+          healthcheck:
+            test: '[ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]'
+            interval: 5s
+            timeout: 10s
+            retries: 10
+      - name: seata-server
+        docker_service:
+          hostname: seata
+          image: apache/seata-server:2.1.0
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+  replace:
+    - source: e2e-replace/application.properties
+      dest:  src/main/resources/application.properties
+    - source: e2e-replace/file.conf
+      dest:  src/main/resources/file.conf
+
+  # cases to verify
+  cases:
+    - name: normal test rollback
+      invoke: 'docker exec test cat result.yaml'
+      verify: './e2e-files/success.yaml'
