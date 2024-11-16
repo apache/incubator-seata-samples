@@ -26,11 +26,11 @@
 
 
     <bean class="org.apache.seata.spring.annotation.GlobalTransactionScanner">
-        <constructor-arg value="tcc-sample-reference"/>
+        <constructor-arg value="saga-sample-reference"/>
         <constructor-arg value="my_test_tx_group"/>
     </bean>
 
-    <dubbo:application name="tcc-sample-reference">
+    <dubbo:application name="saga-sample-reference">
         <dubbo:parameter key="qos.enable" value="false"/>
     </dubbo:application>
 
@@ -43,12 +43,12 @@
     <dubbo:provider timeout="10000" threads="10" threadpool="fixed" loadbalance="roundrobin"/>
 
     <!-- 第一个TCC参与者 服务订阅 -->
-    <dubbo:reference id="tccActionOne" interface="org.apache.seata.action.TccActionOne" check="false"
+    <dubbo:reference id="sagaActionOne" interface="org.apache.seata.provider.action.SagaActionOne" check="false"
                      lazy="true"/>
 
     <!-- 第二个TCC参与者 服务订阅 -->
-    <dubbo:reference id="tccActionTwo" interface="org.apache.seata.action.TccActionTwo" check="false"
+    <dubbo:reference id="sagaActionTwo" interface="org.apache.seata.provider.action.SagaActionTwo" check="false"
                      lazy="true"/>
 
-    <bean id="tccTransactionService" class="org.apache.seata.service.TccTransactionService"/>
+    <bean id="sagaAnnotationTransactionService" class="org.apache.seata.consumer.service.SagaAnnotationTransactionService"/>
 </beans>

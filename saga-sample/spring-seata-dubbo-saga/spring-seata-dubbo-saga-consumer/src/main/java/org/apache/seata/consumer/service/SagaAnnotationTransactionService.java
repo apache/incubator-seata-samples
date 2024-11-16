@@ -14,14 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.seata.service;
+package org.apache.seata.consumer.service;
 
-import org.apache.seata.action.ResultHolder;
-import org.apache.seata.action.TccActionOne;
-import org.apache.seata.action.TccActionTwo;
-import org.apache.seata.core.context.RootContext;
+import org.apache.seata.provider.action.SagaActionOne;
+import org.apache.seata.provider.action.SagaActionTwo;
 import org.apache.seata.spring.annotation.GlobalTransactional;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +28,11 @@ import java.util.List;
  *
  * @author zhangsen
  */
-public class TccTransactionService {
+public class SagaAnnotationTransactionService {
 
-    private TccActionOne tccActionOne;
+    private SagaActionOne sagaActionOne;
 
-    private TccActionTwo tccActionTwo;
+    private SagaActionTwo sagaActionTwo;
 
     /**
      * 发起分布式事务
@@ -43,28 +40,23 @@ public class TccTransactionService {
      * @return string string
      */
     @GlobalTransactional
-    public String doTransactionCommit() {
+    public void doTransactionCommit() {
         //第一个TCC 事务参与者
-        boolean result = tccActionOne.prepare(null, 1);
+        boolean result = sagaActionOne.prepare(null, 1);
         if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List<String> list = new ArrayList<>();
         list.add("c1");
         list.add("c2");
-        result = tccActionTwo.prepare(null, "two", list);
+        result = sagaActionTwo.prepare(null, "two", list);
         if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
-        return RootContext.getXID();
     }
 
-    public void checkBranchTransaction(String xid, boolean commit) {
-        String actionOneResult = ResultHolder.getActionOneResult(xid);
-        String actionTwoResult = ResultHolder.getActionTwoResult(xid);
-        Assert.isTrue(commit ? "T".equals(actionOneResult) : "F".equals(actionOneResult), "分支事务" + (commit ? "提交" : "回滚") + "失败");
-        Assert.isTrue(commit ? "T".equals(actionTwoResult) : "F".equals(actionTwoResult), "分支事务" + (commit ? "提交" : "回滚") + "失败");
-    }
+
+
 
     /**
      * Do transaction rollback string.
@@ -72,14 +64,14 @@ public class TccTransactionService {
     @GlobalTransactional
     public void doTransactionRollback() {
         //第一个TCC 事务参与者
-        boolean result = tccActionOne.prepare(null, 1);
+        boolean result = sagaActionOne.prepare(null, 1);
         if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List<String> list = new ArrayList<>();
         list.add("c1");
         list.add("c2");
-        result = tccActionTwo.prepare(null, "two", list);
+        result = sagaActionTwo.prepare(null, "two", list);
         if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
@@ -87,21 +79,11 @@ public class TccTransactionService {
         throw new RuntimeException("transaction rollback");
     }
 
-    /**
-     * Sets tcc action one.
-     *
-     * @param tccActionOne the tcc action one
-     */
-    public void setTccActionOne(TccActionOne tccActionOne) {
-        this.tccActionOne = tccActionOne;
+    public void setSagaActionOne(SagaActionOne sagaActionOne) {
+        this.sagaActionOne = sagaActionOne;
     }
 
-    /**
-     * Sets tcc action two.
-     *
-     * @param tccActionTwo the tcc action two
-     */
-    public void setTccActionTwo(TccActionTwo tccActionTwo) {
-        this.tccActionTwo = tccActionTwo;
+    public void setSagaActionTwo(SagaActionTwo sagaActionTwo) {
+        this.sagaActionTwo = sagaActionTwo;
     }
 }

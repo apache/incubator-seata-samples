@@ -25,11 +25,11 @@
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd" default-autowire="byName">
 
     <bean class="org.apache.seata.spring.annotation.GlobalTransactionScanner">
-        <constructor-arg value="tcc-sample-provider"/>
+        <constructor-arg value="saga-sample-provider"/>
         <constructor-arg value="my_test_tx_group"/>
     </bean>
 
-    <dubbo:application name="tcc-sample-provider">
+    <dubbo:application name="saga-sample-provider">
         <dubbo:parameter key="qos.enable" value="false"/>
     </dubbo:application>
     <!--使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper-->
@@ -40,14 +40,13 @@
 
     <dubbo:provider timeout="10000" threads="10" threadpool="fixed" loadbalance="roundrobin"/>
 
+    <bean id="tccActionOneImpl" class="org.apache.seata.provider.action.impl.SagaActionOneImpl"/>
 
-    <bean id="tccActionOneImpl" class="org.apache.seata.action.impl.TccActionOneImpl"/>
-
-    <bean id="tccActionTwoImpl" class="org.apache.seata.action.impl.TccActionTwoImpl"/>
+    <bean id="tccActionTwoImpl" class="org.apache.seata.provider.action.impl.SagaActionTwoImpl"/>
 
     <!-- 第一个TCC 参与者服务发布 -->
-    <dubbo:service interface="org.apache.seata.action.TccActionOne" ref="tccActionOneImpl"/>
+    <dubbo:service interface="org.apache.seata.provider.action.SagaActionOne" ref="tccActionOneImpl"/>
 
     <!-- 第二个TCC 参与者服务发布 -->
-    <dubbo:service interface="org.apache.seata.action.TccActionTwo" ref="tccActionTwoImpl"/>
+    <dubbo:service interface="org.apache.seata.provider.action.SagaActionTwo" ref="tccActionTwoImpl"/>
 </beans>

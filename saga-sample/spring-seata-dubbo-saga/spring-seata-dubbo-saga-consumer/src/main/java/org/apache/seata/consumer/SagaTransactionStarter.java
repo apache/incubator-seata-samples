@@ -17,6 +17,7 @@
 package org.apache.seata.consumer;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
+import org.apache.seata.consumer.service.SagaAnnotationTransactionService;
 import org.apache.seata.saga.engine.AsyncCallback;
 import org.apache.seata.saga.engine.StateMachineEngine;
 import org.apache.seata.saga.proctrl.ProcessContext;
@@ -24,16 +25,13 @@ import org.apache.seata.saga.statelang.domain.ExecutionStatus;
 import org.apache.seata.saga.statelang.domain.StateMachineInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
-import static org.apache.seata.e2e.E2EUtil.writeE2EResFile;
 
 @EnableDubbo(scanBasePackages = {"org.apache.seata.consumer"})
 @ComponentScan(basePackages = {"org.apache.seata.consumer"})
@@ -42,27 +40,35 @@ public class SagaTransactionStarter {
     private static final Logger LOGGER = LoggerFactory.getLogger(SagaTransactionStarter.class);
 
     public static void main(String[] args) throws InterruptedException {
-        if (isInE2ETest()) {
-            // wait provider
-            Thread.sleep(5000);
-        }
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/seata-dubbo-reference.xml");
+        applicationContext.start();
 
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
+        SagaAnnotationTransactionService sagaAnnotationTransactionService = (SagaAnnotationTransactionService) applicationContext.getBean("sagaAnnotationTransactionService");
+        sagaAnnotationTransactionService.doTransactionCommit();
 
-        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
-
-        transactionCommittedDemo(stateMachineEngine);
-
-        transactionCompensatedDemo(stateMachineEngine);
-        if (isInE2ETest()) {
-            String res =  "{\"res\": \"commit\"}";
-            writeE2EResFile(res, "commit.yaml");
-            res =  "{\"res\": \"rollback\"}";
-            writeE2EResFile(res, "rollback.yaml");
-        }
-        //keep run
+        sagaAnnotationTransactionService.doTransactionRollback();
+//        if (isInE2ETest()) {
+//            // wait provider
+//            Thread.sleep(5000);
+//        }
+//
+//        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(SagaTransactionStarter.class);
+//
+//        StateMachineEngine stateMachineEngine = (StateMachineEngine) applicationContext.getBean("stateMachineEngine");
+//
+//        transactionCommittedDemo(stateMachineEngine);
+//
+//        transactionCompensatedDemo(stateMachineEngine);
+//        if (isInE2ETest()) {
+//            String res =  "{\"res\": \"commit\"}";
+//            writeE2EResFile(res, "commit.yaml");
+//            res =  "{\"res\": \"rollback\"}";
+//            writeE2EResFile(res, "rollback.yaml");
+//        }
+//        //keep run
         Thread.currentThread().join();
     }
+
 
     private static void transactionCommittedDemo(StateMachineEngine stateMachineEngine) {
 
