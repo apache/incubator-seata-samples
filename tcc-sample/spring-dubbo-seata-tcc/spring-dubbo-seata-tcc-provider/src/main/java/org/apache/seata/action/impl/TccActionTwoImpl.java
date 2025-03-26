@@ -44,8 +44,8 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean commit(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        Assert.isTrue(actionContext.getActionContext("b") != null);
-        Assert.isTrue(actionContext.getActionContext("c") != null);
+        Assert.isTrue(actionContext.getActionContext("b") != null, "TccActionTwo commit, b is null");
+        Assert.isTrue(actionContext.getActionContext("c") != null, "TccActionTwo commit, c is null");
         System.out.println(
             "TccActionTwo commit, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
                 .getActionContext("c"));
@@ -56,8 +56,8 @@ public class TccActionTwoImpl implements TccActionTwo {
     @Override
     public boolean rollback(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        Assert.isTrue(actionContext.getActionContext("b") != null);
-        Assert.isTrue(actionContext.getActionContext("c") != null);
+        Assert.isTrue(actionContext.getActionContext("b") != null, "TccActionTwo rollback, b is null");
+        Assert.isTrue(actionContext.getActionContext("c") != null, "TccActionTwo rollback, c is null");
         System.out.println(
             "TccActionTwo rollback, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
                 .getActionContext("c"));
