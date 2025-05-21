@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.apache.seata.e2e.E2EUtil.isInE2ETest;
 
@@ -49,17 +50,28 @@ public class DubboProviderStarter {
 //        }));
 
 //        mockZKServer();
-        if (isInE2ETest()) {
-            // wait seata-server
-            Thread.sleep(2000);
-        }
 
-        new AnnotationConfigApplicationContext(DubboProviderStarter.class);
+//        if (isInE2ETest()) {
+//            // wait seata-server
+//            Thread.sleep(2000);
+//        }
+//
+//        new AnnotationConfigApplicationContext(DubboProviderStarter.class);
+//
+//        LOGGER.info("dubbo provider started");
+//        //keep run
+//        Thread.currentThread().join();
+
+        mockZKServer();
+
+        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("spring/seata-dubbo-provider.xml");
+        classPathXmlApplicationContext.start();
 
         LOGGER.info("dubbo provider started");
         //keep run
         Thread.currentThread().join();
     }
+
 
     private static void mockZKServer() throws Exception {
         server = new TestingServer(2181, true);
