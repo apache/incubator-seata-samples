@@ -1,7 +1,7 @@
 ## Seata E2E Test Quick Start
 ### 准备测试依赖框架
 E2E测试依赖三方测试框架  [ apache/skywalking-infra-e2e](https://github.com/apache/skywalking-infra-e2e)
-如运行环境已安装go，可使用以下命令安装
+如运行环境已安装go，可以使用以下命令安装
 ```yaml
 cd seata-samples
 cd e2e-test/scripts
