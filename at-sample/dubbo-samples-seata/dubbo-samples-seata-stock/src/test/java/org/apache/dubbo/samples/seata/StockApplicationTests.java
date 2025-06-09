@@ -17,10 +17,11 @@
 
 package org.apache.dubbo.samples.seata;
 
+import org.apache.dubbo.samples.seata.stock.StockApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = StockApplication.class)
 class StockApplicationTests {
 
     @Test
