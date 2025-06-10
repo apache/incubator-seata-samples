@@ -39,6 +39,8 @@ header:
     - 'LICENSE'
     - 'NOTICE'
     - 'DISCLAIMER'
+    - '*.json'
+    - '.github/**'
   comment: on-failure
 dependency:
   files:
