@@ -40,7 +40,7 @@ header:
     - 'LICENSE'
     - 'NOTICE'
     - 'DISCLAIMER'
-    - '*.json'
+    - '**/*.json'
     - '.github/**'
   comment: on-failure
 dependency:
