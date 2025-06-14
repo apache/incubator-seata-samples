@@ -20,7 +20,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.seata</groupId>
   <artifactId>e2e-test</artifactId>
-  <version>2.1.0</version>
+  <version>2.3.0</version>
   <packaging>pom</packaging>
   <name>e2e-test</name>
   <modules>

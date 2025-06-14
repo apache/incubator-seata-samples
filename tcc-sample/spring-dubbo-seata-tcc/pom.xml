@@ -21,7 +21,7 @@
 
   <groupId>org.apache.seata</groupId>
   <artifactId>spring-dubbo-seata-tcc</artifactId>
-  <version>2.1.0</version>
+  <version>2.3.0</version>
   <packaging>pom</packaging>
 
   <name>spring-dubbo-seata-tcc</name>
