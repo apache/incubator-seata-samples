@@ -23,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * The type Result holder.
  *
- * @author zhangsen
  */
 public class ResultHolder {
 

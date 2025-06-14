@@ -26,9 +26,7 @@ import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Component;
 
 /**
- * The type Tcc transaction service.
- *
- * @author zhangsen
+ * The type Saga transaction service.
  */
 @Component
 public class SagaTransactionService {
