@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.apache.seata.action.ResultHolder;
 import org.apache.seata.core.exception.TransactionException;
-import org.apache.seata.service.TccTransactionService;
+import org.apache.seata.service.SagaTransactionService;
 import org.apache.seata.tm.api.GlobalTransaction;
 import org.apache.seata.tm.api.GlobalTransactionContext;
 import org.springframework.boot.SpringApplication;
@@ -36,14 +36,14 @@ public class Main {
             throws IOException, ExecutionException, InterruptedException, TimeoutException, TransactionException {
         boolean isInE2ETest = isInE2ETest();
         ConfigurableApplicationContext context = SpringApplication.run(Main.class, args);
-        TccTransactionService tccTransactionService = context.getBean(TccTransactionService.class);
-        String xid = tccTransactionService.doTransactionCommit();
+        SagaTransactionService sagaTransactionService = context.getBean(SagaTransactionService.class);
+        String xid = sagaTransactionService.doTransactionCommit();
         ResultHolder.getActionTwoResult(xid).get(10, TimeUnit.SECONDS);
         GlobalTransaction globalTransaction = GlobalTransactionContext.createNew();
         globalTransaction.begin();
         xid = globalTransaction.getXid();
         try {
-           tccTransactionService.doTransactionRollback();
+            sagaTransactionService.doTransactionRollback();
         } catch (Exception e) {
             globalTransaction.rollback();
         }

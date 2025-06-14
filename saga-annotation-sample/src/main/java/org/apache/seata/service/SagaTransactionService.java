@@ -19,8 +19,8 @@ package org.apache.seata.service;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
-import org.apache.seata.action.TccActionOne;
-import org.apache.seata.action.TccActionTwo;
+import org.apache.seata.action.SagaActionOne;
+import org.apache.seata.action.SagaActionTwo;
 import org.apache.seata.core.context.RootContext;
 import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Component;
@@ -31,13 +31,13 @@ import org.springframework.stereotype.Component;
  * @author zhangsen
  */
 @Component
-public class TccTransactionService {
+public class SagaTransactionService {
 
     @Resource
-    private TccActionOne tccActionOne;
+    private SagaActionOne sagaActionOne;
 
     @Resource
-    private TccActionTwo tccActionTwo;
+    private SagaActionTwo sagaActionTwo;
 
     /**
      * 发起分布式事务
@@ -47,14 +47,14 @@ public class TccTransactionService {
     @GlobalTransactional
     public String doTransactionCommit() {
         //第一个TCC 事务参与者
-        boolean result = tccActionOne.commit(null, 1);
+        boolean result = sagaActionOne.commit(null, 1);
         if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List<String> list = new ArrayList<>();
         list.add("c1");
         list.add("c2");
-        result = tccActionTwo.commit(null, "two", list);
+        result = sagaActionTwo.commit(null, "two", list);
         if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }
@@ -67,14 +67,14 @@ public class TccTransactionService {
     @GlobalTransactional
     public void doTransactionRollback() {
         //第一个TCC 事务参与者
-        boolean result = tccActionOne.commit(null, 1);
+        boolean result = sagaActionOne.commit(null, 1);
         if (!result) {
             throw new RuntimeException("TccActionOne failed.");
         }
         List<String> list = new ArrayList<>();
         list.add("c1");
         list.add("c2");
-        result = tccActionTwo.commit(null, "two", list);
+        result = sagaActionTwo.commit(null, "two", list);
         if (!result) {
             throw new RuntimeException("TccActionTwo failed.");
         }

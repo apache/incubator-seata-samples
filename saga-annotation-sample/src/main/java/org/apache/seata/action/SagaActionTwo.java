@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.apache.seata.rm.tcc.api.BusinessActionContext;
 
-public interface TccActionTwo {
+public interface SagaActionTwo {
 
     /**
      * commit boolean.

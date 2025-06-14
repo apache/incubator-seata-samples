@@ -18,7 +18,7 @@ package org.apache.seata.action;
 
 import org.apache.seata.rm.tcc.api.BusinessActionContext;
 
-public interface TccActionOne {
+public interface SagaActionOne {
 
     /**
      * commit boolean.

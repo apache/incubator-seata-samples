@@ -16,11 +16,7 @@
  */
 package org.apache.seata.action.impl;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-import org.apache.seata.action.ResultHolder;
-import org.apache.seata.action.TccActionTwo;
+import org.apache.seata.action.SagaActionOne;
 import org.apache.seata.rm.tcc.api.BusinessActionContext;
 import org.apache.seata.rm.tcc.api.BusinessActionContextParameter;
 import org.apache.seata.rm.tcc.api.LocalTCC;
@@ -30,31 +26,22 @@ import org.springframework.util.Assert;
 
 @Service
 @LocalTCC
-public class TccActionTwoImpl implements TccActionTwo {
+public class SagaActionOneImpl implements SagaActionOne {
 
     @Override
-    @CompensationBusinessAction(name = "DubboTccActionTwo", compensationMethod = "rollback")
-    public boolean commit(BusinessActionContext actionContext,  @BusinessActionContextParameter(paramName = "b") String b,
-                           @BusinessActionContextParameter(paramName = "c", index = 1) List list) {
+    @CompensationBusinessAction(name = "DubboSagaActionOne", compensationMethod = "rollback")
+    public boolean commit(BusinessActionContext actionContext,@BusinessActionContextParameter(paramName = "a") int a) {
         String xid = actionContext.getXid();
-        System.out.println("TccActionTwo prepare, xid:" + xid + ", b:" + b + ", c:" + list.get(1));
-        CompletableFuture<Void> completableFuture = new CompletableFuture<>();
-        ResultHolder.setActionTwoResult(xid,completableFuture);
-        completableFuture.complete(null);
+        System.out.println("TccActionOne prepare, xid:" + xid + ", a:" + a);
         return true;
     }
 
     @Override
     public boolean rollback(BusinessActionContext actionContext) {
         String xid = actionContext.getXid();
-        Assert.isTrue(actionContext.getActionContext("b") != null);
-        Assert.isTrue(actionContext.getActionContext("c") != null);
-        System.out.println(
-            "TccActionTwo rollback, xid:" + xid + ", b:" + actionContext.getActionContext("b") + ", c:" + actionContext
-                .getActionContext("c"));
-        CompletableFuture<Void> completableFuture = ResultHolder.getActionTwoResult(xid);
-        completableFuture.complete(null);
+        Object a =  actionContext.getActionContext("a");
+        Assert.notNull(a);
+        System.out.println("TccActionOne prepare, xid:" + xid + ", a:" + a);
         return true;
     }
-
 }
