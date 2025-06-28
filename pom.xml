@@ -22,7 +22,10 @@
     <groupId>org.apache.seata</groupId>
     <artifactId>seata-samples</artifactId>
     <packaging>pom</packaging>
-    <version>2.1.0</version>
+    <modules>
+        <module>saga-annotation-sample</module>
+    </modules>
+    <version>2.3.0</version>
     <name>seata-samples ${project.version}</name>
 
 </project>
