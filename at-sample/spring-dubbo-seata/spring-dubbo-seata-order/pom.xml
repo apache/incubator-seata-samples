@@ -21,10 +21,10 @@
     <parent>
         <groupId>org.apache.seata</groupId>
         <artifactId>spring-dubbo-seata</artifactId>
-        <version>2.5.0</version>
+        <version>2.5.0-SNAPSHOT</version>
     </parent>
     <artifactId>spring-dubbo-seata-order</artifactId>
-    <version>2.5.0</version>
+    <version>2.5.0-SNAPSHOT</version>
     <name>spring-dubbo-seata-order</name>
     <description>spring-dubbo-seata-order</description>
 
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>org.apache.seata</groupId>
             <artifactId>seata-all</artifactId>
-            <version>2.5.0</version>
+            <version>2.5.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -105,7 +105,7 @@
         <dependency>
             <groupId>org.apache.seata</groupId>
             <artifactId>spring-dubbo-seata-common</artifactId>
-            <version>2.5.0</version>
+            <version>2.5.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

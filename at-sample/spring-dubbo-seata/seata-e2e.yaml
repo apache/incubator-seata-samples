@@ -116,7 +116,7 @@ e2e:
       - name: seata-server
         docker_service:
           hostname: seata
-          image: apache/seata-server:2.5.0
+          image: apache/seata-server:2.5.0-SNAPSHOT
 #          ports:
 #            - "7091:7091"
 #            - "8091:8091"

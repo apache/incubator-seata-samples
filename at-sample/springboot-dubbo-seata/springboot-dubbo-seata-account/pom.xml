@@ -21,10 +21,10 @@
     <parent>
         <groupId>org.apache.seata</groupId>
         <artifactId>springboot-dubbo-seata</artifactId>
-        <version>2.5.0</version>
+        <version>2.5.0-SNAPSHOT</version>
     </parent>
     <artifactId>springboot-dubbo-seata-account</artifactId>
-    <version>2.5.0</version>
+    <version>2.5.0-SNAPSHOT</version>
     <name>springboot-dubbo-seata-account</name>
     <description>springboot-dubbo-seata-account</description>
 
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>org.apache.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-            <version>2.5.0</version>
+            <version>2.5.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -105,7 +105,7 @@
         <dependency>
             <groupId>org.apache.seata</groupId>
             <artifactId>springboot-dubbo-seata-common</artifactId>
-            <version>2.5.0</version>
+            <version>2.5.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
