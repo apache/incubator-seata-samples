@@ -11,7 +11,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        // 从全局事务上下文中获取 TX_XID 并添加到 Feign 请求的 Header 中
+        // Obtain the TX_XID from the global transaction context and add it to the Feign request header
         String xid = RootContext.getXID();
         if (xid != null) {
             template.header(RootContext.KEY_XID, xid);
