@@ -70,7 +70,7 @@ public class OrderServiceImpl implements OrderService {
         }, keyHolder);
 
 
-        LOGGER.info("Order Service End ... Created " + Objects.requireNonNull(keyHolder.getKey()).longValue());
+        LOGGER.info("Order Service End ... Created " + Objects.requireNonNull(keyHolder.getKeys()));
     }
 
     private int calculate(String commodityId, int orderCount) {
