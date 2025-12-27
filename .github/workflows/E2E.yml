@@ -92,7 +92,7 @@ jobs:
         
       - name: Upload test logs on failure
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: e2e-test-logs-jdk${{ matrix.build_jdk }}-docker-jdk${{ matrix.docker_jdk }}
           path: |
