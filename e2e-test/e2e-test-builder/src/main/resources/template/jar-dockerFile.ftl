@@ -22,19 +22,19 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Log JDK version information on container start
-RUN echo '#!/bin/bash' > /log-jdk-info.sh && \
-    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
-    echo 'echo "Seata E2E Test Container (Jar Mode)"' >> /log-jdk-info.sh && \
-    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
-    echo 'echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"' >> /log-jdk-info.sh && \
-    echo 'echo "Java Version:"' >> /log-jdk-info.sh && \
-    echo 'java -version' >> /log-jdk-info.sh && \
-    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
-    echo 'echo "Container Info:"' >> /log-jdk-info.sh && \
-    echo 'echo "Hostname: $(hostname)"' >> /log-jdk-info.sh && \
-    echo 'echo "Start Time: $(date)"' >> /log-jdk-info.sh && \
-    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
-    echo '/entrypoint.sh' >> /log-jdk-info.sh && \
+RUN printf '#!/bin/bash\n\
+echo "=========================================="\n\
+echo "Seata E2E Test Container (Jar Mode)"\n\
+echo "=========================================="\n\
+echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"\n\
+echo "Java Version:"\n\
+java -version 2>&1\n\
+echo "=========================================="\n\
+echo "Container Info:"\n\
+echo "Hostname: $(hostname)"\n\
+echo "Start Time: $(date)"\n\
+echo "=========================================="\n\
+exec /entrypoint.sh\n' > /log-jdk-info.sh && \
     chmod +x /log-jdk-info.sh
 
 ENTRYPOINT ["/log-jdk-info.sh"]

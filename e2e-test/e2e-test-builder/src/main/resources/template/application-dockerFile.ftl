@@ -20,20 +20,20 @@ RUN apk --no-cache add curl bash
 COPY ${sourceJar} /app.jar
 
 # Create startup script with JDK version logging
-RUN echo '#!/bin/bash' > /startup.sh && \
-    echo 'echo "=========================================="' >> /startup.sh && \
-    echo 'echo "Seata E2E Test Container Starting..."' >> /startup.sh && \
-    echo 'echo "=========================================="' >> /startup.sh && \
-    echo 'echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"' >> /startup.sh && \
-    echo 'echo "Java Version:"' >> /startup.sh && \
-    echo 'java -version' >> /startup.sh && \
-    echo 'echo "=========================================="' >> /startup.sh && \
-    echo 'echo "Container Info:"' >> /startup.sh && \
-    echo 'echo "Hostname: $(hostname)"' >> /startup.sh && \
-    echo 'echo "Start Time: $(date)"' >> /startup.sh && \
-    echo 'echo "=========================================="' >> /startup.sh && \
-    echo 'echo "Starting Application..."' >> /startup.sh && \
-    echo 'exec java -jar /app.jar' >> /startup.sh && \
+RUN printf '#!/bin/bash\n\
+echo "=========================================="\n\
+echo "Seata E2E Test Container Starting..."\n\
+echo "=========================================="\n\
+echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"\n\
+echo "Java Version:"\n\
+java -version 2>&1\n\
+echo "=========================================="\n\
+echo "Container Info:"\n\
+echo "Hostname: $(hostname)"\n\
+echo "Start Time: $(date)"\n\
+echo "=========================================="\n\
+echo "Starting Application..."\n\
+exec java -jar /app.jar\n' > /startup.sh && \
     chmod +x /startup.sh
 
 ENTRYPOINT ["/startup.sh"]
