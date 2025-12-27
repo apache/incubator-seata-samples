@@ -83,8 +83,11 @@ public class DockerFileForJarGenerator {
         String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
                 + module.getName()).getAbsolutePath();
         try {
+            String baseImage = ConfigConstants.getBaseImage();
             Map<String, Object> props = new HashMap<>();
             props.put("sourceJar", module.getName() + ".jar");
+            props.put("baseImage", baseImage);
+            LOGGER.info("Generating Dockerfile for module {} with base image: {}", module.getName(), baseImage);
             cfg.getTemplate("application-dockerFile.ftl")
                     .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
         } catch (TemplateException | IOException e) {
@@ -97,8 +100,11 @@ public class DockerFileForJarGenerator {
         String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
                 + module.getName()).getAbsolutePath();
         try {
+            String baseImage = ConfigConstants.getBaseImage();
             Map<String, Object> props = new HashMap<>();
             props.put("sourceJar", module.getName() + ".jar");
+            props.put("baseImage", baseImage);
+            LOGGER.info("Generating Dockerfile (Jar mode) for module {} with base image: {}", module.getName(), baseImage);
             cfg.getTemplate("jar-dockerFile.ftl")
                     .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
             URL entryPoint = this.getClass().getClassLoader().getResource("sh/entrypoint.sh");

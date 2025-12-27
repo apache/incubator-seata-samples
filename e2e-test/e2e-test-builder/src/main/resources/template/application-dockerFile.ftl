@@ -15,7 +15,25 @@
     limitations under the License.
 -->
 
-FROM openjdk:8-jdk-alpine
-RUN apk --no-cache add curl
+FROM ${baseImage!"openjdk:8-jdk-alpine"}
+RUN apk --no-cache add curl bash
 COPY ${sourceJar} /app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+# Create startup script with JDK version logging
+RUN echo '#!/bin/bash' > /startup.sh && \
+    echo 'echo "=========================================="' >> /startup.sh && \
+    echo 'echo "Seata E2E Test Container Starting..."' >> /startup.sh && \
+    echo 'echo "=========================================="' >> /startup.sh && \
+    echo 'echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"' >> /startup.sh && \
+    echo 'echo "Java Version:"' >> /startup.sh && \
+    echo 'java -version' >> /startup.sh && \
+    echo 'echo "=========================================="' >> /startup.sh && \
+    echo 'echo "Container Info:"' >> /startup.sh && \
+    echo 'echo "Hostname: $(hostname)"' >> /startup.sh && \
+    echo 'echo "Start Time: $(date)"' >> /startup.sh && \
+    echo 'echo "=========================================="' >> /startup.sh && \
+    echo 'echo "Starting Application..."' >> /startup.sh && \
+    echo 'exec java -jar /app.jar' >> /startup.sh && \
+    chmod +x /startup.sh
+
+ENTRYPOINT ["/startup.sh"]

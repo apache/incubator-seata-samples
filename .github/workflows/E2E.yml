@@ -15,14 +15,22 @@ on: [ push,pull_request ]
 
 jobs:
   run_e2e:
-    name: Run E2E Test ${{ matrix.java }}, ${{ matrix.os }}
+    name: Run E2E Test (Build JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        java: [ 8, 11 ]
+        # Build JDK version - used for Maven compilation
+        build_jdk: [ 8, 11 ]
+        # Docker JDK version - used in Docker images for runtime
+        docker_jdk: [ 8, 11, 17 ]
+        # Exclude some combinations to reduce test time
+        exclude:
+          # When building with JDK 8, skip testing with JDK 17
+          - build_jdk: 8
+            docker_jdk: 17
       fail-fast: false
-      max-parallel: 2
+      max-parallel: 3
     steps:
       - name: Uninstall Docker Compose v2
         run: sudo rm -f /usr/local/bin/docker-compose
@@ -59,11 +67,20 @@ jobs:
           chmod 777 e2e
           cp e2e /usr/local/bin
 
-      - name: Set up JDK ${{ matrix.java }}
+      - name: Set up JDK ${{ matrix.build_jdk }} for build
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: ${{ matrix.java }}
+          java-version: ${{ matrix.build_jdk }}
+
+      - name: Set Docker JDK base image
+        run: |
+          echo "=========================================="
+          echo "E2E Test Configuration:"
+          echo "Build JDK Version: ${{ matrix.build_jdk }}"
+          echo "Docker Runtime JDK Version: ${{ matrix.docker_jdk }}"
+          echo "=========================================="
+          echo "E2E_JDK_BASE_IMAGE=${{ matrix.docker_jdk }}" >> $GITHUB_ENV
 
       - name: prepare e2e tests
         run: | 
@@ -72,3 +89,13 @@ jobs:
       - name: run e2e tests
         run: |
           cd e2e-test/scripts && sh test-run.sh
+        
+      - name: Upload test logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: e2e-test-logs-jdk${{ matrix.build_jdk }}-docker-jdk${{ matrix.docker_jdk }}
+          path: |
+            e2e-test/logs/
+            tmp/
+          retention-days: 7

@@ -15,8 +15,26 @@
     limitations under the License.
 -->
 
-FROM openjdk:8-jdk-alpine
+FROM ${baseImage!"openjdk:8-jdk-alpine"}
+RUN apk --no-cache add bash
 COPY ${sourceJar} /app.jar
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+
+# Log JDK version information on container start
+RUN echo '#!/bin/bash' > /log-jdk-info.sh && \
+    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
+    echo 'echo "Seata E2E Test Container (Jar Mode)"' >> /log-jdk-info.sh && \
+    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
+    echo 'echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"' >> /log-jdk-info.sh && \
+    echo 'echo "Java Version:"' >> /log-jdk-info.sh && \
+    echo 'java -version' >> /log-jdk-info.sh && \
+    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
+    echo 'echo "Container Info:"' >> /log-jdk-info.sh && \
+    echo 'echo "Hostname: $(hostname)"' >> /log-jdk-info.sh && \
+    echo 'echo "Start Time: $(date)"' >> /log-jdk-info.sh && \
+    echo 'echo "=========================================="' >> /log-jdk-info.sh && \
+    echo '/entrypoint.sh' >> /log-jdk-info.sh && \
+    chmod +x /log-jdk-info.sh
+
+ENTRYPOINT ["/log-jdk-info.sh"]
