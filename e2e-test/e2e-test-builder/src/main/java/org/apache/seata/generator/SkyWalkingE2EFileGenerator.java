@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,8 +57,24 @@ public class SkyWalkingE2EFileGenerator {
             Map<String, Object> map = new HashMap<>();
             map.put("retry", e2EConfig.getRetry());
             map.put("cases", e2EConfig.getCases());
+            
+            File e2eFile = new File(file, ConfigConstants.SKY_WALKING_E2E_FILE);
             cfg.getTemplate("skywalking-e2e.ftl")
-                    .process(map, new FileWriter(new File(file, ConfigConstants.SKY_WALKING_E2E_FILE)));
+                    .process(map, new FileWriter(e2eFile));
+            
+            // Log the generated e2e.yaml content
+            LOGGER.info("==========================================");
+            LOGGER.info("Generated e2e.yaml for scene: {}", e2EConfig.getScene_name());
+            LOGGER.info("Location: {}", e2eFile.getAbsolutePath());
+            LOGGER.info("==========================================");
+            
+            try {
+                String content = new String(Files.readAllBytes(e2eFile.toPath()));
+                LOGGER.info("Content:\n{}", content);
+                LOGGER.info("==========================================");
+            } catch (IOException ex) {
+                LOGGER.warn("Could not read e2e.yaml content for logging", ex);
+            }
         } catch (TemplateException | IOException e) {
             LOGGER.error(String.format("generate SkyWalking e2e test file for %s fail", e2EConfig.getScene_name()
                     + "-" + e2EConfig.getScene_name()), e);
