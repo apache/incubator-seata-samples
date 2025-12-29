@@ -48,6 +48,9 @@ public class E2EBuilder {
             for (File file : files) {
                 if (file.isDirectory()) {
                     searchAndBuild(file);
+                    if (!file.getName().contains("seata-saga")) {
+                        continue;
+                    }
                     File configFile = new File(file, ConfigConstants.SEATA_E2E_FILE);
                     if (configFile.exists()) {
                         E2EConfig e2EConfig = ConfigReader.readConfig(configFile);
