@@ -45,3 +45,4 @@ services:
     environment:
       - SEATA_PORT=8091
       - STORE_MODE=file
+
