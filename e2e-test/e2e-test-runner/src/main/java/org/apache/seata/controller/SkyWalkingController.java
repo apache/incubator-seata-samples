@@ -101,11 +101,24 @@ public class SkyWalkingController {
 //            builder.command("docker-compose", "up", "--timeout", "120");
             builder.command("e2e", "run");
             Process process = builder.start();
+
+            // Auto-respond to prompts by writing to stdin
+            try (var out = process.getOutputStream()) {
+                out.write("y\n".getBytes());
+                out.flush();
+            } catch (Exception e) {
+                LOGGER.warn("Failed to write to process stdin", e);
+            }
+
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
                         file.getName(), exitCode));
+
+                // Print diagnostic information on failure
+                printDiagnosticInfo(file);
+
                 return exitCode;
             }
         } catch (Exception e) {
@@ -114,5 +127,54 @@ public class SkyWalkingController {
         }
 
         return 0;
+    }
+    
+    private static void printDiagnosticInfo(File testDir) {
+        LOGGER.error("==========================================");
+        LOGGER.error("DIAGNOSTIC INFORMATION FOR FAILED TEST");
+        LOGGER.error("Test Directory: {}", testDir.getAbsolutePath());
+        LOGGER.error("==========================================");
+        
+        // Print docker-compose.yaml
+        File composeFile = new File(testDir, "docker-compose.yaml");
+        if (composeFile.exists()) {
+            try {
+                String content = new String(java.nio.file.Files.readAllBytes(composeFile.toPath()));
+                LOGGER.error("docker-compose.yaml content:\n{}", content);
+            } catch (Exception e) {
+                LOGGER.error("Failed to read docker-compose.yaml", e);
+            }
+        } else {
+            LOGGER.error("docker-compose.yaml NOT FOUND!");
+        }
+        
+        LOGGER.error("------------------------------------------");
+        
+        // Print e2e.yaml
+        File e2eFile = new File(testDir, "e2e.yaml");
+        if (e2eFile.exists()) {
+            try {
+                String content = new String(java.nio.file.Files.readAllBytes(e2eFile.toPath()));
+                LOGGER.error("e2e.yaml content:\n{}", content);
+            } catch (Exception e) {
+                LOGGER.error("Failed to read e2e.yaml", e);
+            }
+        }
+        
+        LOGGER.error("------------------------------------------");
+        
+        // Try to get docker-compose logs
+        try {
+            LOGGER.error("Attempting to get docker-compose logs...");
+            ProcessBuilder logsBuilder = new ProcessBuilder("docker-compose", "logs", "--tail=50");
+            logsBuilder.directory(testDir);
+            Process logsProcess = logsBuilder.start();
+            printProcessLog(LOGGER, logsProcess);
+            logsProcess.waitFor();
+        } catch (Exception e) {
+            LOGGER.error("Failed to get docker-compose logs", e);
+        }
+        
+        LOGGER.error("==========================================");
     }
 }
