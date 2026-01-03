@@ -99,17 +99,26 @@ public class SkyWalkingController {
             builder.directory(file);
 //            builder.inheritIO();
 //            builder.command("docker-compose", "up", "--timeout", "120");
-            builder.command("sh", "-c", "echo y | e2e run");
+            builder.command("e2e", "run");
             Process process = builder.start();
+
+            // Auto-respond to prompts by writing to stdin
+            try (var out = process.getOutputStream()) {
+                out.write("y\n".getBytes());
+                out.flush();
+            } catch (Exception e) {
+                LOGGER.warn("Failed to write to process stdin", e);
+            }
+
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
                         file.getName(), exitCode));
-                
+
                 // Print diagnostic information on failure
                 printDiagnosticInfo(file);
-                
+
                 return exitCode;
             }
         } catch (Exception e) {
