@@ -99,7 +99,7 @@ public class SkyWalkingController {
             builder.directory(file);
 //            builder.inheritIO();
 //            builder.command("docker-compose", "up", "--timeout", "120");
-            builder.command("e2e", "run");
+            builder.command("sh", "-c", "echo y | e2e run");
             Process process = builder.start();
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
