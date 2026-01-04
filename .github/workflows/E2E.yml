@@ -55,7 +55,7 @@ jobs:
       - name: Add script directory to PATH
         run: |
           cd skywalking-infra-e2e/bin/linux
-          echo "export PATH=$PATH:$(pwd)" >> $GITHUB_PATH
+          echo "$(pwd)" >> $GITHUB_PATH
           chmod 777 e2e
           cp e2e /usr/local/bin
 
