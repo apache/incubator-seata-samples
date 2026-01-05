@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -103,7 +104,7 @@ public class SkyWalkingController {
             Process process = builder.start();
 
             // Auto-respond to prompts by writing to stdin
-            try (var out = process.getOutputStream()) {
+            try (OutputStream out = process.getOutputStream()) {
                 out.write("y\n".getBytes());
                 out.flush();
             } catch (Exception e) {
