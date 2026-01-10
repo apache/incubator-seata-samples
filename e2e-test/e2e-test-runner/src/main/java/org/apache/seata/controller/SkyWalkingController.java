@@ -221,7 +221,7 @@ public class SkyWalkingController {
         // Try to get docker-compose logs
         try {
             LOGGER.error("Attempting to get docker-compose logs...");
-            ProcessBuilder logsBuilder = new ProcessBuilder("docker-compose", "logs", "--tail=100");
+            ProcessBuilder logsBuilder = new ProcessBuilder("docker-compose", "logs", "--tail=1000");
             logsBuilder.directory(testDir);
             Process logsProcess = logsBuilder.start();
             printProcessLog(LOGGER, logsProcess);
