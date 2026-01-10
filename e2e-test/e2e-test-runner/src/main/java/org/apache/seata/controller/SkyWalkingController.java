@@ -100,7 +100,16 @@ public class SkyWalkingController {
             //  builder.inheritIO();
             //  builder.command("docker-compose", "up", "--timeout", "120");
             builder.command("e2e", "run");
+            // 启动进程
             Process process = builder.start();
+            // 自动应答 'y'，防止在 CI 中被交互提示阻塞
+            try (java.io.OutputStream os = process.getOutputStream()) {
+                os.write("y\n".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                os.flush();
+            } catch (Exception ignored) {
+                LOGGER.warn("Failed to auto respond 'y' to the process.", ignored);
+            }
+            // 打印进程日志
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
