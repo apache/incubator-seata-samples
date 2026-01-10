@@ -78,16 +78,36 @@ jobs:
           echo "===== After prepare-test.sh: Docker containers status ====="
           docker ps -a
 
-      # ========== 核心修正1：移除continue-on-error，保留日志输出 ==========
+      # ========== 新增关键步骤：手动执行docker-compose up -d（抓原始错误） ==========
+      - name: Manual run docker-compose up -d (debug core error)
+        run: |
+          cd e2e-test/scripts
+          # 1. 先检查compose文件语法（关键！语法错会直接exit 1）
+          echo "===== Check docker-compose.yml syntax ====="
+          docker-compose config --verbose
+          # 2. 手动执行up -d，输出最详细日志，强制捕获错误
+          echo "===== Run docker-compose up -d with debug ====="
+          docker-compose up -d --verbose 2>&1 | tee docker-compose-up-debug.log
+          # 3. 检查执行结果，打印错误码
+          COMPOSE_EXIT_CODE=${PIPESTATUS[0]}
+          echo "===== Docker-compose exit code: $COMPOSE_EXIT_CODE ====="
+          # 4. 如果失败，立即打印容器状态和日志
+          if [ $COMPOSE_EXIT_CODE -ne 0 ]; then
+            echo "===== Docker containers status after failed up ====="
+            docker ps -a
+            echo "===== Docker-compose logs after failed up ====="
+            docker-compose logs
+            # 强制退出，让步骤失败（方便看日志）
+            exit $COMPOSE_EXIT_CODE
+          fi
+
+      # ========== 原有e2e测试步骤（保留，用于对比） ==========
       - name: run e2e tests (with debug logs)
-        id: e2e_test  # 给步骤加ID，用于后续判断状态
+        id: e2e_test
         run: |
           set -euo pipefail
-          # 进入脚本目录
           cd e2e-test/scripts
-          # 执行测试脚本，同时输出详细日志到文件
           sh test-run.sh 2>&1 | tee e2e-test-log.txt
-          # 检查脚本退出码，确保失败能被识别
           TEST_EXIT_CODE=${PIPESTATUS[0]}
           exit $TEST_EXIT_CODE
 
