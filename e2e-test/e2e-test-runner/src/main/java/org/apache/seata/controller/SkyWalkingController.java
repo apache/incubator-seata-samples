@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -97,15 +98,59 @@ public class SkyWalkingController {
         try {
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(file);
-//            builder.inheritIO();
-//            builder.command("docker-compose", "up", "--timeout", "120");
             builder.command("e2e", "run");
+
+            // Set environment variables to avoid interactive prompts
+            Map<String, String> env = builder.environment();
+            env.put("CI", "true");  // Signal that this is a CI environment
+            env.put("TERM", "dumb"); // Disable terminal features
+
             Process process = builder.start();
+
+            // Auto-respond to prompts by writing to stdin with retry logic
+            Thread stdinThread = new Thread(() -> {
+                try (OutputStream out = process.getOutputStream()) {
+                    // Write 'y' with a small delay to ensure stdin is ready
+                    Thread.sleep(100);
+                    out.write("y\n".getBytes());
+                    out.flush();
+
+                    // Keep responding in case of multiple prompts
+                    for (int i = 0; i < 5; i++) {
+                        Thread.sleep(500);
+                        try {
+                            out.write("y\n".getBytes());
+                            out.flush();
+                        } catch (Exception e) {
+                            // Stream might be closed, which is fine
+                            break;
+                        }
+                    }
+                } catch (Exception e) {
+                    LOGGER.debug("stdin response thread finished or failed: " + e.getMessage());
+                }
+            });
+
+            stdinThread.setDaemon(true);
+            stdinThread.start();
+
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
+
+            // Wait for stdin thread to finish
+            try {
+                stdinThread.join(2000);
+            } catch (InterruptedException e) {
+                LOGGER.debug("stdin thread interrupted");
+            }
+
             if (exitCode != 0) {
                 LOGGER.warn(String.format(" Seate e2e test %s by SkyWalking-E2E fail with exit code %d",
                         file.getName(), exitCode));
+
+                // Print diagnostic information on failure
+                printDiagnosticInfo(file);
+
                 return exitCode;
             }
         } catch (Exception e) {
@@ -114,5 +159,90 @@ public class SkyWalkingController {
         }
 
         return 0;
+    }
+    
+    private static void printDiagnosticInfo(File testDir) {
+        LOGGER.error("==========================================");
+        LOGGER.error("DIAGNOSTIC INFORMATION FOR FAILED TEST");
+        LOGGER.error("Test Directory: {}", testDir.getAbsolutePath());
+        LOGGER.error("==========================================");
+
+        // Print docker-compose.yaml
+        File composeFile = new File(testDir, "docker-compose.yaml");
+        if (composeFile.exists()) {
+            try {
+                String content = new String(java.nio.file.Files.readAllBytes(composeFile.toPath()));
+                LOGGER.error("docker-compose.yaml content:\n{}", content);
+            } catch (Exception e) {
+                LOGGER.error("Failed to read docker-compose.yaml", e);
+            }
+        } else {
+            LOGGER.error("docker-compose.yaml NOT FOUND!");
+        }
+
+        LOGGER.error("------------------------------------------");
+
+        // Print e2e.yaml
+        File e2eFile = new File(testDir, "e2e.yaml");
+        if (e2eFile.exists()) {
+            try {
+                String content = new String(java.nio.file.Files.readAllBytes(e2eFile.toPath()));
+                LOGGER.error("e2e.yaml content:\n{}", content);
+            } catch (Exception e) {
+                LOGGER.error("Failed to read e2e.yaml", e);
+            }
+        }
+
+        LOGGER.error("------------------------------------------");
+
+        // Check Docker and Docker Compose versions
+        try {
+            LOGGER.error("Docker version:");
+            ProcessBuilder dockerVersionBuilder = new ProcessBuilder("docker", "--version");
+            Process dockerVersionProcess = dockerVersionBuilder.start();
+            printProcessLog(LOGGER, dockerVersionProcess);
+            dockerVersionProcess.waitFor();
+        } catch (Exception e) {
+            LOGGER.error("Failed to get Docker version", e);
+        }
+
+        try {
+            LOGGER.error("Docker Compose version:");
+            ProcessBuilder composeVersionBuilder = new ProcessBuilder("docker-compose", "--version");
+            Process composeVersionProcess = composeVersionBuilder.start();
+            printProcessLog(LOGGER, composeVersionProcess);
+            composeVersionProcess.waitFor();
+        } catch (Exception e) {
+            LOGGER.error("Failed to get Docker Compose version", e);
+        }
+
+        LOGGER.error("------------------------------------------");
+
+        // Try to get docker-compose logs
+        try {
+            LOGGER.error("Attempting to get docker-compose logs...");
+            ProcessBuilder logsBuilder = new ProcessBuilder("docker-compose", "logs", "--tail=1000");
+            logsBuilder.directory(testDir);
+            Process logsProcess = logsBuilder.start();
+            printProcessLog(LOGGER, logsProcess);
+            logsProcess.waitFor();
+        } catch (Exception e) {
+            LOGGER.error("Failed to get docker-compose logs", e);
+        }
+
+        LOGGER.error("------------------------------------------");
+
+        // Try to get list of running containers
+        try {
+            LOGGER.error("Running Docker containers:");
+            ProcessBuilder psBuilder = new ProcessBuilder("docker", "ps", "-a");
+            Process psProcess = psBuilder.start();
+            printProcessLog(LOGGER, psProcess);
+            psProcess.waitFor();
+        } catch (Exception e) {
+            LOGGER.error("Failed to get Docker containers list", e);
+        }
+
+        LOGGER.error("==========================================");
     }
 }
