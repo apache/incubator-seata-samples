@@ -109,7 +109,7 @@ jobs:
           cd e2e-test/scripts
           # 核心：用echo y | 自动回答[yN]的交互提示（关键！）
           # 原理：把y作为输入，直接传给test-run.sh执行的进程，绕过手动输入
-          echo y | sh test-run.sh 2>&1 | tee e2e-test-log.txt
+          sh test-run.sh 2>&1 | tee e2e-test-log.txt
           # 捕获真实退出码（排除echo的干扰）
           TEST_EXIT_CODE=${PIPESTATUS[1]}  # 注意：这里从0改成1，因为管道是echo y | sh ...，PIPESTATUS[1]才是sh的退出码
           exit $TEST_EXIT_CODE
