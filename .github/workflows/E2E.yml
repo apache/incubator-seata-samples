@@ -54,7 +54,7 @@ jobs:
           go-version: 1.18
         id: go
 
-      - name: Build e2e framework (use skywalking-infra-e2e v1.3.0)
+      - name: Build e2e framework (use skywalking-infra-e2e pr137)
         run: |
           cd skywalking-infra-e2e && git checkout e7138da4f9b7a25a169c9f8d995795d4d2e34bde && make linux
 
@@ -78,20 +78,22 @@ jobs:
           echo "===== After prepare-test.sh: Docker containers status ====="
           docker ps -a
 
-      # ========== 核心修改：增强e2e测试执行步骤，捕获详细错误 ==========
+      # ========== 核心修正1：移除continue-on-error，保留日志输出 ==========
       - name: run e2e tests (with debug logs)
+        id: e2e_test  # 给步骤加ID，用于后续判断状态
         run: |
           set -euo pipefail
           # 进入脚本目录
           cd e2e-test/scripts
           # 执行测试脚本，同时输出详细日志到文件
           sh test-run.sh 2>&1 | tee e2e-test-log.txt
-        # 即使测试失败，也继续执行后续步骤收集日志
-        continue-on-error: true
+          # 检查脚本退出码，确保失败能被识别
+          TEST_EXIT_CODE=${PIPESTATUS[0]}
+          exit $TEST_EXIT_CODE
 
-      # ========== 新增步骤：收集失败后的所有关键日志（核心调试） ==========
-      - name: Collect debug logs (if test failed)
-        if: failure()
+      # ========== 核心修正2：日志收集改为if: always()（无论成败都执行） ==========
+      - name: Collect debug logs
+        if: always()  # 替代failure()，无论上一步成功/失败都执行
         run: |
           echo "===== Docker version info ====="
           docker --version
@@ -118,12 +120,19 @@ jobs:
           echo "===== Port usage ====="
           sudo lsof -i -P -n | grep LISTEN || true
 
-      # ========== 新增步骤：上传日志文件（方便本地分析） ==========
+      # ========== 核心修正3：日志上传也改为if: always() ==========
       - name: Upload debug logs
-        if: failure()
+        if: always()  # 无论成败都上传日志（失败时必传，成功时可选）
         uses: actions/upload-artifact@v4
         with:
           name: e2e-debug-logs-${{ matrix.java }}
           path: |
             e2e-test/scripts/e2e-test-log.txt
             /var/log/docker.log || true
+
+      # ========== 核心修正4：手动标记Job失败（如果测试步骤失败） ==========
+      - name: Mark job as failed if test failed
+        if: steps.e2e_test.outcome == 'failure'
+        run: |
+          echo "E2E test failed, marking job as failed"
+          exit 1
