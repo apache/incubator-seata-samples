@@ -102,13 +102,16 @@ jobs:
           fi
 
       # ========== 原有e2e测试步骤（保留，用于对比） ==========
-      - name: run e2e tests (with debug logs)
+      - name: run e2e tests (auto answer [yN] prompt)
         id: e2e_test
         run: |
           set -euo pipefail
           cd e2e-test/scripts
-          sh test-run.sh 2>&1 | tee e2e-test-log.txt
-          TEST_EXIT_CODE=${PIPESTATUS[0]}
+          # 核心：用echo y | 自动回答[yN]的交互提示（关键！）
+          # 原理：把y作为输入，直接传给test-run.sh执行的进程，绕过手动输入
+          echo y | sh test-run.sh 2>&1 | tee e2e-test-log.txt
+          # 捕获真实退出码（排除echo的干扰）
+          TEST_EXIT_CODE=${PIPESTATUS[1]}  # 注意：这里从0改成1，因为管道是echo y | sh ...，PIPESTATUS[1]才是sh的退出码
           exit $TEST_EXIT_CODE
 
       # ========== 核心修正2：日志收集改为if: always()（无论成败都执行） ==========
