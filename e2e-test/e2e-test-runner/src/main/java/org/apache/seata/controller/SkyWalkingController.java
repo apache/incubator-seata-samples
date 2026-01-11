@@ -97,10 +97,12 @@ public class SkyWalkingController {
         try {
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(file);
-//            builder.inheritIO();
-//            builder.command("docker-compose", "up", "--timeout", "120");
-            builder.command("e2e", "run");
+            //  builder.inheritIO();
+            //  builder.command("docker-compose", "up", "--timeout", "120");
+            builder.command("e2e run");
+            // 启动进程
             Process process = builder.start();
+            // 打印进程日志
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
