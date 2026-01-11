@@ -6,6 +6,8 @@ jobs:
   run_e2e:
     name: Run E2E Test ${{ matrix.java }}, ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    env:
+      DEBIAN_FRONTEND: noninteractive
     strategy:
       matrix:
         os: [ ubuntu-latest ]
