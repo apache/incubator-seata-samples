@@ -58,7 +58,7 @@ jobs:
 
       - name: Build e2e framework (use skywalking-infra-e2e pr137)
         run: |
-          cd skywalking-infra-e2e && git checkout e7138da4f9b7a25a169c9f8d995795d4d2e34bde && make linux
+          cd skywalking-infra-e2e && git checkout 1485ae03f0ad90496ad7626a5ae4a6a73a1f6296 && make linux
 
       - name: Add script directory to PATH
         run: |
