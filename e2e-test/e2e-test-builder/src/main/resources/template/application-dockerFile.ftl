@@ -15,7 +15,7 @@
     limitations under the License.
 -->
 
-FROM openjdk:8-jdk-alpine
+FROM eclipse-temurin:8-jre-alpine
 RUN apk --no-cache add curl
 COPY ${sourceJar} /app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
