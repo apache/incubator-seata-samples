@@ -15,7 +15,7 @@
     limitations under the License.
 -->
 
-FROM openjdk:8-jdk-alpine
+FROM eclipse-temurin:8-jdk-alpine
 COPY ${sourceJar} /app.jar
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
