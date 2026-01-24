@@ -50,9 +50,6 @@ public class E2EBuilder {
                     searchAndBuild(file);
                     File configFile = new File(file, ConfigConstants.SEATA_E2E_FILE);
                     if (configFile.exists()) {
-                        if (!file.getAbsolutePath().contains("spring-seata-saga")) {
-                            continue;
-                        }
                         E2EConfig e2EConfig = ConfigReader.readConfig(configFile);
                         ImageBuilder imageBuilder = new ImageBuilder();
                         imageBuilder.buildImage(e2EConfig, file);
