@@ -107,7 +107,7 @@ public class SkyWalkingController {
             } else {
                 LOGGER.info("Directory " + file.getAbsolutePath() + " is empty or not a directory.");
             }
-            //  builder.inheritIO();
+            builder.inheritIO();
             //  builder.command("docker-compose", "up", "--timeout", "120");
             builder.command("e2e", "run");
             // 启动进程
