@@ -145,16 +145,27 @@ public class ImageBuilder {
             modules.addAll(e2EConfig.getModules().getProviders());
         }
         for (Module module : modules) {
-            String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
-                    + module.getName()).getAbsolutePath();
+            String imageTag = String.format("%s:%s", module.getName(), "0.0.1");
+            String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-" + module.getName()).getAbsolutePath();
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(new File(moduleComposeDir));
-            builder.command("docker", "build", "-t", String.format("%s:%s", module.getName(), "0.0.1"), ".");
+            builder.command("docker", "build", "-t", imageTag, ".");
             Process process = builder.start();
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
                 LOGGER.error(String.format("Docker image for module %s build failed with exit code %d", module.getName(), exitCode));
+                continue;
+            }
+            // 校验镜像是否存在且可用
+            ProcessBuilder inspectBuilder = new ProcessBuilder("docker", "image", "inspect", imageTag);
+            Process inspectProcess = inspectBuilder.start();
+            printProcessLog(LOGGER, inspectProcess);
+            int inspectExitCode = inspectProcess.waitFor();
+            if (inspectExitCode != 0) {
+                LOGGER.error(String.format("Docker image for module %s verification failed with exit code %d", module.getName(), inspectExitCode));
+            } else {
+                LOGGER.info(String.format("Docker image for module %s verified successfully: %s", module.getName(), imageTag));
             }
         }
     }
