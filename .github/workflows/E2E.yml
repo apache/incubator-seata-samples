@@ -79,6 +79,8 @@ jobs:
           # ========== 新增：打印prepare阶段的Docker状态 ==========
           echo "===== After prepare-test.sh: Docker containers status ====="
           docker ps -a
+          echo "===== After prepare-test.sh: Docker images status ====="
+          docker images
 
       # ========== 新增关键步骤：手动执行docker-compose up -d（抓原始错误） ==========
       - name: Manual run docker-compose up -d (debug core error)
