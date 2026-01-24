@@ -77,6 +77,9 @@ jobs:
         run: |
           cd e2e-test/scripts && sh prepare-test.sh
           # ========== 新增：打印prepare阶段的Docker状态 ==========
+
+      - name: check docker resources after prepare-test.sh
+        run: |
           echo "===== After prepare-test.sh: Docker containers status ====="
           docker ps -a
           echo "===== After prepare-test.sh: Docker images status ====="
