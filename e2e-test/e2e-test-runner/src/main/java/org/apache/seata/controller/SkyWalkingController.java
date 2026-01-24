@@ -109,7 +109,7 @@ public class SkyWalkingController {
             }
             //  builder.inheritIO();
             //  builder.command("docker-compose", "up", "--timeout", "120");
-            builder.command("e2e run");
+            builder.command("e2e", "run");
             // 启动进程
             Process process = builder.start();
             // 打印进程日志
