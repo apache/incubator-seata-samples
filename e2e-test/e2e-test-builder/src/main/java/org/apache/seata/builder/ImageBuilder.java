@@ -154,7 +154,12 @@ public class ImageBuilder {
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {
-                LOGGER.error(String.format("Docker image for module %s build failed with exit code %d", module.getName(), exitCode));
+                String stderr = new java.io.BufferedReader(new java.io.InputStreamReader(process.getErrorStream(), java.nio.charset.StandardCharsets.UTF_8))
+                        .lines().collect(java.util.stream.Collectors.joining(System.lineSeparator()));
+                String stdout = new java.io.BufferedReader(new java.io.InputStreamReader(process.getInputStream(), java.nio.charset.StandardCharsets.UTF_8))
+                        .lines().collect(java.util.stream.Collectors.joining(System.lineSeparator()));
+                LOGGER.error(String.format("Docker image for module %s build failed with exit code %d\nSTDOUT:\n%s\nSTDERR:\n%s",
+                        module.getName(), exitCode, stdout, stderr));
                 continue;
             }
             // 校验镜像是否存在且可用
