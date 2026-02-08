@@ -15,7 +15,7 @@ on: [ push,pull_request ]
 
 jobs:
   run_e2e:
-    name: Run E2E Test (Build JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
+    name: Run E2E Test (Build Arch${{ matrix.os }},JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
     runs-on: ${{ matrix.os }}
     env:
       DEBIAN_FRONTEND: noninteractive
