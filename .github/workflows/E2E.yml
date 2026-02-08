@@ -23,7 +23,7 @@ jobs:
       matrix:
         os: [ ubuntu-latest ]
         # Build JDK version - used for Maven compilation
-        build_jdk: [ 8, 11 ]
+        build_jdk: [ 8, 11, 17 ]
         # Docker JDK version - used in Docker images for runtime
         docker_jdk: [ 8, 11, 17 ]
         # Exclude some combinations to reduce test time
@@ -31,6 +31,16 @@ jobs:
           # When building with JDK 8, skip testing with JDK 17
           - build_jdk: 8
             docker_jdk: 17
+          - build_jdk: 8
+            docker_jdk: 11
+          - build_jdk: 11
+            docker_jdk: 8
+          - build_jdk: 11
+            docker_jdk: 17
+          - build_jdk: 17
+            docker_jdk: 8
+          - build_jdk: 17
+            docker_jdk: 11
       fail-fast: false
       max-parallel: 2
     steps:
