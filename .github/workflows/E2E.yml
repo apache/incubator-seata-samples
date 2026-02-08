@@ -15,14 +15,32 @@ on: [ push,pull_request ]
 
 jobs:
   run_e2e:
-    name: Run E2E Test ${{ matrix.java }}, ${{ matrix.os }}
+    name: Run E2E Test (Build JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
     runs-on: ${{ matrix.os }}
     env:
       DEBIAN_FRONTEND: noninteractive
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        java: [ 8, 11 ]
+        # Build JDK version - used for Maven compilation
+        build_jdk: [ 8, 11, 17 ]
+        # Docker JDK version - used in Docker images for runtime
+        docker_jdk: [ 8, 11, 17 ]
+        # Exclude some combinations to reduce test time
+        exclude:
+          # When building with JDK 8, skip testing with JDK 17
+          - build_jdk: 8
+            docker_jdk: 17
+          - build_jdk: 8
+            docker_jdk: 11
+          - build_jdk: 11
+            docker_jdk: 8
+          - build_jdk: 11
+            docker_jdk: 17
+          - build_jdk: 17
+            docker_jdk: 8
+          - build_jdk: 17
+            docker_jdk: 11
       fail-fast: false
       max-parallel: 2
     steps:
@@ -67,7 +85,7 @@ jobs:
           go-version: 1.18
         id: go
 
-      - name: Build e2e framework (use skywalking-infra-e2e pr137)
+      - name: Build e2e framework (use skywalking-infra-e2e v1.3.0)
         run: |
           cd skywalking-infra-e2e && git checkout 1485ae03f0ad90496ad7626a5ae4a6a73a1f6296 && make linux
 
@@ -78,11 +96,20 @@ jobs:
           chmod 777 e2e
           cp e2e /usr/local/bin
 
-      - name: Set up JDK ${{ matrix.java }}
+      - name: Set up JDK ${{ matrix.build_jdk }} for build
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: ${{ matrix.java }}
+          java-version: ${{ matrix.build_jdk }}
+
+      - name: Set Docker JDK base image
+        run: |
+          echo "=========================================="
+          echo "E2E Test Configuration:"
+          echo "Build JDK Version: ${{ matrix.build_jdk }}"
+          echo "Docker Runtime JDK Version: ${{ matrix.docker_jdk }}"
+          echo "=========================================="
+          echo "E2E_JDK_BASE_IMAGE=${{ matrix.docker_jdk }}" >> $GITHUB_ENV
 
       - name: prepare e2e tests
         run: |
@@ -166,7 +193,7 @@ jobs:
         if: always()  # 无论成败都上传日志（失败时必传，成功时可选）
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-debug-logs-${{ matrix.java }}
+          name: e2e-debug-logs-${{ matrix.build_jdk }}
           path: |
             e2e-test/scripts/e2e-test-log.txt
             /var/log/docker.log || true

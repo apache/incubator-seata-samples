@@ -15,8 +15,26 @@
     limitations under the License.
 -->
 
-FROM eclipse-temurin:8-jdk-alpine
+FROM ${baseImage!"eclipse-temurin:8-jdk-alpine"}
+RUN apk --no-cache add bash
 COPY ${sourceJar} /app.jar
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+
+# Log JDK version information on container start
+RUN printf '#!/bin/bash\n\
+echo "=========================================="\n\
+echo "Seata E2E Test Container (Jar Mode)"\n\
+echo "=========================================="\n\
+echo "Base Image: ${baseImage!"openjdk:8-jdk-alpine"}"\n\
+echo "Java Version:"\n\
+java -version 2>&1\n\
+echo "=========================================="\n\
+echo "Container Info:"\n\
+echo "Hostname: $(hostname)"\n\
+echo "Start Time: $(date)"\n\
+echo "=========================================="\n\
+exec /entrypoint.sh\n' > /log-jdk-info.sh && \
+    chmod +x /log-jdk-info.sh
+
+ENTRYPOINT ["/log-jdk-info.sh"]
