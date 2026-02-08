@@ -45,10 +45,10 @@ public class ConfigConstants {
         put("17", "eclipse-temurin:17-jdk-alpine");
         put("21", "eclipse-temurin:21-jdk-alpine");
         // Support for different distributions
-        put("8-zulu", "azul/zulu-openjdk-alpine:8");
-        put("11-zulu", "azul/zulu-openjdk-alpine:11");
-        put("17-zulu", "azul/zulu-openjdk-alpine:17");
-        put("21-zulu", "azul/zulu-openjdk-alpine:21");
+        put("8-zulu", "azul/zulu-openjdk:8");
+        put("11-zulu", "azul/zulu-openjdk:11");
+        put("17-zulu", "azul/zulu-openjdk:17");
+        put("21-zulu", "azul/zulu-openjdk:21");
     }};
     
     /**
