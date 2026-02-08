@@ -21,7 +21,7 @@ jobs:
       DEBIAN_FRONTEND: noninteractive
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
+        os: [ ubuntu-latest, ubuntu-24.04-arm]
         # Build JDK version - used for Maven compilation
         build_jdk: [ 8, 11, 17 ]
         # Docker JDK version - used in Docker images for runtime
