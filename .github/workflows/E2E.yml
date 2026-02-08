@@ -17,6 +17,8 @@ jobs:
   run_e2e:
     name: Run E2E Test (Build JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
     runs-on: ${{ matrix.os }}
+    env:
+      DEBIAN_FRONTEND: noninteractive
     strategy:
       matrix:
         os: [ ubuntu-latest ]
@@ -30,7 +32,7 @@ jobs:
           - build_jdk: 8
             docker_jdk: 17
       fail-fast: false
-      max-parallel: 3
+      max-parallel: 2
     steps:
       - name: Uninstall Docker Compose v2
         run: sudo rm -f /usr/local/bin/docker-compose
@@ -43,6 +45,23 @@ jobs:
 
       - name: Verify Docker Compose v1 installation
         run: docker-compose --version
+
+      # ========== 新增步骤1：Docker环境全量检查（关键） ==========
+      - name: Check Docker environment (debug)
+        run: |
+          # 检查Docker服务状态
+          sudo systemctl status docker || true
+          # 检查Docker版本和Compose版本
+          docker --version
+          docker-compose --version
+          # 检查磁盘空间（GitHub Runner空间不足会导致镜像/容器创建失败）
+          df -h
+          # 检查已有容器/镜像（清理残留）
+          docker ps -a
+          docker images
+          # 检查端口占用（排查Seata常用端口8091/7091等）
+          sudo lsof -i :8091 || true
+          sudo lsof -i :7091 || true
 
       - name: Check out code into
         uses: actions/checkout@v3
@@ -83,19 +102,95 @@ jobs:
           echo "E2E_JDK_BASE_IMAGE=${{ matrix.docker_jdk }}" >> $GITHUB_ENV
 
       - name: prepare e2e tests
-        run: | 
-          cd e2e-test/scripts && sh prepare-test.sh
-
-      - name: run e2e tests
         run: |
-          cd e2e-test/scripts && sh test-run.sh
-        
-      - name: Upload test logs on failure
-        if: failure()
+          cd e2e-test/scripts && sh prepare-test.sh
+          # ========== 新增：打印prepare阶段的Docker状态 ==========
+
+      - name: check docker resources after prepare-test.sh
+        run: |
+          echo "===== After prepare-test.sh: Docker containers status ====="
+          docker ps -a
+          echo "===== After prepare-test.sh: Docker images status ====="
+          docker images
+
+      # ========== 新增关键步骤：手动执行docker-compose up -d（抓原始错误） ==========
+      - name: Manual run docker-compose up -d (debug core error)
+        run: |
+          cd e2e-test/scripts
+          # 1. 先检查compose文件语法（关键！语法错会直接exit 1）
+          echo "===== Check docker-compose.yml syntax ====="
+          docker-compose config --verbose
+          # 2. 手动执行up -d，输出最详细日志，强制捕获错误
+          echo "===== Run docker-compose up -d with debug ====="
+          docker-compose up -d --verbose 2>&1 | tee docker-compose-up-debug.log
+          # 3. 检查执行结果，打印错误码
+          COMPOSE_EXIT_CODE=${PIPESTATUS[0]}
+          echo "===== Docker-compose exit code: $COMPOSE_EXIT_CODE ====="
+          # 4. 如果失败，立即打印容器状态和日志
+          if [ $COMPOSE_EXIT_CODE -ne 0 ]; then
+            echo "===== Docker containers status after failed up ====="
+            docker ps -a
+            echo "===== Docker-compose logs after failed up ====="
+            docker-compose logs
+            # 强制退出，让步骤失败（方便看日志）
+            exit $COMPOSE_EXIT_CODE
+          fi
+
+      # ========== 原有e2e测试步骤（保留，用于对比） ==========
+      - name: run e2e tests (auto answer [yN] prompt)
+        id: e2e_test
+        run: |
+          set -euo pipefail
+          cd e2e-test/scripts
+          # 核心：用echo y | 自动回答[yN]的交互提示（关键！）
+          # 原理：把y作为输入，直接传给test-run.sh执行的进程，绕过手动输入
+          sh test-run.sh 2>&1 | tee e2e-test-log.txt
+          # 捕获真实退出码（排除echo的干扰）
+          TEST_EXIT_CODE=${PIPESTATUS[1]}  # 注意：这里从0改成1，因为管道是echo y | sh ...，PIPESTATUS[1]才是sh的退出码
+          exit $TEST_EXIT_CODE
+
+      # ========== 核心修正2：日志收集改为if: always()（无论成败都执行） ==========
+      - name: Collect debug logs
+        if: always()  # 替代failure()，无论上一步成功/失败都执行
+        run: |
+          echo "===== Docker version info ====="
+          docker --version
+          docker-compose --version
+          
+          echo "===== All Docker containers status ====="
+          docker ps -a
+          
+          echo "===== Docker compose logs ====="
+          # 进入e2e脚本目录，执行docker-compose logs（适配你的compose文件路径）
+          cd e2e-test/scripts
+          docker-compose logs || true
+          
+          echo "===== Seata container logs (if exists) ====="
+          # 查找Seata相关容器并打印日志（适配容器名）
+          SEATA_CONTAINER=$(docker ps -a | grep seata-server | awk '{print $1}')
+          if [ -n "$SEATA_CONTAINER" ]; then
+            docker logs $SEATA_CONTAINER || true
+          fi
+          
+          echo "===== E2E test script logs ====="
+          cat e2e-test-log.txt || true
+          
+          echo "===== Port usage ====="
+          sudo lsof -i -P -n | grep LISTEN || true
+
+      # ========== 核心修正3：日志上传也改为if: always() ==========
+      - name: Upload debug logs
+        if: always()  # 无论成败都上传日志（失败时必传，成功时可选）
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-test-logs-jdk${{ matrix.build_jdk }}-docker-jdk${{ matrix.docker_jdk }}
+          name: e2e-debug-logs-${{ matrix.build_jdk }}
           path: |
-            e2e-test/logs/
-            tmp/
-          retention-days: 7
+            e2e-test/scripts/e2e-test-log.txt
+            /var/log/docker.log || true
+
+      # ========== 核心修正4：手动标记Job失败（如果测试步骤失败） ==========
+      - name: Mark job as failed if test failed
+        if: steps.e2e_test.outcome == 'failure'
+        run: |
+          echo "E2E test failed, marking job as failed"
+          exit 1

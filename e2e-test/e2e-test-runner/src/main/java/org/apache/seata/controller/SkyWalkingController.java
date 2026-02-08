@@ -97,10 +97,22 @@ public class SkyWalkingController {
         try {
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(file);
+            // 打印 `file` 目录下的文件列表
+            File[] children = file.listFiles();
+            if (children != null) {
+                LOGGER.info("Files under directory " + file.getAbsolutePath() + ":");
+                for (File child : children) {
+                    LOGGER.info(" - " + child.getName() + (child.isDirectory() ? "/" : ""));
+                }
+            } else {
+                LOGGER.info("Directory " + file.getAbsolutePath() + " is empty or not a directory.");
+            }
 //            builder.inheritIO();
-//            builder.command("docker-compose", "up", "--timeout", "120");
+//            builder.command("docker-compose", "up", "-d", "--build", "--force-recreate", "--timeout", "120");
             builder.command("e2e", "run");
+            // 启动进程
             Process process = builder.start();
+            // 打印进程日志
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
             if (exitCode != 0) {

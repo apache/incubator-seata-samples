@@ -15,7 +15,7 @@
     limitations under the License.
 -->
 
-FROM ${baseImage!"openjdk:8-jdk-alpine"}
+FROM ${baseImage!"eclipse-temurin:8-jdk-alpine"}
 RUN apk --no-cache add bash
 COPY ${sourceJar} /app.jar
 COPY entrypoint.sh /entrypoint.sh
