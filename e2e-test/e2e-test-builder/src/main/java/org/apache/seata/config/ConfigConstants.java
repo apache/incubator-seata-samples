@@ -40,9 +40,9 @@ public class ConfigConstants {
     
     // Predefined JDK image mapping
     private static final Map<String, String> JDK_IMAGE_MAP = new HashMap<String, String>() {{
-        put("8", "openjdk:8-jdk-alpine");
-        put("11", "openjdk:11-jdk-alpine");
-        put("17", "openjdk:17-jdk-alpine");
+        put("8", "eclipse-temurin:8-jdk-alpine");
+        put("11", "eclipse-temurin:8-jdk-alpine");
+        put("17", "eclipse-temurin:17-jdk-alpine");
         put("21", "eclipse-temurin:21-jdk-alpine");
         // Support for different distributions
         put("8-zulu", "azul/zulu-openjdk-alpine:8");
