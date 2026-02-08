@@ -26,10 +26,15 @@ jobs:
           for dir in "${directories[@]}"; do
             for subdir in "$dir"/*; do
               if [ -d "$subdir" ]; then
-                echo "Entering directory $subdir"
-                cd "$subdir"
-                mvn -B test
-                cd - > /dev/null
+                # Check if pom.xml exists before running Maven
+                if [ -f "$subdir/pom.xml" ]; then
+                  echo "Entering directory $subdir"
+                  cd "$subdir"
+                  mvn -B test
+                  cd - > /dev/null
+                else
+                  echo "Skipping $subdir (no pom.xml found)"
+                fi
               fi
             done
           done
