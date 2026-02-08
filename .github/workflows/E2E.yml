@@ -50,7 +50,11 @@ jobs:
       - name: Install Docker Compose v1
         run: |
           DOCKER_COMPOSE_VERSION=1.29.2
-          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          OS=$(uname -s)
+          ARCH=$(uname -m)
+          DOWNLOAD_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${OS}-${ARCH}"
+          echo "download url: ${DOWNLOAD_URL}" >> $GITHUB_STEP_SUMMARY
+          sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Verify Docker Compose v1 installation
