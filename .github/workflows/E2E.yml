@@ -15,13 +15,13 @@ on: [ push,pull_request ]
 
 jobs:
   run_e2e:
-    name: Run E2E Test (Build JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
+    name: Run E2E Test (Build Arch${{ matrix.os }},JDK${{ matrix.build_jdk }}, Docker JDK${{ matrix.docker_jdk }})
     runs-on: ${{ matrix.os }}
     env:
       DEBIAN_FRONTEND: noninteractive
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
+        os: [ ubuntu-latest, ubuntu-24.04-arm]
         # Build JDK version - used for Maven compilation
         build_jdk: [ 8, 11, 17 ]
         # Docker JDK version - used in Docker images for runtime
@@ -50,7 +50,9 @@ jobs:
       - name: Install Docker Compose v1
         run: |
           DOCKER_COMPOSE_VERSION=1.29.2
-          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          DOWNLOAD_URL="https://github.com/docker/compose/releases/download/${VERSION}/docker-compose-$(uname -s)-$(uname -m)"
+          echo "download url: ${DOWNLOAD_URL}" >> $GITHUB_STEP_SUMMARY
+          sudo curl -L ${DOWNLOAD_URL} -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Verify Docker Compose v1 installation
