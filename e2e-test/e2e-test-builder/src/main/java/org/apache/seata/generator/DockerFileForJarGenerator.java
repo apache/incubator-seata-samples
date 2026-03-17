@@ -83,10 +83,28 @@ public class DockerFileForJarGenerator {
         String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
                 + module.getName()).getAbsolutePath();
         try {
+            String baseImage = ConfigConstants.getBaseImage();
             Map<String, Object> props = new HashMap<>();
             props.put("sourceJar", module.getName() + ".jar");
+            props.put("baseImage", baseImage);
+            LOGGER.info("Generating Dockerfile for module {} with base image: {}", module.getName(), baseImage);
+            
+            File dockerFile = new File(moduleComposeDir, "Dockerfile");
             cfg.getTemplate("application-dockerFile.ftl")
-                    .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
+                    .process(props, new FileWriter(dockerFile));
+            
+            // Log the generated Dockerfile content
+            LOGGER.info("------------------------------------------");
+            LOGGER.info("Dockerfile for module: {}", module.getName());
+            LOGGER.info("Location: {}", dockerFile.getAbsolutePath());
+            LOGGER.info("------------------------------------------");
+            try {
+                String content = new String(Files.readAllBytes(dockerFile.toPath()));
+                LOGGER.info("Content:\n{}", content);
+                LOGGER.info("------------------------------------------");
+            } catch (IOException ex) {
+                LOGGER.warn("Could not read Dockerfile content for logging", ex);
+            }
         } catch (TemplateException | IOException e) {
             LOGGER.error(String.format("generate docker file %s fail", e2EConfig.getScene_name()
                     + "-" + module.getName()), e);
@@ -97,13 +115,32 @@ public class DockerFileForJarGenerator {
         String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-"
                 + module.getName()).getAbsolutePath();
         try {
+            String baseImage = ConfigConstants.getBaseImage();
             Map<String, Object> props = new HashMap<>();
             props.put("sourceJar", module.getName() + ".jar");
+            props.put("baseImage", baseImage);
+            LOGGER.info("Generating Dockerfile (Jar mode) for module {} with base image: {}", module.getName(), baseImage);
+            
+            File dockerFile = new File(moduleComposeDir, "Dockerfile");
             cfg.getTemplate("jar-dockerFile.ftl")
-                    .process(props, new FileWriter(new File(moduleComposeDir, "Dockerfile")));
+                    .process(props, new FileWriter(dockerFile));
+            
             URL entryPoint = this.getClass().getClassLoader().getResource("sh/entrypoint.sh");
             Path destPath = Paths.get(moduleComposeDir, "entrypoint.sh");
             Files.copy(Paths.get(entryPoint.toURI()), destPath, StandardCopyOption.REPLACE_EXISTING);
+            
+            // Log the generated Dockerfile content
+            LOGGER.info("------------------------------------------");
+            LOGGER.info("Dockerfile (Jar mode) for module: {}", module.getName());
+            LOGGER.info("Location: {}", dockerFile.getAbsolutePath());
+            LOGGER.info("------------------------------------------");
+            try {
+                String content = new String(Files.readAllBytes(dockerFile.toPath()));
+                LOGGER.info("Content:\n{}", content);
+                LOGGER.info("------------------------------------------");
+            } catch (IOException ex) {
+                LOGGER.warn("Could not read Dockerfile content for logging", ex);
+            }
         } catch (TemplateException | IOException | URISyntaxException e) {
             LOGGER.error(String.format("generate docker file %s fail", e2EConfig.getScene_name()
                     + "-" + module.getName()), e);

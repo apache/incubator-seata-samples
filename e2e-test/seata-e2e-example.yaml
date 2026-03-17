@@ -1,0 +1,121 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# Seata E2E Configuration Example with Module Type
+# This file demonstrates how to configure different module types
+
+e2e:
+  scene_name: example-scene
+  
+  # Retry configuration
+  retry:
+    max: 5
+    interval: 20s
+    total_timeout: 20m
+  
+  # Service modules
+  modules:
+    # Consumer services (业务调用方)
+    consumers:
+      - name: business-service
+        # Optional: Specify module type
+        # - "Application": Use application-dockerFile.ftl (auto-start with java -jar)
+        # - "Jar": Use jar-dockerFile.ftl (container keeps running, manual start)
+        # - If not specified: defaults to "Application"
+        moduleType: Application
+        docker_service:
+          hostname: business-service
+          restart: on-failure
+          container_name: test
+          depends_on:
+            account-service:
+              condition: service_started
+          environment:
+            SEATA_SERVER: seata
+    
+    # Provider services (业务服务提供方)
+    providers:
+      - name: account-service
+        # Example: Using Jar mode (container keeps running)
+        moduleType: Jar
+        docker_service:
+          hostname: account-service
+          restart: on-failure
+          depends_on:
+            mysql:
+              condition: service_healthy
+          environment:
+            MYSQL_HOST: mysql
+            
+      - name: order-service
+        # Default mode (Application) - no need to specify
+        docker_service:
+          hostname: order-service
+          restart: on-failure
+          depends_on:
+            mysql:
+              condition: service_healthy
+    
+    # Infrastructure services (基础设施)
+    infrastructures:
+      - name: mysql
+        docker_service:
+          hostname: mysql
+          image: mysql:5.7
+          volumes:
+            - ./e2e-files/init.sql:/docker-entrypoint-initdb.d/init.sql
+          restart: always
+          environment:
+            MYSQL_ROOT_PASSWORD: 123456
+            MYSQL_DATABASE: seata
+          healthcheck:
+            test: '[ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]'
+            interval: 5s
+            timeout: 10s
+            retries: 10
+            
+      - name: seata-server
+        docker_service:
+          hostname: seata
+          image: apache/seata-server:2.1.0
+          environment:
+            SEATA_PORT: 8091
+            STORE_MODE: file
+
+  # Test cases to verify
+  cases:
+    - name: rollback test
+      invoke: 'docker exec test curl http://127.0.0.1:8080/testRollback'
+      verify: './e2e-files/rollback.yaml'
+    
+    - name: commit test
+      invoke: 'docker exec test curl http://127.0.0.1:8080/testCommit'
+      verify: './e2e-files/commit.yaml'
+
+# JDK Version Configuration (via environment variable)
+# Set E2E_JDK_BASE_IMAGE environment variable before running prepare-test.sh:
+#
+# Quick version (uses predefined mapping):
+#   export E2E_JDK_BASE_IMAGE=11
+#   export E2E_JDK_BASE_IMAGE=17
+#
+# Full image name:
+#   export E2E_JDK_BASE_IMAGE=openjdk:11-jdk-alpine
+#   export E2E_JDK_BASE_IMAGE=azul/zulu-openjdk-alpine:17
+#
+# Default (if not set): openjdk:8-jdk-alpine
+

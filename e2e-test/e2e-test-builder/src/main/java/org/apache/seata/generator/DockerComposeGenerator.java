@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,8 +59,25 @@ public class DockerComposeGenerator {
             Modules modules = e2EConfig.getModules();
             Map<String, Object> map = new HashMap<>();
             map.put("modules", modules);
+            
+            File composeFile = new File(file, COMPOSE_FILE);
             cfg.getTemplate("dockercompose.ftl")
-                    .process(map, new FileWriter(new File(file, COMPOSE_FILE)));
+                    .process(map, new FileWriter(composeFile));
+            
+            // Log the generated docker-compose.yaml content
+            LOGGER.info("==========================================");
+            LOGGER.info("Generated docker-compose.yaml for scene: {}", e2EConfig.getScene_name());
+            LOGGER.info("Location: {}", composeFile.getAbsolutePath());
+            LOGGER.info("==========================================");
+            
+            try {
+                String content = new String(Files.readAllBytes(composeFile.toPath()));
+                LOGGER.info("Content:\n{}", content);
+                LOGGER.info("==========================================");
+            } catch (IOException ex) {
+                LOGGER.warn("Could not read docker-compose.yaml content for logging", ex);
+            }
+            
         } catch (TemplateException | IOException e) {
             LOGGER.error(String.format("generate docker-compose file for %s fail", e2EConfig.getScene_name()
                     + "-" + e2EConfig.getScene_name()), e);
