@@ -63,16 +63,21 @@ jobs:
             platform: linux/arm64
             experimental: true
     steps:
-      - name: Uninstall Docker Compose v2
-        run: sudo rm -f /usr/local/bin/docker-compose
-
-      - name: Install Docker Compose v1
+      - name: Install Docker Compose command
         run: |
-          DOCKER_COMPOSE_VERSION=1.29.2
-          sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo rm -f /usr/local/bin/docker-compose
+          if [ "$(uname -m)" = "x86_64" ]; then
+            DOCKER_COMPOSE_VERSION=1.29.2
+            sudo curl -fL "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          else
+            sudo tee /usr/local/bin/docker-compose > /dev/null <<'EOF'
+          #!/usr/bin/env bash
+          docker compose "$@"
+          EOF
+          fi
           sudo chmod +x /usr/local/bin/docker-compose
 
-      - name: Verify Docker Compose v1 installation
+      - name: Verify Docker Compose installation
         run: docker-compose --version
 
       - name: Set up QEMU for cross-platform containers
