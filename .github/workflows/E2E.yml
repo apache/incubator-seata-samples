@@ -55,9 +55,9 @@ jobs:
             platform: linux/amd64
             experimental: true
           - name: jdk17-mysql80-arm64
-            os: ubuntu-latest
+            os: ubuntu-24.04-arm
             build_jdk: 17
-            runtime_jdk_image: eclipse-temurin:17-jdk-alpine
+            runtime_jdk_image: bellsoft/liberica-openjdk-alpine:17
             mysql_image: mysql:8.0
             mysql_connector_version: 8.0.33
             platform: linux/arm64
@@ -76,7 +76,7 @@ jobs:
         run: docker-compose --version
 
       - name: Set up QEMU for cross-platform containers
-        if: matrix.platform != 'linux/amd64'
+        if: matrix.platform != 'linux/amd64' && matrix.os == 'ubuntu-latest'
         uses: docker/setup-qemu-action@v3
 
       - name: Check Docker environment
