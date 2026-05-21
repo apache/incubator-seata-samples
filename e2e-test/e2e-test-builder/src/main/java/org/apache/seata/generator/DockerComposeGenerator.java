@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,26 +93,40 @@ public class DockerComposeGenerator {
         String dockerPlatform = ConfigConstants.getEnvValue(ConfigConstants.ENV_DOCKER_PLATFORM);
         String mysqlImage = ConfigConstants.getEnvValue(ConfigConstants.ENV_MYSQL_IMAGE);
 
-        List<List<Module>> moduleGroups = Arrays.asList(modules.getConsumers(), modules.getProviders(), modules.getInfrastructures());
-        for (List<Module> moduleGroup : moduleGroups) {
-            if (moduleGroup == null) {
+        applyApplicationPlatformOverride(modules.getConsumers(), dockerPlatform);
+        applyApplicationPlatformOverride(modules.getProviders(), dockerPlatform);
+        applyInfrastructureOverrides(modules.getInfrastructures(), dockerPlatform, mysqlImage);
+    }
+
+    private void applyApplicationPlatformOverride(List<Module> modules, String dockerPlatform) {
+        if (modules == null || dockerPlatform == null) {
+            return;
+        }
+        for (Module module : modules) {
+            if (module.getDocker_service() != null) {
+                module.getDocker_service().setPlatform(dockerPlatform);
+            }
+        }
+    }
+
+    private void applyInfrastructureOverrides(List<Module> modules, String dockerPlatform, String mysqlImage) {
+        if (modules == null) {
+            return;
+        }
+        for (Module module : modules) {
+            if (module.getDocker_service() == null || !"mysql".equals(module.getName())) {
                 continue;
             }
-            for (Module module : moduleGroup) {
-                if (module.getDocker_service() == null) {
-                    continue;
-                }
-                if (dockerPlatform != null) {
-                    module.getDocker_service().setPlatform(dockerPlatform);
-                }
-                if (mysqlImage != null && "mysql".equals(module.getName())) {
-                    String originalImage = module.getDocker_service().getImage();
-                    module.getDocker_service().setImage(mysqlImage);
-                    LOGGER.info("[E2E] Override MySQL image: {} -> {}", originalImage, mysqlImage);
-                    if (isMySQL8Image(mysqlImage)) {
-                        module.getDocker_service().setCommand(MYSQL_NATIVE_PASSWORD_COMMAND);
-                        LOGGER.info("[E2E] Use MySQL native password authentication for image: {}", mysqlImage);
-                    }
+            if (dockerPlatform != null) {
+                module.getDocker_service().setPlatform(dockerPlatform);
+            }
+            if (mysqlImage != null) {
+                String originalImage = module.getDocker_service().getImage();
+                module.getDocker_service().setImage(mysqlImage);
+                LOGGER.info("[E2E] Override MySQL image: {} -> {}", originalImage, mysqlImage);
+                if (isMySQL8Image(mysqlImage)) {
+                    module.getDocker_service().setCommand(MYSQL_NATIVE_PASSWORD_COMMAND);
+                    LOGGER.info("[E2E] Use MySQL native password authentication for image: {}", mysqlImage);
                 }
             }
         }
