@@ -16,8 +16,11 @@
 -->
 
 FROM ${baseImage!"eclipse-temurin:8-jdk-alpine"}
-RUN apk --no-cache add bash
-COPY ${sourceJar} /app.jar
+RUN apk --no-cache add bash && \
+    mkdir -p /seata-e2e && \
+    chmod 777 /seata-e2e
+WORKDIR /seata-e2e
+COPY ${sourceJar} app.jar
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

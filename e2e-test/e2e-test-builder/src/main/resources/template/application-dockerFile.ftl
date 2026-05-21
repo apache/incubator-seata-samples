@@ -16,8 +16,11 @@
 -->
 
 FROM ${baseImage!"eclipse-temurin:8-jdk-alpine"}
-RUN apk --no-cache add curl bash
-COPY ${sourceJar} /app.jar
+RUN apk --no-cache add curl bash && \
+    mkdir -p /seata-e2e && \
+    chmod 777 /seata-e2e
+WORKDIR /seata-e2e
+COPY ${sourceJar} app.jar
 
 # Create startup script with JDK version logging
 RUN printf '#!/bin/bash\n\
@@ -33,7 +36,7 @@ echo "Hostname: $(hostname)"\n\
 echo "Start Time: $(date)"\n\
 echo "=========================================="\n\
 echo "Starting Application..."\n\
-exec java -jar /app.jar\n' > /startup.sh && \
+exec java -jar app.jar\n' > /startup.sh && \
     chmod +x /startup.sh
 
 ENTRYPOINT ["/startup.sh"]
