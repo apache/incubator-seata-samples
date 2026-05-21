@@ -36,7 +36,16 @@ echo "Hostname: $(hostname)"\n\
 echo "Start Time: $(date)"\n\
 echo "=========================================="\n\
 echo "Starting Application..."\n\
-exec java -jar app.jar\n' > /startup.sh && \
+JAVA_VERSION_STRING=$(java -version 2>&1 | head -n 1 | cut -d \\" -f 2)\n\
+JAVA_VERSION=$(echo "$JAVA_VERSION_STRING" | cut -d . -f 1)\n\
+if [ "$JAVA_VERSION" = "1" ]; then\n\
+  JAVA_VERSION=$(echo "$JAVA_VERSION_STRING" | cut -d . -f 2)\n\
+fi\n\
+JAVA_OPTS="$JAVA_OPTS"\n\
+if [ "$JAVA_VERSION" -ge 9 ] 2>/dev/null; then\n\
+  JAVA_OPTS="$JAVA_OPTS --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED"\n\
+fi\n\
+exec java $JAVA_OPTS -jar app.jar\n' > /startup.sh && \
     chmod +x /startup.sh
 
 ENTRYPOINT ["/startup.sh"]
