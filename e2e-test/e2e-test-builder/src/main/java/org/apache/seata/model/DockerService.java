@@ -35,6 +35,15 @@ public class DockerService {
     private Map<String, String> environment;
     private List<String> volumes;
     private String container_name;
+    private String platform;
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
 
     public String getContainer_name() {
         return container_name;

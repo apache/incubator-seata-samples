@@ -23,6 +23,9 @@ services:
     <#if service.docker_service.image?has_content>
         image: ${service.docker_service.image}
     </#if>
+    <#if service.docker_service.platform?has_content>
+        platform: ${service.docker_service.platform}
+    </#if>
     <#if service.docker_service.networks?has_content>
         networks: ${service.docker_service.networks}
     </#if>
@@ -80,6 +83,9 @@ services:
     <#if service.docker_service.image?has_content>
         image: ${service.docker_service.image}
     </#if>
+    <#if service.docker_service.platform?has_content>
+        platform: ${service.docker_service.platform}
+    </#if>
     <#if service.docker_service.networks?has_content>
         networks: ${service.docker_service.networks}
     </#if>
@@ -136,6 +142,9 @@ services:
     ${service.name}:
     <#if service.docker_service.image?has_content>
         image: ${service.docker_service.image}
+    </#if>
+    <#if service.docker_service.platform?has_content>
+        platform: ${service.docker_service.platform}
     </#if>
     <#if service.docker_service.networks?has_content>
         networks: ${service.docker_service.networks}

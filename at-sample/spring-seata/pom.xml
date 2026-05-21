@@ -25,6 +25,7 @@
     <version>2.3.0</version>
 
     <properties>
+        <mysql.connector.version>8.0.28</mysql.connector.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -83,7 +84,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.28</version>
+            <version>${mysql.connector.version}</version>
         </dependency>
     </dependencies>
 

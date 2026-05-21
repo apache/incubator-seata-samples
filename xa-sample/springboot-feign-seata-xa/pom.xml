@@ -39,6 +39,7 @@
     </modules>
 
     <properties>
+        <mysql.connector.version>8.0.28</mysql.connector.version>
         <java.version>8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
