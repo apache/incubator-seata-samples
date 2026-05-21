@@ -42,6 +42,7 @@ import static org.apache.seata.config.ConfigConstants.COMPOSE_FILE;
  */
 public class DockerComposeGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(DockerComposeGenerator.class);
+    private static final String MYSQL_NATIVE_PASSWORD_COMMAND = "--default-authentication-plugin=mysql_native_password";
     private final Configuration cfg;
 
     public DockerComposeGenerator() {
@@ -109,8 +110,16 @@ public class DockerComposeGenerator {
                     String originalImage = module.getDocker_service().getImage();
                     module.getDocker_service().setImage(mysqlImage);
                     LOGGER.info("[E2E] Override MySQL image: {} -> {}", originalImage, mysqlImage);
+                    if (isMySQL8Image(mysqlImage)) {
+                        module.getDocker_service().setCommand(MYSQL_NATIVE_PASSWORD_COMMAND);
+                        LOGGER.info("[E2E] Use MySQL native password authentication for image: {}", mysqlImage);
+                    }
                 }
             }
         }
+    }
+
+    private boolean isMySQL8Image(String image) {
+        return image.startsWith("mysql:8");
     }
 }
