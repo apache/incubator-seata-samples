@@ -6,6 +6,7 @@ jobs:
   run_e2e:
     name: E2E ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     env:
       DEBIAN_FRONTEND: noninteractive
     strategy:
@@ -20,6 +21,23 @@ jobs:
             mysql_image: mysql:5.7
             mysql_connector_version: 8.0.31
             platform: linux/amd64
+            experimental: false
+          - name: jdk11-mysql57-amd64
+            os: ubuntu-latest
+            build_jdk: 11
+            runtime_jdk_image: eclipse-temurin:11-jdk-alpine
+            mysql_image: mysql:5.7
+            mysql_connector_version: 8.0.31
+            platform: linux/amd64
+            experimental: false
+          - name: jdk17-mysql57-amd64
+            os: ubuntu-latest
+            build_jdk: 17
+            runtime_jdk_image: eclipse-temurin:17-jdk-alpine
+            mysql_image: mysql:5.7
+            mysql_connector_version: 8.0.31
+            platform: linux/amd64
+            experimental: false
           - name: jdk11-mysql80-amd64
             os: ubuntu-latest
             build_jdk: 11
@@ -27,6 +45,7 @@ jobs:
             mysql_image: mysql:8.0
             mysql_connector_version: 8.0.33
             platform: linux/amd64
+            experimental: true
           - name: jdk17-mysql80-amd64
             os: ubuntu-latest
             build_jdk: 17
@@ -34,6 +53,7 @@ jobs:
             mysql_image: mysql:8.0
             mysql_connector_version: 8.0.33
             platform: linux/amd64
+            experimental: true
           - name: jdk17-mysql80-arm64
             os: ubuntu-latest
             build_jdk: 17
@@ -41,6 +61,7 @@ jobs:
             mysql_image: mysql:8.0
             mysql_connector_version: 8.0.33
             platform: linux/arm64
+            experimental: true
     steps:
       - name: Uninstall Docker Compose v2
         run: sudo rm -f /usr/local/bin/docker-compose
@@ -111,6 +132,7 @@ jobs:
           echo "MySQL Image: ${{ matrix.mysql_image }}"
           echo "MySQL Connector Version: ${{ matrix.mysql_connector_version }}"
           echo "Docker Platform: ${{ matrix.platform }}"
+          echo "Experimental: ${{ matrix.experimental }}"
           echo "=========================================="
           echo "E2E_JDK_BASE_IMAGE=${{ matrix.runtime_jdk_image }}" >> $GITHUB_ENV
           echo "E2E_MYSQL_IMAGE=${{ matrix.mysql_image }}" >> $GITHUB_ENV
