@@ -63,23 +63,31 @@ jobs:
             platform: linux/arm64
             experimental: true
     steps:
+      - name: Skip experimental matrix on push and pull_request
+        if: ${{ matrix.experimental && github.event_name != 'workflow_dispatch' }}
+        run: echo "Experimental E2E matrix is skipped on ${GITHUB_EVENT_NAME}; run workflow_dispatch to execute it."
+
       - name: Uninstall Docker Compose v2
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: sudo rm -f /usr/local/bin/docker-compose
 
       - name: Install Docker Compose v1
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           DOCKER_COMPOSE_VERSION=1.29.2
           sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Verify Docker Compose v1 installation
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: docker-compose --version
 
       - name: Set up QEMU for cross-platform containers
-        if: matrix.platform != 'linux/amd64'
+        if: ${{ matrix.platform != 'linux/amd64' && (!matrix.experimental || github.event_name == 'workflow_dispatch') }}
         uses: docker/setup-qemu-action@v3
 
       - name: Check Docker environment
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           sudo systemctl status docker || true
           docker --version
@@ -92,24 +100,29 @@ jobs:
           sudo lsof -i :7091 || true
 
       - name: Check out code
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         uses: actions/checkout@v3
 
       - name: Clone skywalking e2e repository
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: git clone https://github.com/apache/skywalking-infra-e2e.git skywalking-infra-e2e
 
       - name: Set up Go 1.18
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         uses: actions/setup-go@v4
         with:
           go-version: 1.18
         id: go
 
       - name: Build e2e framework (use skywalking-infra-e2e v1.3.0)
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           cd skywalking-infra-e2e
           git checkout 1485ae03f0ad90496ad7626a5ae4a6a73a1f6296
           make linux
 
       - name: Add script directory to PATH
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           cd skywalking-infra-e2e/bin/linux
           echo "export PATH=$PATH:$(pwd)" >> $GITHUB_PATH
@@ -117,12 +130,14 @@ jobs:
           cp e2e /usr/local/bin
 
       - name: Set up JDK ${{ matrix.build_jdk }} for build
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.build_jdk }}
 
       - name: Set E2E environment matrix
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           echo "=========================================="
           echo "E2E Test Configuration:"
@@ -140,11 +155,13 @@ jobs:
           echo "E2E_DOCKER_PLATFORM=${{ matrix.platform }}" >> $GITHUB_ENV
 
       - name: Prepare e2e tests
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           cd e2e-test/scripts
           sh prepare-test.sh
 
       - name: Check docker resources after prepare-test.sh
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         run: |
           echo "===== After prepare-test.sh: Docker containers status ====="
           docker ps -a
@@ -152,6 +169,7 @@ jobs:
           docker images
 
       - name: Run e2e tests
+        if: ${{ !matrix.experimental || github.event_name == 'workflow_dispatch' }}
         id: e2e_test
         run: |
           set -euo pipefail
@@ -161,7 +179,7 @@ jobs:
           exit $TEST_EXIT_CODE
 
       - name: Collect debug logs
-        if: always()
+        if: ${{ always() && (!matrix.experimental || github.event_name == 'workflow_dispatch') }}
         run: |
           echo "===== Docker version info ====="
           docker --version
@@ -196,7 +214,7 @@ jobs:
           sudo lsof -i -P -n | grep LISTEN || true
 
       - name: Upload debug logs
-        if: always()
+        if: ${{ always() && (!matrix.experimental || github.event_name == 'workflow_dispatch') }}
         uses: actions/upload-artifact@v4
         with:
           name: e2e-debug-logs-${{ matrix.name }}
