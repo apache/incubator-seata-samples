@@ -30,6 +30,9 @@ if [ -n "$E2E_JDK_BASE_IMAGE" ]; then
 else
   echo "  - Docker Runtime JDK: openjdk:8-jdk-alpine (default)"
 fi
+echo "  - MySQL Image: ${E2E_MYSQL_IMAGE:-default from seata-e2e.yaml}"
+echo "  - MySQL Connector Version: ${E2E_MYSQL_CONNECTOR_VERSION:-default from pom.xml}"
+echo "  - Docker Platform: ${E2E_DOCKER_PLATFORM:-default runner platform}"
 echo "=========================================="
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

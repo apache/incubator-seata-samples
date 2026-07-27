@@ -25,6 +25,7 @@
     <name>dubbo-samples-seata</name>
     <description>dubbo samples seata</description>
     <properties>
+        <mysql.connector.version>8.0.31</mysql.connector.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

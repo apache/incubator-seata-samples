@@ -19,7 +19,9 @@ package org.apache.seata.generator;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.seata.config.ConfigConstants;
 import org.apache.seata.model.E2EConfig;
+import org.apache.seata.model.Module;
 import org.apache.seata.model.Modules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.apache.seata.config.ConfigConstants.COMPOSE_FILE;
@@ -38,6 +41,7 @@ import static org.apache.seata.config.ConfigConstants.COMPOSE_FILE;
  */
 public class DockerComposeGenerator {
     private static final Logger LOGGER = LoggerFactory.getLogger(DockerComposeGenerator.class);
+    private static final String MYSQL_NATIVE_PASSWORD_COMMAND = "--default-authentication-plugin=mysql_native_password";
     private final Configuration cfg;
 
     public DockerComposeGenerator() {
@@ -57,6 +61,7 @@ public class DockerComposeGenerator {
     public void generateDockerComposeFile(E2EConfig e2EConfig, File file) {
         try {
             Modules modules = e2EConfig.getModules();
+            applyEnvironmentOverrides(modules);
             Map<String, Object> map = new HashMap<>();
             map.put("modules", modules);
             
@@ -82,5 +87,52 @@ public class DockerComposeGenerator {
             LOGGER.error(String.format("generate docker-compose file for %s fail", e2EConfig.getScene_name()
                     + "-" + e2EConfig.getScene_name()), e);
         }
+    }
+
+    private void applyEnvironmentOverrides(Modules modules) {
+        String dockerPlatform = ConfigConstants.getEnvValue(ConfigConstants.ENV_DOCKER_PLATFORM);
+        String mysqlImage = ConfigConstants.getEnvValue(ConfigConstants.ENV_MYSQL_IMAGE);
+
+        applyApplicationPlatformOverride(modules.getConsumers(), dockerPlatform);
+        applyApplicationPlatformOverride(modules.getProviders(), dockerPlatform);
+        applyInfrastructureOverrides(modules.getInfrastructures(), dockerPlatform, mysqlImage);
+    }
+
+    private void applyApplicationPlatformOverride(List<Module> modules, String dockerPlatform) {
+        if (modules == null || dockerPlatform == null) {
+            return;
+        }
+        for (Module module : modules) {
+            if (module.getDocker_service() != null) {
+                module.getDocker_service().setPlatform(dockerPlatform);
+            }
+        }
+    }
+
+    private void applyInfrastructureOverrides(List<Module> modules, String dockerPlatform, String mysqlImage) {
+        if (modules == null) {
+            return;
+        }
+        for (Module module : modules) {
+            if (module.getDocker_service() == null || !"mysql".equals(module.getName())) {
+                continue;
+            }
+            if (dockerPlatform != null) {
+                module.getDocker_service().setPlatform(dockerPlatform);
+            }
+            if (mysqlImage != null) {
+                String originalImage = module.getDocker_service().getImage();
+                module.getDocker_service().setImage(mysqlImage);
+                LOGGER.info("[E2E] Override MySQL image: {} -> {}", originalImage, mysqlImage);
+                if (isMySQL8Image(mysqlImage)) {
+                    module.getDocker_service().setCommand(MYSQL_NATIVE_PASSWORD_COMMAND);
+                    LOGGER.info("[E2E] Use MySQL native password authentication for image: {}", mysqlImage);
+                }
+            }
+        }
+    }
+
+    private boolean isMySQL8Image(String image) {
+        return image.startsWith("mysql:8");
     }
 }

@@ -101,6 +101,13 @@ public class ImageBuilder {
         } else {
             builder.command("mvn", "clean", "package");
         }
+        String mysqlConnectorVersion = ConfigConstants.getEnvValue(ConfigConstants.ENV_MYSQL_CONNECTOR_VERSION);
+        if (mysqlConnectorVersion != null) {
+            List<String> command = new ArrayList<>(builder.command());
+            command.add("-Dmysql.connector.version=" + mysqlConnectorVersion);
+            builder.command(command);
+            LOGGER.info("Packaging Maven module with MySQL connector version: {}", mysqlConnectorVersion);
+        }
         Process process = builder.start();
         printProcessLog(LOGGER, process);
         int exitCode = process.waitFor();
@@ -149,7 +156,13 @@ public class ImageBuilder {
             String moduleComposeDir = new File(composeDir, e2EConfig.getScene_name() + "-" + module.getName()).getAbsolutePath();
             ProcessBuilder builder = new ProcessBuilder();
             builder.directory(new File(moduleComposeDir));
-            builder.command("docker", "build", "-t", imageTag, ".");
+            String dockerPlatform = ConfigConstants.getEnvValue(ConfigConstants.ENV_DOCKER_PLATFORM);
+            if (dockerPlatform == null) {
+                builder.command("docker", "build", "-t", imageTag, ".");
+            } else {
+                LOGGER.info("Building Docker image for module {} with platform: {}", module.getName(), dockerPlatform);
+                builder.command("docker", "build", "--platform", dockerPlatform, "-t", imageTag, ".");
+            }
             Process process = builder.start();
             printProcessLog(LOGGER, process);
             int exitCode = process.waitFor();
@@ -162,7 +175,7 @@ public class ImageBuilder {
                         module.getName(), exitCode, stdout, stderr));
                 continue;
             }
-            // 校验镜像是否存在且可用
+            // Verify that the image exists and is available.
             ProcessBuilder inspectBuilder = new ProcessBuilder("docker", "image", "inspect", imageTag);
             Process inspectProcess = inspectBuilder.start();
             printProcessLog(LOGGER, inspectProcess);

@@ -30,6 +30,7 @@
 	<name>springboot-seata</name>
 	<description>springboot-seata</description>
 	<properties>
+		<mysql.connector.version>8.0.28</mysql.connector.version>
 		<java.version>8</java.version>
 	</properties>
 	<dependencies>
@@ -63,7 +64,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.28</version>
+			<version>${mysql.connector.version}</version>
 		</dependency>
 
 	</dependencies>

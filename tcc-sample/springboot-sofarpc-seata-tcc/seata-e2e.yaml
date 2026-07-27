@@ -53,8 +53,8 @@ e2e:
   # cases to verify
   cases:
     - name: normal test rollback
-      invoke: 'docker exec test cat rollback.yaml'
+      invoke: 'docker exec test cat /seata-e2e/rollback.yaml'
       verify: './e2e-files/rollback.yaml'
     - name: normal test commit
-      invoke: 'docker exec test cat commit.yaml'
+      invoke: 'docker exec test cat /seata-e2e/commit.yaml'
       verify: './e2e-files/commit.yaml'

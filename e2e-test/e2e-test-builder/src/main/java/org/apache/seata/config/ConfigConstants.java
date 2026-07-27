@@ -37,11 +37,14 @@ public class ConfigConstants {
     // JDK base image configuration
     public static final String DEFAULT_BASE_IMAGE = "openjdk:8-jdk-alpine";
     public static final String ENV_JDK_BASE_IMAGE = "E2E_JDK_BASE_IMAGE";
+    public static final String ENV_MYSQL_IMAGE = "E2E_MYSQL_IMAGE";
+    public static final String ENV_MYSQL_CONNECTOR_VERSION = "E2E_MYSQL_CONNECTOR_VERSION";
+    public static final String ENV_DOCKER_PLATFORM = "E2E_DOCKER_PLATFORM";
     
     // Predefined JDK image mapping
     private static final Map<String, String> JDK_IMAGE_MAP = new HashMap<String, String>() {{
         put("8", "eclipse-temurin:8-jdk-alpine");
-        put("11", "eclipse-temurin:8-jdk-alpine");
+        put("11", "eclipse-temurin:11-jdk-alpine");
         put("17", "eclipse-temurin:17-jdk-alpine");
         put("21", "eclipse-temurin:21-jdk-alpine");
         // Support for different distributions
@@ -76,5 +79,13 @@ public class ConfigConstants {
             System.out.println("[E2E] Using default base image: " + DEFAULT_BASE_IMAGE);
         }
         return DEFAULT_BASE_IMAGE;
+    }
+
+    public static String getEnvValue(String envName) {
+        String envValue = System.getenv(envName);
+        if (envValue == null || envValue.trim().isEmpty()) {
+            return null;
+        }
+        return envValue.trim();
     }
 }
