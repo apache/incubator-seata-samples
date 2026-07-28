@@ -15,37 +15,66 @@
     limitations under the License.
 -->
 
-# samples code specification
+# Apache Seata(incubating) Samples
 
-##  Directory Structure
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Seata](https://img.shields.io/badge/Seata-2.x-orange.svg)](https://seata.apache.org/)
+[![Java](https://img.shields.io/badge/Java-8%2B-green.svg)](https://www.oracle.com/java/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](https://docs.docker.com/compose/)
+[![GitHub Stars](https://img.shields.io/github/stars/apache/incubator-seata?style=social)](https://github.com/apache/incubator-seata/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/apache/incubator-seata?style=social)](https://github.com/apache/incubator-seata/network/members)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/apache/incubator-seata-samples/pulls)
 
-The first and second levels are more of a directory
+This repository contains sample projects demonstrating how to use [Apache Seata](https://seata.apache.org/) distributed transaction solutions.
 
-Top level: seata-samples
+## Transaction Modes
 
-Second layer: at-sample, tcc-sample, saga-sample, xa-sample
+Seata supports four transaction modes. Learn more at the [Quick Start Guide](https://seata.apache.org/docs/user/quickstart/).
 
-Third floor, The third layer is the specific sample and the naming convention is as follows:
+| Mode | Directory | Description |
+|------|-----------|-------------|
+| AT | `at-sample/` | Automatic Transaction mode (recommended for most cases) |
+| TCC | `tcc-sample/` | Try-Confirm-Cancel mode |
+| Saga | `saga-sample/` | Long-running transaction mode |
+| XA | `xa-sample/` | XA distributed transaction mode |
 
-## naming
+## Prerequisites
 
-naming with framework: spring-nacos-seata, springboot-naocs-zk-seata ...
+- JDK 8 or later
+- Maven 3.6+
+- Docker & Docker Compose (for local development)
 
-## dependency
+## Quick Start (Local Development)
 
-pom: The dependencies of each sample should be independent and should not depend on the dependencies of the parent pom of seata samples.
+We provide `docker-compose.yaml` files to help you quickly set up the required infrastructure.
 
+### AT Mode Samples
+```bash
+cd at-sample
+docker-compose up -d
+```
+This starts MySQL (with tables initialized), Zookeeper, and Seata Server. You can then run any AT sub-sample in your IDE.
 
+> **Note:** The `seata-e2e.yaml` files are for CI/CD integration tests. For local development, use `docker-compose.yaml`.
 
-# samples transaction model
-https://seata.apache.org/docs/user/quickstart/
+After infrastructure is up, start the Java applications in your IDE. Refer to each sample's documentation for specific startup order.
 
-## start sequence
+## Directory Structure
 
-1、account
+```
+seata-samples/
+├── at-sample/           # AT mode samples
+│   ├── springboot-dubbo-seata/
+│   ├── spring-dubbo-seata/
+│   └── ...
+├── tcc-sample/          # TCC mode samples
+├── saga-sample/         # Saga mode samples
+├── saga-annotation-sample/ # Saga annotation mode samples
+├── xa-sample/           # XA mode samples
+└── e2e-test/            # E2E testing framework
+```
 
-2、storage
+## For Contributors
 
-3、order
-
-4、business
+- **Naming**: Use framework combination naming, e.g., `spring-nacos-seata`, `springboot-nacos-zk-seata`
+- **Dependency**: Each sample should have independent dependencies and should NOT depend on the parent pom
