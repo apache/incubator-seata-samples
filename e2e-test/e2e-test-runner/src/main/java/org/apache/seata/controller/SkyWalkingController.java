@@ -57,6 +57,13 @@ public class SkyWalkingController {
         File e2eDir = new File(this.e2eDir);
         List<String> passedProjects = new ArrayList<>();
         File[] files = e2eDir.listFiles();
+        if (files == null) {
+            LOGGER.error("Failed to list files in directory: " + this.e2eDir);
+            LOGGER.error("Please check if the directory exists and is accessible.");
+            System.exit(1);
+            return;
+        }
+        
         // use this order to run saga test first, because saga test is easy to fail
         List<File> filterFiles = Arrays.stream(files).sorted((a, b) -> {
             int scoreA = caseOrder.getOrDefault(a.getName().charAt(0), 0);
